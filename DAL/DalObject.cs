@@ -42,6 +42,7 @@ namespace DalObject
             DataSource.Initialize();
         }
 
+        // Add methods
         public void AddDrone(Drone drone)
         {
             DataSource.Drones[DataSource.Config.FreeDrone++] = drone;
@@ -61,6 +62,35 @@ namespace DalObject
         {
             DataSource.Parcels[DataSource.Config.FreeParcel++] = parcel;
             return ++DataSource.Config.PackageID;
+        }
+
+        // Return Entity Lists Methods
+        public Drone[] GetDroneList()
+        {
+            Drone[] drones = new Drone[DataSource.Config.FreeDrone];
+            Array.Copy(DataSource.Drones, drones, DataSource.Config.FreeDrone);
+            return drones;
+        }
+
+        public Station[] GetStationList()
+        {
+            Station[] stations = new Station[DataSource.Config.FreeStation];
+            Array.Copy(DataSource.Stations, stations, DataSource.Config.FreeStation);
+            return stations;
+        }
+
+        public Customer[] GetCustomerList()
+        {
+            Customer[] customers = new Customer[DataSource.Config.FreeCustomer];
+            Array.Copy(DataSource.Customers, customers, DataSource.Config.FreeCustomer);
+            return customers;
+        }
+
+        public Parcel[] GetParcelList()
+        {
+            Parcel[] parcels = new Parcel[DataSource.Config.FreeParcel];
+            Array.Copy(DataSource.Parcels, parcels, DataSource.Config.FreeParcel);
+            return parcels;
         }
 
     }
