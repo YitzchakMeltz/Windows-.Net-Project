@@ -20,10 +20,10 @@ namespace DalObject
             public static int FreeStation = 0;
             public static int FreeCustomer = 0;
             public static int FreeParcel = 0;
-            public static int PackageID;
+            public static int PackageID = 0;
         }
 
-        static void Initialize()
+        internal static void Initialize()
         {
             Stations[Config.FreeStation++] = new Station();
             Stations[Config.FreeStation++] = new Station();
@@ -39,6 +39,28 @@ namespace DalObject
     {
         public DalObject()
         {
+            DataSource.Initialize();
+        }
+
+        public void AddDrone(Drone drone)
+        {
+            DataSource.Drones[DataSource.Config.FreeDrone++] = drone;
+        }
+
+        public void AddStation(Station station)
+        {
+            DataSource.Stations[DataSource.Config.FreeStation++] = station;
+        }
+
+        public void AddCustomer(Customer customer)
+        {
+            DataSource.Customers[DataSource.Config.FreeCustomer++] = customer;
+        }
+
+        public int AddParcel(Parcel parcel)
+        {
+            DataSource.Parcels[DataSource.Config.FreeParcel++] = parcel;
+            return ++DataSource.Config.PackageID;
         }
 
     }
