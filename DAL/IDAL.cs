@@ -4,8 +4,6 @@ namespace IDAL
 {
     namespace DO
     {
-        public enum WeightCategories { Light, Medium, Heavy }
-
         public struct Station
         {
             public int ID { get; set; }
