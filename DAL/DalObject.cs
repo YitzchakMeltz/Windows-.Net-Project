@@ -14,7 +14,7 @@ namespace DalObject
         private static Customer[] Customers = new Customer[100];
         private static Parcel[] Parcels = new Parcel[1000];
 
-        private class Config
+        internal class Config
         {
             public static int FreeDrone = 0;
             public static int FreeStation = 0;
@@ -37,6 +37,9 @@ namespace DalObject
 
     public class DalObject
     {
+        public DalObject()
+        {
+        }
 
     }
 }
