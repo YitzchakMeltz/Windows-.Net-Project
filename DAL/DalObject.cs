@@ -9,10 +9,10 @@ namespace DalObject
 {
     class DataSource
     {
-        private static Drone[] Drones = new Drone[10];
-        private static Station[] Stations = new Station[5];
-        private static Customer[] Customers = new Customer[100];
-        private static Parcel[] Parcels = new Parcel[1000];
+        internal static Drone[] Drones = new Drone[10];
+        internal static Station[] Stations = new Station[5];
+        internal static Customer[] Customers = new Customer[100];
+        internal static Parcel[] Parcels = new Parcel[1000];
 
         internal class Config
         {
