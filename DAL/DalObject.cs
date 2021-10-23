@@ -25,13 +25,33 @@ namespace DalObject
 
         internal static void Initialize()
         {
-            Stations[Config.FreeStation++] = new Station();
-            Stations[Config.FreeStation++] = new Station();
-            Drones[Config.FreeDrone++] = new Drone();
-            Drones[Config.FreeDrone++] = new Drone();
-            Drones[Config.FreeDrone++] = new Drone();
-            Drones[Config.FreeDrone++] = new Drone();
-            Drones[Config.FreeDrone++] = new Drone();
+            Random rd = new Random();
+
+            for (int i = 0; i < 2; ++i) 
+            {
+                Stations[Config.FreeStation++] = new Station();
+                Stations[Config.FreeStation].ID = rd.Next(100000000, 999999999);
+            }
+
+            for (int i = 0; i < 5; ++i)
+            {
+                Drones[Config.FreeDrone++] = new Drone();
+                Drones[Config.FreeDrone].ID = rd.Next(100000000, 999999999);
+                Drones[Config.FreeDrone].DroneStatus = (IDAL.DO.Drone.DroneStatuses)rd.Next(0, 3);
+            }
+
+            for (int i = 0; i < 10; ++i)
+            {
+                Customers[Config.FreeCustomer++] = new Customer();
+                Customers[Config.FreeCustomer].ID = rd.Next(100000000, 999999999);
+            }
+
+            for (int i = 0; i < 10; ++i)
+            {
+                Parcels[Config.FreeParcel++] = new Parcel();
+                Parcels[Config.FreeParcel].ID = rd.Next(100000000, 999999999);
+                Parcels[Config.FreeParcel].Priority = (IDAL.DO.Parcel.Priorities)rd.Next(0, 3);
+            }
         }
 
         // Functions that return index of an entity in array
