@@ -33,6 +33,22 @@ namespace DalObject
             Drones[Config.FreeDrone++] = new Drone();
             Drones[Config.FreeDrone++] = new Drone();
         }
+
+        // Function returns index of drone in array
+        internal static int FindDroneIndex(int ID)
+        {
+            int index = 0;
+
+            foreach(Drone item in DataSource.Drones)
+            {
+                ++index;
+
+                if (item.ID == ID)
+                    return index;
+            }
+
+            return -1;
+        }
     }
 
     public class DalObject
@@ -62,6 +78,12 @@ namespace DalObject
         {
             DataSource.Parcels[DataSource.Config.FreeParcel++] = parcel;
             return ++DataSource.Config.PackageID;
+        }
+
+        // Return Entity Methods
+        public Drone GetDrone(int ID)
+        {
+            return DataSource.Drones[DataSource.FindDroneIndex(ID)];
         }
 
         // Return Entity Lists Methods
