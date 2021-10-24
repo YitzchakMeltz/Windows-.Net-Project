@@ -11,6 +11,11 @@ namespace IDAL
             public int ChargeSlots { get; set; }
             public double Longitude { get; set; }
             public double Latitude { get; set; }
+
+            /// <summary>
+            /// Returns a String with details about the Station
+            /// </summary>
+            /// <returns></returns>
             public override string ToString()
             {
                 return $"ID: {ID}, Name: {Name}, ChargeSlots: {ChargeSlots}, Longitude: {Longitude}, Latitude: {Latitude}.";
@@ -22,9 +27,13 @@ namespace IDAL
             public int ID { get; set; }
             public string Model { get; set; }
             public WeightCategories WeightCategory { get; set; }
-            public enum DroneStatuses { Free, Delivery, Maintenance }
             public DroneStatuses DroneStatus { get; set; }
             public double Battery { get; set; }
+
+            /// <summary>
+            /// Returns a String with details about the Drone
+            /// </summary>
+            /// <returns></returns>
             public override string ToString()
             {
                 return $"ID: {ID}, Model: {Model}, WeightCategory: {Enum.GetName(typeof(WeightCategories), WeightCategory)}, DroneStatus: {Enum.GetName(typeof(DroneStatuses), DroneStatus)}, Battery: {Battery}.";
@@ -38,6 +47,11 @@ namespace IDAL
             public string Phone { get; set; }
             public double Longitude { get; set; }
             public double Latitude { get; set; }
+
+            /// <summary>
+            /// Returns a String with details about the Customer
+            /// </summary>
+            /// <returns></returns>
             public override string ToString()
             {
                 return $"ID: {ID}, Name: {Name}, Phone: {Phone}, Longitude: {Longitude}, Latitude: {Latitude}.";
@@ -50,13 +64,17 @@ namespace IDAL
             public int SenderID { get; set; }
             public int TargetID { get; set; }
             public WeightCategories WeightCategory { get; set; }
-            public enum Priorities { Regular, Fast, Emergency }
             public Priorities Priority { get; set; }
             public int DroneID { get; set; }
             public DateTime Scheduled { get; set; }
             public DateTime PickedUp { get; set; }
             public int AssignmentTime { get; set; } // Not sure this is necessary
             public DateTime Delivered { get; set; }
+
+            /// <summary>
+            /// Returns a String with details about the Parcel
+            /// </summary>
+            /// <returns></returns>
             public override string ToString()
             {
                 return $"ID: {ID}, SenderID: {SenderID}, TargetID: {TargetID}, WeightCategory: {Enum.GetName(typeof(WeightCategories), WeightCategory)}, Priority: {Enum.GetName(typeof(Priorities), Priority)}, DroneID: {DroneID}, Scheduled: {Scheduled}, PickedUp: {PickedUp}, Delivered: {Delivered}.";
@@ -67,6 +85,11 @@ namespace IDAL
         {
             public int DroneID { get; set; }
             public int StationID { get; set; }
+
+            /// <summary>
+            /// Returns a String that matches a Drone to its Base Station
+            /// </summary>
+            /// <returns></returns>
             public override string ToString()
             {
                 return $"DroneID: {DroneID}, StationID: {StationID}";
