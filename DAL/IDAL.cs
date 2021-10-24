@@ -18,7 +18,7 @@ namespace IDAL
             /// <returns></returns>
             public override string ToString()
             {
-                return $"ID: {ID}, Name: {Name}, ChargeSlots: {ChargeSlots}, Longitude: {Convert.Convert.ToSexagesimal(Longitude)}, Latitude: {Convert.Convert.ToSexagesimal(Latitude)}.";
+                return $"ID: {ID}, Name: {Name}, ChargeSlots: {ChargeSlots}, Longitude: {Convert.ToSexagesimal(Longitude, Convert.Coordinate.Longitude)}, Latitude: {Convert.Convert.ToSexagesimal(Latitude, Convert.Convert.Coordinate.Latitude)}.";
             }
         }
 
@@ -54,7 +54,7 @@ namespace IDAL
             /// <returns></returns>
             public override string ToString()
             {
-                return $"ID: {ID}, Name: {Name}, Phone: {Phone}, Longitude: {Convert.Convert.ToSexagesimal(Longitude)}, Latitude: {Convert.Convert.ToSexagesimal(Latitude)}.";
+                return $"ID: {ID}, Name: {Name}, Phone: {Phone}, Longitude: {Convert.ToSexagesimal(Longitude, Convert.Coordinate.Longitude)}, Latitude: {Convert.ToSexagesimal(Latitude, Convert.Coordinate.Latitude)}.";
             }
         }
 
@@ -97,25 +97,21 @@ namespace IDAL
         }
 
     }
-
-    namespace Convert
+    static class Convert
     {
-        static class Convert
+        public enum Coordinate { Latitude, Longitude }
+        static public string ToSexagesimal(double d, Coordinate c)
         {
-            public enum Coordinate { Latitude, Longitude }
-            static public string ToSexagesimal(double d, Coordinate c)
-            {
-                int degrees = (int)d;
-                d -= degrees;
+            int degrees = (int)d;
+            d -= degrees;
 
-                d *= 60;
-                int minutes = (int)d;
-                d -= minutes;
+            d *= 60;
+            int minutes = (int)d;
+            d -= minutes;
 
-                d *= 60;
+            d *= 60;
 
-                return $"{degrees}°{minutes}'{d}'' {((c == Coordinate.Latitude) ? (degrees >= 0 ? "N" : "S") : (degrees >= 0) ? "E" : "W")}";
-            }
+            return $"{degrees}°{minutes}'{d}'' {((c == Coordinate.Latitude) ? (degrees >= 0 ? "N" : "S") : (degrees >= 0) ? "E" : "W")}";
         }
     }
 }
