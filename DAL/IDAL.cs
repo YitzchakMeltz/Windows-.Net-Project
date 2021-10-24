@@ -18,7 +18,7 @@ namespace IDAL
             /// <returns></returns>
             public override string ToString()
             {
-                return $"ID: {ID}, Name: {Name}, ChargeSlots: {ChargeSlots}, Longitude: {Longitude}, Latitude: {Latitude}.";
+                return $"ID: {ID}, Name: {Name}, ChargeSlots: {ChargeSlots}, Longitude: {Convert.Convert.ToSexagesimal(Longitude)}, Latitude: {Convert.Convert.ToSexagesimal(Latitude)}.";
             }
         }
 
@@ -54,7 +54,7 @@ namespace IDAL
             /// <returns></returns>
             public override string ToString()
             {
-                return $"ID: {ID}, Name: {Name}, Phone: {Phone}, Longitude: {Longitude}, Latitude: {Latitude}.";
+                return $"ID: {ID}, Name: {Name}, Phone: {Phone}, Longitude: {Convert.Convert.ToSexagesimal(Longitude)}, Latitude: {Convert.Convert.ToSexagesimal(Latitude)}.";
             }
         }
 
@@ -93,6 +93,28 @@ namespace IDAL
             public override string ToString()
             {
                 return $"DroneID: {DroneID}, StationID: {StationID}";
+            }
+        }
+
+    }
+
+    namespace Convert
+    {
+        static class Convert
+        {
+            public enum Coordinate { Latitude, Longitude }
+            static public string ToSexagesimal(double d, Coordinate c)
+            {
+                int degrees = (int)d;
+                d -= degrees;
+
+                d *= 60;
+                int minutes = (int)d;
+                d -= minutes;
+
+                d *= 60;
+
+                return $"{degrees}°{minutes}'{d}'' {((c == Coordinate.Latitude) ? (degrees >= 0 ? "N" : "S") : (degrees >= 0) ? "E" : "W")}";
             }
         }
     }
