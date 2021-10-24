@@ -13,6 +13,9 @@ namespace ConsoleUI
             Show,
             List
         }
+
+        static DalObject.DalObject dalObject = new DalObject.DalObject();
+
         static void Main(string[] args)
         {
             while (true)
@@ -26,6 +29,7 @@ namespace ConsoleUI
                 Console.WriteLine("4. List");
                 Console.WriteLine();
                 Console.Write("Select an option: ");
+
                 MenuSelection selection;
                 Enum.TryParse(Console.ReadLine(), out selection);
                 Console.WriteLine();
@@ -63,6 +67,12 @@ namespace ConsoleUI
             Console.WriteLine("2. Add Drone");
             Console.WriteLine("3. Add Customer");
             Console.WriteLine("4. Add Parcel");
+            Console.WriteLine();
+            Console.Write("Select an option: ");
+
+            int selection;
+            Enum.TryParse(Console.ReadLine(), out selection);
+            Console.WriteLine();
         }
 
         private static void MenuUpdate()
@@ -75,6 +85,12 @@ namespace ConsoleUI
             Console.WriteLine("3. Mark Parcel as Delivered");
             Console.WriteLine("4. Assign Drone to Base Station");
             Console.WriteLine("5. Release Drone from Base Station");
+            Console.WriteLine();
+            Console.Write("Select an option: ");
+
+            int selection;
+            Enum.TryParse(Console.ReadLine(), out selection);
+            Console.WriteLine();
         }
 
         private static void MenuShow()
@@ -86,6 +102,36 @@ namespace ConsoleUI
             Console.WriteLine("2. Drone");
             Console.WriteLine("3. Customer");
             Console.WriteLine("4. Parcel");
+            Console.WriteLine();
+            Console.Write("Select an option: ");
+
+            int selection;
+            Enum.TryParse(Console.ReadLine(), out selection);
+            Console.WriteLine();
+
+            Console.Write("Type entity ID: ");
+            int ID;
+            int.TryParse(Console.ReadLine(), out ID);
+            Console.WriteLine();
+
+            switch (selection)
+            {
+                case 1:
+                    Console.WriteLine(dalObject.GetStation(ID));
+                    break;
+
+                case 2:
+                    Console.WriteLine(dalObject.GetDrone(ID));
+                    break;
+
+                case 3:
+                    Console.WriteLine(dalObject.GetCustomer(ID));
+                    break;
+
+                case 4:
+                    Console.WriteLine(dalObject.GetParcel(ID));
+                    break;
+            }
         }
 
         private static void MenuList()
@@ -99,6 +145,39 @@ namespace ConsoleUI
             Console.WriteLine("4. Parcels");
             Console.WriteLine("5. Unassigned Parcels");
             Console.WriteLine("6. Available Base Stations");
+            Console.WriteLine();
+            Console.Write("Select an option: ");
+
+            int selection;
+            Enum.TryParse(Console.ReadLine(), out selection);
+            Console.WriteLine();
+
+            switch (selection)
+            {
+                case 1:
+                    Console.WriteLine(dalObject.GetStationList());
+                    break;
+
+                case 2:
+                    Console.WriteLine(dalObject.GetDroneList());
+                    break;
+
+                case 3:
+                    Console.WriteLine(dalObject.GetCustomerList());
+                    break;
+
+                case 4:
+                    Console.WriteLine(dalObject.GetParcelList());
+                    break;
+
+                case 5:
+                    Console.WriteLine(dalObject.GetUnassignedParcelList());
+                    break;
+
+                case 6:
+                    Console.WriteLine(dalObject.GetAvailableStationList());
+                    break;
+            }
         }
     }
 }
