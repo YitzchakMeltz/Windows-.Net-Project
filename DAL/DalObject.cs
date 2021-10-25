@@ -89,6 +89,7 @@ namespace DalObject
 
     public class DalObject
     {
+        private Random rd = new Random();
         public DalObject()
         {
             DataSource.Initialize();
@@ -244,8 +245,6 @@ namespace DalObject
         /// </summary>
         public void AddStation()
         {
-            Random rd = new Random();
-
             int index = DataSource.Config.FreeStation++;
             Station station = new Station();
 
@@ -271,8 +270,6 @@ namespace DalObject
 
         public void AddDrone()
         {
-            Random rd = new Random();
-
             int index = DataSource.Config.FreeDrone++;
             Drone drone = new Drone();
 
@@ -298,8 +295,6 @@ namespace DalObject
 
         public void AddCustomer()
         {
-            Random rd = new Random();
-
             int index = DataSource.Config.FreeCustomer++;
             Customer customer = new Customer();
 
@@ -325,8 +320,6 @@ namespace DalObject
 
         public void AddParcel()
         {
-            Random rd = new Random();
-
             int index = DataSource.Config.FreeParcel++;
             Parcel parcel = new Parcel();
 
