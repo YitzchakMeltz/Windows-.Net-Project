@@ -5,23 +5,15 @@ namespace ConsoleUI
 {
     class Program
     {
-        enum MenuSelection
-        {
-            Exit,
-            Add,
-            Update,
-            Show,
-            List
-        }
 
         static DalObject.DalObject dalObject = new DalObject.DalObject();
-
+        private enum MainMenu { Exit, Add, Update, Show, List }
         static void Main(string[] args)
         {
             while (true)
             {
                 Console.WriteLine("Main Menu");
-                Console.WriteLine(new String('-',50));
+                Console.WriteLine(new String('-', 50));
                 Console.WriteLine("0. Exit");
                 Console.WriteLine("1. Add");
                 Console.WriteLine("2. Update");
@@ -30,25 +22,25 @@ namespace ConsoleUI
                 Console.WriteLine();
                 Console.Write("Select an option: ");
 
-                MenuSelection selection;
+                MainMenu selection;
                 Enum.TryParse(Console.ReadLine(), out selection);
                 Console.WriteLine();
 
                 switch (selection)
                 {
-                    case MenuSelection.Add:
+                    case MainMenu.Add:
                         MenuAdd();
                         break;
 
-                    case MenuSelection.Update:
+                    case MainMenu.Update:
                         MenuUpdate();
                         break;
 
-                    case MenuSelection.Show:
+                    case MainMenu.Show:
                         MenuShow();
                         break;
 
-                    case MenuSelection.List:
+                    case MainMenu.List:
                         MenuList();
                         break;
 
@@ -58,6 +50,8 @@ namespace ConsoleUI
             }
         }
 
+
+        private enum AddMenu { Return, AddBaseStation, AddDrone, AddCustomer, AddParcel }
         private static void MenuAdd()
         {
             Console.WriteLine("Please choose what to add:");
@@ -70,11 +64,31 @@ namespace ConsoleUI
             Console.WriteLine();
             Console.Write("Select an option: ");
 
-            int selection;
+            AddMenu selection;
             Enum.TryParse(Console.ReadLine(), out selection);
             Console.WriteLine();
+
+            switch (selection)
+            {
+                case AddMenu.AddBaseStation:
+                    dalObject.AddStation();
+                    break;
+
+                case AddMenu.AddDrone:
+                    dalObject.AddDrone();
+                    break;
+
+                case AddMenu.AddCustomer:
+                    dalObject.AddCustomer();
+                    break;
+
+                case AddMenu.AddParcel:
+                    dalObject.AddParcel();
+                    break;
+            }
         }
 
+        private enum UpdateMenu { Return, AssignParcel, ParcelCollected, ParcelDelivered, ChargeDrone, ReleaseDrone }
         private static void MenuUpdate()
         {
             Console.WriteLine("Please choose what to update:");
@@ -88,11 +102,35 @@ namespace ConsoleUI
             Console.WriteLine();
             Console.Write("Select an option: ");
 
-            int selection;
+            UpdateMenu selection;
             Enum.TryParse(Console.ReadLine(), out selection);
             Console.WriteLine();
+
+            switch (selection)
+            {
+                case UpdateMenu.AssignParcel:
+                    dalObject.AssignParcel();
+                    break;
+
+                case UpdateMenu.ParcelCollected:
+                    dalObject.ParcelCollected();
+                    break;
+
+                case UpdateMenu.ParcelDelivered:
+                    dalObject.ParcelDelivered();
+                    break;
+
+                case UpdateMenu.ChargeDrone:
+                    dalObject.ChargeDrone();
+                    break;
+
+                case UpdateMenu.ReleaseDrone:
+                    dalObject.ReleaseDrone();
+                    break;
+            }
         }
 
+        private enum ShowMenu { Return, BaseStation, Drone, Customer, Parcel }
         private static void MenuShow()
         {
             Console.WriteLine("Please choose what to display:");
@@ -105,7 +143,7 @@ namespace ConsoleUI
             Console.WriteLine();
             Console.Write("Select an option: ");
 
-            int selection;
+            ShowMenu selection;
             Enum.TryParse(Console.ReadLine(), out selection);
             Console.WriteLine();
 
@@ -116,24 +154,25 @@ namespace ConsoleUI
 
             switch (selection)
             {
-                case 1:
+                case ShowMenu.BaseStation:
                     Console.WriteLine(dalObject.GetStation(ID));
                     break;
 
-                case 2:
+                case ShowMenu.Drone:
                     Console.WriteLine(dalObject.GetDrone(ID));
                     break;
 
-                case 3:
+                case ShowMenu.Customer:
                     Console.WriteLine(dalObject.GetCustomer(ID));
                     break;
 
-                case 4:
+                case ShowMenu.Parcel:
                     Console.WriteLine(dalObject.GetParcel(ID));
                     break;
             }
         }
 
+        private enum ListMenu { Return, BaseStations, Drones, Customers, Parcels, UnassignedParcels, AvailableBaseStations }
         private static void MenuList()
         {
             Console.WriteLine("Please choose what to list:");
@@ -148,33 +187,33 @@ namespace ConsoleUI
             Console.WriteLine();
             Console.Write("Select an option: ");
 
-            int selection;
+            ListMenu selection;
             Enum.TryParse(Console.ReadLine(), out selection);
             Console.WriteLine();
 
             switch (selection)
             {
-                case 1:
+                case ListMenu.BaseStations:
                     Console.WriteLine(dalObject.GetStationList());
                     break;
 
-                case 2:
+                case ListMenu.Drones:
                     Console.WriteLine(dalObject.GetDroneList());
                     break;
 
-                case 3:
+                case ListMenu.Customers:
                     Console.WriteLine(dalObject.GetCustomerList());
                     break;
 
-                case 4:
+                case ListMenu.Parcels:
                     Console.WriteLine(dalObject.GetParcelList());
                     break;
 
-                case 5:
+                case ListMenu.UnassignedParcels:
                     Console.WriteLine(dalObject.GetUnassignedParcelList());
                     break;
 
-                case 6:
+                case ListMenu.AvailableBaseStations:
                     Console.WriteLine(dalObject.GetAvailableStationList());
                     break;
             }

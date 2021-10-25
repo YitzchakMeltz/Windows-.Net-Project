@@ -177,7 +177,7 @@ namespace DalObject
         public Station[] GetAvailableStationList()
         {
             // Looks through DroneCharge list and counts how many have a specific StationID, then compares it to the Station's Charge Slot
-            return GetStationList().Where(s => s.ChargeSlots > DataSource.DroneCharges.Count(dc => dc.StationID == s.ID)).ToArray();
+            return GetStationList().Where(s => s.ChargeSlots > DataSource.DroneCharges.Count(dc => dc.StationID == s.ID && dc.DroneID != 0)).ToArray();
         }
 
         /// <summary>
