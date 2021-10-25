@@ -9,8 +9,9 @@ namespace IDAL
             public int ID { get; set; }
             public string Name { get; set; }
             public int ChargeSlots { get; set; }
-            public double Longitude { get; set; }
-            public double Latitude { get; set; }
+            //public double Longitude { get; set; }
+            //public double Latitude { get; set; }
+            public Util.Coordinate Location { get; set; }
 
             /// <summary>
             /// Returns a String with details about the Station
@@ -18,7 +19,7 @@ namespace IDAL
             /// <returns></returns>
             public override string ToString()
             {
-                return $"ID: {ID}, Name: {Name}, ChargeSlots: {ChargeSlots}, Longitude: {Convert.ToSexagesimal(Longitude, Convert.Coordinate.Longitude)}, Latitude: {Convert.Convert.ToSexagesimal(Latitude, Convert.Convert.Coordinate.Latitude)}.";
+                return $"ID: {ID}, Name: {Name}, ChargeSlots: {ChargeSlots}, Location: {Location}.";
             }
         }
 
@@ -45,8 +46,9 @@ namespace IDAL
             public int ID { get; set; }
             public string Name { get; set; }
             public string Phone { get; set; }
-            public double Longitude { get; set; }
-            public double Latitude { get; set; }
+            //public double Longitude { get; set; }
+            //public double Latitude { get; set; }
+            public Util.Coordinate Location { get; set; }
 
             /// <summary>
             /// Returns a String with details about the Customer
@@ -54,7 +56,7 @@ namespace IDAL
             /// <returns></returns>
             public override string ToString()
             {
-                return $"ID: {ID}, Name: {Name}, Phone: {Phone}, Longitude: {Convert.ToSexagesimal(Longitude, Convert.Coordinate.Longitude)}, Latitude: {Convert.ToSexagesimal(Latitude, Convert.Coordinate.Latitude)}.";
+                return $"ID: {ID}, Name: {Name}, Phone: {Phone}, Location: {Location}.";
             }
         }
 
@@ -149,6 +151,7 @@ namespace IDAL
             public double TestDistanceTo(Coordinate other)
             {
                 // Algorithm copied from Android Open Source Project
+                // https://cs.android.com/android/platform/superproject/+/master:frameworks/base/location/java/android/location/Location.java;l=460;drc=master?q=distanceto&sq=&ss=android%2Fplatform%2Fsuperproject
 
                 int MAXITERS = 20;
                 // Convert lat/long to radians
@@ -232,11 +235,11 @@ namespace IDAL
                     }
                 }
 
-                return (float)(b * A * (sigma - deltaSigma));
+                return b * A * (sigma - deltaSigma);
             }
             public override string ToString()
             {
-                return $"{toSexagesimal(Type.Latitude)} {toSexagesimal(Type.Longitude)}";
+                return $"Latitude: {toSexagesimal(Type.Latitude)}, Longitude: {toSexagesimal(Type.Longitude)}.";
             }
 
             private string toSexagesimal(Type type)
