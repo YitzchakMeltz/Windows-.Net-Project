@@ -18,6 +18,7 @@ namespace DalObject
         internal class Config
         {
             public static int FreeDrone = 0;
+            public static int DronesCharging = 0;
             public static int FreeStation = 0;
             public static int FreeCustomer = 0;
             public static int FreeParcel = 0;
@@ -33,28 +34,55 @@ namespace DalObject
 
             for (int i = 0; i < 2; ++i) 
             {
-                Stations[Config.FreeStation++] = new Station();
-                Stations[Config.FreeStation].ID = rd.Next(100000000, 999999999);
+                int index = Config.FreeStation++;
+                Stations[index] = new Station();
+
+                do
+                {
+                    Stations[index].ID = rd.Next(100000000, 999999999);
+                } while (Stations.Take(index).Any(s => s.ID == Stations[index].ID));
             }
 
             for (int i = 0; i < 5; ++i)
             {
-                Drones[Config.FreeDrone++] = new Drone();
-                Drones[Config.FreeDrone].ID = rd.Next(100000000, 999999999);
-                Drones[Config.FreeDrone].DroneStatus = (IDAL.DO.DroneStatuses)rd.Next(0, 3);
+                int index = Config.FreeDrone++;
+                Drones[index] = new Drone();
+
+                do {
+                    Drones[index].ID = rd.Next(100000000, 999999999);
+                } while (Drones.Take(index).Any(d => d.ID == Drones[index].ID));
+
+                Drones[index].DroneStatus = (IDAL.DO.DroneStatuses)rd.Next(0, 3);
+
+                // If Drone is currently Free, set it to be charging at a Base Station
+                if (Drones[index].DroneStatus == DroneStatuses.Free)
+                {
+                    DroneCharges[Config.DronesCharging++] = new DroneCharge() { DroneID = Drones[index].ID, StationID = Stations.Where(s => s.ChargeSlots > DataSource.DroneCharges.Count(dc => dc.StationID == s.ID && dc.DroneID != 0)).ElementAt(rd.Next(Config.FreeStation)).ID };
+                }
             }
 
             for (int i = 0; i < 10; ++i)
             {
-                Customers[Config.FreeCustomer++] = new Customer();
-                Customers[Config.FreeCustomer].ID = rd.Next(100000000, 999999999);
+                int index = Config.FreeCustomer++;
+                Customers[index] = new Customer();
+
+                do
+                {
+                    Customers[index].ID = rd.Next(100000000, 999999999);
+                } while (Customers.Take(index).Any(c => c.ID == Customers[index].ID));
             }
 
             for (int i = 0; i < 10; ++i)
             {
-                Parcels[Config.FreeParcel++] = new Parcel();
-                Parcels[Config.FreeParcel].ID = rd.Next(100000000, 999999999);
-                Parcels[Config.FreeParcel].Priority = (IDAL.DO.Priorities)rd.Next(0, 3);
+                int index = Config.FreeParcel++;
+                Parcels[index] = new Parcel();
+
+                do
+                {
+                    Parcels[index].ID = rd.Next(100000000, 999999999);
+                } while (Parcels.Take(index).Any(p => p.ID == Parcels[index].ID));
+
+                Parcels[index].Priority = (IDAL.DO.Priorities)rd.Next(0, 3);
             }
         }
     }
