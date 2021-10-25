@@ -239,5 +239,24 @@ namespace DalObject
             return GetParcelList().Where(p => p.DroneID == 0).ToArray();
         }
 
+        public void AddStation()
+        {
+            Random rd = new Random();
+
+            int index = DataSource.Config.FreeStation++;
+            DataSource.Stations[index] = new Station();
+
+            do
+            {
+                DataSource.Stations[index].ID = rd.Next(100000000, 999999999);
+            } while (DataSource.Stations.Take(index).Any(s => s.ID == DataSource.Stations[index].ID));
+
+            Console.WriteLine("Please enter the station name: ");
+            DataSource.Stations[index].Name = Console.ReadLine();
+
+            Console.WriteLine("Please enter the amount of charge slots: ");
+            DataSource.Stations[index].ChargeSlots = Convert.ToInt32(Console.ReadLine());
+        }
+
     }
 }
