@@ -57,68 +57,6 @@ namespace DalObject
                 Parcels[Config.FreeParcel].Priority = (IDAL.DO.Priorities)rd.Next(0, 3);
             }
         }
-
-        // Functions that return index of an entity in array
-
-        internal static int FindDroneIndex(int ID)
-        {
-            int index = 0;
-
-            foreach(Drone item in DataSource.Drones)
-            {
-                ++index;
-
-                if (item.ID == ID)
-                    return index;
-            }
-
-            return -1;
-        }
-
-        internal static int FindStationIndex(int ID)
-        {
-            int index = 0;
-
-            foreach (Station item in DataSource.Stations)
-            {
-                ++index;
-
-                if (item.ID == ID)
-                    return index;
-            }
-
-            return -1;
-        }
-
-        internal static int FindCustomerIndex(int ID)
-        {
-            int index = 0;
-
-            foreach (Customer item in DataSource.Customers)
-            {
-                ++index;
-
-                if (item.ID == ID)
-                    return index;
-            }
-
-            return -1;
-        }
-
-        internal static int FindParcelIndex(int ID)
-        {
-            int index = 0;
-
-            foreach (Parcel item in DataSource.Parcels)
-            {
-                ++index;
-
-                if (item.ID == ID)
-                    return index;
-            }
-
-            return -1;
-        }
     }
 
     public class DalObject
@@ -178,7 +116,6 @@ namespace DalObject
         /// <returns></returns>
         public Drone GetDrone(int ID)
         {
-            //return DataSource.Drones[DataSource.FindDroneIndex(ID)];
             return DataSource.Drones.FirstOrDefault(d => d.ID == ID);
         }
 
@@ -189,7 +126,6 @@ namespace DalObject
         /// <returns></returns>
         public Station GetStation(int ID)
         {
-            //return DataSource.Stations[DataSource.FindStationIndex(ID)];
             return DataSource.Stations.FirstOrDefault(s => s.ID == ID);
         }
 
@@ -200,7 +136,6 @@ namespace DalObject
         /// <returns></returns>
         public Customer GetCustomer(int ID)
         {
-            //return DataSource.Customers[DataSource.FindCustomerIndex(ID)];
             return DataSource.Customers.FirstOrDefault(c => c.ID == ID);
         }
 
@@ -211,7 +146,6 @@ namespace DalObject
         /// <returns></returns>
         public Parcel GetParcel(int ID)
         {
-            //return DataSource.Parcels[DataSource.FindParcelIndex(ID)];
             return DataSource.Parcels.FirstOrDefault(p => p.ID == ID);
         }
 
