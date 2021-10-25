@@ -239,24 +239,130 @@ namespace DalObject
             return GetParcelList().Where(p => p.DroneID == 0).ToArray();
         }
 
+        /// <summary>
+        /// Add functions with user interaction
+        /// </summary>
         public void AddStation()
         {
             Random rd = new Random();
 
             int index = DataSource.Config.FreeStation++;
-            DataSource.Stations[index] = new Station();
+            Station station = new Station();
 
             do
             {
-                DataSource.Stations[index].ID = rd.Next(100000000, 999999999);
-            } while (DataSource.Stations.Take(index).Any(s => s.ID == DataSource.Stations[index].ID));
+                station.ID = rd.Next(100000000, 999999999);
+            } while (DataSource.Stations.Take(index).Any(s => s.ID == station.ID));
 
             Console.WriteLine("Please enter the station name: ");
-            DataSource.Stations[index].Name = Console.ReadLine();
+            station.Name = Console.ReadLine();
 
             Console.WriteLine("Please enter the amount of charge slots: ");
-            DataSource.Stations[index].ChargeSlots = Convert.ToInt32(Console.ReadLine());
+            station.ChargeSlots = Convert.ToInt32(Console.ReadLine());
+
+            Console.WriteLine("Please enter the station coordinate latitude: ");
+            station.Location.Latitude = Convert.ToDouble(Console.ReadLine());
+
+            Console.WriteLine("Please enter the station coordinate longitude: ");
+            station.Location.Longitude = Convert.ToDouble(Console.ReadLine());
+
+            DataSource.Stations[index] = station;
         }
 
+        public void AddDrone()
+        {
+            Random rd = new Random();
+
+            int index = DataSource.Config.FreeDrone++;
+            Drone drone = new Drone();
+
+            do
+            {
+                drone.ID = rd.Next(100000000, 999999999);
+            } while (DataSource.Drones.Take(index).Any(s => s.ID == drone.ID));
+
+            Console.WriteLine("Please enter the model name: ");
+            drone.Model = Console.ReadLine();
+
+            Console.WriteLine("Please enter the weight: \n0 for Light \n1 for Medium \n2 for Heavy");
+            drone.WeightCategory = (IDAL.DO.WeightCategories)Convert.ToInt32(Console.ReadLine());
+
+            Console.WriteLine("Please enter the drone's status: \n0 for Free \n1 for Delivery \n2 for Maintanence");
+            drone.DroneStatus = (IDAL.DO.DroneStatuses)Convert.ToInt32(Console.ReadLine());
+
+            Console.WriteLine("Please enter the drone battery level: ");
+            drone.Battery = Convert.ToDouble(Console.ReadLine());
+
+            DataSource.Drones[index] = drone;
+        }
+
+        public void AddCustomer()
+        {
+            Random rd = new Random();
+
+            int index = DataSource.Config.FreeCustomer++;
+            Customer customer = new Customer();
+
+            do
+            {
+                customer.ID = rd.Next(100000000, 999999999);
+            } while (DataSource.Customers.Take(index).Any(s => s.ID == customer.ID));
+
+            Console.WriteLine("Please enter the customer's name: ");
+            customer.Name = Console.ReadLine();
+
+            Console.WriteLine("Please enter the customer's phone number: ");
+            customer.Phone = Console.ReadLine();
+
+            Console.WriteLine("Please enter the customer's coordinate latitude: ");
+            customer.Location.Latitude = Convert.ToDouble(Console.ReadLine());
+
+            Console.WriteLine("Please enter the customer's coordinate longitude: ");
+            customer.Location.Longitude = Convert.ToDouble(Console.ReadLine());
+
+            DataSource.Customers[index] = customer;
+        }
+
+        public void AddParcel()
+        {
+            Random rd = new Random();
+
+            int index = DataSource.Config.FreeParcel++;
+            Parcel parcel = new Parcel();
+
+            do
+            {
+                parcel.ID = rd.Next(100000000, 999999999);
+            } while (DataSource.Parcels.Take(index).Any(s => s.ID == parcel.ID));
+
+            Console.WriteLine("Please enter the sender's ID: ");
+            parcel.SenderID = Convert.ToInt32(Console.ReadLine());
+
+            Console.WriteLine("Please enter the target ID: ");
+            parcel.TargetID = Convert.ToInt32(Console.ReadLine());
+
+            Console.WriteLine("Please enter the weight: \n0 for Light \n1 for Medium \n2 for Heavy");
+            parcel.WeightCategory = (IDAL.DO.WeightCategories)Convert.ToInt32(Console.ReadLine());
+
+            Console.WriteLine("Please enter the priority: \n0 for Regular \n1 for Fast \n2 for Emergency");
+            parcel.Priority = (IDAL.DO.Priorities)Convert.ToInt32(Console.ReadLine());
+
+            Console.WriteLine("Please enter the drone ID: ");
+            parcel.DroneID = Convert.ToInt32(Console.ReadLine());
+
+            Console.Write("Enter the scheduled date (mm/dd/yyyy): ");
+            parcel.Scheduled = DateTime.Parse(Console.ReadLine());
+
+            Console.Write("Enter the picked up date (mm/dd/yyyy): ");
+            parcel.PickedUp = DateTime.Parse(Console.ReadLine());
+
+            Console.WriteLine("Please enter the time of assignment: ");
+            parcel.SenderID = Convert.ToInt32(Console.ReadLine());
+
+            Console.Write("Enter date delivered (mm/dd/yyyy): ");
+            parcel.Delivered = DateTime.Parse(Console.ReadLine());
+
+            DataSource.Parcels[index] = parcel;
+        }
     }
 }
