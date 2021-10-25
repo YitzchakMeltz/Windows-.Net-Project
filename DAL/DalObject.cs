@@ -357,5 +357,77 @@ namespace DalObject
 
             DataSource.Parcels[index] = parcel;
         }
+
+        // Update Menu Functions
+        public void AssignParcel()
+        {
+            int ID;
+
+            Console.WriteLine("Enter the ID of the parcel to assign: ");
+            ID = Convert.ToInt32(Console.ReadLine());
+            Parcel parcel = DataSource.Parcels.FirstOrDefault(p => p.ID == ID);
+
+            Console.WriteLine("Enter the ID of the drone to be assigned: ");
+            ID = Convert.ToInt32(Console.ReadLine());
+
+            parcel.DroneID = ID;
+        }
+
+        public void ParcelCollected()
+        {
+            int ID;
+
+            Console.WriteLine("Enter the ID of the parcel to mark collected: ");
+            ID = Convert.ToInt32(Console.ReadLine());
+            Parcel parcel = DataSource.Parcels.FirstOrDefault(p => p.ID == ID);
+
+            Console.Write("Enter the date collected (mm/dd/yyyy): ");
+            parcel.PickedUp = DateTime.Parse(Console.ReadLine());
+        }
+
+        public void ParcelDelivered()
+        {
+            int ID;
+
+            Console.WriteLine("Enter the ID of the parcel to mark delivered: ");
+            ID = Convert.ToInt32(Console.ReadLine());
+            Parcel parcel = DataSource.Parcels.FirstOrDefault(p => p.ID == ID);
+
+            Console.Write("Enter the date delivered (mm/dd/yyyy): ");
+            parcel.Delivered = DateTime.Parse(Console.ReadLine());
+        }
+
+        public void ChargeDrone()
+        {
+            int drone_id, station_id;
+
+            Console.WriteLine("Enter the ID of the drone to charge: ");
+            drone_id = Convert.ToInt32(Console.ReadLine());
+
+            Console.WriteLine("Enter the ID of the station to be assigned: ");
+            station_id = Convert.ToInt32(Console.ReadLine());
+
+
+            DroneCharge dc = new DroneCharge();
+            dc.DroneID = drone_id;
+            dc.StationID = station_id;
+
+            DataSource.DroneCharges[DataSource.Config.DronesCharging++] = dc;
+        }
+
+        public void ReleaseDrone()
+        {
+            int drone_id;
+
+            Console.WriteLine("Enter the ID of the drone to release: ");
+            drone_id = Convert.ToInt32(Console.ReadLine());
+
+            // Find index of DroneCharge in array for deletion
+            DroneCharge dc = DataSource.DroneCharges.FirstOrDefault(d => d.DroneID == drone_id);
+            int index = Array.IndexOf(DataSource.DroneCharges, dc);
+
+            // Delete DroneCharge
+            DataSource.DroneCharges = DataSource.DroneCharges.Where((val, idx) => idx != index).ToArray();
+        }
     }
 }
