@@ -19,8 +19,7 @@ namespace ConsoleUI
                 Console.WriteLine("2. Update");
                 Console.WriteLine("3. Show");
                 Console.WriteLine("4. List");
-                Console.WriteLine("5. Calculate Distance");
-                Console.WriteLine();
+                Console.WriteLine("5. Calculate Distance\n");
                 Console.Write("Select an option: ");
 
                 MainMenu selection;
@@ -101,15 +100,13 @@ namespace ConsoleUI
         private enum UpdateMenu { Return, AssignParcel, ParcelCollected, ParcelDelivered, ChargeDrone, ReleaseDrone }
         private static void MenuUpdate()
         {
-            Console.WriteLine("Please choose what to update:");
-            Console.WriteLine();
+            Console.WriteLine("Please choose what to update:\n");
             Console.WriteLine("0. Return to Main Menu");
             Console.WriteLine("1. Assign Parcel to Drone");
             Console.WriteLine("2. Mark Parcel as Collected");
             Console.WriteLine("3. Mark Parcel as Delivered");
             Console.WriteLine("4. Assign Drone to Base Station");
-            Console.WriteLine("5. Release Drone from Base Station");
-            Console.WriteLine();
+            Console.WriteLine("5. Release Drone from Base Station\n");
             Console.Write("Select an option: ");
 
             UpdateMenu selection;
@@ -148,14 +145,12 @@ namespace ConsoleUI
         private enum ShowMenu { Return, BaseStation, Drone, Customer, Parcel }
         private static void MenuShow()
         {
-            Console.WriteLine("Please choose what to display:");
-            Console.WriteLine();
+            Console.WriteLine("Please choose what to display:\n");
             Console.WriteLine("0. Return to Main Menu");
             Console.WriteLine("1. Base Station");
             Console.WriteLine("2. Drone");
             Console.WriteLine("3. Customer");
-            Console.WriteLine("4. Parcel");
-            Console.WriteLine();
+            Console.WriteLine("4. Parcel\n");
             Console.Write("Select an option: ");
 
             ShowMenu selection;
@@ -195,16 +190,14 @@ namespace ConsoleUI
         private enum ListMenu { Return, BaseStations, Drones, Customers, Parcels, UnassignedParcels, AvailableBaseStations }
         private static void MenuList()
         {
-            Console.WriteLine("Please choose what to list:");
-            Console.WriteLine();
+            Console.WriteLine("Please choose what to list:\n");
             Console.WriteLine("0. Return to Main Menu");
             Console.WriteLine("1. Base Stations");
             Console.WriteLine("2. Drones");
             Console.WriteLine("3. Customers");
             Console.WriteLine("4. Parcels");
             Console.WriteLine("5. Unassigned Parcels");
-            Console.WriteLine("6. Available Base Stations");
-            Console.WriteLine();
+            Console.WriteLine("6. Available Base Stations\n");
             Console.Write("Select an option: ");
 
             ListMenu selection;
@@ -265,12 +258,10 @@ namespace ConsoleUI
         private enum DistanceMenu { Return, BaseStation, Customer }
         private static void MenuDistance()
         {
-            Console.WriteLine("Please choose which location you would like to get the distance from:");
-            Console.WriteLine();
+            Console.WriteLine("Please choose which location you would like to get the distance from:\n");
             Console.WriteLine("0. Return to Main Menu");
             Console.WriteLine("1. Base Station");
-            Console.WriteLine("2. Customer");
-            Console.WriteLine();
+            Console.WriteLine("2. Customer\n");
             Console.Write("Select an option: ");
 
             DistanceMenu selection;
