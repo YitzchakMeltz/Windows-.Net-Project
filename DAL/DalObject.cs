@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using IDAL.DO;
+using IDAL.Util;
 
 namespace DalObject
 {
@@ -58,9 +59,10 @@ namespace DalObject
                 // If Drone is currently Free, set it to be charging at a Base Station
                 if (Drones[index].DroneStatus == DroneStatuses.Free)
                 {
-                    DroneCharges[Config.DronesCharging++] = new DroneCharge();
-                    DroneCharges[Config.DronesCharging].DroneID = Drones[index].ID;
-                    DroneCharges[Config.DronesCharging].StationID = Stations.Where(s => s.ChargeSlots > DataSource.DroneCharges.Count(dc => dc.StationID == s.ID && dc.DroneID != 0)).ElementAt(rd.Next(Config.FreeStation)).ID;
+                    int droneIndex = Config.DronesCharging++;
+                    DroneCharges[droneIndex] = new DroneCharge();
+                    DroneCharges[droneIndex].DroneID = Drones[index].ID;
+                    DroneCharges[droneIndex].StationID = Stations.Take(Config.FreeStation).Where(s => s.ChargeSlots > DataSource.DroneCharges.Count(dc => dc.StationID == s.ID && dc.DroneID != 0)).ElementAt(rd.Next(Config.FreeStation)).ID;
                 }
             }
 
@@ -263,12 +265,15 @@ namespace DalObject
             station.ChargeSlots = Convert.ToInt32(Console.ReadLine());
 
             Console.WriteLine("Please enter the station coordinate latitude: ");
-            station.Location.Latitude = Convert.ToDouble(Console.ReadLine());
+            double latitude = Convert.ToDouble(Console.ReadLine());
 
             Console.WriteLine("Please enter the station coordinate longitude: ");
-            station.Location.Longitude = Convert.ToDouble(Console.ReadLine());
+            double longitude = Convert.ToDouble(Console.ReadLine());
+
+            station.Location = new Coordinate(latitude, longitude);
 
             DataSource.Stations[index] = station;
+            Console.WriteLine(station);
         }
 
         public void AddDrone()
@@ -294,6 +299,7 @@ namespace DalObject
             drone.Battery = Convert.ToDouble(Console.ReadLine());
 
             DataSource.Drones[index] = drone;
+            Console.WriteLine(drone);
         }
 
         public void AddCustomer()
@@ -313,12 +319,15 @@ namespace DalObject
             customer.Phone = Console.ReadLine();
 
             Console.WriteLine("Please enter the customer's coordinate latitude: ");
-            customer.Location.Latitude = Convert.ToDouble(Console.ReadLine());
+            double latitude = Convert.ToDouble(Console.ReadLine());
 
             Console.WriteLine("Please enter the customer's coordinate longitude: ");
-            customer.Location.Longitude = Convert.ToDouble(Console.ReadLine());
+            double longitude = Convert.ToDouble(Console.ReadLine());
+
+            customer.Location = new Coordinate(latitude, longitude);
 
             DataSource.Customers[index] = customer;
+            Console.WriteLine(customer);
         }
 
         public void AddParcel()
@@ -359,6 +368,7 @@ namespace DalObject
             parcel.Delivered = DateTime.Parse(Console.ReadLine());
 
             DataSource.Parcels[index] = parcel;
+            Console.WriteLine(parcel);
         }
 
         // Update Menu Functions

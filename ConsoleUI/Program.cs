@@ -50,7 +50,7 @@ namespace ConsoleUI
                         break;
 
                     default:
-                        break;
+                        return;
                 }
             }
         }
@@ -90,7 +90,12 @@ namespace ConsoleUI
                 case AddMenu.AddParcel:
                     dalObject.AddParcel();
                     break;
+
+                default:
+                    return;
             }
+
+            Console.WriteLine();
         }
 
         private enum UpdateMenu { Return, AssignParcel, ParcelCollected, ParcelDelivered, ChargeDrone, ReleaseDrone }
@@ -132,7 +137,12 @@ namespace ConsoleUI
                 case UpdateMenu.ReleaseDrone:
                     dalObject.ReleaseDrone();
                     break;
+
+                default:
+                    return;
             }
+
+            Console.WriteLine();
         }
 
         private enum ShowMenu { Return, BaseStation, Drone, Customer, Parcel }
@@ -174,7 +184,12 @@ namespace ConsoleUI
                 case ShowMenu.Parcel:
                     Console.WriteLine(dalObject.GetParcel(ID));
                     break;
+
+                default:
+                    return;
             }
+
+            Console.WriteLine();
         }
 
         private enum ListMenu { Return, BaseStations, Drones, Customers, Parcels, UnassignedParcels, AvailableBaseStations }
@@ -199,29 +214,52 @@ namespace ConsoleUI
             switch (selection)
             {
                 case ListMenu.BaseStations:
-                    Console.WriteLine(dalObject.GetStationList());
+                    foreach (Station s in dalObject.GetStationList())
+                    {
+                        Console.WriteLine(s);
+                    }
                     break;
 
                 case ListMenu.Drones:
-                    Console.WriteLine(dalObject.GetDroneList());
+                    foreach (Drone d in dalObject.GetDroneList())
+                    {
+                        Console.WriteLine(d);
+                    }
                     break;
 
                 case ListMenu.Customers:
-                    Console.WriteLine(dalObject.GetCustomerList());
+                    foreach (Customer c in dalObject.GetCustomerList())
+                    {
+                        Console.WriteLine(c);
+                    }
                     break;
 
                 case ListMenu.Parcels:
-                    Console.WriteLine(dalObject.GetParcelList());
+                    foreach (Parcel p in dalObject.GetParcelList())
+                    {
+                        Console.WriteLine(p);
+                    }
                     break;
 
                 case ListMenu.UnassignedParcels:
-                    Console.WriteLine(dalObject.GetUnassignedParcelList());
+                    foreach (Parcel p in dalObject.GetUnassignedParcelList())
+                    {
+                        Console.WriteLine(p);
+                    }
                     break;
 
                 case ListMenu.AvailableBaseStations:
-                    Console.WriteLine(dalObject.GetAvailableStationList());
+                    foreach (Station s in dalObject.GetAvailableStationList())
+                    {
+                        Console.WriteLine(s);
+                    }
                     break;
+
+                default:
+                    return;
             }
+
+            Console.WriteLine();
         }
 
         private enum DistanceMenu { Return, BaseStation, Customer }
@@ -245,11 +283,11 @@ namespace ConsoleUI
             int ID;
             int.TryParse(Console.ReadLine(), out ID);
             Console.WriteLine("Enter your location");
-            IDAL.Util.Coordinate location = new IDAL.Util.Coordinate();
             Console.Write("Latitude: ");
-            location.Latitude = Double.Parse(Console.ReadLine());
+            double latitude = Double.Parse(Console.ReadLine());
             Console.Write("Longitude: ");
-            location.Longitude = Double.Parse(Console.ReadLine());
+            double longitude = Double.Parse(Console.ReadLine());
+            IDAL.Util.Coordinate location = new IDAL.Util.Coordinate(latitude, longitude);
             Console.WriteLine();
 
             switch (selection)
@@ -262,6 +300,8 @@ namespace ConsoleUI
                     Console.WriteLine(dalObject.GetStation(ID).Location.DistanceTo(location));
                     break;
             }
+
+            Console.WriteLine();
         }
     }
 }

@@ -11,7 +11,7 @@ namespace IDAL
             public int ChargeSlots { get; set; }
             //public double Longitude { get; set; }
             //public double Latitude { get; set; }
-            public Util.Coordinate Location;
+            public Util.Coordinate Location { get; set; }
 
             /// <summary>
             /// Returns a String with details about the Station
@@ -48,7 +48,7 @@ namespace IDAL
             public string Phone { get; set; }
             //public double Longitude { get; set; }
             //public double Latitude { get; set; }
-            public Util.Coordinate Location;
+            public Util.Coordinate Location { get; set; }
 
             /// <summary>
             /// Returns a String with details about the Customer
@@ -241,7 +241,7 @@ namespace IDAL
             }
             public override string ToString()
             {
-                return $"Latitude: {toSexagesimal(Type.Latitude)}, Longitude: {toSexagesimal(Type.Longitude)}.";
+                return $"Latitude: {toSexagesimal(Type.Latitude)}, Longitude: {toSexagesimal(Type.Longitude)}";
             }
 
             private string toSexagesimal(Type type)
