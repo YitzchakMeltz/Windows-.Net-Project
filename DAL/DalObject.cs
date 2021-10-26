@@ -396,6 +396,9 @@ namespace DalObject
 
         // Update Menu Functions
 
+        /// <summary>
+        /// Assigns a Parcel to a Drone
+        /// </summary>
         public void AssignParcel()
         {
             Console.WriteLine("Enter the ID of the parcel to assign: ");
@@ -407,6 +410,9 @@ namespace DalObject
             DataSource.Drones[Array.IndexOf(DataSource.Drones, GetDrone(droneID))].DroneStatus = DroneStatuses.Delivery;
         }
 
+        /// <summary>
+        /// Marks a Parcel as Collected by a Drone
+        /// </summary>
         public void ParcelCollected()
         {
             int ID;
@@ -419,18 +425,26 @@ namespace DalObject
             //Console.Write("Enter the date collected (mm/dd/yyyy): ");
         }
 
+        /// <summary>
+        /// Marks a Parcel as Delivered
+        /// </summary>
         public void ParcelDelivered()
         {
             int ID;
 
             Console.WriteLine("Enter the ID of the parcel to mark delivered: ");
             ID = Convert.ToInt32(Console.ReadLine());
+            Parcel tempParcel = GetParcel(ID);
 
-            DataSource.Parcels[Array.IndexOf(DataSource.Parcels, GetParcel(ID))].Delivered = DateTime.Now;
+            DataSource.Parcels[Array.IndexOf(DataSource.Parcels, tempParcel)].Delivered = DateTime.Now;
 
+            DataSource.Drones[Array.IndexOf(DataSource.Drones, GetDrone(tempParcel.DroneID))].DroneStatus = DroneStatuses.Free;
             //Console.Write("Enter the date delivered (mm/dd/yyyy): ");
         }
 
+        /// <summary>
+        /// Charges a Drone
+        /// </summary>
         public void ChargeDrone()
         {
             int droneID, stationID;
@@ -449,6 +463,9 @@ namespace DalObject
             DataSource.DroneCharges.Add(dc);
         }
 
+        /// <summary>
+        /// Releases a Drone from charging
+        /// </summary>
         public void ReleaseDrone()
         {
             int droneID;

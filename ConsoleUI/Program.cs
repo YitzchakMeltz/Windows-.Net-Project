@@ -284,11 +284,11 @@ namespace ConsoleUI
             switch (selection)
             {
                 case DistanceMenu.BaseStation:
-                    Console.WriteLine(dalObject.GetStation(ID).Location.DistanceTo(location));
+                    Console.WriteLine(dalObject.GetStation(ID).Location.DistanceTo(location) + " meters.");
                     break;
 
                 case DistanceMenu.Customer:
-                    Console.WriteLine(dalObject.GetStation(ID).Location.DistanceTo(location));
+                    Console.WriteLine(dalObject.GetStation(ID).Location.DistanceTo(location) + " meters.");
                     break;
             }
 

@@ -19,7 +19,7 @@ namespace IDAL
             /// <returns></returns>
             public override string ToString()
             {
-                return $"ID: {ID}, Name: {Name}, ChargeSlots: {ChargeSlots}, Location: {Location}.";
+                return $"ID: {ID}, Name: {Name}, ChargeSlots: {ChargeSlots}, Location: {{ {Location} }}.";
             }
         }
 
@@ -56,7 +56,7 @@ namespace IDAL
             /// <returns></returns>
             public override string ToString()
             {
-                return $"ID: {ID}, Name: {Name}, Phone: {Phone}, Location: {Location}.";
+                return $"ID: {ID}, Name: {Name}, Phone: {Phone}, Location: {{ {Location} }}.";
             }
         }
 
