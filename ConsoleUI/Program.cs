@@ -7,7 +7,7 @@ namespace ConsoleUI
     {
 
         static DalObject.DalObject dalObject = new DalObject.DalObject();
-        private enum MainMenu { Exit, Add, Update, Show, List }
+        private enum MainMenu { Exit, Add, Update, Show, List, Distance }
         static void Main(string[] args)
         {
             while (true)
@@ -19,6 +19,7 @@ namespace ConsoleUI
                 Console.WriteLine("2. Update");
                 Console.WriteLine("3. Show");
                 Console.WriteLine("4. List");
+                Console.WriteLine("5. Calculate Distance");
                 Console.WriteLine();
                 Console.Write("Select an option: ");
 
@@ -42,6 +43,10 @@ namespace ConsoleUI
 
                     case MainMenu.List:
                         MenuList();
+                        break;
+
+                    case MainMenu.Distance:
+                        MenuDistance();
                         break;
 
                     default:
@@ -147,7 +152,7 @@ namespace ConsoleUI
             Enum.TryParse(Console.ReadLine(), out selection);
             Console.WriteLine();
 
-            Console.Write("Type entity ID: ");
+            Console.Write($"Enter {Enum.GetName(selection)} ID: ");
             int ID;
             int.TryParse(Console.ReadLine(), out ID);
             Console.WriteLine();
@@ -215,6 +220,46 @@ namespace ConsoleUI
 
                 case ListMenu.AvailableBaseStations:
                     Console.WriteLine(dalObject.GetAvailableStationList());
+                    break;
+            }
+        }
+
+        private enum DistanceMenu { Return, BaseStation, Customer }
+        private static void MenuDistance()
+        {
+            Console.WriteLine("Please choose which location you would like to get the distance from:");
+            Console.WriteLine();
+            Console.WriteLine("0. Return to Main Menu");
+            Console.WriteLine("1. Base Station");
+            Console.WriteLine("2. Customer");
+            Console.WriteLine();
+            Console.Write("Select an option: ");
+
+            DistanceMenu selection;
+            Enum.TryParse(Console.ReadLine(), out selection);
+            Console.WriteLine();
+
+            if (selection == DistanceMenu.Return) return;
+
+            Console.Write($"Enter {Enum.GetName(selection)} ID: ");
+            int ID;
+            int.TryParse(Console.ReadLine(), out ID);
+            Console.WriteLine("Enter your location");
+            IDAL.Util.Coordinate location = new IDAL.Util.Coordinate();
+            Console.Write("Latitude: ");
+            location.Latitude = Double.Parse(Console.ReadLine());
+            Console.Write("Longitude: ");
+            location.Longitude = Double.Parse(Console.ReadLine());
+            Console.WriteLine();
+
+            switch (selection)
+            {
+                case DistanceMenu.BaseStation:
+                    Console.WriteLine(dalObject.GetStation(ID).Location.DistanceTo(location));
+                    break;
+
+                case DistanceMenu.Customer:
+                    Console.WriteLine(dalObject.GetStation(ID).Location.DistanceTo(location));
                     break;
             }
         }

@@ -36,6 +36,7 @@ namespace DalObject
             {
                 int index = Config.FreeStation++;
                 Stations[index] = new Station();
+                Stations[index].ChargeSlots = rd.Next(1, 50);
 
                 do
                 {
@@ -57,7 +58,7 @@ namespace DalObject
                 // If Drone is currently Free, set it to be charging at a Base Station
                 if (Drones[index].DroneStatus == DroneStatuses.Free)
                 {
-                    DroneCharges[Config.DronesCharging++] = new DroneCharge() { DroneID = Drones[index].ID, StationID = Stations.Where(s => s.ChargeSlots > DataSource.DroneCharges.Count(dc => dc.StationID == s.ID && dc.DroneID != 0)).ElementAt(rd.Next(Config.FreeStation)).ID };
+                    DroneCharges[Config.DronesCharging++] = new DroneCharge() { DroneID = Drones[index].ID, StationID = Stations.Take(Config.FreeStation).Where(s => s.ChargeSlots > DataSource.DroneCharges.Count(dc => dc.StationID == s.ID && dc.DroneID != 0)).ElementAt(rd.Next(Config.FreeStation)).ID };
                 }
             }
 

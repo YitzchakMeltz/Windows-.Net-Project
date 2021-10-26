@@ -112,6 +112,7 @@ namespace IDAL
                 Longitude = longitude;
             }
 
+            /*
             /// <summary>
             /// Calculates distance in meters to another Coordinate
             /// </summary>
@@ -148,7 +149,8 @@ namespace IDAL
             /// </summary>
             /// <param name="other"></param>
             /// <returns>The approximate distance in meters</returns>
-            public double TestDistanceTo(Coordinate other)
+            */
+            public double DistanceTo(Coordinate other)
             {
                 // Algorithm copied from Android Open Source Project
                 // https://cs.android.com/android/platform/superproject/+/master:frameworks/base/location/java/android/location/Location.java;l=460;drc=master?q=distanceto&sq=&ss=android%2Fplatform%2Fsuperproject
