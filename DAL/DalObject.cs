@@ -150,9 +150,10 @@ namespace DalObject
         /// </summary>
         /// <param name="ID"></param>
         /// <returns></returns>
-        public Drone GetDrone(int ID)
+        public ref Drone GetDrone(int ID)
         {
-            return DataSource.Drones.FirstOrDefault(d => d.ID == ID);
+            return ref DataSource.Drones[DataSource.Drones.TakeWhile(d => d.ID != ID).Count()];
+            //return DataSource.Drones.FirstOrDefault(d=> d.ID == ID);
         }
 
         /// <summary>
@@ -160,9 +161,10 @@ namespace DalObject
         /// </summary>
         /// <param name="ID"></param>
         /// <returns></returns>
-        public Station GetStation(int ID)
+        public ref Station GetStation(int ID)
         {
-            return DataSource.Stations.FirstOrDefault(s => s.ID == ID);
+            return ref DataSource.Stations[DataSource.Stations.TakeWhile(s => s.ID != ID).Count()];
+            //return DataSource.Stations.FirstOrDefault(s => s.ID == ID);
         }
 
         /// <summary>
@@ -170,9 +172,10 @@ namespace DalObject
         /// </summary>
         /// <param name="ID"></param>
         /// <returns></returns>
-        public Customer GetCustomer(int ID)
+        public ref Customer GetCustomer(int ID)
         {
-            return DataSource.Customers.FirstOrDefault(c => c.ID == ID);
+            return ref DataSource.Customers[DataSource.Customers.TakeWhile(c => c.ID != ID).Count()];
+            //return DataSource.Customers.FirstOrDefault(c => c.ID == ID);
         }
 
         /// <summary>
@@ -180,9 +183,10 @@ namespace DalObject
         /// </summary>
         /// <param name="ID"></param>
         /// <returns></returns>
-        public Parcel GetParcel(int ID)
+        public ref Parcel GetParcel(int ID)
         {
-            return DataSource.Parcels.FirstOrDefault(p => p.ID == ID);
+            return ref DataSource.Parcels[DataSource.Parcels.TakeWhile(p => p.ID != ID).Count()];
+            //return DataSource.Parcels.FirstOrDefault(p => p.ID == ID);
         }
 
 
@@ -402,12 +406,15 @@ namespace DalObject
         public void AssignParcel()
         {
             Console.WriteLine("Enter the ID of the parcel to assign: ");
-            int parcelID = Convert.ToInt32(Console.ReadLine());
+            //int parcelID = Convert.ToInt32(Console.ReadLine());
+            ref Parcel parcel = ref GetParcel(Convert.ToInt32(Console.ReadLine()));
 
             Console.WriteLine("Enter the ID of the drone to be assigned: ");
-            int droneID = DataSource.Parcels[Array.IndexOf(DataSource.Parcels, GetParcel(parcelID))].DroneID = Convert.ToInt32(Console.ReadLine());
+            parcel.DroneID = Convert.ToInt32(Console.ReadLine());
 
-            DataSource.Drones[Array.IndexOf(DataSource.Drones, GetDrone(droneID))].DroneStatus = DroneStatuses.Delivery;
+            GetDrone(parcel.DroneID).DroneStatus = DroneStatuses.Delivery;
+            //int droneID = DataSource.Parcels[Array.IndexOf(DataSource.Parcels, GetParcel(parcelID))].DroneID = Convert.ToInt32(Console.ReadLine());
+            //DataSource.Drones[Array.IndexOf(DataSource.Drones, GetDrone(droneID))].DroneStatus = DroneStatuses.Delivery;
         }
 
         /// <summary>
@@ -415,13 +422,11 @@ namespace DalObject
         /// </summary>
         public void ParcelCollected()
         {
-            int ID;
-
             Console.WriteLine("Enter the ID of the parcel to mark collected: ");
-            ID = Convert.ToInt32(Console.ReadLine());
 
-            DataSource.Parcels[Array.IndexOf(DataSource.Parcels, GetParcel(ID))].PickedUp = DateTime.Now;
+            GetParcel(Convert.ToInt32(Console.ReadLine())).PickedUp = DateTime.Now;
 
+            //DataSource.Parcels[Array.IndexOf(DataSource.Parcels, GetParcel(ID))].PickedUp = DateTime.Now;
             //Console.Write("Enter the date collected (mm/dd/yyyy): ");
         }
 
@@ -430,15 +435,12 @@ namespace DalObject
         /// </summary>
         public void ParcelDelivered()
         {
-            int ID;
-
             Console.WriteLine("Enter the ID of the parcel to mark delivered: ");
-            ID = Convert.ToInt32(Console.ReadLine());
-            Parcel tempParcel = GetParcel(ID);
+            ref Parcel parcel = ref GetParcel(Convert.ToInt32(Console.ReadLine()));
 
-            DataSource.Parcels[Array.IndexOf(DataSource.Parcels, tempParcel)].Delivered = DateTime.Now;
+            parcel.Delivered = DateTime.Now;
 
-            DataSource.Drones[Array.IndexOf(DataSource.Drones, GetDrone(tempParcel.DroneID))].DroneStatus = DroneStatuses.Free;
+            GetDrone(parcel.DroneID).DroneStatus = DroneStatuses.Free;
             //Console.Write("Enter the date delivered (mm/dd/yyyy): ");
         }
 
