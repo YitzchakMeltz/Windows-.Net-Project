@@ -11,7 +11,7 @@ namespace DalObject
     class DataSource
     {
         internal static Drone[] Drones = new Drone[10];
-        internal static DroneCharge[] DroneCharges = new DroneCharge[10]; // I think this should be here
+        internal static List<DroneCharge> DroneCharges = new List<DroneCharge>(10); // I think this should be here
         internal static Station[] Stations = new Station[5];
         internal static Customer[] Customers = new Customer[100];
         internal static Parcel[] Parcels = new Parcel[1000];
@@ -19,7 +19,7 @@ namespace DalObject
         internal class Config
         {
             public static int FreeDrone = 0;
-            public static int DronesCharging = 0;
+            //public static int DronesCharging = 0;
             public static int FreeStation = 0;
             public static int FreeCustomer = 0;
             public static int FreeParcel = 0;
@@ -59,10 +59,12 @@ namespace DalObject
                 // If Drone is currently Free, set it to be charging at a Base Station
                 if (Drones[index].DroneStatus == DroneStatuses.Free)
                 {
-                    int droneIndex = Config.DronesCharging++;
-                    DroneCharges[droneIndex] = new DroneCharge();
-                    DroneCharges[droneIndex].DroneID = Drones[index].ID;
-                    DroneCharges[droneIndex].StationID = Stations.Take(Config.FreeStation).Where(s => s.ChargeSlots > DataSource.DroneCharges.Count(dc => dc.StationID == s.ID && dc.DroneID != 0)).ElementAt(rd.Next(Config.FreeStation)).ID;
+                    //int droneIndex = Config.DronesCharging++;
+
+                    DroneCharge dc = new DroneCharge();
+                    dc.DroneID = Drones[index].ID;
+                    dc.StationID = Stations.Take(Config.FreeStation).Where(s => s.ChargeSlots > DataSource.DroneCharges.Count(dc => dc.StationID == s.ID && dc.DroneID != 0)).ElementAt(rd.Next(Config.FreeStation)).ID;
+                    DroneCharges.Add(dc);
                 }
             }
 
@@ -245,9 +247,13 @@ namespace DalObject
             return GetParcelList().Where(p => p.DroneID == 0).ToArray();
         }
 
+
+        // Add functions with user interaction
+
         /// <summary>
-        /// Add functions with user interaction
+        /// Adds a Station to DataSource
         /// </summary>
+        /// <param name="station"></param>
         public void AddStation()
         {
             int index = DataSource.Config.FreeStation++;
@@ -273,9 +279,14 @@ namespace DalObject
             station.Location = new Coordinate(latitude, longitude);
 
             DataSource.Stations[index] = station;
-            Console.WriteLine(station);
+            
+            Console.WriteLine("\n" + station);
         }
 
+        /// <summary>
+        /// Adds a Drone to DataSource
+        /// </summary>
+        /// <param name="drone"></param>
         public void AddDrone()
         {
             int index = DataSource.Config.FreeDrone++;
@@ -299,9 +310,14 @@ namespace DalObject
             drone.Battery = Convert.ToDouble(Console.ReadLine());
 
             DataSource.Drones[index] = drone;
-            Console.WriteLine(drone);
+
+            Console.WriteLine("\n" + drone);
         }
 
+        /// <summary>
+        /// Adds a Customer to DataSource
+        /// </summary>
+        /// <param name="customer"></param>
         public void AddCustomer()
         {
             int index = DataSource.Config.FreeCustomer++;
@@ -327,9 +343,15 @@ namespace DalObject
             customer.Location = new Coordinate(latitude, longitude);
 
             DataSource.Customers[index] = customer;
-            Console.WriteLine(customer);
+
+            Console.WriteLine("\n" + customer);
         }
 
+        /// <summary>
+        /// Adds a Parcel to DataSource
+        /// </summary>
+        /// <param name="parcel"></param>
+        /// <returns>PackageID</returns>
         public void AddParcel()
         {
             int index = DataSource.Config.FreeParcel++;
@@ -368,7 +390,8 @@ namespace DalObject
             parcel.Delivered = DateTime.Parse(Console.ReadLine());
 
             DataSource.Parcels[index] = parcel;
-            Console.WriteLine(parcel);
+
+            Console.WriteLine("\n" + parcel);
         }
 
         // Update Menu Functions
@@ -378,12 +401,10 @@ namespace DalObject
 
             Console.WriteLine("Enter the ID of the parcel to assign: ");
             ID = Convert.ToInt32(Console.ReadLine());
-            Parcel parcel = DataSource.Parcels.FirstOrDefault(p => p.ID == ID);
+            Parcel parcel = GetParcel(ID);
 
             Console.WriteLine("Enter the ID of the drone to be assigned: ");
-            ID = Convert.ToInt32(Console.ReadLine());
-
-            parcel.DroneID = ID;
+            parcel.DroneID = Convert.ToInt32(Console.ReadLine());
         }
 
         public void ParcelCollected()
@@ -392,10 +413,10 @@ namespace DalObject
 
             Console.WriteLine("Enter the ID of the parcel to mark collected: ");
             ID = Convert.ToInt32(Console.ReadLine());
-            Parcel parcel = DataSource.Parcels.FirstOrDefault(p => p.ID == ID);
+            Parcel parcel = GetParcel(ID);
 
-            Console.Write("Enter the date collected (mm/dd/yyyy): ");
-            parcel.PickedUp = DateTime.Parse(Console.ReadLine());
+            //Console.Write("Enter the date collected (mm/dd/yyyy): ");
+            parcel.PickedUp = DateTime.Now;//Parse(Console.ReadLine());
         }
 
         public void ParcelDelivered()
@@ -404,43 +425,46 @@ namespace DalObject
 
             Console.WriteLine("Enter the ID of the parcel to mark delivered: ");
             ID = Convert.ToInt32(Console.ReadLine());
-            Parcel parcel = DataSource.Parcels.FirstOrDefault(p => p.ID == ID);
+            Parcel parcel = GetParcel(ID);
 
-            Console.Write("Enter the date delivered (mm/dd/yyyy): ");
-            parcel.Delivered = DateTime.Parse(Console.ReadLine());
+            //Console.Write("Enter the date delivered (mm/dd/yyyy): ");
+            parcel.Delivered = DateTime.Now; //Parse(Console.ReadLine());
         }
 
         public void ChargeDrone()
         {
-            int drone_id, station_id;
+            int droneID, stationID;
 
             Console.WriteLine("Enter the ID of the drone to charge: ");
-            drone_id = Convert.ToInt32(Console.ReadLine());
+            droneID = Convert.ToInt32(Console.ReadLine());
 
             Console.WriteLine("Enter the ID of the station to be assigned: ");
-            station_id = Convert.ToInt32(Console.ReadLine());
+            stationID = Convert.ToInt32(Console.ReadLine());
 
 
             DroneCharge dc = new DroneCharge();
-            dc.DroneID = drone_id;
-            dc.StationID = station_id;
+            dc.DroneID = droneID;
+            dc.StationID = stationID;
 
-            DataSource.DroneCharges[DataSource.Config.DronesCharging++] = dc;
+            DataSource.DroneCharges.Add(dc);
         }
 
         public void ReleaseDrone()
         {
-            int drone_id;
+            int droneID;
 
             Console.WriteLine("Enter the ID of the drone to release: ");
-            drone_id = Convert.ToInt32(Console.ReadLine());
+            droneID = Convert.ToInt32(Console.ReadLine());
+
+            // Finds DroneCharge with droneID and removes it
+            DataSource.DroneCharges.RemoveAll(dc => dc.DroneID == droneID);
 
             // Find index of DroneCharge in array for deletion
-            DroneCharge dc = DataSource.DroneCharges.FirstOrDefault(d => d.DroneID == drone_id);
-            int index = Array.IndexOf(DataSource.DroneCharges, dc);
+            //DroneCharge dc = DataSource.DroneCharges.FirstOrDefault(d => d.DroneID == droneID);
+            //int index = Array.IndexOf(DataSource.DroneCharges, dc);
 
             // Delete DroneCharge
-            DataSource.DroneCharges = DataSource.DroneCharges.Where((val, idx) => idx != index).ToArray();
+            //DataSource.DroneCharges = DataSource.DroneCharges.Where((val, idx) => idx != index).ToArray();
         }
     }
 }

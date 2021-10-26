@@ -103,8 +103,8 @@ namespace IDAL
     {
         public struct Coordinate
         {
-            public double Latitude { get; set; }
-            public double Longitude { get; set; }
+            public double Latitude { get; }
+            public double Longitude { get; }
             public enum Type { Latitude, Longitude }
             public Coordinate(double latitude, double longitude)
             {
