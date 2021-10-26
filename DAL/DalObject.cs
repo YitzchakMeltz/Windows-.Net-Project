@@ -43,6 +43,10 @@ namespace DalObject
                 {
                     Stations[index].ID = rd.Next(100000000, 999999999);
                 } while (Stations.Take(index).Any(s => s.ID == Stations[index].ID));
+
+                Stations[index].Name = "Station" + (i + 1);
+
+                Stations[index].ChargeSlots = rd.Next(1, 13);
             }
 
             for (int i = 0; i < 5; ++i)
@@ -66,6 +70,12 @@ namespace DalObject
                     dc.StationID = Stations.Take(Config.FreeStation).Where(s => s.ChargeSlots > DataSource.DroneCharges.Count(dc => dc.StationID == s.ID && dc.DroneID != 0)).ElementAt(rd.Next(Config.FreeStation)).ID;
                     DroneCharges.Add(dc);
                 }
+
+                Drones[index].Model = "Drone" + (i + 1);
+
+                Drones[index].WeightCategory = (IDAL.DO.WeightCategories)rd.Next(0, 3);
+
+                Drones[index].Battery = rd.NextDouble() * 100;
             }
 
             for (int i = 0; i < 10; ++i)
@@ -77,6 +87,10 @@ namespace DalObject
                 {
                     Customers[index].ID = rd.Next(100000000, 999999999);
                 } while (Customers.Take(index).Any(c => c.ID == Customers[index].ID));
+
+                Customers[index].Name = "Customer" + (i + 1);
+
+                Customers[index].Phone = "0" + rd.Next(500000000, 589999999);
             }
 
             for (int i = 0; i < 10; ++i)
