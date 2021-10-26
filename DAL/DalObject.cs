@@ -395,16 +395,16 @@ namespace DalObject
         }
 
         // Update Menu Functions
+
         public void AssignParcel()
         {
-            int ID;
-
             Console.WriteLine("Enter the ID of the parcel to assign: ");
-            ID = Convert.ToInt32(Console.ReadLine());
-            Parcel parcel = GetParcel(ID);
+            int parcelID = Convert.ToInt32(Console.ReadLine());
 
             Console.WriteLine("Enter the ID of the drone to be assigned: ");
-            parcel.DroneID = Convert.ToInt32(Console.ReadLine());
+            int droneID = DataSource.Parcels[Array.IndexOf(DataSource.Parcels, GetParcel(parcelID))].DroneID = Convert.ToInt32(Console.ReadLine());
+
+            DataSource.Drones[Array.IndexOf(DataSource.Drones, GetDrone(droneID))].DroneStatus = DroneStatuses.Delivery;
         }
 
         public void ParcelCollected()
@@ -413,10 +413,10 @@ namespace DalObject
 
             Console.WriteLine("Enter the ID of the parcel to mark collected: ");
             ID = Convert.ToInt32(Console.ReadLine());
-            Parcel parcel = GetParcel(ID);
+
+            DataSource.Parcels[Array.IndexOf(DataSource.Parcels, GetParcel(ID))].PickedUp = DateTime.Now;
 
             //Console.Write("Enter the date collected (mm/dd/yyyy): ");
-            parcel.PickedUp = DateTime.Now;//Parse(Console.ReadLine());
         }
 
         public void ParcelDelivered()
@@ -425,10 +425,10 @@ namespace DalObject
 
             Console.WriteLine("Enter the ID of the parcel to mark delivered: ");
             ID = Convert.ToInt32(Console.ReadLine());
-            Parcel parcel = GetParcel(ID);
+
+            DataSource.Parcels[Array.IndexOf(DataSource.Parcels, GetParcel(ID))].Delivered = DateTime.Now;
 
             //Console.Write("Enter the date delivered (mm/dd/yyyy): ");
-            parcel.Delivered = DateTime.Now; //Parse(Console.ReadLine());
         }
 
         public void ChargeDrone()
