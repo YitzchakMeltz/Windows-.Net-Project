@@ -45,8 +45,7 @@ namespace DalObject
                 } while (Stations.Take(index).Any(s => s.ID == Stations[index].ID));
 
                 Stations[index].Name = "Station" + (i + 1);
-
-                Stations[index].ChargeSlots = rd.Next(1, 13);
+                Stations[index].Location = new Coordinate(-90 + 180 * rd.NextDouble(), -180 + 360 * rd.NextDouble());
             }
 
             for (int i = 0; i < 5; ++i)
@@ -71,7 +70,7 @@ namespace DalObject
                     DroneCharges.Add(dc);
                 }
 
-                Drones[index].Model = "Drone" + (i + 1);
+                Drones[index].Model = "Drone" + rd.Next(10);
 
                 Drones[index].WeightCategory = (IDAL.DO.WeightCategories)rd.Next(0, 3);
 
@@ -86,11 +85,15 @@ namespace DalObject
                 do
                 {
                     Customers[index].ID = rd.Next(100000000, 999999999);
-                } while (Customers.Take(index).Any(c => c.ID == Customers[index].ID));
+                } while (Customers.Take(index).Any(c => c.ID == Customers[index].ID)); // prevent overlapping IDs
 
                 Customers[index].Name = "Customer" + (i + 1);
 
-                Customers[index].Phone = "0" + rd.Next(500000000, 589999999);
+                do {
+                    Customers[index].Phone = "0" + rd.Next(500000000, 589999999);
+                } while (Customers.Take(index).Any(c => c.Phone == Customers[index].Phone)); // prevent overlapping Phone Numbers
+
+                Customers[index].Location = new Coordinate(-90 + 180 * rd.NextDouble(), -180 + 360 * rd.NextDouble());
             }
 
             for (int i = 0; i < 10; ++i)
@@ -103,7 +106,19 @@ namespace DalObject
                     Parcels[index].ID = rd.Next(100000000, 999999999);
                 } while (Parcels.Take(index).Any(p => p.ID == Parcels[index].ID));
 
+                Parcels[index].SenderID = Customers[rd.Next(Config.FreeCustomer)].ID;
+
+                do
+                {
+                    Parcels[index].TargetID = Customers[rd.Next(Config.FreeCustomer)].ID;
+                } while (Parcels[index].TargetID == Parcels[index].SenderID); // prevent customer from sending to itself
+
+                Parcels[index].WeightCategory = (IDAL.DO.WeightCategories)rd.Next(0, 3);
+
                 Parcels[index].Priority = (IDAL.DO.Priorities)rd.Next(0, 3);
+
+                DateTime earliest = new DateTime(2018, 1, 1, 0, 0, 0);
+                Parcels[index].Scheduled = earliest.AddSeconds(rd.NextDouble() * DateTime.Now.Subtract(earliest).TotalSeconds);
             }
         }
     }
