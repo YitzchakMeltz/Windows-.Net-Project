@@ -28,8 +28,8 @@ namespace IDAL
             public int ID { get; set; }
             public string Model { get; set; }
             public WeightCategories WeightCategory { get; set; }
-            public DroneStatuses DroneStatus { get; set; }
-            public double Battery { get; set; }
+            //public DroneStatuses DroneStatus { get; set; }
+            //public double Battery { get; set; }
 
             /// <summary>
             /// Returns a String with details about the Drone
@@ -37,7 +37,7 @@ namespace IDAL
             /// <returns></returns>
             public override string ToString()
             {
-                return $"ID: {ID}, Model: {Model}, WeightCategory: {Enum.GetName(typeof(WeightCategories), WeightCategory)}, DroneStatus: {Enum.GetName(typeof(DroneStatuses), DroneStatus)}, Battery: {Battery}.";
+                return $"ID: {ID}, Model: {Model}, WeightCategory: {Enum.GetName(typeof(WeightCategories), WeightCategory)}.";
             }
         }
 
