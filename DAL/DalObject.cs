@@ -21,6 +21,11 @@ namespace DalObject
         internal class Config
         {
             public static int PackageID = 0;
+            public static double Free;                        // km when free
+            public static double LightConsumption;            // km when carrying light package
+            public static double MediumConsumption;           // km when carrying mid weight package
+            public static double HeavyConsumption;            // km when carrying heavy package
+            public static double ChargeRate;                  // % charged per hour
         }
 
 
@@ -121,7 +126,7 @@ namespace DalObject
         }
     }
 
-    public class DalObject
+    public class DalObject : IDAL.IDal
     {
         private Random rd = new Random();
         public DalObject()
@@ -516,7 +521,7 @@ namespace DalObject
             dc.StationID = Convert.ToInt32(Console.ReadLine());
             GetStation(dc.StationID);                                           // Forces error if stations doesn't exist
 
-            DataSource.DroneCharges.Add(dc);
+            DroneCharges.Add(dc);
         }
 
         /// <summary>
@@ -531,8 +536,12 @@ namespace DalObject
             GetDrone(droneID);                                                  // Forces error if drone doesn't exist
 
             // Finds DroneCharge with droneID and removes it
-            DataSource.DroneCharges.RemoveAll(dc => dc.DroneID == droneID);
+            DroneCharges.RemoveAll(dc => dc.DroneID == droneID);
+        }
 
+        public double[] PowerConsumption()
+        {
+            return new double[] { Config.Free, Config.LightConsumption, Config.MediumConsumption, Config.HeavyConsumption, Config.ChargeRate };
         }
     }
 }
