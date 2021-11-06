@@ -35,7 +35,7 @@ namespace DalObject
             {
                 Station s = new Station()
                 {
-                    ChargeSlots = rd.Next(1, 50),
+                    AvailableChargeSlots = rd.Next(1, 50),
                     Name = "Station" + (i + 1),
                     Location = new Coordinate(-90 + 180 * rd.NextDouble(), -180 + 360 * rd.NextDouble())
                 };
@@ -276,7 +276,8 @@ namespace DalObject
         public IEnumerable<Station> GetAvailableStationList()
         {
             // Looks through DroneCharge list and counts how many have a specific StationID, then compares it to the Station's Charge Slot
-            return Stations.Where(s => s.ChargeSlots > DataSource.DroneCharges.Count(dc => dc.StationID == s.ID)).ToList();
+            return Stations.Where(s => s.AvailableChargeSlots > 0).ToList();
+            //return Stations.Where(s => s.ChargeSlots > DataSource.DroneCharges.Count(dc => dc.StationID == s.ID)).ToList();
         }
 
         /// <summary>
@@ -326,7 +327,7 @@ namespace DalObject
             station.Name = Console.ReadLine();
 
             Console.WriteLine("Please enter the amount of charge slots: ");
-            station.ChargeSlots = Convert.ToInt32(Console.ReadLine());
+            station.AvailableChargeSlots = Convert.ToInt32(Console.ReadLine());
 
             Console.WriteLine("Please enter the station coordinate latitude: ");
             double latitude = Convert.ToDouble(Console.ReadLine());
