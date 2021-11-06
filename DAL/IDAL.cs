@@ -1,5 +1,4 @@
 ﻿using IDAL.DO;
-using System;
 using System.Collections.Generic;
 
 namespace IDAL
@@ -20,6 +19,7 @@ namespace IDAL
         public IEnumerable<Customer> GetCustomerList();
         public IEnumerable<Parcel> GetParcelList();
         public IEnumerable<Parcel> GetUnassignedParcelList();
+        /*
         public void AddStation();
         public void AddDrone();
         public void AddCustomer();
@@ -29,6 +29,7 @@ namespace IDAL
         public void ParcelDelivered();
         public void ChargeDrone();
         public void ReleaseDrone();
+        */
         public double[] PowerConsumption();
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace IDAL
+﻿using System;
+
+namespace IDAL
 {
     namespace Util
     {

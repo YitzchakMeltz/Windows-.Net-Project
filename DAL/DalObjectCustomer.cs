@@ -1,5 +1,4 @@
 ﻿using IDAL.DO;
-using IDAL.Util;
 using System.Collections.Generic;
 using static DalObject.DataSource;
 
@@ -46,6 +45,7 @@ namespace DalObject
             return new List<Customer>(Customers);
         }
 
+        /*
         /// <summary>
         /// Adds a Customer to DataSource
         /// </summary>
@@ -76,6 +76,6 @@ namespace DalObject
             DataSource.Customers.Add(customer);
 
             Console.WriteLine("\n" + customer);
-        }
+        }*/
     }
 }

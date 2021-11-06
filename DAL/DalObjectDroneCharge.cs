@@ -1,6 +1,4 @@
 ﻿using IDAL.DO;
-using IDAL.Util;
-using System.Collections.Generic;
 using static DalObject.DataSource;
 
 namespace DalObject
@@ -10,17 +8,19 @@ namespace DalObject
         /// <summary>
         /// Charges a Drone
         /// </summary>
-        public void ChargeDrone()
+        public void ChargeDrone(int droneID, int stationID)
         {
+
+            GetDrone(droneID);                                               // Forces error if drone doesn't exist
+            GetStation(stationID);                                           // Forces error if stations doesn't exist
+
             DroneCharge dc = new DroneCharge();
 
-            Console.WriteLine("Enter the ID of the drone to charge: ");
-            dc.DroneID = Convert.ToInt32(Console.ReadLine());
-            GetDrone(dc.DroneID);                                               // Forces error if drone doesn't exist
+            //Console.WriteLine("Enter the ID of the drone to charge: ");
+            dc.DroneID = droneID;
 
-            Console.WriteLine("Enter the ID of the station to be assigned: ");
-            dc.StationID = Convert.ToInt32(Console.ReadLine());
-            GetStation(dc.StationID);                                           // Forces error if stations doesn't exist
+            //Console.WriteLine("Enter the ID of the station to be assigned: ");
+            dc.StationID = stationID;
 
             DroneCharges.Add(dc);
         }
@@ -28,17 +28,15 @@ namespace DalObject
         /// <summary>
         /// Releases a Drone from charging
         /// </summary>
-        public void ReleaseDrone()
+        public void ReleaseDrone(int droneID)
         {
-            int droneID;
+            //Console.WriteLine("Enter the ID of the drone to release: ");
+            //droneID = Convert.ToInt32(Console.ReadLine());
 
-            Console.WriteLine("Enter the ID of the drone to release: ");
-            droneID = Convert.ToInt32(Console.ReadLine());
             GetDrone(droneID);                                                  // Forces error if drone doesn't exist
 
             // Finds DroneCharge with droneID and removes it
             DroneCharges.RemoveAll(dc => dc.DroneID == droneID);
         }
-
     }
 }

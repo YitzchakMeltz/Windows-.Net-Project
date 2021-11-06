@@ -44,6 +44,7 @@ namespace DalObject
             return new List<Drone>(Drones);
         }
 
+        /*
         /// <summary>
         /// Adds a Drone to DataSource
         /// </summary>
@@ -63,15 +64,9 @@ namespace DalObject
             Console.WriteLine("Please enter the weight: \n0 for Light \n1 for Medium \n2 for Heavy");
             drone.WeightCategory = (IDAL.DO.WeightCategories)Convert.ToInt32(Console.ReadLine());
 
-            /*Console.WriteLine("Please enter the drone's status: \n0 for Free \n1 for Delivery \n2 for Maintanence");
-            drone.DroneStatus = (IDAL.DO.DroneStatuses)Convert.ToInt32(Console.ReadLine());
-
-            Console.WriteLine("Please enter the drone battery level: ");
-            drone.Battery = Convert.ToDouble(Console.ReadLine());*/
-
             DataSource.Drones.Add(drone);
 
             Console.WriteLine("\n" + drone);
-        }
+        }*/
     }
 }

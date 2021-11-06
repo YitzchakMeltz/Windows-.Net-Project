@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+//using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using static DalObject.DataSource;
@@ -48,7 +48,7 @@ namespace DalObject
                 do
                 {
                     s.ID = rd.Next(100000000, 999999999);
-                } while (Stations.Any(sta => sta.ID == s.ID));
+                } while (Stations.Exists(sta => sta.ID == s.ID));
 
                 Stations.Add(s);
             }
@@ -63,7 +63,7 @@ namespace DalObject
 
                 do {
                     d.ID = rd.Next(100000000, 999999999);
-                } while (Drones.Any(drone => drone.ID == d.ID));
+                } while (Drones.Exists(drone => drone.ID == d.ID));
 
                 Drones.Add(d);
 
@@ -90,11 +90,11 @@ namespace DalObject
                 do
                 {
                     c.ID = rd.Next(100000000, 999999999);
-                } while (Customers.Any(cust => cust.ID == c.ID)); // prevent overlapping IDs
+                } while (Customers.Exists(cust => cust.ID == c.ID)); // prevent overlapping IDs
 
                 do {
                     c.Phone = "0" + rd.Next(500000000, 589999999);
-                } while (Customers.Any(cust => cust.Phone == c.Phone)); // prevent overlapping Phone Numbers
+                } while (Customers.Exists(cust => cust.Phone == c.Phone)); // prevent overlapping Phone Numbers
 
                 Customers.Add(c);
             }
@@ -114,7 +114,7 @@ namespace DalObject
                 do
                 {
                     p.ID = rd.Next(100000000, 999999999);
-                } while (Parcels.Any(parc => parc.ID == p.ID));
+                } while (Parcels.Exists(parc => parc.ID == p.ID));
 
                 do
                 {

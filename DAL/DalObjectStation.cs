@@ -1,5 +1,4 @@
 ﻿using IDAL.DO;
-using IDAL.Util;
 using System.Collections.Generic;
 using static DalObject.DataSource;
 
@@ -54,6 +53,7 @@ namespace DalObject
             //return Stations.Where(s => s.ChargeSlots > DataSource.DroneCharges.Count(dc => dc.StationID == s.ID)).ToList();
         }
 
+        /*
         /// <summary>
         /// Adds a Station to DataSource
         /// </summary>
@@ -84,6 +84,6 @@ namespace DalObject
             DataSource.Stations.Add(station);
 
             Console.WriteLine("\n" + station);
-        }
+        }*/
     }
 }

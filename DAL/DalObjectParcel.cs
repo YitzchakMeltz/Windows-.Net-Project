@@ -55,6 +55,7 @@ namespace DalObject
             return Parcels.FindAll(p => p.DroneID == 0);
         }
 
+        /*
         /// <summary>
         /// Adds a Parcel to DataSource
         /// </summary>
@@ -99,22 +100,20 @@ namespace DalObject
             DataSource.Parcels.Add(parcel);
 
             Console.WriteLine("\n" + parcel);
-        }
+        }*/
 
         /// <summary>
         /// Assigns a Parcel to a Drone
         /// </summary>
-        public void AssignParcel()
+        public void AssignParcel(int parcelID, int droneID)
         {
-            Console.WriteLine("Enter the ID of the parcel to assign: ");
+            //Console.WriteLine("Enter the ID of the parcel to assign: ");
             //int parcelID = Convert.ToInt32(Console.ReadLine());
-            Parcel parcel = GetParcel(Convert.ToInt32(Console.ReadLine()));
+            Parcel parcel = GetParcel(parcelID);
 
-            Console.WriteLine("Enter the ID of the drone to be assigned: ");
-            parcel.DroneID = Convert.ToInt32(Console.ReadLine());
-            GetDrone(parcel.DroneID);                                           // Forces error if drone doesn't exist
-
-            //GetDrone(parcel.DroneID).DroneStatus = DroneStatuses.Delivery;
+            //Console.WriteLine("Enter the ID of the drone to be assigned: ");
+            GetDrone(droneID);                                           // Forces error if drone doesn't exist
+            parcel.DroneID = droneID;
 
             Parcels[Parcels.FindIndex(p => p.ID == parcel.ID)] = parcel;
         }
@@ -122,11 +121,11 @@ namespace DalObject
         /// <summary>
         /// Marks a Parcel as Collected by a Drone
         /// </summary>
-        public void ParcelCollected()
+        public void ParcelCollected(int parcelID)
         {
-            Console.WriteLine("Enter the ID of the parcel to mark collected: ");
+            //Console.WriteLine("Enter the ID of the parcel to mark collected: ");
 
-            Parcel parcel = GetParcel(System.Convert.ToInt32(Console.ReadLine()));
+            Parcel parcel = GetParcel(parcelID);
 
             parcel.PickedUp = System.DateTime.Now;
 
@@ -138,10 +137,10 @@ namespace DalObject
         /// <summary>
         /// Marks a Parcel as Delivered
         /// </summary>
-        public void ParcelDelivered()
+        public void ParcelDelivered(int parcelID)
         {
-            Console.WriteLine("Enter the ID of the parcel to mark delivered: ");
-            Parcel parcel = GetParcel(System.Convert.ToInt32(Console.ReadLine()));
+            //Console.WriteLine("Enter the ID of the parcel to mark delivered: ");
+            Parcel parcel = GetParcel(parcelID);
 
             parcel.Delivered = System.DateTime.Now;
 
