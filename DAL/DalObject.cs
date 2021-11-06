@@ -137,7 +137,10 @@ namespace DalObject
         /// <param name="drone"></param>
         public void AddDrone(Drone drone)
         {
-            DataSource.Drones.Add(drone);
+            if (Drones.Any(d => d.ID == drone.ID))
+                throw new ObjectAlreadyExists();
+
+            Drones.Add(drone);
         }
 
         /// <summary>
@@ -146,7 +149,10 @@ namespace DalObject
         /// <param name="station"></param>
         public void AddStation(Station station)
         {
-            DataSource.Stations.Add(station);
+            if (Stations.Any(s => s.ID == station.ID))
+                throw new ObjectAlreadyExists();
+
+            Stations.Add(station);
         }
 
         /// <summary>
@@ -155,7 +161,10 @@ namespace DalObject
         /// <param name="customer"></param>
         public void AddCustomer(Customer customer)
         {
-            DataSource.Customers.Add(customer);
+            if (Customers.Any(c => c.ID == customer.ID))
+                throw new ObjectAlreadyExists();
+
+            Customers.Add(customer);
         }
 
         /// <summary>
@@ -165,7 +174,10 @@ namespace DalObject
         /// <returns>PackageID</returns>
         public int AddParcel(Parcel parcel)
         {
-            DataSource.Parcels.Add(parcel);
+            if (Parcels.Any(p => p.ID == parcel.ID))
+                throw new ObjectAlreadyExists();
+
+            Parcels.Add(parcel);
             return ++DataSource.Config.PackageID;
         }
 
@@ -179,7 +191,14 @@ namespace DalObject
         /// <returns></returns>
         public Drone GetDrone(int ID)
         {
-            return DataSource.Drones[DataSource.Drones.FindIndex(d => d.ID == ID)];
+            try
+            {
+                return Drones.Find(d => d.ID == ID);
+            }
+            catch
+            {
+                throw new ObjectNotFound();
+            }
         }
 
         /// <summary>
@@ -189,7 +208,14 @@ namespace DalObject
         /// <returns></returns>
         public Station GetStation(int ID)
         {
-            return DataSource.Stations.Find(s => s.ID == ID);
+            try
+            {
+                return DataSource.Stations.Find(s => s.ID == ID);
+            }
+            catch
+            {
+                throw new ObjectNotFound();
+            }
         }
 
         /// <summary>
@@ -199,7 +225,14 @@ namespace DalObject
         /// <returns></returns>
         public Customer GetCustomer(int ID)
         {
-            return DataSource.Customers.Find(c => c.ID == ID);
+            try
+            {
+                return Customers.Find(c => c.ID == ID);
+            }
+            catch
+            {
+                throw new ObjectNotFound();
+            }
         }
 
         /// <summary>
@@ -209,7 +242,14 @@ namespace DalObject
         /// <returns></returns>
         public Parcel GetParcel(int ID)
         {
-            return DataSource.Parcels[DataSource.Parcels.FindIndex(p => p.ID == ID)];
+            try
+            {
+                return Parcels.Find(p => p.ID == ID);
+            }
+            catch
+            {
+                throw new ObjectNotFound();
+            }
         }
 
 
@@ -420,18 +460,9 @@ namespace DalObject
             //int parcelID = Convert.ToInt32(Console.ReadLine());
             Parcel parcel = GetParcel(Convert.ToInt32(Console.ReadLine()));
 
-            while (true)
-            {
-                Console.WriteLine("Enter the ID of the drone to be assigned: ");
-                parcel.DroneID = Convert.ToInt32(Console.ReadLine());
-                if (Drones.All(d => d.ID != parcel.DroneID))
-                {
-                    Console.WriteLine("Invalid Drone ID.");
-                    continue;
-                }
-
-                break;
-            }
+            Console.WriteLine("Enter the ID of the drone to be assigned: ");
+            parcel.DroneID = Convert.ToInt32(Console.ReadLine());
+            GetDrone(parcel.DroneID);                                           // Forces error if drone doesn't exist
 
             //GetDrone(parcel.DroneID).DroneStatus = DroneStatuses.Delivery;
 
@@ -478,9 +509,11 @@ namespace DalObject
 
             Console.WriteLine("Enter the ID of the drone to charge: ");
             dc.DroneID = Convert.ToInt32(Console.ReadLine());
+            GetDrone(dc.DroneID);                                               // Forces error if drone doesn't exist
 
             Console.WriteLine("Enter the ID of the station to be assigned: ");
             dc.StationID = Convert.ToInt32(Console.ReadLine());
+            GetStation(dc.StationID);                                           // Forces error if stations doesn't exist
 
             DataSource.DroneCharges.Add(dc);
         }
@@ -494,16 +527,11 @@ namespace DalObject
 
             Console.WriteLine("Enter the ID of the drone to release: ");
             droneID = Convert.ToInt32(Console.ReadLine());
+            GetDrone(droneID);                                                  // Forces error if drone doesn't exist
 
             // Finds DroneCharge with droneID and removes it
             DataSource.DroneCharges.RemoveAll(dc => dc.DroneID == droneID);
 
-            // Find index of DroneCharge in array for deletion
-            //DroneCharge dc = DataSource.DroneCharges.FirstOrDefault(d => d.DroneID == droneID);
-            //int index = Array.IndexOf(DataSource.DroneCharges, dc);
-
-            // Delete DroneCharge
-            //DataSource.DroneCharges = DataSource.DroneCharges.Where((val, idx) => idx != index).ToArray();
         }
     }
 }
