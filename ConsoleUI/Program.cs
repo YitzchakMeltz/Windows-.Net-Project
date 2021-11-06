@@ -6,7 +6,7 @@ namespace ConsoleUI
     class Program
     {
 
-        static DalObject.DalObject dalObject = new DalObject.DalObject();
+        static IDAL.IDal dalObject = new DalObject.DalObject();
         private enum MainMenu { Exit, Add, Update, Show, List, Distance }
         static void Main(string[] args)
         {

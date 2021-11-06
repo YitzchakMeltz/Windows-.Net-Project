@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace IDAL
 {
-    interface IDal
+    public interface IDal
     {
         public void AddDrone(Drone drone);
         public void AddStation(Station station);
