@@ -10,17 +10,14 @@ namespace DalObject
         /// </summary>
         public void ChargeDrone(int droneID, int stationID)
         {
-
             GetDrone(droneID);                                               // Forces error if drone doesn't exist
             GetStation(stationID);                                           // Forces error if stations doesn't exist
 
-            DroneCharge dc = new DroneCharge();
-
-            //Console.WriteLine("Enter the ID of the drone to charge: ");
-            dc.DroneID = droneID;
-
-            //Console.WriteLine("Enter the ID of the station to be assigned: ");
-            dc.StationID = stationID;
+            DroneCharge dc = new DroneCharge()
+            {
+                DroneID = droneID,
+                StationID = stationID
+            };
 
             DroneCharges.Add(dc);
         }
@@ -30,13 +27,11 @@ namespace DalObject
         /// </summary>
         public void ReleaseDrone(int droneID)
         {
-            //Console.WriteLine("Enter the ID of the drone to release: ");
-            //droneID = Convert.ToInt32(Console.ReadLine());
-
             GetDrone(droneID);                                                  // Forces error if drone doesn't exist
 
             // Finds DroneCharge with droneID and removes it
-            DroneCharges.RemoveAll(dc => dc.DroneID == droneID);
+            if (DroneCharges.RemoveAll(dc => dc.DroneID == droneID) == 0)
+                throw new ObjectNotFound($"Drone with ID: {droneID} was not charging.");
         }
     }
 }

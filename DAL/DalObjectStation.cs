@@ -1,4 +1,5 @@
 ﻿using IDAL.DO;
+using IDAL.Util;
 using System.Collections.Generic;
 using static DalObject.DataSource;
 
@@ -26,14 +27,12 @@ namespace DalObject
         /// <returns></returns>
         public Station GetStation(int ID)
         {
-            try
-            {
-                return DataSource.Stations.Find(s => s.ID == ID);
-            }
-            catch
-            {
+            Station s = Stations.Find(s => s.ID == ID);
+
+            if (s.Equals(default(Station)))
                 throw new ObjectNotFound($"Station with ID: {ID} not found.");
-            }
+
+            return s;
         }
 
 
@@ -53,37 +52,26 @@ namespace DalObject
             //return Stations.Where(s => s.ChargeSlots > DataSource.DroneCharges.Count(dc => dc.StationID == s.ID)).ToList();
         }
 
-        /*
+        
         /// <summary>
         /// Adds a Station to DataSource
         /// </summary>
         /// <param name="station"></param>
-        public void AddStation()
+        public void AddStation(string name, int chargeSlots, double latitude, double longitude)
         {
-            Station station = new Station();
+            Station station = new Station()
+            {
+                Name = name,
+                AvailableChargeSlots = chargeSlots,
+                Location = new Coordinate(latitude, longitude)
+            };
 
             do
             {
                 station.ID = rd.Next(100000000, 999999999);
             } while (DataSource.Stations.Exists(s => s.ID == station.ID));
 
-            Console.WriteLine("Please enter the station name: ");
-            station.Name = Console.ReadLine();
-
-            Console.WriteLine("Please enter the amount of charge slots: ");
-            station.AvailableChargeSlots = Convert.ToInt32(Console.ReadLine());
-
-            Console.WriteLine("Please enter the station coordinate latitude: ");
-            double latitude = Convert.ToDouble(Console.ReadLine());
-
-            Console.WriteLine("Please enter the station coordinate longitude: ");
-            double longitude = Convert.ToDouble(Console.ReadLine());
-
-            station.Location = new Coordinate(latitude, longitude);
-
-            DataSource.Stations.Add(station);
-
-            Console.WriteLine("\n" + station);
-        }*/
+            AddStation(station);
+        }
     }
 }

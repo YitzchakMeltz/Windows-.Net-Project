@@ -74,21 +74,89 @@ namespace ConsoleUI
 
             switch (selection)
             {
+
                 case AddMenu.AddBaseStation:
-                    dalObject.AddStation();
-                    break;
+                    {
+                        Console.WriteLine("Please enter the station name: ");
+                        string name = Console.ReadLine();
+
+                        Console.WriteLine("Please enter the amount of charge slots: ");
+                        int chargeSlots = Convert.ToInt32(Console.ReadLine());
+
+                        Console.WriteLine("Please enter the station coordinate latitude: ");
+                        double latitude = Convert.ToDouble(Console.ReadLine());
+
+                        Console.WriteLine("Please enter the station coordinate longitude: ");
+                        double longitude = Convert.ToDouble(Console.ReadLine());
+
+                        dalObject.AddStation(name, chargeSlots, latitude, longitude);
+                        break;
+                    }
 
                 case AddMenu.AddDrone:
-                    dalObject.AddDrone();
-                    break;
+                    {
+                        Console.WriteLine("Please enter the model name: ");
+                        string model = Console.ReadLine();
+
+                        Console.WriteLine("Please enter the weight: \n0 for Light \n1 for Medium \n2 for Heavy");
+                        WeightCategories weight = (IDAL.DO.WeightCategories)Convert.ToInt32(Console.ReadLine());
+
+                        dalObject.AddDrone(model, weight);
+                        break;
+                    }
 
                 case AddMenu.AddCustomer:
-                    dalObject.AddCustomer();
-                    break;
+                    {
+                        Console.WriteLine("Please enter the customer's name: ");
+                        string name = Console.ReadLine();
+
+                        Console.WriteLine("Please enter the customer's phone number: ");
+                        string phone = Console.ReadLine();
+
+                        Console.WriteLine("Please enter the customer's coordinate latitude: ");
+                        double latitude = Convert.ToDouble(Console.ReadLine());
+
+                        Console.WriteLine("Please enter the customer's coordinate longitude: ");
+                        double longitude = Convert.ToDouble(Console.ReadLine());
+
+                        dalObject.AddCustomer(name, phone, latitude, longitude);
+                        break;
+                    }
 
                 case AddMenu.AddParcel:
-                    dalObject.AddParcel();
-                    break;
+                    {
+                        Console.WriteLine("Please enter the sender's ID: ");
+                        int senderID = Convert.ToInt32(Console.ReadLine());
+
+                        Console.WriteLine("Please enter the target ID: ");
+                        int targetID = Convert.ToInt32(Console.ReadLine());
+
+                        Console.WriteLine("Please enter the weight: \n0 for Light \n1 for Medium \n2 for Heavy");
+                        WeightCategories weight = (IDAL.DO.WeightCategories)Convert.ToInt32(Console.ReadLine());
+
+                        Console.WriteLine("Please enter the priority: \n0 for Regular \n1 for Fast \n2 for Emergency");
+                        Priorities priority = (Priorities)Convert.ToInt32(Console.ReadLine());
+
+                        Console.WriteLine("Please enter the drone ID: ");
+                        int droneID = Convert.ToInt32(Console.ReadLine());
+
+                        /*
+                        Console.Write("Enter the scheduled date (mm/dd/yyyy): ");
+                        parcel.Scheduled = DateTime.Parse(Console.ReadLine());
+
+                        Console.Write("Enter the picked up date (mm/dd/yyyy): ");
+                        parcel.PickedUp = DateTime.Parse(Console.ReadLine());
+
+                        Console.WriteLine("Please enter the time of assignment: ");
+                        parcel.SenderID = Convert.ToInt32(Console.ReadLine());
+
+                        Console.Write("Enter date delivered (mm/dd/yyyy): ");
+                        parcel.Delivered = DateTime.Parse(Console.ReadLine());
+                        */
+
+                        dalObject.AddParcel(senderID, targetID, weight, priority, droneID);
+                        break;
+                    }
 
                 default:
                     return;
@@ -113,26 +181,43 @@ namespace ConsoleUI
             Enum.TryParse(Console.ReadLine(), out selection);
             Console.WriteLine();
 
+            int droneID;
             switch (selection)
             {
                 case UpdateMenu.AssignParcel:
-                    dalObject.AssignParcel();
+                    Console.WriteLine("Enter the ID of the parcel to assign: ");
+                    int parcelID = Convert.ToInt32(Console.ReadLine());
+
+                    Console.WriteLine("Enter the ID of the drone to be assigned: ");
+                    droneID = Convert.ToInt32(Console.ReadLine());
+
+                    dalObject.AssignParcel(parcelID, droneID);
                     break;
 
                 case UpdateMenu.ParcelCollected:
-                    dalObject.ParcelCollected();
+                    Console.WriteLine("Enter the ID of the parcel to mark collected: ");
+                    dalObject.ParcelCollected(Convert.ToInt32(Console.ReadLine()));
                     break;
 
                 case UpdateMenu.ParcelDelivered:
-                    dalObject.ParcelDelivered();
+                    Console.WriteLine("Enter the ID of the parcel to mark delivered: ");
+                    dalObject.ParcelDelivered(Convert.ToInt32(Console.ReadLine()));
                     break;
 
                 case UpdateMenu.ChargeDrone:
-                    dalObject.ChargeDrone();
+
+                    Console.WriteLine("Enter the ID of the drone to charge: ");
+                    droneID = Convert.ToInt32(Console.ReadLine());
+
+                    Console.WriteLine("Enter the ID of the station to be assigned: ");
+                    int stationID = Convert.ToInt32(Console.ReadLine());
+
+                    dalObject.ChargeDrone(droneID, stationID);
                     break;
 
                 case UpdateMenu.ReleaseDrone:
-                    dalObject.ReleaseDrone();
+                    Console.WriteLine("Enter the ID of the drone to release: ");
+                    dalObject.ReleaseDrone(Convert.ToInt32(Console.ReadLine()));
                     break;
 
                 default:

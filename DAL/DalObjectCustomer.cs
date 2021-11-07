@@ -26,14 +26,12 @@ namespace DalObject
         /// <returns></returns>
         public Customer GetCustomer(int ID)
         {
-            try
-            {
-                return Customers.Find(c => c.ID == ID);
-            }
-            catch
-            {
+            Customer c = Customers.Find(c => c.ID == ID);
+
+            if (c.Equals(default(Customer)))
                 throw new ObjectNotFound($"Customer with ID: {ID} not found.");
-            }
+
+            return c;
         }
 
         /// <summary>
@@ -45,37 +43,26 @@ namespace DalObject
             return new List<Customer>(Customers);
         }
 
-        /*
+        
         /// <summary>
         /// Adds a Customer to DataSource
         /// </summary>
         /// <param name="customer"></param>
-        public void AddCustomer()
+        public void AddCustomer(string name, string phoneNum, double latitude, double longitude)
         {
-            Customer customer = new Customer();
+            Customer customer = new Customer()
+            {
+                Name = name,
+                Phone = phoneNum,
+                Location = new IDAL.Util.Coordinate(latitude, longitude)
+            };
 
             do
             {
                 customer.ID = rd.Next(100000000, 999999999);
             } while (DataSource.Customers.Exists(s => s.ID == customer.ID));
 
-            Console.WriteLine("Please enter the customer's name: ");
-            customer.Name = Console.ReadLine();
-
-            Console.WriteLine("Please enter the customer's phone number: ");
-            customer.Phone = Console.ReadLine();
-
-            Console.WriteLine("Please enter the customer's coordinate latitude: ");
-            double latitude = Convert.ToDouble(Console.ReadLine());
-
-            Console.WriteLine("Please enter the customer's coordinate longitude: ");
-            double longitude = Convert.ToDouble(Console.ReadLine());
-
-            customer.Location = new Coordinate(latitude, longitude);
-
-            DataSource.Customers.Add(customer);
-
-            Console.WriteLine("\n" + customer);
-        }*/
+            AddCustomer(customer);
+        }
     }
 }

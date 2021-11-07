@@ -1,4 +1,5 @@
 ﻿using IDAL.DO;
+using System;
 using System.Collections.Generic;
 using static DalObject.DataSource;
 
@@ -17,7 +18,7 @@ namespace DalObject
                 throw new ObjectAlreadyExists($"Parcel with ID {parcel.ID} already exists.");
 
             Parcels.Add(parcel);
-            return ++DataSource.Config.PackageID;
+            return ++Config.PackageID;
         }
 
         /// <summary>
@@ -27,14 +28,12 @@ namespace DalObject
         /// <returns></returns>
         public Parcel GetParcel(int ID)
         {
-            try
-            {
-                return Parcels.Find(p => p.ID == ID);
-            }
-            catch
-            {
+            Parcel p = Parcels.Find(p => p.ID == ID);
+
+            if (p.Equals(default(Parcel)))
                 throw new ObjectNotFound($"Parcel with ID: {ID} not found.");
-            }
+
+            return p;
         }
 
         /// <summary>
@@ -55,39 +54,31 @@ namespace DalObject
             return Parcels.FindAll(p => p.DroneID == 0);
         }
 
-        /*
+        
         /// <summary>
         /// Adds a Parcel to DataSource
         /// </summary>
         /// <param name="parcel"></param>
         /// <returns>PackageID</returns>
-        public void AddParcel()
+        public void AddParcel(int senderID, int targetID, WeightCategories weightCat, Priorities priority, int droneID)
         {
-            Parcel parcel = new Parcel();
+            Parcel parcel = new Parcel()
+            {
+                SenderID = senderID,
+                TargetID = targetID,
+                WeightCategory = weightCat,
+                Priority = priority,
+                DroneID = droneID,
+                Scheduled = System.DateTime.Now
+            };
 
             do
             {
                 parcel.ID = rd.Next(100000000, 999999999);
-            } while (DataSource.Parcels.Exists(s => s.ID == parcel.ID));
+            } while (Parcels.Exists(s => s.ID == parcel.ID));
 
-            Console.WriteLine("Please enter the sender's ID: ");
-            parcel.SenderID = Convert.ToInt32(Console.ReadLine());
 
-            Console.WriteLine("Please enter the target ID: ");
-            parcel.TargetID = Convert.ToInt32(Console.ReadLine());
-
-            Console.WriteLine("Please enter the weight: \n0 for Light \n1 for Medium \n2 for Heavy");
-            parcel.WeightCategory = (IDAL.DO.WeightCategories)Convert.ToInt32(Console.ReadLine());
-
-            Console.WriteLine("Please enter the priority: \n0 for Regular \n1 for Fast \n2 for Emergency");
-            parcel.Priority = (IDAL.DO.Priorities)Convert.ToInt32(Console.ReadLine());
-
-            Console.WriteLine("Please enter the drone ID: ");
-            parcel.DroneID = Convert.ToInt32(Console.ReadLine());
-
-            Console.Write("Enter the scheduled date (mm/dd/yyyy): ");
-            parcel.Scheduled = DateTime.Parse(Console.ReadLine());
-
+            /*
             Console.Write("Enter the picked up date (mm/dd/yyyy): ");
             parcel.PickedUp = DateTime.Parse(Console.ReadLine());
 
@@ -96,24 +87,22 @@ namespace DalObject
 
             Console.Write("Enter date delivered (mm/dd/yyyy): ");
             parcel.Delivered = DateTime.Parse(Console.ReadLine());
-
-            DataSource.Parcels.Add(parcel);
-
-            Console.WriteLine("\n" + parcel);
-        }*/
+            */
+            AddParcel(parcel);
+        }
 
         /// <summary>
         /// Assigns a Parcel to a Drone
         /// </summary>
         public void AssignParcel(int parcelID, int droneID)
         {
-            //Console.WriteLine("Enter the ID of the parcel to assign: ");
-            //int parcelID = Convert.ToInt32(Console.ReadLine());
             Parcel parcel = GetParcel(parcelID);
 
-            //Console.WriteLine("Enter the ID of the drone to be assigned: ");
             GetDrone(droneID);                                           // Forces error if drone doesn't exist
+
             parcel.DroneID = droneID;
+
+            parcel.AssignmentTime = DateTime.Now.Subtract(parcel.Scheduled);
 
             Parcels[Parcels.FindIndex(p => p.ID == parcel.ID)] = parcel;
         }
@@ -123,13 +112,9 @@ namespace DalObject
         /// </summary>
         public void ParcelCollected(int parcelID)
         {
-            //Console.WriteLine("Enter the ID of the parcel to mark collected: ");
-
             Parcel parcel = GetParcel(parcelID);
 
             parcel.PickedUp = System.DateTime.Now;
-
-            //Console.Write("Enter the date collected (mm/dd/yyyy): ");
 
             Parcels[Parcels.FindIndex(p => p.ID == parcel.ID)] = parcel;
         }
@@ -139,12 +124,9 @@ namespace DalObject
         /// </summary>
         public void ParcelDelivered(int parcelID)
         {
-            //Console.WriteLine("Enter the ID of the parcel to mark delivered: ");
             Parcel parcel = GetParcel(parcelID);
 
             parcel.Delivered = System.DateTime.Now;
-
-            //Console.Write("Enter the date delivered (mm/dd/yyyy): ");
 
             Parcels[Parcels.FindIndex(p => p.ID == parcel.ID)] = parcel;
         }

@@ -25,14 +25,12 @@ namespace DalObject
         /// <returns></returns>
         public Drone GetDrone(int ID)
         {
-            try
-            {
-                return Drones.Find(d => d.ID == ID);
-            }
-            catch
-            {
+            Drone d = Drones.Find(d => d.ID == ID);
+
+            if (d.Equals(default(Drone)))
                 throw new ObjectNotFound($"Drone with ID: {ID} not found.");
-            }
+
+            return d;
         }
 
         /// <summary>
@@ -44,29 +42,25 @@ namespace DalObject
             return new List<Drone>(Drones);
         }
 
-        /*
+        
         /// <summary>
         /// Adds a Drone to DataSource
         /// </summary>
         /// <param name="drone"></param>
-        public void AddDrone()
+        public void AddDrone(string model, WeightCategories weightCat)
         {
-            Drone drone = new Drone();
+            Drone drone = new Drone()
+            {
+                Model = model,
+                WeightCategory = weightCat
+            };
 
             do
             {
                 drone.ID = rd.Next(100000000, 999999999);
             } while (DataSource.Drones.Exists(s => s.ID == drone.ID));
 
-            Console.WriteLine("Please enter the model name: ");
-            drone.Model = Console.ReadLine();
-
-            Console.WriteLine("Please enter the weight: \n0 for Light \n1 for Medium \n2 for Heavy");
-            drone.WeightCategory = (IDAL.DO.WeightCategories)Convert.ToInt32(Console.ReadLine());
-
-            DataSource.Drones.Add(drone);
-
-            Console.WriteLine("\n" + drone);
-        }*/
+            AddDrone(drone);
+        }
     }
 }

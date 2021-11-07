@@ -14,7 +14,7 @@ namespace IDAL
             public int DroneID { get; set; }
             public DateTime Scheduled { get; set; }
             public DateTime PickedUp { get; set; }
-            public int AssignmentTime { get; set; } // Not sure this is necessary
+            public TimeSpan AssignmentTime { get; set; } // Not sure this is necessary
             public DateTime Delivered { get; set; }
 
             /// <summary>
