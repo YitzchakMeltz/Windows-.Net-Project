@@ -23,18 +23,5 @@ namespace BL
             }
             return Statuses.Delivered;
         }
-
-        private Package FromParcel(IDAL.DO.Parcel parcel)
-        {
-            Package package = new Package()
-            {
-                ID = parcel.ID,
-                AssignmentTime = parcel.Scheduled.Add(parcel.AssignmentTime),
-                CollectionTime = parcel.PickedUp,
-                Creation = parcel.Scheduled,
-                DeliveryTime = parcel.Delivered,
-                Drone = parcel.DroneID
-            }
-        }
     }
 }

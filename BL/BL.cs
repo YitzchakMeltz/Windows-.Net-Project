@@ -58,7 +58,8 @@ namespace BL
                     }
                     else
                     {
-                        drone.Location = CoordinateToLocation(dalObject.GetParcelList().Where(parcel => parcel.))
+                        IEnumerable<IDAL.DO.Parcel> deliveredParcels = dalObject.GetParcelList().Where(parcel => !parcel.Delivered.Equals(default(DateTime))).ToArray();
+                        drone.Location = CoordinateToLocation(dalObject.GetCustomer(deliveredParcels.ElementAt(random.Next(0, deliveredParcels.Count())).TargetID).Location);
                     }
                 }
             }

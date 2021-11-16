@@ -18,17 +18,24 @@ namespace BL
 
         private BaseStation GetStation(int stationID)
         {
-            IDAL.DO.Station station = dalObject.GetStation(stationID);
-            BaseStation baseStation = new BaseStation()
+            try
             {
-                ID = stationID,
-                Name = station.Name,
-                Location = CoordinateToLocation(station.Location),
-                AvailableChargingSlots = (uint)station.AvailableChargeSlots,
-                ChargingDrones = new List<ChargingDrone>()
-            };
+                IDAL.DO.Station station = dalObject.GetStation(stationID);
+                BaseStation baseStation = new BaseStation()
+                {
+                    ID = stationID,
+                    Name = station.Name,
+                    Location = CoordinateToLocation(station.Location),
+                    AvailableChargingSlots = (uint)station.AvailableChargeSlots,
+                    ChargingDrones = new List<ChargingDrone>()
+                };
 
-            return baseStation;
+                return baseStation;
+            }
+            catch (IDAL.DO.ObjectNotFound e)
+            {
+                throw new IBL.BO.ObjectNotFound(e.Message);
+            }
         }
     }
 }
