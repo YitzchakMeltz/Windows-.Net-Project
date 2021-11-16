@@ -2,12 +2,12 @@
 {
     public class Drone
     {
-        public int ID { get; set; }
+        public int ID { init; get; }
         public string Model { get; set; }
-        public WieghtCategories Weight { get; set; }
-        public double Battery { get; set; }
-        public DroneStatuses Status { get; set; }
-        public EnroutePackage Package { get; set; }
-        public Location Location { get; set; }
+        public WieghtCategories Weight { init; get; }
+        public double Battery { init; get; }
+        public DroneStatuses Status { init; get; }
+        public EnroutePackage Package { init; get; }
+        public Location Location { init; get; }
     }
 }

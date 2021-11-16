@@ -1,12 +1,12 @@
 ﻿using IBL.BO;
 using IDAL;
 using System;
-using System.Linq
+using System.Linq;
 using System.Collections.Generic;
 
 namespace BL
 {
-    partial class BL : IBL.IBL
+    public partial class BL : IBL.IBL
     {
         Random random = new Random();
         List<DroneList> Drones = new List<DroneList>();
@@ -62,6 +62,8 @@ namespace BL
                         drone.Location = CoordinateToLocation(dalObject.GetCustomer(deliveredParcels.ElementAt(random.Next(0, deliveredParcels.Count())).TargetID).Location);
                     }
                 }
+
+                Drones.Add(drone);
             }
         }
     }
