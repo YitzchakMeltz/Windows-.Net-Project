@@ -1,9 +1,9 @@
 ﻿namespace IBL.BO
 {
-    public class MyException : System.Exception
+    public class ObjectNotFound : System.Exception
     {
-        public MyException() { }
-        public MyException(string message) : base(message) { }
-        public MyException(string message, System.Exception inner) : base(message, inner) { }
+        public ObjectNotFound() { }
+        public ObjectNotFound(string message) : base(message) { }
+        public ObjectNotFound(string message, System.Exception inner) : base(message, inner) { }
     }
 }

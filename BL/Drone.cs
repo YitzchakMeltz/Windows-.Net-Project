@@ -7,7 +7,7 @@
         public WieghtCategories Weight { get; set; }
         public double Battery { get; set; }
         public DroneStatuses Status { get; set; }
-        public DeliveryTransfer Delivery { get; set; }
+        public EnroutePackage Package { get; set; }
         public Location Location { get; set; }
     }
 }

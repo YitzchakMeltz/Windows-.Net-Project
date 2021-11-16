@@ -7,11 +7,28 @@ namespace BL
 {
     partial class BL : IBL.IBL
     {
-        private Station ClosestTo(IDAL.Util.Coordinate location)
+        private BaseStation ClosestStation(Location location)
         {
             List<Station> listOfStations = (List<Station>)dalObject.GetStationList();
-            listOfStations.Sort((x, y) => (int)(x.Location.DistanceTo(location) - y.Location.DistanceTo(location)));
-            return listOfStations[0];
+            IDAL.Util.Coordinate coord = LocationToCoordinate(location);
+
+            listOfStations.Sort((x, y) => (int)(x.Location.DistanceTo(coord) - y.Location.DistanceTo(coord)));
+            return GetStation(listOfStations[0].ID);
+        }
+
+        private BaseStation GetStation(int stationID)
+        {
+            IDAL.DO.Station station = dalObject.GetStation(stationID);
+            BaseStation baseStation = new BaseStation()
+            {
+                ID = stationID,
+                Name = station.Name,
+                Location = CoordinateToLocation(station.Location),
+                AvailableChargingSlots = (uint)station.AvailableChargeSlots,
+                ChargingDrones = new List<ChargingDrone>()
+            };
+
+            return baseStation;
         }
     }
 }

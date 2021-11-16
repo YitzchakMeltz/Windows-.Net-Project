@@ -4,15 +4,15 @@ namespace IBL.BO
 {
     public class Package
     {
-        int ID;
-        DeliveryCustomer Sender;
-        DeliveryCustomer Receiver;
-        WieghtCategories Weight;
-        Priorities Priority;
-        Drone Drone;
-        DateTime Creation;
-        int AssigningTime;
-        DateTime Collection;
-        DateTime Delivery;
+        public int ID;
+        public PackageCustomer Sender;
+        public PackageCustomer Receiver;
+        public WieghtCategories Weight;
+        public Priorities Priority;
+        public DeliveryDrone Drone;
+        public DateTime Creation;
+        public DateTime AssignmentTime;
+        public DateTime? CollectionTime;
+        public DateTime? DeliveryTime;
     }
 }

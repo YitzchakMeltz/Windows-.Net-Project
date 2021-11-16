@@ -2,7 +2,7 @@
 {
     public class Location
     {
-        public double Longitude { get; set; }
-        public double Latitude { get; set; }
+        public double Longitude { init; get; }
+        public double Latitude { init; get; }
     }
 }

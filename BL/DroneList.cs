@@ -2,12 +2,12 @@
 {
     public class DroneList
     {
-        int ID;
-        string Model;
-        WieghtCategories Weight;
-        double Battery;
-        Statuses Status;
-        Location Location;
-        uint? PackageID; // Can be null
+        public int ID { init; get; }
+        public string Model { init; get; }
+        public WieghtCategories Weight { init; get; }
+        public double Battery { get; set; }
+        public DroneStatuses Status { get; set; }
+        public Location Location { get; set; }
+        public uint? PackageID; // Can be null
     }
 }
