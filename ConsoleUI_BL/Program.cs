@@ -89,6 +89,58 @@ namespace ConsoleUI_BL
             }
         }
 
+        private enum ShowMenu { Return, ShowBaseStation, ShowDrone, ShowCustomer, ShowPackage }
+        private static void MenuShow()
+        {
+            Console.WriteLine("Please choose what to show:");
+            Console.WriteLine();
+            Console.WriteLine("0. Return to Main Menu");
+            Console.WriteLine("1. Show Base Station");
+            Console.WriteLine("2. Show Drone");
+            Console.WriteLine("3. Show Customer");
+            Console.WriteLine("4. Show Parcel");
+            Console.WriteLine();
+            Console.Write("Select an option: ");
+
+            ShowMenu selection;
+            Enum.TryParse(Console.ReadLine(), out selection);
+            Console.WriteLine();
+
+            switch (selection)
+            {
+                case ShowMenu.ShowBaseStation:
+                    Console.WriteLine("Please enter the Station ID: ");
+                    int stationID = Convert.ToInt32(Console.ReadLine());
+
+                    bl.ShowStation(stationID);
+                    break;
+
+                case ShowMenu.ShowDrone:
+                    Console.WriteLine("Please enter the Drone ID: ");
+                    int droneID = Convert.ToInt32(Console.ReadLine());
+
+                    bl.ShowDrone(droneID);
+                    break;
+
+                case ShowMenu.ShowCustomer:
+                    Console.WriteLine("Please enter the Customer ID: ");
+                    int customerID = Convert.ToInt32(Console.ReadLine());
+
+                    bl.ShowCustomer(customerID);
+                    break;
+
+                case ShowMenu.ShowPackage:
+                    Console.WriteLine("Please enter the Package ID: ");
+                    int packageID = Convert.ToInt32(Console.ReadLine());
+
+                    bl.ShowPackage(packageID);
+                    break;
+
+                default:
+                    return;
+            }
+        }
+
         private enum ListMenu { Return, ListBaseStations, ListDrones, ListCustomers, ListPackages }
         private static void MenuList()
         {
