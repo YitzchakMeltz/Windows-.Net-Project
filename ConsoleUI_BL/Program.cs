@@ -10,7 +10,8 @@ namespace ConsoleUI_BL
         private enum MainMenu { Exit, Add, Update, Show, List }
         static void Main(string[] args)
         {
-            while (true) {
+            while (true)
+            {
                 Console.WriteLine("Main Menu");
                 Console.WriteLine(new String('-', 50));
                 Console.WriteLine("0. Exit");
@@ -86,4 +87,6 @@ namespace ConsoleUI_BL
                     bl.AddStation(stationID, name, latitude, longitude, chargeSlots);
                     break;
             }
+        }
+    }
 }
