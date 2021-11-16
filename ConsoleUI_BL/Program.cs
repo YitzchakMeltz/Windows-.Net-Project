@@ -88,5 +88,41 @@ namespace ConsoleUI_BL
                     break;
             }
         }
+
+        private enum ListMenu { Return, ListBaseStations, ListDrones, ListCustomers, ListPackages }
+        private static void MenuList()
+        {
+            Console.WriteLine("Please choose what to list:");
+            Console.WriteLine();
+            Console.WriteLine("0. Return to Main Menu");
+            Console.WriteLine("1. List Base Stations");
+            Console.WriteLine("2. List Drones");
+            Console.WriteLine("3. List Customers");
+            Console.WriteLine("4. List Parcels");
+            Console.WriteLine();
+            Console.Write("Select an option: ");
+
+            ListMenu selection;
+            Enum.TryParse(Console.ReadLine(), out selection);
+            Console.WriteLine();
+
+            switch (selection)
+            {
+                case ListMenu.ListBaseStations:
+                    bl.ListStations();
+                    break;
+                case ListMenu.ListDrones:
+                    bl.ListDrones();
+                    break;
+                case ListMenu.ListCustomers:
+                    bl.ListCustomers();
+                    break;
+                case ListMenu.ListPackages:
+                    bl.ListPackages();
+                    break;
+                default:
+                    return;
+            }
+        }
     }
 }
