@@ -62,5 +62,15 @@ namespace DalObject
 
             AddDrone(drone);
         }
+
+        /// <summary>
+        /// Deletes a Drone from DataSource
+        /// </summary>
+        /// <param name="ID"></param>
+        public void RemoveDrone(int ID)
+        {
+            if (Drones.RemoveAll(d => d.ID == ID) == 0)
+                throw new ObjectNotFound($"Drone with ID: {ID} doesn't exist");
+        }
     }
 }

@@ -60,9 +60,19 @@ namespace DalObject
             do
             {
                 customer.ID = rd.Next(100000000, 999999999);
-            } while (DataSource.Customers.Exists(s => s.ID == customer.ID));
+            } while (Customers.Exists(s => s.ID == customer.ID));
 
             AddCustomer(customer);
+        }
+
+        /// <summary>
+        /// Deletes a Customer from DataSource
+        /// </summary>
+        /// <param name="ID"></param>
+        public void RemoveCustomer(int ID)
+        {
+            if (Customers.RemoveAll(c => c.ID == ID) == 0)
+                throw new ObjectNotFound($"Customer with ID: {ID} doesn't exist");
         }
     }
 }
