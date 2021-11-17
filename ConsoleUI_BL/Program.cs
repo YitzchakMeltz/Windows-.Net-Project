@@ -86,6 +86,25 @@ namespace ConsoleUI_BL
 
                     bl.AddStation(stationID, name, latitude, longitude, chargeSlots);
                     break;
+
+                case AddMenu.AddDrone:
+                    Console.WriteLine("Please enter the Drone manufacture ID: ");
+                    int droneID = Convert.ToInt32(Console.ReadLine());
+
+                    Console.WriteLine("Please enter the drone model: ");
+                    string model = Console.ReadLine();
+
+                    Console.WriteLine("Please enter the sweight ");
+                    Console.WriteLine("0 Light ");
+                    Console.WriteLine("1 Medium ");
+                    Console.WriteLine("2 Heavy ");
+                    IBL.BO.WieghtCategories weight = (IBL.BO.WieghtCategories)Convert.ToInt32(Console.ReadLine());
+
+                    Console.WriteLine("Please enter the station ID for first charging: ");
+                    int firstChargingStationID = Convert.ToInt32(Console.ReadLine());
+
+                    bl.AddDrone(droneID, model, weight, firstChargingStationID);
+                    break;
             }
         }
 
