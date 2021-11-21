@@ -94,7 +94,7 @@ namespace ConsoleUI_BL
                     Console.WriteLine("Please enter the drone model: ");
                     string model = Console.ReadLine();
 
-                    Console.WriteLine("Please enter the sweight ");
+                    Console.WriteLine("Please enter the weight: ");
                     Console.WriteLine("0 Light ");
                     Console.WriteLine("1 Medium ");
                     Console.WriteLine("2 Heavy ");
@@ -123,6 +123,28 @@ namespace ConsoleUI_BL
                     double customerLongitude = Convert.ToDouble(Console.ReadLine());
 
                     bl.AddCustomer(customerID, customerName, customerPhoneNo, customerLatitude, customerLongitude);
+                    break;
+
+                case AddMenu.AddPackage:
+                    Console.WriteLine("Please enter the Sender ID: ");
+                    int senderID = Convert.ToInt32(Console.ReadLine());
+
+                    Console.WriteLine("Please enter the Receiver ID: ");
+                    int receiverID = Convert.ToInt32(Console.ReadLine());
+
+                    Console.WriteLine("Please enter the weight of the package: ");
+                    Console.WriteLine("0 Light ");
+                    Console.WriteLine("1 Medium ");
+                    Console.WriteLine("2 Heavy ");
+                    IBL.BO.WieghtCategories packageWeight = (IBL.BO.WieghtCategories)Convert.ToInt32(Console.ReadLine());
+
+                    Console.WriteLine("Please enter the priority of the package: ");
+                    Console.WriteLine("0 Regular ");
+                    Console.WriteLine("1 Fast ");
+                    Console.WriteLine("2 Emergency ");
+                    IBL.BO.Priorities packagePriority = (IBL.BO.Priorities)Convert.ToInt32(Console.ReadLine());
+
+                    bl.AddPackage(senderID, receiverID, packageWeight, packagePriority);
                     break;
             }
         }
