@@ -105,6 +105,25 @@ namespace ConsoleUI_BL
 
                     bl.AddDrone(droneID, model, weight, firstChargingStationID);
                     break;
+
+                case AddMenu.AddCustomer:
+                    Console.WriteLine("Please enter the Customer ID: ");
+                    int customerID = Convert.ToInt32(Console.ReadLine());
+
+                    Console.WriteLine("Please enter the customer name: ");
+                    string customerName = Console.ReadLine();
+
+                    Console.WriteLine("Please enter the customer phone number: ");
+                    string customerPhoneNo = Console.ReadLine();
+
+                    Console.WriteLine("Please enter the customer coordinate latitude: ");
+                    double customerLatitude = Convert.ToDouble(Console.ReadLine());
+
+                    Console.WriteLine("Please enter the customer coordinate longitude: ");
+                    double customerLongitude = Convert.ToDouble(Console.ReadLine());
+
+                    bl.AddCustomer(customerID, customerName, customerPhoneNo, customerLatitude, customerLongitude);
+                    break;
             }
         }
 
