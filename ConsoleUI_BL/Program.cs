@@ -149,6 +149,109 @@ namespace ConsoleUI_BL
             }
         }
 
+        private enum UpdateMenu { Return, UpdateDrone, UpdateStation, UpdateCustomer, UpdateDroneCharge }
+        private static void MenuUpdate()
+        {
+            Console.WriteLine("Please choose what to update:");
+            Console.WriteLine();
+            Console.WriteLine("0. Return to Main Menu");
+            Console.WriteLine("1. Update Drone");
+            Console.WriteLine("2. Update Station");
+            Console.WriteLine("3. Update Customer");
+            Console.WriteLine("4. Send a drone to be charged");
+            Console.WriteLine();
+            Console.Write("Select an option: ");
+
+            UpdateMenu selection;
+            Enum.TryParse(Console.ReadLine(), out selection);
+            Console.WriteLine();
+
+            switch (selection)
+            {
+                case UpdateMenu.UpdateDrone:
+                    Console.WriteLine("Please enter the Drone ID: ");
+                    int droneID = Convert.ToInt32(Console.ReadLine());
+
+                    Console.WriteLine("Please enter the new drone model: ");
+                    string model = Console.ReadLine();
+
+                    bl.UpdateDrone(droneID, model);
+                    break;
+
+                case UpdateMenu.UpdateStation:
+                    Console.WriteLine("Please enter the Station ID: ");
+                    int stationID = Convert.ToInt32(Console.ReadLine());
+
+                    Console.WriteLine("1 Update Station Name \n2 Update Total Number of Availible Slots \n3 Update Both");
+                    int updateOption = Convert.ToInt32(Console.ReadLine());
+
+                    switch(updateOption)
+                    {
+                        case 1:
+                            Console.WriteLine("Please enter the station name: ");
+                            string newName = Console.ReadLine();
+                            bl.UpdateStation(stationID,newName);
+                            break;
+                        case 2:
+                            Console.WriteLine("Please enter the total amount of available charge slots: ");
+                            int chargeSlots = Convert.ToInt32(Console.ReadLine());
+                            bl.UpdateStation(stationID, null, chargeSlots);
+                            break;
+                        case 3:
+                            Console.WriteLine("Please enter the station name: ");
+                            newName = Console.ReadLine();
+
+                            Console.WriteLine("Please enter the total amount of available charge slots: ");
+                            chargeSlots = Convert.ToInt32(Console.ReadLine());
+
+                            bl.UpdateStation(stationID, newName, chargeSlots);
+                            break;
+                    }
+                    break;
+
+                case UpdateMenu.UpdateCustomer:
+                    Console.WriteLine("Please enter the Station ID: ");
+                    int customerID = Convert.ToInt32(Console.ReadLine());
+
+                    Console.WriteLine("1 Update Customer Name \n2 Update Customer Phone Number \n3 Update Both");
+                    updateOption = Convert.ToInt32(Console.ReadLine());
+
+                    switch (updateOption)
+                    {
+                        case 1:
+                            Console.WriteLine("Please enter the customer name: ");
+                            string newName = Console.ReadLine();
+                            bl.UpdateCustomer(customerID, newName);
+                            break;
+                        case 2:
+                            Console.WriteLine("Please enter the new phone number: ");
+                            string newPhoneNumber = Console.ReadLine();
+                            bl.UpdateCustomer(customerID, null, newPhoneNumber);
+                            break;
+                        case 3:
+                            Console.WriteLine("Please enter the customer name: ");
+                            newName = Console.ReadLine();
+
+                            Console.WriteLine("Please enter the new phone number: ");
+                            newPhoneNumber = Console.ReadLine();
+
+                            bl.UpdateCustomer(customerID, newName, newPhoneNumber);
+                            break;
+                    }
+                    break;
+
+                case UpdateMenu.UpdateDroneCharge:
+                    Console.WriteLine("Please enter the Drone ID: ");
+                    droneID = Convert.ToInt32(Console.ReadLine());
+
+                    bl.ChargeDrone(droneID);
+                    break;
+
+                default:
+                    return;
+            }
+        }
+
         private enum ShowMenu { Return, ShowBaseStation, ShowDrone, ShowCustomer, ShowPackage }
         private static void MenuShow()
         {
