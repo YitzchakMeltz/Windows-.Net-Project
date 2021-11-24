@@ -82,11 +82,12 @@ namespace BL
 
         public void AddCustomer(int ID, string name, string phone, double longitude, double latitude)
         {
-            Customer customer = new Customer()
-            {
-                ID = ID,
-                
-            }
+            Customer customer = new Customer();
+
+            customer.ID = ID;
+            customer.Name = name;
+            customer.Phone = phone;
+            customer.Location = new Location() { Longitude = longitude, Latitude = latitude };
         }
 
         public void AddPackage(int senderID, int receiverID, IBL.BO.WieghtCategories weight, IBL.BO.Priorities priority)
