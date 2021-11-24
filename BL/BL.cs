@@ -66,5 +66,18 @@ namespace BL
                 Drones.Add(drone);
             }
         }
+
+        public void AddDrone(int ID, string model, IBL.BO.WieghtCategories weight, int stationID)
+        {
+            Drone drone = new Drone()
+            {
+                ID = ID,
+                Model = model,
+                Weight = weight,
+                Location = GetStation(stationID).Location, 
+                Status = DroneStatuses.Maintenance,
+                Battery = (random.NextDouble() * 20 ) + 20
+            };
+        }
     }
 }
