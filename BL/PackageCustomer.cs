@@ -2,7 +2,7 @@
 {
     public class PackageCustomer
     {
-        public int ID;
-        public string Name;
+        public int ID { init; get; }
+        public string Name { init; get; }
     }
 }

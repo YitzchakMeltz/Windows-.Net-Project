@@ -93,27 +93,35 @@ namespace BL
 
         public void AddCustomer(int ID, string name, string phone, double longitude, double latitude)
         {
-            Customer customer = new Customer();
-
-            customer.ID = ID;
-            customer.Name = name;
-            customer.Phone = phone;
-            customer.Location = new Location() { Longitude = longitude, Latitude = latitude };
+            Customer customer = new Customer()
+            {
+                ID = ID,
+                Name = name,
+                Phone = phone,
+                Location = new Location() { Longitude = longitude, Latitude = latitude }
+            };
         }
 
         public void AddPackage(int senderID, int receiverID, IBL.BO.WieghtCategories weight, IBL.BO.Priorities priority)
         {
-            Package package = new Package();
+            Package package = new Package()
+            {
+                Sender = new PackageCustomer { ID = senderID },
+                Receiver = new PackageCustomer { ID = receiverID },
+                Weight = weight,
+                Priority = priority,
+                Drone = null,
+                Creation = DateTime.Now,
+                AssignmentTime = DateTime.MinValue,
+                CollectionTime = DateTime.MinValue,
+                DeliveryTime = DateTime.MinValue
+            };
+        }
 
-            package.Sender.ID = senderID;
-            package.Receiver.ID = receiverID;
-            package.Weight = weight;
-            package.Priority = priority;
-            package.Drone = null;
-            package.Creation = DateTime.Now;
-            package.AssignmentTime = DateTime.MinValue;
-            package.CollectionTime = DateTime.MinValue;
-            package.DeliveryTime = DateTime.MinValue;
+
+        public void UpdateDrone(int ID, string model)
+        {
+
         }
     }
 }

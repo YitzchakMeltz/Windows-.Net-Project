@@ -4,11 +4,11 @@ namespace IBL.BO
 {
     public class Customer
     {
-        public int ID;
-        public string Name;
-        public string Phone;
-        public Location Location;
-        public List<DeliveredPackage> Outgoing;
-        public List<DeliveredPackage> Incoming;
+        public int ID { init; get; }
+        public string Name { init; get; }
+        public string Phone { init; get; }
+        public Location Location { init; get; }
+        public List<DeliveredPackage> Outgoing { init; get; }
+        public List<DeliveredPackage> Incoming { init; get; }
     }
 }
