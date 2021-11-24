@@ -67,6 +67,17 @@ namespace BL
             }
         }
 
+        public void AddStation(int ID, string name, double latitude, double longitude, int availableChargeStations)
+        {
+            BaseStation station = new BaseStation()
+            {
+                ID = ID,
+                Name = name,
+                Location = new Location() { Longitude = longitude, Latitude = latitude },
+                AvailableChargingSlots = (uint)availableChargeStations, // Why is it an in in the function declaration???
+                ChargingDrones = new List<ChargingDrone>()
+            };
+        }
         public void AddDrone(int ID, string model, IBL.BO.WieghtCategories weight, int stationID)
         {
             Drone drone = new Drone()
