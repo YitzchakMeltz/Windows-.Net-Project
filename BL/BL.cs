@@ -79,5 +79,29 @@ namespace BL
                 Battery = (random.NextDouble() * 20 ) + 20
             };
         }
+
+        public void AddCustomer(int ID, string name, string phone, double longitude, double latitude)
+        {
+            Customer customer = new Customer()
+            {
+                ID = ID,
+                
+            }
+        }
+
+        public void AddPackage(int senderID, int receiverID, IBL.BO.WieghtCategories weight, IBL.BO.Priorities priority)
+        {
+            Package package = new Package();
+
+            package.Sender.ID = senderID;
+            package.Receiver.ID = receiverID;
+            package.Weight = weight;
+            package.Priority = priority;
+            package.Drone = null;
+            package.Creation = DateTime.Now;
+            package.AssignmentTime = DateTime.MinValue;
+            package.CollectionTime = DateTime.MinValue;
+            package.DeliveryTime = DateTime.MinValue;
+        }
     }
 }
