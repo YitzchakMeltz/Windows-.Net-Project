@@ -121,7 +121,8 @@ namespace BL
 
         public void UpdateDrone(int ID, string model)
         {
-
+            IDAL.DO.Drone drone = dalObject.GetDrone(ID);
+            drone.Model = model;
         }
     }
 }
