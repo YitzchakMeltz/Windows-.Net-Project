@@ -78,18 +78,7 @@ namespace BL
                 ChargingDrones = new List<ChargingDrone>()
             };
         }
-        public void AddDrone(int ID, string model, IBL.BO.WieghtCategories weight, int stationID)
-        {
-            Drone drone = new Drone()
-            {
-                ID = ID,
-                Model = model,
-                Weight = weight,
-                Location = GetStation(stationID).Location, 
-                Status = DroneStatuses.Maintenance,
-                Battery = (random.NextDouble() * 20 ) + 20
-            };
-        }
+
 
         public void AddCustomer(int ID, string name, string phone, double longitude, double latitude)
         {
@@ -119,10 +108,6 @@ namespace BL
         }
 
 
-        public void UpdateDrone(int ID, string model)
-        {
-            IDAL.DO.Drone drone = dalObject.GetDrone(ID);
-            drone.Model = model;
-        }
+       
     }
 }
