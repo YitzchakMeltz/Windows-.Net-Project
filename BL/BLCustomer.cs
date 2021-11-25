@@ -25,5 +25,24 @@ namespace BL
                 Location = new Location() { Longitude = longitude, Latitude = latitude }
             };
         }
+
+        public void UpdateCustomer(int ID, string name = null, string phone = null)
+        {
+            // Update DALCustomer
+            IDAL.DO.Customer customer = dalObject.GetCustomer(ID);
+
+            if (name != null)
+            {
+                customer.Name = name;
+            }
+
+            if (phone != null)
+            {
+                customer.Phone = phone;
+            }
+
+            dalObject.RemoveCustomer(ID);
+            dalObject.AddCustomer(customer);
+        }
     }
 }
