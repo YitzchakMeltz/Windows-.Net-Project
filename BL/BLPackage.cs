@@ -23,5 +23,21 @@ namespace BL
             }
             return Statuses.Delivered;
         }
+
+        public void AddPackage(int senderID, int receiverID, IBL.BO.WieghtCategories weight, IBL.BO.Priorities priority)
+        {
+            Package package = new Package()
+            {
+                Sender = new PackageCustomer { ID = senderID },
+                Receiver = new PackageCustomer { ID = receiverID },
+                Weight = weight,
+                Priority = priority,
+                Drone = null,
+                Creation = DateTime.Now,
+                AssignmentTime = DateTime.MinValue,
+                CollectionTime = DateTime.MinValue,
+                DeliveryTime = DateTime.MinValue
+            };
+        }
     }
 }

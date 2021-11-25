@@ -37,5 +37,36 @@ namespace BL
                 throw new IBL.BO.ObjectNotFound(e.Message);
             }
         }
+
+        public void AddStation(int ID, string name, double latitude, double longitude, int availableChargeStations)
+        {
+            BaseStation station = new BaseStation()
+            {
+                ID = ID,
+                Name = name,
+                Location = new Location() { Longitude = longitude, Latitude = latitude },
+                AvailableChargingSlots = (uint)availableChargeStations, // Why is it an in in the function declaration???
+                ChargingDrones = new List<ChargingDrone>()
+            };
+        }
+
+        public void UpdateStation(int ID, string name = null, int? totalChargeStation = null)
+        {
+            // Update DALStation
+            IDAL.DO.Station station = dalObject.GetStation(ID);
+
+            if (name != null)
+            {
+                station.Name = name;
+            }
+
+            if(totalChargeStation != null)
+            {
+                station.AvailableChargeSlots = (int)totalChargeStation;
+            }
+
+            dalObject.RemoveStation(ID);
+            dalObject.AddStation(station);
+        }
     }
 }

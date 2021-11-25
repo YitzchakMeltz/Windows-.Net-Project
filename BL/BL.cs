@@ -66,48 +66,5 @@ namespace BL
                 Drones.Add(drone);
             }
         }
-
-        public void AddStation(int ID, string name, double latitude, double longitude, int availableChargeStations)
-        {
-            BaseStation station = new BaseStation()
-            {
-                ID = ID,
-                Name = name,
-                Location = new Location() { Longitude = longitude, Latitude = latitude },
-                AvailableChargingSlots = (uint)availableChargeStations, // Why is it an in in the function declaration???
-                ChargingDrones = new List<ChargingDrone>()
-            };
-        }
-
-
-        public void AddCustomer(int ID, string name, string phone, double longitude, double latitude)
-        {
-            Customer customer = new Customer()
-            {
-                ID = ID,
-                Name = name,
-                Phone = phone,
-                Location = new Location() { Longitude = longitude, Latitude = latitude }
-            };
-        }
-
-        public void AddPackage(int senderID, int receiverID, IBL.BO.WieghtCategories weight, IBL.BO.Priorities priority)
-        {
-            Package package = new Package()
-            {
-                Sender = new PackageCustomer { ID = senderID },
-                Receiver = new PackageCustomer { ID = receiverID },
-                Weight = weight,
-                Priority = priority,
-                Drone = null,
-                Creation = DateTime.Now,
-                AssignmentTime = DateTime.MinValue,
-                CollectionTime = DateTime.MinValue,
-                DeliveryTime = DateTime.MinValue
-            };
-        }
-
-
-       
     }
 }
