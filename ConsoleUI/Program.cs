@@ -77,6 +77,9 @@ namespace ConsoleUI
 
                 case AddMenu.AddBaseStation:
                     {
+                        Console.WriteLine("Please enter the station's ID: ");
+                        int ID = Convert.ToInt32(Console.ReadLine());
+
                         Console.WriteLine("Please enter the station name: ");
                         string name = Console.ReadLine();
 
@@ -89,24 +92,30 @@ namespace ConsoleUI
                         Console.WriteLine("Please enter the station coordinate longitude: ");
                         double longitude = Convert.ToDouble(Console.ReadLine());
 
-                        dalObject.AddStation(name, chargeSlots, latitude, longitude);
+                        dalObject.AddStation(ID, name, chargeSlots, latitude, longitude);
                         break;
                     }
 
                 case AddMenu.AddDrone:
                     {
+                        Console.WriteLine("Please enter the drone's ID: ");
+                        int ID = Convert.ToInt32(Console.ReadLine());
+
                         Console.WriteLine("Please enter the model name: ");
                         string model = Console.ReadLine();
 
                         Console.WriteLine("Please enter the weight: \n0 for Light \n1 for Medium \n2 for Heavy");
                         WeightCategories weight = (IDAL.DO.WeightCategories)Convert.ToInt32(Console.ReadLine());
 
-                        dalObject.AddDrone(model, weight);
+                        dalObject.AddDrone(ID, model, weight);
                         break;
                     }
 
                 case AddMenu.AddCustomer:
                     {
+                        Console.WriteLine("Please enter the customer's ID: ");
+                        int ID = Convert.ToInt32(Console.ReadLine());
+
                         Console.WriteLine("Please enter the customer's name: ");
                         string name = Console.ReadLine();
 
@@ -119,7 +128,7 @@ namespace ConsoleUI
                         Console.WriteLine("Please enter the customer's coordinate longitude: ");
                         double longitude = Convert.ToDouble(Console.ReadLine());
 
-                        dalObject.AddCustomer(name, phone, latitude, longitude);
+                        dalObject.AddCustomer(ID, name, phone, latitude, longitude);
                         break;
                     }
 

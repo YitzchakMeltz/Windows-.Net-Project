@@ -18,7 +18,7 @@ namespace DalObject
             //    throw new ObjectAlreadyExists($"Parcel with ID {parcel.ID} already exists.");
             parcel.ID = ++Config.PackageID;
             Parcels.Add(parcel);
-            return Config.PackageID;
+            return parcel.ID;
         }
 
         /// <summary>
@@ -60,7 +60,7 @@ namespace DalObject
         /// </summary>
         /// <param name="parcel"></param>
         /// <returns>PackageID</returns>
-        public void AddParcel(int senderID, int targetID, WeightCategories weightCat, Priorities priority, int droneID)
+        public int AddParcel(int senderID, int targetID, WeightCategories weightCat, Priorities priority, int droneID)
         {
             Parcel parcel = new Parcel()
             {
@@ -85,6 +85,8 @@ namespace DalObject
             parcel.Delivered = DateTime.Parse(Console.ReadLine());
             */
             AddParcel(parcel);
+
+            return parcel.ID;
         }
 
         /// <summary>
