@@ -11,7 +11,10 @@ namespace DalObject
         public void ChargeDrone(int droneID, int stationID)
         {
             GetDrone(droneID);                                               // Forces error if drone doesn't exist
-            GetStation(stationID);                                           // Forces error if stations doesn't exist
+
+            Station station = GetStation(stationID);
+            station.AvailableChargeSlots -= 1;
+            Stations[Stations.FindIndex(s => s.ID == stationID)] = station;
 
             DroneCharge dc = new DroneCharge()
             {
@@ -27,11 +30,19 @@ namespace DalObject
         /// </summary>
         public void ReleaseDrone(int droneID)
         {
-            GetDrone(droneID);                                                  // Forces error if drone doesn't exist
+            Drone drone = GetDrone(droneID);                                                  // Forces error if drone doesn't exist
 
             // Finds DroneCharge with droneID and removes it
-            if (DroneCharges.RemoveAll(dc => dc.DroneID == droneID) == 0)
+            DroneCharge dc = DroneCharges.Find(dc => dc.DroneID == droneID);
+            if (dc.Equals(default(DroneCharge)))
                 throw new ObjectNotFound($"Drone with ID: {droneID} was not charging.");
+
+            DroneCharges.Remove(dc);
+
+            // Add 1 to Available Charging Slots of corresponding station
+            Station station = GetStation(dc.StationID);
+            station.AvailableChargeSlots += 1;
+            Stations[Stations.FindIndex(s => s.ID == dc.StationID)] = station;
         }
     }
 }

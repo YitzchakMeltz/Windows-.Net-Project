@@ -14,11 +14,11 @@ namespace DalObject
         /// <returns>PackageID</returns>
         public int AddParcel(Parcel parcel)
         {
-            if (Parcels.Exists(p => p.ID == parcel.ID))
-                throw new ObjectAlreadyExists($"Parcel with ID {parcel.ID} already exists.");
-
+            //if (Parcels.Exists(p => p.ID == parcel.ID))
+            //    throw new ObjectAlreadyExists($"Parcel with ID {parcel.ID} already exists.");
+            parcel.ID = ++Config.PackageID;
             Parcels.Add(parcel);
-            return ++Config.PackageID;
+            return Config.PackageID;
         }
 
         /// <summary>
@@ -60,14 +60,11 @@ namespace DalObject
         /// </summary>
         /// <param name="parcel"></param>
         /// <returns>PackageID</returns>
-        public void AddParcel(int id, int senderID, int targetID, WeightCategories weightCat, Priorities priority, int droneID)
+        public void AddParcel(int senderID, int targetID, WeightCategories weightCat, Priorities priority, int droneID)
         {
-            if (Parcels.Exists(p => p.ID == id))
-                throw new ObjectAlreadyExists($"Parcel with ID {id} already exists.");
-
             Parcel parcel = new Parcel()
             {
-                ID = id,
+                ID = ++Config.PackageID,
                 SenderID = senderID,
                 TargetID = targetID,
                 WeightCategory = weightCat,
