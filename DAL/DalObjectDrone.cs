@@ -47,18 +47,17 @@ namespace DalObject
         /// Adds a Drone to DataSource
         /// </summary>
         /// <param name="drone"></param>
-        public void AddDrone(string model, WeightCategories weightCat)
+        public void AddDrone(int id, string model, WeightCategories weightCat)
         {
+            if (Drones.Exists(d => d.ID == id))
+                throw new ObjectAlreadyExists($"Drone with ID: {id} already exists.");
+
             Drone drone = new Drone()
             {
+                ID = id,
                 Model = model,
                 WeightCategory = weightCat
             };
-
-            do
-            {
-                drone.ID = rd.Next(100000000, 999999999);
-            } while (DataSource.Drones.Exists(s => s.ID == drone.ID));
 
             AddDrone(drone);
         }

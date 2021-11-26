@@ -60,10 +60,14 @@ namespace DalObject
         /// </summary>
         /// <param name="parcel"></param>
         /// <returns>PackageID</returns>
-        public void AddParcel(int senderID, int targetID, WeightCategories weightCat, Priorities priority, int droneID)
+        public void AddParcel(int id, int senderID, int targetID, WeightCategories weightCat, Priorities priority, int droneID)
         {
+            if (Parcels.Exists(p => p.ID == id))
+                throw new ObjectAlreadyExists($"Parcel with ID {id} already exists.");
+
             Parcel parcel = new Parcel()
             {
+                ID = id,
                 SenderID = senderID,
                 TargetID = targetID,
                 WeightCategory = weightCat,
@@ -71,11 +75,6 @@ namespace DalObject
                 DroneID = droneID,
                 Scheduled = System.DateTime.Now
             };
-
-            do
-            {
-                parcel.ID = rd.Next(100000000, 999999999);
-            } while (Parcels.Exists(s => s.ID == parcel.ID));
 
 
             /*

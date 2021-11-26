@@ -48,25 +48,35 @@ namespace BL
                 AvailableChargingSlots = (uint)availableChargeStations, // Why is it an in in the function declaration???
                 ChargingDrones = new List<ChargingDrone>()
             };
+
+            dalObject.AddStation(ID, name, availableChargeStations, latitude, longitude);
         }
 
         public void UpdateStation(int ID, string name = null, int? totalChargeStation = null)
         {
             // Update DALStation
-            IDAL.DO.Station station = dalObject.GetStation(ID);
 
-            if (name != null)
+            try
             {
-                station.Name = name;
-            }
+                IDAL.DO.Station station = dalObject.GetStation(ID);
 
-            if(totalChargeStation != null)
+                if (name != null)
+                {
+                    station.Name = name;
+                }
+
+                if(totalChargeStation != null)
+                {
+                    station.AvailableChargeSlots = (int)totalChargeStation;
+                }
+
+                dalObject.RemoveStation(ID);
+                dalObject.AddStation(station);
+            }
+            catch (IDAL.DO.ObjectNotFound e)
             {
-                station.AvailableChargeSlots = (int)totalChargeStation;
+                throw new IBL.BO.ObjectNotFound(e.Message);
             }
-
-            dalObject.RemoveStation(ID);
-            dalObject.AddStation(station);
         }
     }
 }

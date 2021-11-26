@@ -17,6 +17,8 @@ namespace BL
                 Status = DroneStatuses.Maintenance,
                 Battery = (random.NextDouble() * 20) + 20
             };
+
+            dalObject.AddDrone(ID, model, (IDAL.DO.WeightCategories)weight);
         }
 
         public void UpdateDrone(int ID, string model)

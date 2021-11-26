@@ -26,10 +26,10 @@ namespace BL
 
         public void AddPackage(int senderID, int receiverID, IBL.BO.WieghtCategories weight, IBL.BO.Priorities priority)
         {
-            Package package = new Package()
+            Package package = new()
             {
-                Sender = new PackageCustomer { ID = senderID },
-                Receiver = new PackageCustomer { ID = receiverID },
+                Sender = new PackageCustomer { ID = senderID, Name = dalObject.GetCustomer(senderID).Name },
+                Receiver = new PackageCustomer { ID = receiverID, Name = dalObject.GetCustomer(receiverID).Name },
                 Weight = weight,
                 Priority = priority,
                 Drone = null,
@@ -38,6 +38,8 @@ namespace BL
                 CollectionTime = DateTime.MinValue,
                 DeliveryTime = DateTime.MinValue
             };
+
+            dalObject.AddParcel(senderID, receiverID, (IDAL.DO.WeightCategories)weight, (IDAL.DO.Priorities)priority, 0);
         }
     }
 }

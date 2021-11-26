@@ -22,27 +22,36 @@ namespace BL
                 ID = ID,
                 Name = name,
                 Phone = phone,
-                Location = new Location() { Longitude = longitude, Latitude = latitude }
+                Location = new Location() { Latitude = latitude, Longitude = longitude }
             };
+
+            dalObject.AddCustomer(ID, name, phone, latitude, longitude);
         }
 
         public void UpdateCustomer(int ID, string name = null, string phone = null)
         {
             // Update DALCustomer
-            IDAL.DO.Customer customer = dalObject.GetCustomer(ID);
-
-            if (name != null)
+            try
             {
-                customer.Name = name;
-            }
+                IDAL.DO.Customer customer = dalObject.GetCustomer(ID);
 
-            if (phone != null)
+                if (name != null)
+                {
+                    customer.Name = name;
+                }
+
+                if (phone != null)
+                {
+                    customer.Phone = phone;
+                }
+
+                dalObject.RemoveCustomer(ID);
+                dalObject.AddCustomer(customer);
+            }
+            catch (IDAL.DO.ObjectNotFound e)
             {
-                customer.Phone = phone;
+                throw new ObjectNotFound(e.Message);
             }
-
-            dalObject.RemoveCustomer(ID);
-            dalObject.AddCustomer(customer);
         }
     }
 }

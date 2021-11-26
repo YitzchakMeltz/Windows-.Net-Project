@@ -57,19 +57,19 @@ namespace DalObject
         /// Adds a Station to DataSource
         /// </summary>
         /// <param name="station"></param>
-        public void AddStation(string name, int chargeSlots, double latitude, double longitude)
+        public void AddStation(int id, string name, int chargeSlots, double latitude, double longitude)
         {
+            if (Stations.Exists(s => s.ID == id))
+                throw new IDAL.DO.ObjectAlreadyExists($"Station with ID: {id} already exists.");
+
             Station station = new Station()
             {
+                ID = id,
                 Name = name,
                 AvailableChargeSlots = chargeSlots,
                 Location = new Coordinate(latitude, longitude)
             };
 
-            do
-            {
-                station.ID = rd.Next(100000000, 999999999);
-            } while (DataSource.Stations.Exists(s => s.ID == station.ID));
 
             AddStation(station);
         }

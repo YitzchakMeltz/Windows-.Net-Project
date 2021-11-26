@@ -48,19 +48,18 @@ namespace DalObject
         /// Adds a Customer to DataSource
         /// </summary>
         /// <param name="customer"></param>
-        public void AddCustomer(string name, string phoneNum, double latitude, double longitude)
+        public void AddCustomer(int id, string name, string phoneNum, double latitude, double longitude)
         {
+            if (Customers.Exists(c => c.ID == id))
+                throw new ObjectAlreadyExists($"Customer with ID: {id} already exists.");
+
             Customer customer = new Customer()
             {
+                ID = id,
                 Name = name,
                 Phone = phoneNum,
                 Location = new IDAL.Util.Coordinate(latitude, longitude)
             };
-
-            do
-            {
-                customer.ID = rd.Next(100000000, 999999999);
-            } while (Customers.Exists(s => s.ID == customer.ID));
 
             AddCustomer(customer);
         }

@@ -20,9 +20,9 @@ namespace IDAL
         public IEnumerable<Parcel> GetParcelList();
         public IEnumerable<Parcel> GetUnassignedParcelList();
         
-        public void AddStation(string name, int chargeSlots, double latitude, double longitude);
-        public void AddDrone(string model, WeightCategories weightCat);
-        public void AddCustomer(string name, string phoneNum, double latitude, double longitude);
+        public void AddStation(int id, string name, int chargeSlots, double latitude, double longitude);
+        public void AddDrone(int id, string model, WeightCategories weightCat);
+        public void AddCustomer(int id, string name, string phoneNum, double latitude, double longitude);
         public void AddParcel(int senderID, int targetID, WeightCategories weightCat, Priorities priority, int droneID);
 
         public void RemoveCustomer(int ID);
