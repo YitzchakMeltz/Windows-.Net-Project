@@ -89,5 +89,33 @@ namespace BL
                 throw new ObjectNotFound(e.Message);
             }
         }
+
+        public void AssignPackageToDrone(int droneID)
+        {
+            if (Drones.Find(d => d.ID == droneID).Status != DroneStatuses.Free)
+            {
+                throw new InvalidManeuver($"Drone with ID {droneID} is not available.");
+            }
+
+            List<IDAL.DO.Parcel> unassignedPackages = (List<IDAL.DO.Parcel>)dalObject.GetUnassignedParcelList();
+
+            IDAL.DO.Priorities highestPriority = IDAL.DO.Priorities.Regular;
+            foreach (IDAL.DO.Parcel package in unassignedPackages)
+            {
+                if ((int)package.Priority > (int)highestPriority)
+                    highestPriority = package.Priority;
+            }
+            unassignedPackages.RemoveAll(x => x.Priority != highestPriority);
+
+            IDAL.DO.WeightCategories highestWeight = IDAL.DO.WeightCategories.Light;
+            foreach (IDAL.DO.Parcel package in unassignedPackages)
+            {
+                if ((int)package.WeightCategory > (int)highestWeight)
+                    highestWeight = package.WeightCategory;
+            }
+            unassignedPackages.RemoveAll(x => x.WeightCategory != highestWeight);
+
+            unassignedPackages.Sort((x, y) => Distance(y.))
+        }
     }
 }
