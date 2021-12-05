@@ -29,7 +29,7 @@ namespace BL
                     Sender = package.Sender,
                     Receiver = package.Receiver,
                     CollectionLocation = collectionLocation,
-                    DeliveryLocation = deliveryLocation
+                    DeliveryLocation = deliveryLocation,
                     DeliveryDistance = deliveryDistance
                 };
 

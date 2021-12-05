@@ -100,6 +100,20 @@ namespace BL
             };
         }
 
+        public DroneList ConvertToDroneList(Drone drone)
+        {
+            return new DroneList()
+            {
+                ID = drone.ID,
+                PackageID = (uint)drone.Package.ID,
+                Battery = drone.Battery,
+                Location = drone.Location,
+                Model = drone.Model,
+                Status = drone.Status,
+                Weight = drone.Weight
+            };
+        }
+
         public Drone GetDrone(int droneID)
         {
             try
@@ -172,6 +186,60 @@ namespace BL
 
                 Drones[Drones.FindIndex(d => d.ID == droneID)] = drone;
             }
+        }
+
+        public void CollectPackage(int droneID)
+        {
+            Drone drone;
+            DroneList droneList;
+            try
+            {
+                drone = GetDrone(droneID);
+                droneList = ConvertToDroneList(drone);
+            }
+            catch (IDAL.DO.ObjectNotFound e)
+            {
+                throw new ObjectNotFound(e.Message);
+            }
+
+            if (droneList.PackageID == null)
+                throw new InvalidManeuver($"Drone with ID {drone.ID} doesn't have a package assigned to it.");
+            if (drone.Package.Delivering == true)
+                throw new InvalidManeuver($"Package with ID {drone.Package.ID} is already being Delivered.");
+            if (DistanceLeft(droneList) < Distance(drone.Location, drone.Package.CollectionLocation))
+                throw new InvalidManeuver($"Drone with ID {drone.ID} can't reach the package with ID {drone.Package.ID}.");
+
+            droneList.Battery -= Distance(drone.Location, drone.Package.CollectionLocation) / PowerConsumption[0];
+            droneList.Location = drone.Package.CollectionLocation;
+            
+            dalObject.ParcelCollected((int)droneList.PackageID);
+            Drones[Drones.FindIndex(d => d.ID == droneID)] = droneList;
+        }
+
+        public void DeliverPackage(int droneID)
+        {
+            Drone drone;
+            DroneList droneList;
+            try
+            {
+                drone = GetDrone(droneID);
+                droneList = ConvertToDroneList(drone);
+            }
+            catch (IDAL.DO.ObjectNotFound e)
+            {
+                throw new ObjectNotFound(e.Message);
+            }
+
+            if (droneList.PackageID == null)
+                throw new InvalidManeuver($"Drone with ID {droneID} doesn't have any package assigned to it.");
+            if (drone.Package.Delivering == false)
+                throw new InvalidManeuver($"Package with ID {drone.Package.ID} hasn't been collected.");
+
+            droneList.Battery -= drone.Package.DeliveryDistance / PowerConsumption[(int)drone.Package.Weight + 1];
+            droneList.Location = drone.Package.DeliveryLocation;
+
+            dalObject.ParcelDelivered((int)droneList.PackageID);
+            Drones[Drones.FindIndex(d => d.ID == droneID)] = droneList;
         }
 
         public IEnumerable<DroneList> ListDrones()
