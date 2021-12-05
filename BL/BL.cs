@@ -11,7 +11,7 @@ namespace BL
         Random random = new Random();
         List<DroneList> Drones = new List<DroneList>();
         IDal dalObject;
-        double[] PowerConsumption = new double[3];
+        double[] PowerConsumption;
 
         public BL()
         {

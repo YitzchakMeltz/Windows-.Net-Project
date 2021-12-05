@@ -21,6 +21,7 @@ namespace BL
             try
             {
                 IDAL.DO.Station station = dalObject.GetStation(stationID);
+
                 BaseStation baseStation = new BaseStation()
                 {
                     ID = stationID,
@@ -29,6 +30,11 @@ namespace BL
                     AvailableChargingSlots = (uint)station.AvailableChargeSlots,
                     ChargingDrones = new List<ChargingDrone>()
                 };
+
+                foreach (IBL.BO.DroneList drone in Drones.FindAll(d => d.Location == baseStation.Location && d.Status == DroneStatuses.Maintenance))
+                {
+                    baseStation.ChargingDrones.Add(new ChargingDrone() { ID = drone.ID, Battery = drone.Battery });
+                }
 
                 return baseStation;
             }
@@ -77,6 +83,20 @@ namespace BL
             {
                 throw new IBL.BO.ObjectNotFound(e.Message);
             }
+        }
+
+        public IEnumerable<BaseStationList> ListStations()
+        {
+            IEnumerable<Station> dalStations = dalObject.GetStationList();
+
+            List<BaseStationList> blStations = new List<BaseStationList>();
+            foreach (Station dalStation in dalStations)
+            {
+                BaseStation blStation = GetStation(dalStation.ID);
+                blStations.Add(new BaseStationList() { ID = blStation.ID, Name = blStation.Name, ChargingSlotsAvailable = blStation.AvailableChargingSlots, ChargingSlotsOccupied = (uint)blStation.ChargingDrones.Count });
+            }
+
+            return blStations;
         }
     }
 }

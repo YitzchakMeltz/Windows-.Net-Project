@@ -2,9 +2,9 @@
 {
     public class BaseStationList
     {
-        int ID;
-        string Name;
-        uint ChargingSlotsAvailable;
-        uint ChargingSlotsOccupied;
+        public int ID { init; get; }
+        public string Name { init; get; }
+        public uint ChargingSlotsAvailable { init; get; }
+        public uint ChargingSlotsOccupied { init; get; }
     }
 }

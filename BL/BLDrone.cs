@@ -77,7 +77,7 @@ namespace BL
                 if (Drones.Find(d => d.ID == ID).Status != DroneStatuses.Maintenance)
                     throw new InvalidManeuver("Only a Drone in maintenance can be released.");
 
-                drone.Battery += PowerConsumption[3] * minutesCharging;
+                drone.Battery += PowerConsumption[4] * minutesCharging;
                 drone.Status = DroneStatuses.Free;
 
                 Drones[Drones.FindIndex(d => d.ID == ID)] = drone;
@@ -99,6 +99,7 @@ namespace BL
 
             List<IDAL.DO.Parcel> unassignedPackages = (List<IDAL.DO.Parcel>)dalObject.GetUnassignedParcelList();
 
+            // Only keep highest priority packages
             IDAL.DO.Priorities highestPriority = IDAL.DO.Priorities.Regular;
             foreach (IDAL.DO.Parcel package in unassignedPackages)
             {
@@ -107,15 +108,16 @@ namespace BL
             }
             unassignedPackages.RemoveAll(x => x.Priority != highestPriority);
 
-            IDAL.DO.WeightCategories highestWeight = IDAL.DO.WeightCategories.Light;
+            // Only keep heaviest packages
+            IDAL.DO.WeightCategories heaviest = IDAL.DO.WeightCategories.Light;
             foreach (IDAL.DO.Parcel package in unassignedPackages)
             {
-                if ((int)package.WeightCategory > (int)highestWeight)
-                    highestWeight = package.WeightCategory;
+                if ((int)package.WeightCategory > (int)heaviest)
+                    heaviest = package.WeightCategory;
             }
-            unassignedPackages.RemoveAll(x => x.WeightCategory != highestWeight);
+            unassignedPackages.RemoveAll(x => x.WeightCategory != heaviest);
 
-            unassignedPackages.Sort((x, y) => Distance(y.))
+            unassignedPackages.Sort((x, y) => Distance(x.se))
         }
     }
 }

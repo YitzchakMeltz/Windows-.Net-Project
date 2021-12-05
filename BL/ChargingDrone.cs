@@ -3,7 +3,7 @@
     // drone in charge
     public class ChargingDrone
     {
-        int ID;
-        double Battery;
+        public int ID { init; get; }
+        public double Battery { init; get; }
     }
 }
