@@ -98,5 +98,21 @@ namespace BL
 
             return blStations;
         }
+
+        public IEnumerable<BaseStationList> ListStationsWithAvailableChargeSlots()
+        {
+            IEnumerable<Station> dalStations = dalObject.GetAvailableStationList();
+
+            List<BaseStationList> availableStations = new List<BaseStationList>();
+            foreach (Station dalStation in dalStations)
+            {
+                BaseStation blStation = GetStation(dalStation.ID);
+                if (blStation.AvailableChargingSlots == 0)
+                    throw new LogicError($"Base Station with ID {blStation.ID} has no available charge slots but was listed as available.");
+                availableStations.Add(new BaseStationList() { ID = blStation.ID, Name = blStation.Name, ChargingSlotsAvailable = blStation.AvailableChargingSlots, ChargingSlotsOccupied = (uint)blStation.ChargingDrones.Count });
+            }
+
+            return availableStations;
+        }
     }
 }

@@ -12,28 +12,28 @@ namespace BL
             try
             {
                 IDAL.DO.Parcel parcel = dalObject.GetParcel(parcelID);
+                Package package = GetPackage(parcelID);
             
                 if (ParcelStatus(parcel) != Statuses.Collected)
                     throw new ObjectNotFound($"Parcel with ID: {parcelID} is not enroute");
 
-                EnroutePackage package = new EnroutePackage()
+                Location collectionLocation = GetCustomer(package.Sender.ID).Location;
+                Location deliveryLocation = GetCustomer(package.Receiver.ID).Location;
+                double deliveryDistance = Distance(collectionLocation, deliveryLocation);
+                EnroutePackage enroute = new EnroutePackage()
                 {
                     ID = parcelID,
-                    Weight = (WieghtCategories)parcel.WeightCategory,
+                    Weight = (WeightCategories)parcel.WeightCategory,
                     Priority = (Priorities)parcel.Priority,
-                    Delivering = ParcelStatus(parcel) == Statuses.Collected
+                    Delivering = ParcelStatus(parcel) == Statuses.Collected,
+                    Sender = package.Sender,
+                    Receiver = package.Receiver,
+                    CollectionLocation = collectionLocation,
+                    DeliveryLocation = deliveryLocation
+                    DeliveryDistance = deliveryDistance
                 };
 
-                IDAL.DO.Customer sender = dalObject.GetCustomer(parcel.SenderID);
-                package.Sender = ConvertToPackageCustomer(sender);
-                package.CollectionLocation = CoordinateToLocation(sender.Location);
-
-                IDAL.DO.Customer receiver = dalObject.GetCustomer(parcel.TargetID);
-                package.Receiver = ConvertToPackageCustomer(receiver);
-                package.DeliveryLocation = CoordinateToLocation(receiver.Location);
-
-                package.DeliveryDistance = Distance(package.CollectionLocation, package.DeliveryLocation);
-                return package;
+                return enroute;
             }
             catch (IDAL.DO.ObjectNotFound e)
             {

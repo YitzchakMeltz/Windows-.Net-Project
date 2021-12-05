@@ -7,7 +7,7 @@ namespace IBL.BO
         public int ID { init; get; }
         public PackageCustomer Sender { init; get; }
         public PackageCustomer Receiver { init; get; }
-        public WieghtCategories Weight { init; get; }
+        public WeightCategories Weight { init; get; }
         public Priorities Priority { init; get; }
         public DeliveryDrone Drone { init; get; }
         public DateTime Creation { init; get; }

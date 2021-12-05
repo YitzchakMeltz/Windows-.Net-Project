@@ -2,12 +2,12 @@
 {
     public class CustomerList
     {
-        int ID;
-        string Name;
-        string Phone;
-        uint PackagesSentDelivered;
-        uint PackagesSentNotDelivered;
-        uint PackagesRecieved;
-        uint PackagesExpected;
+        public int ID { init; get; }
+        public string Name { init; get; }
+        public string Phone { init; get; }
+        public uint PackagesSentDelivered { init; get; }
+        public uint PackagesSentNotDelivered { init; get; }
+        public uint PackagesRecieved { init; get; }
+        public uint PackagesExpected { init; get; }
     }
 }

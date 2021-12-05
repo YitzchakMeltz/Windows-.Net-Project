@@ -19,4 +19,10 @@
         public InvalidManeuver() { }
         public InvalidManeuver(string message) : base(message) { }
     }
+
+    public class LogicError : System.Exception
+    {
+        public LogicError() { }
+        public LogicError(string message) : base(message) { }
+    }
 }

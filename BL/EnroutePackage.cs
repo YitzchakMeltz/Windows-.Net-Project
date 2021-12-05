@@ -4,7 +4,7 @@
     public class EnroutePackage
     {
         public int ID { init; get; }
-        public WieghtCategories Weight { init; get; }
+        public WeightCategories Weight { init; get; }
         public Priorities Priority { init; get; }
         public bool Delivering { init; get; }                // True: Delivering. False: Waiting
         public PackageCustomer Sender { init; get; }

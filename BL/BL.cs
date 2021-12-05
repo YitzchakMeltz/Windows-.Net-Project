@@ -23,7 +23,7 @@ namespace BL
                 {
                     ID = d.ID,
                     Model = d.Model,
-                    Weight = (WieghtCategories)d.WeightCategory
+                    Weight = (WeightCategories)d.WeightCategory
                 };
 
                 IDAL.DO.Parcel parcel = ((List<IDAL.DO.Parcel>)dalObject.GetParcelList()).Find(p => p.DroneID == d.ID && ParcelStatus(p) != Statuses.Delivered);

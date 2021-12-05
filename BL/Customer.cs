@@ -8,7 +8,7 @@ namespace IBL.BO
         public string Name { init; get; }
         public string Phone { init; get; }
         public Location Location { init; get; }
-        public List<DeliveredPackage> Outgoing { init; get; }
-        public List<DeliveredPackage> Incoming { init; get; }
+        public List<CustomerPackage> Outgoing { init; get; }
+        public List<CustomerPackage> Incoming { init; get; }
     }
 }

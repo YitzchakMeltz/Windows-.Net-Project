@@ -2,8 +2,8 @@
 {
     public class DeliveryDrone
     {
-        int ID;
-        double Battery;
-        Location Location;
+        public int ID { init; get; }
+        public double Battery { init; get; }
+        public Location Location { init; get; }
     }
 }

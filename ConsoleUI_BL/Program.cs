@@ -98,7 +98,7 @@ namespace ConsoleUI_BL
                     Console.WriteLine("0 Light ");
                     Console.WriteLine("1 Medium ");
                     Console.WriteLine("2 Heavy ");
-                    IBL.BO.WieghtCategories weight = (IBL.BO.WieghtCategories)Convert.ToInt32(Console.ReadLine());
+                    IBL.BO.WeightCategories weight = (IBL.BO.WeightCategories)Convert.ToInt32(Console.ReadLine());
 
                     Console.WriteLine("Please enter the station ID for first charging: ");
                     int firstChargingStationID = Convert.ToInt32(Console.ReadLine());
@@ -136,7 +136,7 @@ namespace ConsoleUI_BL
                     Console.WriteLine("0 Light ");
                     Console.WriteLine("1 Medium ");
                     Console.WriteLine("2 Heavy ");
-                    IBL.BO.WieghtCategories packageWeight = (IBL.BO.WieghtCategories)Convert.ToInt32(Console.ReadLine());
+                    IBL.BO.WeightCategories packageWeight = (IBL.BO.WeightCategories)Convert.ToInt32(Console.ReadLine());
 
                     Console.WriteLine("Please enter the priority of the package: ");
                     Console.WriteLine("0 Regular ");

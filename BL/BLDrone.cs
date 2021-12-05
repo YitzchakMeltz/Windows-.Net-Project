@@ -6,7 +6,7 @@ namespace BL
 {
     partial class BL : IBL.IBL
     {
-        public void AddDrone(int ID, string model, IBL.BO.WieghtCategories weight, int stationID)
+        public void AddDrone(int ID, string model, IBL.BO.WeightCategories weight, int stationID)
         {
             Drone drone = new Drone()
             {
@@ -90,18 +90,55 @@ namespace BL
             }
         }
 
+        public DeliveryDrone ConvertToDeliveryDrone(DroneList drone)
+        {
+            return new DeliveryDrone()
+            {
+                ID = drone.ID,
+                Battery = drone.Battery,
+                Location = drone.Location
+            };
+        }
+
+        public Drone GetDrone(int droneID)
+        {
+            try
+            {
+                IDAL.DO.Drone dalDrone = dalObject.GetDrone(droneID);
+                DroneList droneList = Drones.Find(d => d.ID == droneID);
+
+                Drone drone = new Drone()
+                {
+                    ID = droneID,
+                    Model = dalDrone.Model,
+                    Weight = (WeightCategories)dalDrone.WeightCategory,
+                    Battery = droneList.Battery,
+                    Status = droneList.Status,
+                    Package = (droneList.PackageID == null ? null : GetEnroutePackage((int)droneList.PackageID)),
+                    Location = droneList.Location
+                };
+
+                return drone;
+            }
+            catch (IDAL.DO.ObjectNotFound e)
+            {
+                throw new IBL.BO.ObjectNotFound(e.Message);
+            }
+        }
+
         public void AssignPackageToDrone(int droneID)
         {
-            if (Drones.Find(d => d.ID == droneID).Status != DroneStatuses.Free)
+            DroneList drone = Drones.Find(d => d.ID == droneID);
+            if (drone.Status != DroneStatuses.Free)
             {
                 throw new InvalidManeuver($"Drone with ID {droneID} is not available.");
             }
 
-            List<IDAL.DO.Parcel> unassignedPackages = (List<IDAL.DO.Parcel>)dalObject.GetUnassignedParcelList();
+            List<PackageList> unassignedPackages = (List<PackageList>)ListUnassignedPackages();
 
             // Only keep highest priority packages
-            IDAL.DO.Priorities highestPriority = IDAL.DO.Priorities.Regular;
-            foreach (IDAL.DO.Parcel package in unassignedPackages)
+            Priorities highestPriority = Priorities.Regular;
+            foreach (PackageList package in unassignedPackages)
             {
                 if ((int)package.Priority > (int)highestPriority)
                     highestPriority = package.Priority;
@@ -109,15 +146,20 @@ namespace BL
             unassignedPackages.RemoveAll(x => x.Priority != highestPriority);
 
             // Only keep heaviest packages
-            IDAL.DO.WeightCategories heaviest = IDAL.DO.WeightCategories.Light;
-            foreach (IDAL.DO.Parcel package in unassignedPackages)
+            WeightCategories heaviest = WeightCategories.Light;
+            foreach (PackageList package in unassignedPackages)
             {
-                if ((int)package.WeightCategory > (int)heaviest)
-                    heaviest = package.WeightCategory;
+                if ((int)package.Weight > (int)heaviest)
+                    heaviest = package.Weight;
             }
-            unassignedPackages.RemoveAll(x => x.WeightCategory != heaviest);
+            unassignedPackages.RemoveAll(x => x.Weight != heaviest);
 
-            unassignedPackages.Sort((x, y) => Distance(x.se))
+            unassignedPackages.Sort((x, y) => Distance());
+        }
+
+        public IEnumerable<DroneList> ListDrones()
+        {
+            return Drones;
         }
     }
 }
