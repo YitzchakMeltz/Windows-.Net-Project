@@ -86,6 +86,11 @@ namespace BL
             }
         }
 
+        public string ShowStation(int stationID)
+        {
+            return GetStation(stationID).ToString();
+        }
+
         public IEnumerable<CustomerList> ListCustomers()
         {
             IEnumerable<IDAL.DO.Customer> dalCustomers = dalObject.GetCustomerList();
@@ -93,7 +98,17 @@ namespace BL
             List<CustomerList> blCustomers = new List<CustomerList>();
             foreach (IDAL.DO.Customer dalCustomer in dalCustomers)
             {
-                blCustomers.Add(new CustomerList() { ID = dalCustomer.ID, Name = dalCustomer.Name, Phone = dalCustomer.Phone, PackagesSentDelivered });
+                Customer customer = GetCustomer(dalCustomer.ID);
+                blCustomers.Add(new CustomerList() 
+                { 
+                    ID = dalCustomer.ID, 
+                    Name = dalCustomer.Name, 
+                    Phone = dalCustomer.Phone, 
+                    PackagesSentDelivered = (uint)customer.Outgoing.FindAll(p => p.Status == Statuses.Delivered).Count, 
+                    PackagesSentNotDelivered = (uint)customer.Outgoing.FindAll(p => p.Status != Statuses.Delivered).Count,
+                    PackagesRecieved = (uint)customer.Incoming.FindAll(p => p.Status == Statuses.Delivered).Count,
+                    PackagesExpected = (uint)customer.Incoming.FindAll(p => p.Status != Statuses.Delivered).Count
+                });
             }
 
             return blCustomers;

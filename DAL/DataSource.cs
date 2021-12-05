@@ -18,11 +18,11 @@ namespace DalObject
         internal class Config
         {
             public static int PackageID = 0;
-            public static double Free;                        // km when free
-            public static double LightConsumption;            // km when carrying light package
-            public static double MediumConsumption;           // km when carrying mid weight package
-            public static double HeavyConsumption;            // km when carrying heavy package
-            public static double ChargeRate;                  // % charged per hour
+            public static double Free = 50;                        // km when free
+            public static double LightConsumption = 40;            // km when carrying light package
+            public static double MediumConsumption = 30;           // km when carrying mid weight package
+            public static double HeavyConsumption = 20;            // km when carrying heavy package
+            public static double ChargeRate = 10;                  // % charged per hour
         }
 
 

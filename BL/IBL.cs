@@ -19,10 +19,10 @@ namespace IBL
         public void CollectPackage(int droneID);
         public void DeliverPackage(int droneID);
 
-        public void ShowStation(int ID);
-        public void ShowDrone(int ID);
-        public void ShowCustomer(int ID);
-        public void ShowPackage(int ID);
+        public BaseStation GetStation(int ID);
+        public Drone GetDrone(int ID);
+        public Customer GetCustomer(int ID);
+        public Package GetPackage(int ID);
 
         public IEnumerable<BaseStationList> ListStations();
         public IEnumerable<DroneList> ListDrones();

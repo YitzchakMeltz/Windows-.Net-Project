@@ -16,7 +16,7 @@ namespace BL
             return GetStation(listOfStations[0].ID);
         }
 
-        private BaseStation GetStation(int stationID)
+        public BaseStation GetStation(int stationID)
         {
             try
             {

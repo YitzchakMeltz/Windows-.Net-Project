@@ -275,28 +275,28 @@ namespace ConsoleUI_BL
                     Console.WriteLine("Please enter the Station ID: ");
                     int stationID = Convert.ToInt32(Console.ReadLine());
 
-                    bl.ShowStation(stationID);
+                    Console.WriteLine(bl.GetStation(stationID));
                     break;
 
                 case ShowMenu.ShowDrone:
                     Console.WriteLine("Please enter the Drone ID: ");
                     int droneID = Convert.ToInt32(Console.ReadLine());
 
-                    bl.ShowDrone(droneID);
+                    Console.WriteLine(bl.GetDrone(droneID));
                     break;
 
                 case ShowMenu.ShowCustomer:
                     Console.WriteLine("Please enter the Customer ID: ");
                     int customerID = Convert.ToInt32(Console.ReadLine());
 
-                    bl.ShowCustomer(customerID);
+                    Console.WriteLine(bl.GetCustomer(customerID));
                     break;
 
                 case ShowMenu.ShowPackage:
                     Console.WriteLine("Please enter the Package ID: ");
                     int packageID = Convert.ToInt32(Console.ReadLine());
 
-                    bl.ShowPackage(packageID);
+                    Console.WriteLine(bl.GetPackage(packageID));
                     break;
 
                 default:
