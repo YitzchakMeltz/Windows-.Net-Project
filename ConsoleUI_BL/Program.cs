@@ -1,5 +1,6 @@
 ﻿using System;
 using IBL;
+using IBL.BO;
 
 namespace ConsoleUI_BL
 {
@@ -324,16 +325,24 @@ namespace ConsoleUI_BL
             switch (selection)
             {
                 case ListMenu.ListBaseStations:
-                    bl.ListStations();
+                    foreach (BaseStationList station in bl.ListStations())
+                        Console.WriteLine(station);
+                    Console.WriteLine();
                     break;
                 case ListMenu.ListDrones:
-                    bl.ListDrones();
+                    foreach (DroneList drone in bl.ListDrones())
+                        Console.WriteLine(drone);
+                    Console.WriteLine();
                     break;
                 case ListMenu.ListCustomers:
-                    bl.ListCustomers();
+                    foreach (CustomerList customer in bl.ListCustomers())
+                        Console.WriteLine(customer);
+                    Console.WriteLine();
                     break;
                 case ListMenu.ListPackages:
-                    bl.ListPackages();
+                    foreach (PackageList package in bl.ListPackages())
+                        Console.WriteLine(package);
+                    Console.WriteLine();
                     break;
                 default:
                     return;

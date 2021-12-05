@@ -65,13 +65,17 @@ namespace BL
                     ID = customerID,
                     Name = dalCustomer.Name,
                     Phone = dalCustomer.Phone,
-                    Location = CoordinateToLocation(dalCustomer.Location)
+                    Location = CoordinateToLocation(dalCustomer.Location),
+                    Incoming = new List<CustomerPackage>(),
+                    Outgoing = new List<CustomerPackage>()
                 };
 
                 foreach (PackageList package in ListPackages())
                 {
                     if (package.Sender == customer.Name)
+                    {
                         customer.Outgoing.Add(ConvertToCustomerPackage(package, package.Receiver));
+                    }
                     else if (package.Receiver == customer.Name)
                     {
                         customer.Incoming.Add(ConvertToCustomerPackage(package, package.Sender));

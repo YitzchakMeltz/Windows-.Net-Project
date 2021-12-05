@@ -9,5 +9,10 @@
         public DroneStatuses Status { get; set; }
         public Location Location { get; set; }
         public uint? PackageID; // Can be null
+
+        public override string ToString()
+        {
+            return $"ID: {ID}, Model: {Model}, Weight: {Weight}, Battery: {Battery}, Status: {Status}, Location: ({Location})" + (PackageID == null ? "" : $", {PackageID}");
+        }
     }
 }

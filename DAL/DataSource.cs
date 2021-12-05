@@ -118,6 +118,12 @@ namespace DalObject
                     p.TargetID = Customers[rd.Next(Customers.Count)].ID;
                 } while (p.TargetID == p.SenderID); // prevent customer from sending to itself
 
+                if (rd.NextDouble() < .3)
+                {
+                    p.AssignmentTime = new TimeSpan(0, rd.Next(30), 0);
+                    p.PickedUp = p.Scheduled.Add(p.AssignmentTime).AddMinutes(rd.Next(5, 60));
+                    p.Delivered = p.PickedUp.AddMinutes(rd.Next(10, 120));
+                }
                 Parcels.Add(p);
             }
         }

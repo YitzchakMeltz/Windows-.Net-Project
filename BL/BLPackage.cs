@@ -9,15 +9,15 @@ namespace BL
     {
         private Statuses ParcelStatus(IDAL.DO.Parcel p)
         {
-            if (p.AssignmentTime.Equals(default(TimeSpan)))
+            if (p.AssignmentTime.Equals(TimeSpan.MinValue))
             {
                 return Statuses.Created;
             }
-            if (p.PickedUp.Equals(default(DateTime)))
+            if (p.PickedUp.Equals(DateTime.MinValue))
             {
                 return Statuses.Assigned;
             }
-            if (p.Delivered.Equals(default(DateTime)))
+            if (p.Delivered.Equals(DateTime.MinValue))
             {
                 return Statuses.Collected;
             }
@@ -44,14 +44,14 @@ namespace BL
 
         public CustomerPackage ConvertToCustomerPackage(PackageList package, string otherCustomer)
         {
-            int customerID = ((List<Customer>)ListCustomers()).Find(customer => customer.Name == otherCustomer).ID;
+            int customerID = ((List<IDAL.DO.Customer>)dalObject.GetCustomerList()).Find(customer => customer.Name == otherCustomer).ID;
             return new CustomerPackage()
             {
                 ID = package.ID,
                 Weight = package.Weight,
                 Priority = package.Priority,
                 Status = package.Status,
-                Customer = ConvertToPackageCustomer(GetCustomer(customerID))
+                Customer = new PackageCustomer() { ID = customerID, Name = otherCustomer }
             };
         }
 
@@ -60,7 +60,7 @@ namespace BL
             try
             {
                 IDAL.DO.Parcel parcel = dalObject.GetParcel(packageID);
-
+                DroneList drone = Drones.Find(d => d.PackageID == packageID);
                 Package package = new Package()
                 {
                     ID = packageID,
@@ -68,11 +68,11 @@ namespace BL
                     Receiver = ConvertToPackageCustomer(GetCustomer(parcel.TargetID)),
                     Weight = (WeightCategories)parcel.WeightCategory,
                     Priority = (Priorities)parcel.Priority,
-                    Drone = ConvertToDeliveryDrone(Drones.Find(d => d.PackageID == packageID)),
+                    Drone = (drone == null ? null : ConvertToDeliveryDrone(drone)),
                     Creation = parcel.Scheduled,
-                    AssignmentTime = parcel.Scheduled.Add(parcel.AssignmentTime),
-                    CollectionTime = parcel.PickedUp,
-                    DeliveryTime = parcel.Delivered
+                    AssignmentTime = parcel.AssignmentTime == TimeSpan.MinValue ? null : parcel.Scheduled.Add(parcel.AssignmentTime),
+                    CollectionTime = parcel.PickedUp == DateTime.MinValue ? null : parcel.PickedUp,
+                    DeliveryTime = parcel.Delivered == DateTime.MinValue ? null : parcel.Delivered
                 };
 
                 return package;

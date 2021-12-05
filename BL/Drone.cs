@@ -9,5 +9,9 @@
         public DroneStatuses Status { init; get; }
         public EnroutePackage Package { init; get; }
         public Location Location { init; get; }
+        public override string ToString()
+        {
+            return $"ID: {ID}, Model: {Model}, Weight: {Weight}, Battery: {Battery}, Status: {Status}, Location: ({Location})";
+        }
     }
 }

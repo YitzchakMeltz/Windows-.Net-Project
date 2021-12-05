@@ -9,5 +9,10 @@
         public uint PackagesSentNotDelivered { init; get; }
         public uint PackagesRecieved { init; get; }
         public uint PackagesExpected { init; get; }
+
+        public override string ToString()
+        {
+            return $"ID: {ID}, Name: {Name}, Phone: {Phone}, Packages Sent: (Delivered: {PackagesSentDelivered}, Not Delivered: {PackagesSentNotDelivered}), Packages Incoming: (Recieved: {PackagesRecieved}, Expected: {PackagesExpected})";
+        }
     }
 }

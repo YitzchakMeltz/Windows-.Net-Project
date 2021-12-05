@@ -4,5 +4,9 @@
     {
         public double Longitude { init; get; }
         public double Latitude { init; get; }
+        public override string ToString()
+        {
+            return $"Latitude: {Latitude}, Longitude: {Longitude}";
+        }
     }
 }

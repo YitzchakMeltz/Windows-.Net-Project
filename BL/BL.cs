@@ -59,6 +59,8 @@ namespace BL
                     else
                     {
                         IEnumerable<IDAL.DO.Parcel> deliveredParcels = dalObject.GetParcelList().Where(parcel => !parcel.Delivered.Equals(default(DateTime))).ToArray();
+                        if (deliveredParcels.Count() == 0)
+                            throw new IDAL.DO.ObjectNotFound("No Parcels have been delivered so starting drone location could not be determined.");
                         drone.Location = CoordinateToLocation(dalObject.GetCustomer(deliveredParcels.ElementAt(random.Next(0, deliveredParcels.Count())).TargetID).Location);
                     }
                 }
