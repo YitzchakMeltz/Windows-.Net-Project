@@ -154,7 +154,24 @@ namespace BL
             }
             unassignedPackages.RemoveAll(x => x.Weight != heaviest);
 
-            unassignedPackages.Sort((x, y) => Distance());
+            unassignedPackages.Sort((x, y) => GetEnroutePackage(y.ID).DeliveryDistance.CompareTo(GetEnroutePackage(x.ID).DeliveryDistance));
+
+            EnroutePackage enroute = GetEnroutePackage(unassignedPackages[0].ID);
+            double batteryPickup = Distance(drone.Location, enroute.CollectionLocation) / PowerConsumption[0];
+            double batteryDeliver = enroute.DeliveryDistance / PowerConsumption[(int)enroute.Weight + 1];
+            double batteryCharge = Distance(enroute.DeliveryLocation, ClosestStation(enroute.DeliveryLocation).Location);
+
+            if (batteryPickup + batteryDeliver + batteryCharge > drone.Battery)
+                throw new InvalidManeuver($"Drone with ID {drone.ID} doesn't have enough battery to make this delivery.");
+            else
+            {
+                drone.PackageID = (uint)unassignedPackages[0].ID;
+                drone.Status = DroneStatuses.Delivering;
+
+                dalObject.AssignParcel(unassignedPackages[0].ID, droneID);
+
+                Drones[Drones.FindIndex(d => d.ID == droneID)] = drone;
+            }
         }
 
         public IEnumerable<DroneList> ListDrones()
