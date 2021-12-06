@@ -17,7 +17,7 @@ namespace BL
 
         private double Distance(Location source, Location dest)
         {
-            return LocationToCoordinate(source).DistanceTo(LocationToCoordinate(dest));
+            return LocationToCoordinate(source).DistanceTo(LocationToCoordinate(dest)) / 1000;
         }
 
         private IDAL.Util.Coordinate LocationToCoordinate(Location location)

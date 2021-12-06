@@ -18,10 +18,10 @@ namespace DalObject
         internal class Config
         {
             public static int PackageID = 0;
-            public static double Free = 50;                        // km when free
-            public static double LightConsumption = 40;            // km when carrying light package
-            public static double MediumConsumption = 30;           // km when carrying mid weight package
-            public static double HeavyConsumption = 20;            // km when carrying heavy package
+            public static double Free = 200;                        // km when free
+            public static double LightConsumption = 150;            // km when carrying light package
+            public static double MediumConsumption = 100;           // km when carrying mid weight package
+            public static double HeavyConsumption = 50;            // km when carrying heavy package
             public static double ChargeRate = 10;                  // % charged per hour
         }
 
@@ -96,6 +96,7 @@ namespace DalObject
                 Customers.Add(c);
             }
 
+            bool deliveredPackage = false; // Guarantee that at least one package has been delivered
             for (int i = 0; i < 10; ++i)
             {
                 DateTime earliest = new DateTime(2018, 1, 1, 0, 0, 0);
@@ -118,11 +119,15 @@ namespace DalObject
                     p.TargetID = Customers[rd.Next(Customers.Count)].ID;
                 } while (p.TargetID == p.SenderID); // prevent customer from sending to itself
 
-                if (rd.NextDouble() < .3)
+                if (rd.NextDouble() < .5 || i == 9 && !deliveredPackage)
                 {
                     p.AssignmentTime = new TimeSpan(0, rd.Next(30), 0);
-                    p.PickedUp = p.Scheduled.Add(p.AssignmentTime).AddMinutes(rd.Next(5, 60));
-                    p.Delivered = p.PickedUp.AddMinutes(rd.Next(10, 120));
+                    if (rd.NextDouble() < .5 || i == 9 && !deliveredPackage)
+                    {
+                        p.PickedUp = p.Scheduled.Add(p.AssignmentTime).AddMinutes(rd.Next(5, 60));
+                        if (p.PickedUp.AddDays(1).CompareTo(DateTime.Now) < 0 || i == 9 && !deliveredPackage)
+                            p.Delivered = p.PickedUp.AddMinutes(rd.Next(10, 120));
+                    }
                 }
                 Parcels.Add(p);
             }

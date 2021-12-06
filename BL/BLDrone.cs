@@ -53,7 +53,7 @@ namespace BL
                 if (Distance(closestStation.Location, drone.Location) > DistanceLeft(drone))
                     throw new InvalidManeuver("Drone is too far away.");
 
-                drone.Battery -= Distance(closestStation.Location, drone.Location) * PowerConsumption[0];
+                drone.Battery -= Distance(closestStation.Location, drone.Location) / PowerConsumption[0];
                 drone.Location = closestStation.Location;
                 drone.Status = DroneStatuses.Maintenance;
 

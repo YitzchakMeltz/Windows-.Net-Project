@@ -60,7 +60,7 @@ namespace ConsoleUI_BL
             Console.WriteLine("1. Add Base Station");
             Console.WriteLine("2. Add Drone");
             Console.WriteLine("3. Add Customer");
-            Console.WriteLine("4. Add Parcel");
+            Console.WriteLine("4. Add Package");
             Console.WriteLine();
             Console.Write("Select an option: ");
 
@@ -151,7 +151,7 @@ namespace ConsoleUI_BL
             }
         }
 
-        private enum UpdateMenu { Return, UpdateDrone, UpdateStation, UpdateCustomer, UpdateDroneCharge }
+        private enum UpdateMenu { Return, UpdateDrone, UpdateStation, UpdateCustomer, UpdateChargeDrone, UpdateReleaseDrone, UpdateAssignPackage, UpdateCollectPackage, UpdateDeliverPackage }
         private static void MenuUpdate()
         {
             Console.WriteLine("Please choose what to update:");
@@ -160,7 +160,12 @@ namespace ConsoleUI_BL
             Console.WriteLine("1. Update Drone");
             Console.WriteLine("2. Update Station");
             Console.WriteLine("3. Update Customer");
-            Console.WriteLine("4. Send a drone to be charged");
+            Console.WriteLine("4. Send Drone to Charge");
+            Console.WriteLine("5. Release Drone from Charge");
+            Console.WriteLine("6. Assign Package to Drone");
+            Console.WriteLine("7. Collect Package by Drone");
+            Console.WriteLine("8. Deliver Package by Drone");
+
             Console.WriteLine();
             Console.Write("Select an option: ");
 
@@ -184,7 +189,9 @@ namespace ConsoleUI_BL
                     Console.WriteLine("Please enter the Station ID: ");
                     int stationID = Convert.ToInt32(Console.ReadLine());
 
-                    Console.WriteLine("1 Update Station Name \n2 Update Total Number of Availible Slots \n3 Update Both");
+                    Console.WriteLine("1. Update Station Name");
+                    Console.WriteLine("2. Update Total Number of Availible Slots");
+                    Console.WriteLine("3. Update Both");
                     int updateOption = Convert.ToInt32(Console.ReadLine());
 
                     switch(updateOption)
@@ -242,11 +249,41 @@ namespace ConsoleUI_BL
                     }
                     break;
 
-                case UpdateMenu.UpdateDroneCharge:
+                case UpdateMenu.UpdateChargeDrone:
                     Console.WriteLine("Please enter the Drone ID: ");
                     droneID = Convert.ToInt32(Console.ReadLine());
 
                     bl.ChargeDrone(droneID);
+                    break;
+
+                case UpdateMenu.UpdateReleaseDrone:
+                    Console.WriteLine("Please enter the Drone ID: ");
+                    droneID = Convert.ToInt32(Console.ReadLine());
+                    Console.WriteLine("Please enter how many minutes it was charging for: ");
+                    int chargingTime = Convert.ToInt32(Console.ReadLine());
+
+                    bl.ReleaseDrone(droneID, chargingTime);
+                    break;
+
+                case UpdateMenu.UpdateAssignPackage:
+                    Console.WriteLine("Please enter the Drone ID: ");
+                    droneID = Convert.ToInt32(Console.ReadLine());
+
+                    bl.AssignPackageToDrone(droneID);
+                    break;
+
+                case UpdateMenu.UpdateCollectPackage:
+                    Console.WriteLine("Please enter the Drone ID: ");
+                    droneID = Convert.ToInt32(Console.ReadLine());
+
+                    bl.CollectPackage(droneID);
+                    break;
+
+                case UpdateMenu.UpdateDeliverPackage:
+                    Console.WriteLine("Please enter the Drone ID: ");
+                    droneID = Convert.ToInt32(Console.ReadLine());
+
+                    bl.DeliverPackage(droneID);
                     break;
 
                 default:
@@ -263,7 +300,7 @@ namespace ConsoleUI_BL
             Console.WriteLine("1. Show Base Station");
             Console.WriteLine("2. Show Drone");
             Console.WriteLine("3. Show Customer");
-            Console.WriteLine("4. Show Parcel");
+            Console.WriteLine("4. Show Package");
             Console.WriteLine();
             Console.Write("Select an option: ");
 
@@ -317,7 +354,7 @@ namespace ConsoleUI_BL
             Console.WriteLine("1. List Base Stations");
             Console.WriteLine("2. List Drones");
             Console.WriteLine("3. List Customers");
-            Console.WriteLine("4. List Parcels");
+            Console.WriteLine("4. List Packages");
             Console.WriteLine();
             Console.Write("Select an option: ");
 

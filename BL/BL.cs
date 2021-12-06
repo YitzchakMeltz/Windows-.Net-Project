@@ -56,12 +56,17 @@ namespace BL
                         drone.Location = CoordinateToLocation(dalObject.GetStationList().ElementAt(random.Next(0, dalObject.GetStationList().Count())).Location);
                         drone.Battery = random.NextDouble() * 20;
                     }
-                    else
+                    else // Drone is Free
                     {
-                        IEnumerable<IDAL.DO.Parcel> deliveredParcels = dalObject.GetParcelList().Where(parcel => !parcel.Delivered.Equals(default(DateTime))).ToArray();
-                        if (deliveredParcels.Count() == 0)
-                            throw new IDAL.DO.ObjectNotFound("No Parcels have been delivered so starting drone location could not be determined.");
+                        IEnumerable<IDAL.DO.Parcel> deliveredParcels = dalObject.GetParcelList().Where(parcel => !parcel.Delivered.Equals(DateTime.MinValue)).ToArray();
+                        /*if (deliveredParcels.Count() == 0)
+                            throw new InvalidManeuver("No Parcels have been delivered so starting drone location could not be determined.");*/
                         drone.Location = CoordinateToLocation(dalObject.GetCustomer(deliveredParcels.ElementAt(random.Next(0, deliveredParcels.Count())).TargetID).Location);
+
+                        double batteryToStation = Distance(ClosestStation(drone.Location).Location, drone.Location) / PowerConsumption[0];
+                        if (batteryToStation > 100)
+                            throw new InvalidManeuver("Drone is too far away to be charged.");
+                        drone.Battery = batteryToStation + (random.NextDouble() * (100 - batteryToStation));
                     }
                 }
 
