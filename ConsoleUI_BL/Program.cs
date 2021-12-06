@@ -20,6 +20,7 @@ namespace ConsoleUI_BL
                 Console.WriteLine("2. Update");
                 Console.WriteLine("3. Show");
                 Console.WriteLine("4. List");
+                Console.WriteLine();
                 Console.Write("Select an option: ");
 
                 MainMenu selection;
@@ -303,6 +304,8 @@ namespace ConsoleUI_BL
                 default:
                     return;
             }
+
+            Console.WriteLine();
         }
 
         private enum ListMenu { Return, ListBaseStations, ListDrones, ListCustomers, ListPackages }
@@ -327,26 +330,24 @@ namespace ConsoleUI_BL
                 case ListMenu.ListBaseStations:
                     foreach (BaseStationList station in bl.ListStations())
                         Console.WriteLine(station);
-                    Console.WriteLine();
                     break;
                 case ListMenu.ListDrones:
                     foreach (DroneList drone in bl.ListDrones())
                         Console.WriteLine(drone);
-                    Console.WriteLine();
                     break;
                 case ListMenu.ListCustomers:
                     foreach (CustomerList customer in bl.ListCustomers())
                         Console.WriteLine(customer);
-                    Console.WriteLine();
                     break;
                 case ListMenu.ListPackages:
                     foreach (PackageList package in bl.ListPackages())
                         Console.WriteLine(package);
-                    Console.WriteLine();
                     break;
                 default:
                     return;
             }
+
+            Console.WriteLine();
         }
     }
 }

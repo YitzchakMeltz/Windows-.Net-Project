@@ -80,7 +80,7 @@ namespace DalObject
         /// <param name="ID"></param>
         public void RemoveStation(int ID)
         {
-            if (Drones.RemoveAll(s => s.ID == ID) == 0)
+            if (Stations.RemoveAll(s => s.ID == ID) == 0)
                 throw new ObjectNotFound($"Station with ID: {ID} doesn't exist");
         }
     }
