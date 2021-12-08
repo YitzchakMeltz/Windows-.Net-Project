@@ -43,5 +43,12 @@ VerticalAlignment="Stretch" Width="auto">
                    VerticalAlignment="Center" />
 
         </Grid>
+        <ListView Grid.Row="1" Name="DroneListView">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn/>
+                </GridView>
+            </ListView.View>
+        </ListView>
     </Grid>
 </Window>
