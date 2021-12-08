@@ -9,15 +9,15 @@ namespace BL
     {
         private Statuses ParcelStatus(IDAL.DO.Parcel p)
         {
-            if (p.AssignmentTime.Equals(TimeSpan.MinValue))
+            if (p.Assigned is null)
             {
                 return Statuses.Created;
             }
-            if (p.PickedUp.Equals(DateTime.MinValue))
+            if (p.PickedUp is null)
             {
                 return Statuses.Assigned;
             }
-            if (p.Delivered.Equals(DateTime.MinValue))
+            if (p.Delivered is null)
             {
                 return Statuses.Collected;
             }
@@ -67,9 +67,9 @@ namespace BL
                     Priority = (Priorities)parcel.Priority,
                     Drone = (drone == null ? null : ConvertToDeliveryDrone(drone)),
                     Creation = parcel.Scheduled,
-                    AssignmentTime = parcel.AssignmentTime == TimeSpan.MinValue ? null : parcel.Scheduled.Add(parcel.AssignmentTime),
-                    CollectionTime = parcel.PickedUp == DateTime.MinValue ? null : parcel.PickedUp,
-                    DeliveryTime = parcel.Delivered == DateTime.MinValue ? null : parcel.Delivered
+                    AssignmentTime = parcel.Assigned,
+                    CollectionTime = parcel.PickedUp,
+                    DeliveryTime = parcel.Delivered
                 };
 
                 return package;

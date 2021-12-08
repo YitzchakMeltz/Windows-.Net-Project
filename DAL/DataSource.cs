@@ -121,12 +121,12 @@ namespace DalObject
 
                 if (rd.NextDouble() < .5 || i == 9 && !deliveredPackage)
                 {
-                    p.AssignmentTime = new TimeSpan(0, rd.Next(30), 0);
+                    p.Assigned = p.Scheduled.Value.AddMinutes(rd.Next(10));
                     if (rd.NextDouble() < .5 || i == 9 && !deliveredPackage)
                     {
-                        p.PickedUp = p.Scheduled.Add(p.AssignmentTime).AddMinutes(rd.Next(5, 60));
-                        if (p.PickedUp.AddDays(1).CompareTo(DateTime.Now) < 0 || i == 9 && !deliveredPackage)
-                            p.Delivered = p.PickedUp.AddMinutes(rd.Next(10, 120));
+                        p.PickedUp = p.Assigned.Value.AddMinutes(rd.Next(5, 60));
+                        if (p.PickedUp.Value.AddDays(1).CompareTo(DateTime.Now) < 0 || i == 9 && !deliveredPackage)
+                            p.Delivered = p.PickedUp.Value.AddMinutes(rd.Next(10, 120));
                     }
                 }
                 Parcels.Add(p);

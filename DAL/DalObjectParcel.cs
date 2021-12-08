@@ -100,7 +100,7 @@ namespace DalObject
 
             parcel.DroneID = droneID;
 
-            parcel.AssignmentTime = DateTime.Now.Subtract(parcel.Scheduled);
+            parcel.Assigned = DateTime.Now;
 
             Parcels[Parcels.FindIndex(p => p.ID == parcel.ID)] = parcel;
         }
