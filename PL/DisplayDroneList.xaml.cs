@@ -33,14 +33,14 @@ namespace PL
             WeightSelector.ItemsSource = Enum.GetValues(typeof(IBL.BO.WeightCategories));
         }
 
+        private void StatusSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            IBL.BO.DroneStatuses droneStatuses = (IBL.BO.DroneStatuses)sender;
+        }
+
         private void WeightSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             IBL.BO.WeightCategories selectedWeight = (IBL.BO.WeightCategories)sender;
-        }
-
-        private void StatusSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
         }
     }
 }
