@@ -90,7 +90,12 @@ namespace BL
             return blStations;
         }
 
-        public IEnumerable<BaseStationList> ListStationsWithAvailableChargeSlots()
+        public IEnumerable<BaseStationList> ListStationsFiltered(Predicate<BaseStationList> pred)
+        {
+            return ((List<BaseStationList>)ListStations()).FindAll(pred);
+        }
+
+        /*public IEnumerable<BaseStationList> ListStationsWithAvailableChargeSlots()
         {
             IEnumerable<Station> dalStations = dalObject.GetAvailableStationList();
 
@@ -104,6 +109,6 @@ namespace BL
             }
 
             return availableStations;
-        }
+        }*/
     }
 }

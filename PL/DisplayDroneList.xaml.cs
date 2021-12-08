@@ -33,14 +33,23 @@ namespace PL
             WeightSelector.ItemsSource = Enum.GetValues(typeof(IBL.BO.WeightCategories));
         }
 
+        private IEnumerable<IBL.BO.DroneStatuses> selectedStatuses = new List<IBL.BO.DroneStatuses>();
         private void StatusSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            IBL.BO.DroneStatuses droneStatuses = (IBL.BO.DroneStatuses)sender;
+            selectedStatuses = e.AddedItems.Cast<IBL.BO.DroneStatuses>();
+            RefreshDroneList();
         }
 
+        private IEnumerable<IBL.BO.WeightCategories> selectedWeights = new List<IBL.BO.WeightCategories>();
         private void WeightSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            IBL.BO.WeightCategories selectedWeight = (IBL.BO.WeightCategories)sender;
+            selectedWeights = e.AddedItems.Cast<IBL.BO.WeightCategories>();
+            RefreshDroneList();
+        }
+
+        private void RefreshDroneList()
+        {
+            DroneListView.ItemsSource = bl.ListDronesFiltered(drone => (selectedStatuses.Count() > 0 ? selectedStatuses.Contains(drone.Status) : true) && (selectedWeights.Count() > 0 ? selectedWeights.Contains(drone.Weight) : true));
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

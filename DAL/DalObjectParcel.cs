@@ -46,13 +46,18 @@ namespace DalObject
         }
 
         /// <summary>
-        /// Returns an array of all Unassigned Parcels
+        /// Returns a filtered array of Parcels
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<Parcel> GetUnassignedParcelList()
+        public IEnumerable<Parcel> GetFilteredParcelList(Predicate<Parcel> pred)
+        {
+            return Parcels.FindAll(pred);
+        }
+
+        /*public IEnumerable<Parcel> GetUnassignedParcelList()
         {
             return Parcels.FindAll(p => p.DroneID == 0);
-        }
+        }*/
 
         
         /// <summary>

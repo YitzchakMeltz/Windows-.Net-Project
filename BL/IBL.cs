@@ -1,4 +1,5 @@
 ﻿using IBL.BO;
+using System;
 using System.Collections.Generic;
 
 namespace IBL
@@ -26,9 +27,10 @@ namespace IBL
 
         public IEnumerable<BaseStationList> ListStations();
         public IEnumerable<DroneList> ListDrones();
+        public IEnumerable<DroneList> ListDronesFiltered(Predicate<DroneList> p);
         public IEnumerable<CustomerList> ListCustomers();
         public IEnumerable<PackageList> ListPackages();
-        public IEnumerable<PackageList> ListUnassignedPackages();
-        public IEnumerable<BaseStationList> ListStationsWithAvailableChargeSlots();
+        public IEnumerable<PackageList> ListPackagesFiltered(Predicate<PackageList> p);
+        public IEnumerable<BaseStationList> ListStationsFiltered(Predicate<BaseStationList> p);
     }
 }

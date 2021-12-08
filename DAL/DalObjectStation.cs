@@ -1,5 +1,6 @@
 ﻿using IDAL.DO;
 using IDAL.Util;
+using System;
 using System.Collections.Generic;
 using static DalObject.DataSource;
 
@@ -45,12 +46,22 @@ namespace DalObject
             return new List<Station>(Stations);
         }
 
+        /// <summary>
+        /// Returns a filtered array of Stations
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<Station> GetFilteredStationList(Predicate<Station> pred)
+        {
+            return Stations.FindAll(pred);
+        }
+
+        /*
         public IEnumerable<Station> GetAvailableStationList()
         {
             // Looks through DroneCharge list and counts how many have a specific StationID, then compares it to the Station's Charge Slot
             return Stations.FindAll(s => s.AvailableChargeSlots > 0);
             //return Stations.Where(s => s.ChargeSlots > DataSource.DroneCharges.Count(dc => dc.StationID == s.ID)).ToList();
-        }
+        }*/
 
         
         /// <summary>

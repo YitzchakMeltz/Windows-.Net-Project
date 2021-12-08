@@ -1,6 +1,7 @@
 ﻿using IBL.BO;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace BL
 {
@@ -148,9 +149,18 @@ namespace BL
                 throw new InvalidManeuver($"Drone with ID {droneID} is not available.");
             }
 
-            List<PackageList> unassignedPackages = (List<PackageList>)ListUnassignedPackages();
+            List<PackageList> unassignedPackages = (List<PackageList>)ListPackagesFiltered(package => package.Status == Statuses.Created);//ListUnassignedPackages();
+            
+            unassignedPackages.RemoveAll(x => x.Weight > drone.Weight);
 
-            // Only keep highest priority packages
+            if (unassignedPackages.Count == 0)
+                throw new InvalidManeuver($"The drone with ID: {droneID} can't carry any packages.");
+
+            unassignedPackages.OrderBy(x => x.Priority)
+                              .ThenByDescending(x => x.Weight)
+                              .ThenBy(x => Distance(GetEnroutePackage(x.ID).CollectionLocation, drone.Location));
+            
+            /*// Only keep highest priority packages
             Priorities highestPriority = Priorities.Regular;
             foreach (PackageList package in unassignedPackages)
             {
@@ -165,12 +175,10 @@ namespace BL
             {
                 if ((int)package.Weight > (int)heaviest)
                     heaviest = package.Weight;
-            }
-            unassignedPackages.RemoveAll(x => x.Weight != heaviest);
+            }*/
 
-            unassignedPackages.Sort((x, y) => GetEnroutePackage(y.ID).DeliveryDistance.CompareTo(GetEnroutePackage(x.ID).DeliveryDistance));
-
-            EnroutePackage enroute = GetEnroutePackage(unassignedPackages[0].ID);
+            
+            EnroutePackage enroute = GetEnroutePackage(unassignedPackages.First().ID);
             double batteryPickup = Distance(drone.Location, enroute.CollectionLocation) / PowerConsumption[0];
             double batteryDeliver = enroute.DeliveryDistance / PowerConsumption[(int)enroute.Weight + 1];
             double batteryCharge = Distance(enroute.DeliveryLocation, ClosestStation(enroute.DeliveryLocation).Location);
@@ -245,6 +253,15 @@ namespace BL
         public IEnumerable<DroneList> ListDrones()
         {
             return Drones;
+        }
+
+        /// <summary>
+        /// Returns a filtered array of DroneLists
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<DroneList> ListDronesFiltered(Predicate<DroneList> pred)
+        {
+            return Drones.FindAll(pred);
         }
     }
 }

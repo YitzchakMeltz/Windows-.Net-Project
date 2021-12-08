@@ -92,8 +92,11 @@ namespace BL
 
             return packages;
         }
-
-        public IEnumerable<PackageList> ListUnassignedPackages()
+        public IEnumerable<PackageList> ListPackagesFiltered(Predicate<PackageList> pred)
+        {
+            return ((List<PackageList>)ListPackages()).FindAll(pred);
+        }
+        /*public IEnumerable<PackageList> ListUnassignedPackages()
         {
             IEnumerable<IDAL.DO.Parcel> dalParcels = dalObject.GetUnassignedParcelList();
             List<PackageList> packages = new List<PackageList>();
@@ -106,6 +109,6 @@ namespace BL
             }
 
             return packages;
-        }
+        }*/
     }
 }

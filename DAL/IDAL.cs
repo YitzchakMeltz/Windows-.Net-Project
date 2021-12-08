@@ -1,4 +1,5 @@
 ﻿using IDAL.DO;
+using System;
 using System.Collections.Generic;
 
 namespace IDAL
@@ -15,10 +16,10 @@ namespace IDAL
         public Parcel GetParcel(int ID);
         public IEnumerable<Drone> GetDroneList();
         public IEnumerable<Station> GetStationList();
-        public IEnumerable<Station> GetAvailableStationList();
+        public IEnumerable<Station> GetFilteredStationList(Predicate<Station> p);
         public IEnumerable<Customer> GetCustomerList();
         public IEnumerable<Parcel> GetParcelList();
-        public IEnumerable<Parcel> GetUnassignedParcelList();
+        public IEnumerable<Parcel> GetFilteredParcelList(Predicate<Parcel> p);
         
         public void AddStation(int id, string name, int chargeSlots, double latitude, double longitude);
         public void AddDrone(int id, string model, WeightCategories weightCat);
