@@ -17,11 +17,17 @@ namespace PL
     /// <summary>
     /// Interaction logic for DisplayDroneList.xaml
     /// </summary>
+    
     public partial class DisplayDroneList : Window
     {
-        public DisplayDroneList()
+        private IBL.IBL bl;
+        public DisplayDroneList(IBL.IBL bl)
         {
+            this.bl = bl;
+
             InitializeComponent();
+
+            DroneListView.ItemsSource = bl.ListDrones();
         }
     }
 }

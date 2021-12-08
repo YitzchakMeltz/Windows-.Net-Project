@@ -12,17 +12,27 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using IBL;
+using IBL.BO;
 
 namespace PL
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
+  
     public partial class MainWindow : Window
     {
+        static IBL.IBL bl = new BL.BL();
+
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            new DisplayDroneList(bl).Show();
         }
     }
 }
