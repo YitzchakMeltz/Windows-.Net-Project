@@ -6,9 +6,9 @@
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
         Title="DisplayDroneList" Height="640" Width="800">
-    
+
     <Grid Name="MainGrid">
-        
+
         <Grid.RowDefinitions>
             <RowDefinition Height="50*"/>
             <RowDefinition Height="400*"/>
@@ -29,7 +29,19 @@ VerticalAlignment="Stretch" Width="auto">
             <ComboBox Grid.Column="3" Name="WeightSelector"
                 HorizontalAlignment= "Stretch"
                 VerticalAlignment="Stretch" />
-          
+            
+            <Label Grid.Column="0" 
+                   Name="StatusLabel" 
+                   Content="Select a Status"  
+                   HorizontalAlignment="Center"  
+                   VerticalAlignment="Center" />
+
+            <Label Grid.Column="2" 
+                   Name="WeightLabel" 
+                   Content="Select a Weight"  
+                   HorizontalAlignment="Center"  
+                   VerticalAlignment="Center" />
+
         </Grid>
     </Grid>
 </Window>
