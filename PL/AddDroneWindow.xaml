@@ -7,10 +7,74 @@
         mc:Ignorable="d"
         Title="AddDroneWindow" Height="450" Width="800">
     <Grid>
-        <TextBox HorizontalAlignment="Left" Margin="190,117,0,0"  Text="Drone ID" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" TextChanged="TextBox_TextChanged"/>
-        <TextBox HorizontalAlignment="Left" Margin="190,184,0,0"  Text="Drone Model" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" TextChanged="TextBox_TextChanged"/>
-        <TextBox HorizontalAlignment="Left" Margin="190,319,0,0"  Text="Station ID" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" TextChanged="TextBox_TextChanged"/>
-        <ComboBox HorizontalAlignment="Left" Margin="190,254,0,0" VerticalAlignment="Top" Width="120"/>
 
+        <Grid Name="WindowGrid" HorizontalAlignment="Stretch" Height="auto" Grid.Row="0"
+                    VerticalAlignment="Stretch" Width="auto">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions >
+            
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <TextBox x:Name="Textbox1" Grid.Column="1" Grid.Row="4" Height="25" Width="200"  Padding="1,3,2,3" TextWrapping="Wrap" Text="" VerticalAlignment="Center" HorizontalAlignment="Center" ></TextBox>
+            <TextBlock x:Name="Placeholder1" Grid.Column="1" Grid.Row="4" IsHitTestVisible="False"  Padding="1,3,2,3" TextWrapping="Wrap" Text=" Drone ID" VerticalAlignment="Center"  Foreground="DarkGray" HorizontalAlignment="Center" Width="200" Height="25">
+                <TextBlock.Style>
+                    <Style TargetType="{x:Type TextBlock}">
+                        <Setter Property="Visibility" Value="Collapsed"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Text, ElementName=Textbox1}" Value="">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBlock.Style>
+            </TextBlock>
+            
+            <TextBox x:Name="Textbox2" Grid.Column="1" Grid.Row="5" Height="25" Width="200"  Padding="1,3,2,3" TextWrapping="Wrap" Text="" VerticalAlignment="Center" HorizontalAlignment="Center" ></TextBox>
+            <TextBlock x:Name="Placeholder2" Grid.Column="1" Grid.Row="5" IsHitTestVisible="False"  Padding="1,3,2,3" TextWrapping="Wrap" Text=" Drone Model" VerticalAlignment="Center"  Foreground="DarkGray" HorizontalAlignment="Center" Width="200" Height="25">
+                    <TextBlock.Style>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Text, ElementName=Textbox2}" Value="">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+            </TextBlock>
+                
+            <TextBox x:Name="Textbox3" Grid.Column="1" Grid.Row="7" Height="25" Width="200"  Padding="1,3,2,3" TextWrapping="Wrap" Text="" VerticalAlignment="Center" HorizontalAlignment="Center" ></TextBox>
+            <TextBlock x:Name="Placeholder3" Grid.Column="1" Grid.Row="7" IsHitTestVisible="False"  Padding="1,3,2,3" TextWrapping="Wrap" Text=" Station ID" VerticalAlignment="Center"  Foreground="DarkGray" HorizontalAlignment="Center" Width="200" Height="25">
+            <TextBlock.Style>
+                    <Style TargetType="{x:Type TextBlock}">
+                        <Setter Property="Visibility" Value="Collapsed"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Text, ElementName=Textbox3}" Value="">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBlock.Style>
+            </TextBlock>
+
+            <ComboBox Grid.Column="1" Grid.Row="6" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="200" Height="25"/>
+
+        </Grid>
     </Grid>
 </Window>
