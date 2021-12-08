@@ -42,5 +42,10 @@ namespace PL
         {
             IBL.BO.WeightCategories selectedWeight = (IBL.BO.WeightCategories)sender;
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            new AddDroneWindow(bl).Show();
+        }
     }
 }

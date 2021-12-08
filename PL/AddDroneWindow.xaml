@@ -7,6 +7,10 @@
         mc:Ignorable="d"
         Title="AddDroneWindow" Height="450" Width="800">
     <Grid>
-        
+        <TextBox HorizontalAlignment="Left" Margin="190,117,0,0"  Text="Drone ID" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" TextChanged="TextBox_TextChanged"/>
+        <TextBox HorizontalAlignment="Left" Margin="190,184,0,0"  Text="Drone Model" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" TextChanged="TextBox_TextChanged"/>
+        <TextBox HorizontalAlignment="Left" Margin="190,319,0,0"  Text="Station ID" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" TextChanged="TextBox_TextChanged"/>
+        <ComboBox HorizontalAlignment="Left" Margin="190,254,0,0" VerticalAlignment="Top" Width="120"/>
+
     </Grid>
 </Window>

@@ -19,9 +19,14 @@ namespace PL
     /// </summary>
     public partial class AddDroneWindow : Window
     {
-        public AddDroneWindow()
+        public AddDroneWindow(IBL.IBL bl)
         {
             InitializeComponent();
+        }
+
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            
         }
     }
 }
