@@ -28,6 +28,19 @@ namespace PL
             InitializeComponent();
 
             DroneListView.ItemsSource = bl.ListDrones();
+
+            StatusSelector.ItemsSource = Enum.GetValues(typeof(IBL.BO.DroneStatuses));
+            WeightSelector.ItemsSource = Enum.GetValues(typeof(IBL.BO.WeightCategories));
+        }
+
+        private void WeightSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            IBL.BO.WeightCategories selectedWeight = (IBL.BO.WeightCategories)sender;
+        }
+
+        private void StatusSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 }

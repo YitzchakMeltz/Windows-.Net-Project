@@ -24,11 +24,11 @@ VerticalAlignment="Stretch" Width="auto">
             </Grid.ColumnDefinitions >
             <ComboBox Grid.Column="1" Name="StatusSelector"
                 HorizontalAlignment= "Stretch"
-                VerticalAlignment="Stretch"/>
+                VerticalAlignment="Stretch" SelectionChanged="StatusSelector_SelectionChanged"/>
 
             <ComboBox Grid.Column="3" Name="WeightSelector"
                 HorizontalAlignment= "Stretch"
-                VerticalAlignment="Stretch" />
+                VerticalAlignment="Stretch" SelectionChanged="WeightSelector_SelectionChanged" />
             
             <Label Grid.Column="0" 
                    Name="StatusLabel" 
