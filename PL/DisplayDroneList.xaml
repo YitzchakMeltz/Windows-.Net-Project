@@ -6,10 +6,30 @@
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
         Title="DisplayDroneList" Height="640" Width="800">
+    
     <Grid Name="MainGrid">
+        
         <Grid.RowDefinitions>
             <RowDefinition Height="50*"/>
             <RowDefinition Height="400*"/>
         </Grid.RowDefinitions>
+
+        <Grid Name="UpGrid" HorizontalAlignment="Stretch" Height="auto" Grid.Row="0"
+VerticalAlignment="Stretch" Width="auto">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions >
+            <ComboBox Grid.Column="1" Name="StatusSelector"
+                HorizontalAlignment= "Stretch"
+                VerticalAlignment="Stretch"/>
+
+            <ComboBox Grid.Column="3" Name="WeightSelector"
+                HorizontalAlignment= "Stretch"
+                VerticalAlignment="Stretch" />
+          
+        </Grid>
     </Grid>
 </Window>
