@@ -34,9 +34,6 @@ namespace BL
                 Priority = priority,
                 Drone = null,
                 Creation = DateTime.Now,
-                /*AssignmentTime = DateTime.MinValue,
-                CollectionTime = DateTime.MinValue,
-                DeliveryTime = DateTime.MinValue*/
             };
 
             dalObject.AddParcel(senderID, receiverID, (IDAL.DO.WeightCategories)weight, (IDAL.DO.Priorities)priority, 0);

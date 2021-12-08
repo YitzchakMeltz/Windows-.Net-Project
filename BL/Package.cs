@@ -10,7 +10,7 @@ namespace IBL.BO
         public WeightCategories Weight { init; get; }
         public Priorities Priority { init; get; }
         public DeliveryDrone Drone { init; get; }
-        public DateTime Creation { init; get; }
+        public DateTime? Creation { init; get; }
         public DateTime? AssignmentTime { init; get; }
         public DateTime? CollectionTime { init; get; }
         public DateTime? DeliveryTime { init; get; }

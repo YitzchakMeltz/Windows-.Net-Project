@@ -12,10 +12,10 @@ namespace IDAL
             public WeightCategories WeightCategory { get; set; }
             public Priorities Priority { get; set; }
             public int DroneID { get; set; }
-            public DateTime Scheduled { get; set; }
-            public DateTime PickedUp { get; set; }
-            public TimeSpan AssignmentTime { get; set; } // Not sure this is necessary
-            public DateTime Delivered { get; set; }
+            public DateTime? Scheduled { get; set; }
+            public DateTime? PickedUp { get; set; }
+            public TimeSpan? AssignmentTime { get; set; } // Not sure this is necessary
+            public DateTime? Delivered { get; set; }
 
             /// <summary>
             /// Returns a String with details about the Parcel
