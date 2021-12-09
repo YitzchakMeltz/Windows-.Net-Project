@@ -26,13 +26,9 @@ namespace PL
         static IBL.IBL bl = new BL.BL();
 
         public MainWindow()
-        {
+        { 
             InitializeComponent();
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            new DisplayDroneList(bl).Show();
+            mainFrame.Content = new WelcomePage(mainFrame, bl);
         }
     }
 }

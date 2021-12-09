@@ -5,10 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="640" Width="800">
     <Grid>
-        <Button Content="Display Drone List" HorizontalAlignment="Center" Margin="0,217,0,0" VerticalAlignment="Top" RenderTransformOrigin="-1.117,-0.02" Click="Button_Click" FontWeight="Normal" FontFamily="Arial" FontSize="16" Background="#FFDEE4E5" Padding="10,10,10,10" BorderThickness="0,0,0,0" />
-        <Label Content="Welcome To Our Drone Program" HorizontalAlignment="Center" Margin="0,94,0,0" VerticalAlignment="Top" FontSize="20"/>
-
+        <Frame x:Name="mainFrame" NavigationUIVisibility="Hidden">
+        </Frame>
     </Grid>
 </Window>

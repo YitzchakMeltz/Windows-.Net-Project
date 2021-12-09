@@ -10,25 +10,24 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace PL
 {
     /// <summary>
-    /// Interaction logic for AddDroneWindow.xaml
+    /// Interaction logic for AddDronePage.xaml
     /// </summary>
-    public partial class AddDroneWindow : Window
+    public partial class AddDronePage : Page
     {
-        public AddDroneWindow(IBL.IBL bl)
+        IBL.IBL bl;
+        Frame mainFrame;
+        public AddDronePage(Frame f, IBL.IBL bl)
         {
-            InitializeComponent();
+            this.bl = bl;
+            this.mainFrame = f;
 
-            WeightSelector.ItemsSource = Enum.GetValues(typeof(IBL.BO.WeightCategories));
-        }
-
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            
+            InitializeComponent(); 
         }
     }
 }
