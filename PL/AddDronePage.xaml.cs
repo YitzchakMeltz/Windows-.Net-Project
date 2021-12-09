@@ -27,7 +27,9 @@ namespace PL
             this.bl = bl;
             this.mainFrame = f;
 
-            InitializeComponent(); 
+            InitializeComponent();
+
+            WeightSelector.ItemsSource = Enum.GetValues(typeof(IBL.BO.WeightCategories));
         }
     }
 }
