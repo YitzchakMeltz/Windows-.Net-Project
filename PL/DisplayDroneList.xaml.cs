@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using IBL.BO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -29,27 +30,13 @@ namespace PL
 
             DroneListView.ItemsSource = bl.ListDrones();
 
-            StatusSelector.ItemsSource = Enum.GetValues(typeof(IBL.BO.DroneStatuses));
-            WeightSelector.ItemsSource = Enum.GetValues(typeof(IBL.BO.WeightCategories));
+            StatusSelector.ItemsSource = Enum.GetValues<IBL.BO.DroneStatuses>().Select(s => s.ToString()).Prepend("");
+            WeightSelector.ItemsSource = Enum.GetValues<IBL.BO.WeightCategories>().Select(w => w.ToString()).Prepend("");
         }
 
-        private IEnumerable<IBL.BO.DroneStatuses> selectedStatuses = new List<IBL.BO.DroneStatuses>();
-        private void StatusSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            selectedStatuses = e.AddedItems.Cast<IBL.BO.DroneStatuses>();
-            RefreshDroneList();
-        }
-
-        private IEnumerable<IBL.BO.WeightCategories> selectedWeights = new List<IBL.BO.WeightCategories>();
-        private void WeightSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            selectedWeights = e.AddedItems.Cast<IBL.BO.WeightCategories>();
-            RefreshDroneList();
-        }
-
-        private void RefreshDroneList()
-        {
-            DroneListView.ItemsSource = bl.ListDronesFiltered(drone => (selectedStatuses.Count() > 0 ? selectedStatuses.Contains(drone.Status) : true) && (selectedWeights.Count() > 0 ? selectedWeights.Contains(drone.Weight) : true));
+            DroneListView.ItemsSource = bl.ListDronesFiltered(drone => (StatusSelector.SelectedItem is "" or null || drone.Status == Enum.Parse<IBL.BO.DroneStatuses>((string)StatusSelector.SelectedItem)) && (WeightSelector.SelectedItem is "" or null || drone.Weight == Enum.Parse<IBL.BO.WeightCategories>((string)WeightSelector.SelectedItem)));
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
