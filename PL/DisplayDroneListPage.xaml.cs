@@ -48,8 +48,8 @@ namespace PL
 
         private void DroneListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            if (DroneListView.SelectedValue is not null) ;
-                //mainFrame.Content = new ShowDronePage(mainFrame, bl.GetDrone((int)DroneListView.SelectedValue));
+            if (DroneListView.SelectedValue is not null)
+                mainFrame.Content = new AddDronePage(mainFrame, bl, bl.GetDrone((int)DroneListView.SelectedValue));
         }
     }
 }

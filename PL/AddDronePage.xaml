@@ -113,11 +113,11 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions >
 
-                <Button Content="+ Add" Grid.Column="1"  Grid.Row="9" HorizontalAlignment="Left"  VerticalAlignment="Center" 
+                <Button x:Name="AddButton" Content="+ Add" Grid.Column="1"  Grid.Row="9" HorizontalAlignment="Left"  VerticalAlignment="Center" 
                     Width="80" Height="24" Background="#FF4194E3" Foreground="White" BorderBrush="#FF4194E3" 
                     FontFamily="Arial" Margin="9,0,0,0" Click="Add_Button_Click"/>
 
-                <Button Content="Cancel" Grid.Column="0"  Grid.Row="9" HorizontalAlignment="Right"  VerticalAlignment="Center" 
+                <Button x:Name="CancelButton" Content="Cancel" Grid.Column="0"  Grid.Row="9" HorizontalAlignment="Right"  VerticalAlignment="Center" 
                     Width="80" Height="24" Background="Gray" Foreground="White" BorderBrush="Gray" 
                     FontFamily="Arial" Margin="0,0,9,0" Click="Cancel_Button_Click"/>
             </Grid>

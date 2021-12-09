@@ -1,4 +1,5 @@
-﻿using System;
+﻿using IBL.BO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,8 +21,12 @@ namespace PL
     /// </summary>
     public partial class AddDronePage : Page
     {
+        private enum State { Add, Update }
+        private State windowState = State.Add;
+
         IBL.IBL bl;
         Frame mainFrame;
+
         public AddDronePage(Frame f, IBL.IBL bl)
         {
             this.bl = bl;
@@ -34,13 +39,41 @@ namespace PL
             StationIDSelector.ItemsSource = bl.ListStations().Select(station => station.ID);
         }
 
+        public AddDronePage(Frame f, IBL.IBL bl, Drone drone) : this(f, bl)
+        {
+            windowState = State.Update;
+
+            DroneID_input.IsEnabled = false;
+            DroneID_input.Text = drone.ID.ToString();
+
+            DroneModel_input.Text = drone.Model;
+
+            WeightSelector.IsEnabled = false;
+            WeightSelector.SelectedItem = drone.Weight;
+
+            StationIDSelector.IsEnabled = false;
+            StationIDSelector.ItemsSource = new Location[] { drone.Location };
+            StationIDSelector.SelectedIndex = 0;
+
+            AddButton.Content = "Update";
+        }
+
         private void Add_Button_Click(object sender, RoutedEventArgs e)
         {
-            if(DroneID_input.Text != "" && DroneID_input.Text != "" && 
-                StationIDSelector.SelectedItem != null && WeightSelector.SelectedItem != null)
+            if (DroneID_input.Text != "" && DroneModel_input.Text != "" &&
+                           StationIDSelector.SelectedItem != null && WeightSelector.SelectedItem != null)
             {
-                bl.AddDrone(int.Parse(DroneID_input.Text), DroneModel_input.Text,
-                    (IBL.BO.WeightCategories)WeightSelector.SelectedItem, (int)StationIDSelector.SelectedItem);
+                switch (windowState)
+                {
+                    case State.Add:
+                            bl.AddDrone(int.Parse(DroneID_input.Text), DroneModel_input.Text,
+                                (IBL.BO.WeightCategories)WeightSelector.SelectedItem, (int)StationIDSelector.SelectedItem);
+                        break;
+
+                    case State.Update:
+                            bl.UpdateDrone(int.Parse(DroneID_input.Text), DroneModel_input.Text);
+                        break;
+                }
 
                 mainFrame.Content = new DisplayDroneListPage(bl, mainFrame);
             }
