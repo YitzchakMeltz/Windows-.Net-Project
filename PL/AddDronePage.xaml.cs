@@ -50,10 +50,12 @@ namespace PL
 
             WeightSelector.IsEnabled = false;
             WeightSelector.SelectedItem = drone.Weight;
+            WeightSelector.Foreground = Brushes.Gray;
 
             StationIDSelector.IsEnabled = false;
             StationIDSelector.ItemsSource = new Location[] { drone.Location };
             StationIDSelector.SelectedIndex = 0;
+            StationIDSelector.Foreground = Brushes.Gray;
 
             AddButton.Content = "Update";
         }

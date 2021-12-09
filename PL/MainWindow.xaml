@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title=" Dronicon" Height="640" Width="800" Icon="/DroniconIcon_1.0.2.png">
+        Title=" Dronicon" Height="640" Width="800" Icon="/DroniconIcon_1.0.2.png" WindowStartupLocation="Manual">
     <Grid>
         <Frame x:Name="mainFrame" NavigationUIVisibility="Hidden">
         </Frame>
