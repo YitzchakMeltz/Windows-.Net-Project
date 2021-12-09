@@ -64,20 +64,6 @@
                 </TextBlock.Style>
             </TextBlock>
 
-            <TextBox x:Name="StationID_input" Grid.Column="1" Grid.Row="7" Height="25" Width="200"  Padding="1,3,2,3" TextWrapping="Wrap" Text="" VerticalAlignment="Center" HorizontalAlignment="Center" ></TextBox>
-            <TextBlock x:Name="Placeholder3" Grid.Column="1" Grid.Row="7" IsHitTestVisible="False"  Padding="1,3,2,3" TextWrapping="Wrap" Text=" Station ID" VerticalAlignment="Center"  Foreground="DarkGray" HorizontalAlignment="Center" Width="200" Height="25">
-                <TextBlock.Style>
-                    <Style TargetType="{x:Type TextBlock}">
-                        <Setter Property="Visibility" Value="Collapsed"/>
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding Text, ElementName=StationID_input}" Value="">
-                                <Setter Property="Visibility" Value="Visible"/>
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </TextBlock.Style>
-            </TextBlock>
-
             <ComboBox x:Name="WeightSelector" Grid.Column="1" Grid.Row="6" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="200" Height="25" BorderBrush="White">
                 <ComboBox.Background>
                     <RadialGradientBrush>
@@ -92,6 +78,27 @@
                         <Setter Property="Visibility" Value="Collapsed"/>
                         <Style.Triggers>
                             <DataTrigger Binding="{Binding Text, ElementName=WeightSelector}" Value="">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBlock.Style>
+            </TextBlock>
+
+            <ComboBox x:Name="StationIDSelector" Grid.Column="1" Grid.Row="7" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="200" Height="25" BorderBrush="White">
+                <ComboBox.Background>
+                    <RadialGradientBrush>
+                        <GradientStop Color="#FFF0F0F0" Offset="1"/>
+                        <GradientStop Color="#FFE5E5E5" Offset="0"/>
+                    </RadialGradientBrush>
+                </ComboBox.Background>
+            </ComboBox>
+            <TextBlock x:Name="StationIDSelectorPlaceholder" Grid.Column="1" Grid.Row="7" IsHitTestVisible="False"  Padding="1,3,2,3" TextWrapping="Wrap" Text=" Select a Station ID" VerticalAlignment="Center"  Foreground="DarkGray" HorizontalAlignment="Center" Width="200" Height="25">
+                <TextBlock.Style>
+                    <Style TargetType="{x:Type TextBlock}">
+                        <Setter Property="Visibility" Value="Collapsed"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Text, ElementName=StationIDSelector}" Value="">
                                 <Setter Property="Visibility" Value="Visible"/>
                             </DataTrigger>
                         </Style.Triggers>

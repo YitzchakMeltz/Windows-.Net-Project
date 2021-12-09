@@ -30,15 +30,17 @@ namespace PL
             InitializeComponent();
 
             WeightSelector.ItemsSource = Enum.GetValues(typeof(IBL.BO.WeightCategories));
+
+            StationIDSelector.ItemsSource = bl.ListStations();
         }
 
         private void Add_Button_Click(object sender, RoutedEventArgs e)
         {
             if(DroneID_input.Text != "" && DroneID_input.Text != "" && 
-                StationID_input.Text != "" && WeightSelector.SelectedItem != null)
+                StationIDSelector.SelectedItem != null && WeightSelector.SelectedItem != null)
             {
                 bl.AddDrone(int.Parse(DroneID_input.Text), DroneID_input.Text,
-                    Enum.Parse<IBL.BO.WeightCategories>((string)WeightSelector.SelectedItem), int.Parse(StationID_input.Text));
+                    Enum.Parse<IBL.BO.WeightCategories>((string)WeightSelector.SelectedItem), (int)StationIDSelector.SelectedItem);
 
                 mainFrame.Content = new DisplayDroneListPage(bl, mainFrame);
             }
