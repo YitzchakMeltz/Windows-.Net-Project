@@ -22,6 +22,8 @@ namespace PL
         public AddDroneWindow(IBL.IBL bl)
         {
             InitializeComponent();
+
+            WeightSelector.ItemsSource = Enum.GetValues(typeof(IBL.BO.WeightCategories));
         }
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
