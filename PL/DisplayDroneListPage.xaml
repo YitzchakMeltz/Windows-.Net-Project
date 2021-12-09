@@ -36,7 +36,7 @@ VerticalAlignment="Stretch" Width="auto">
             
 
         </Grid>
-        <ListView Grid.Row="1" Name="DroneListView" MouseDoubleClick="DroneListView_MouseDoubleClick">
+        <ListView Grid.Row="1" Name="DroneListView" MouseDoubleClick="DroneListView_MouseDoubleClick" SelectedValuePath="ID">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="ID" DisplayMemberBinding="{Binding ID}"/>

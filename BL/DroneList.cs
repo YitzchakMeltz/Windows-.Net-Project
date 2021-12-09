@@ -8,7 +8,7 @@
         public double Battery { get; set; }
         public DroneStatuses Status { get; set; }
         public Location Location { get; set; }
-        public uint? PackageID; // Can be null
+        public uint? PackageID { get; set; } // Can be null
 
         public override string ToString()
         {
