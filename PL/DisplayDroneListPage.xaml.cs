@@ -51,5 +51,10 @@ namespace PL
             if (DroneListView.SelectedValue is not null)
                 mainFrame.Content = new AddDronePage(mainFrame, bl, bl.GetDrone((int)DroneListView.SelectedValue));
         }
+
+        private void Home_Button_Click(object sender, RoutedEventArgs e)
+        {
+            mainFrame.Content = new WelcomePage(mainFrame, bl);
+        }
     }
 }

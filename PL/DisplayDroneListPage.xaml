@@ -30,10 +30,21 @@ VerticalAlignment="Stretch" Width="auto">
             <ComboBox Grid.Column="2" Name="WeightSelector"
                 HorizontalAlignment= "Stretch" Height="25"
                 VerticalAlignment="Stretch" SelectionChanged="SelectionChanged" Margin="5,16,5,16" SelectedIndex="0" />
-            <Button Content="+ Add Drone"  Margin="0,0,0,0" HorizontalAlignment="Center"  VerticalAlignment="Center"   
+            <Button Grid.Column="3" Content="+ Add Drone"  Margin="0,0,0,0" HorizontalAlignment="Center"  VerticalAlignment="Center"   
                     Height="25" FontWeight="Normal" FontFamily="Arial" FontSize="12" Background="#FF4194E3" 
                     Foreground="White" Padding="10,0,10,0" BorderThickness="0,0,0,0" Click="Button_Click"/>
-            
+
+            <Button Grid.Column="0"   Margin="0,0,0,0" HorizontalAlignment="Center"  VerticalAlignment="Center"   
+                    Height="25" Background="LightGray" 
+                    Foreground="White" Padding="10,0,10,0" BorderThickness="0,0,0,0" Click="Home_Button_Click">
+
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="/icons/homepage_icon_white.png" Height="15" Width="15"/>
+                    <TextBlock Text=" Homepage"  VerticalAlignment="Center"   
+                               Height="15" FontWeight="Normal" FontFamily="Arial" FontSize="12"/>
+                </StackPanel>
+            </Button>
+
 
         </Grid>
         <ListView Grid.Row="1" Name="DroneListView" MouseDoubleClick="DroneListView_MouseDoubleClick" SelectedValuePath="ID">

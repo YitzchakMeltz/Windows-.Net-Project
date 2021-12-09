@@ -10,6 +10,7 @@
     <None Remove="DroniconIcon_1.0.2.png" />
     <None Remove="DroniconLogo_1.0.2%28NoBackground%29.png" />
     <None Remove="DroniconLogo_Top_1.0.2%28NoBackground%29.png" />
+    <None Remove="icons\homepage_icon_white.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -20,6 +21,7 @@
     <Resource Include="DroniconIcon_1.0.2.png" />
     <Resource Include="DroniconLogo_1.0.2(NoBackground).png" />
     <Resource Include="DroniconLogo_Top_1.0.2(NoBackground).png" />
+    <Resource Include="icons\homepage_icon_white.png" />
   </ItemGroup>
 
 </Project>
