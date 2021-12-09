@@ -36,7 +36,7 @@ VerticalAlignment="Stretch" Width="auto">
             
 
         </Grid>
-        <ListView Grid.Row="1" Name="DroneListView">
+        <ListView Grid.Row="1" Name="DroneListView" MouseDoubleClick="DroneListView_MouseDoubleClick">
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>

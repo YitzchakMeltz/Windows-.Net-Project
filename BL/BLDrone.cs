@@ -9,7 +9,7 @@ namespace BL
     {
         public void AddDrone(int ID, string model, IBL.BO.WeightCategories weight, int stationID)
         {
-            Drone drone = new Drone()
+            Drones.Add(new DroneList()
             {
                 ID = ID,
                 Model = model,
@@ -17,7 +17,7 @@ namespace BL
                 Location = GetStation(stationID).Location,
                 Status = DroneStatuses.Maintenance,
                 Battery = (random.NextDouble() * 20) + 20
-            };
+            });
 
             dalObject.AddDrone(ID, model, (IDAL.DO.WeightCategories)weight);
         }

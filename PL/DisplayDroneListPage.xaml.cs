@@ -45,5 +45,10 @@ namespace PL
         {
             mainFrame.Content = new AddDronePage(mainFrame, bl);
         }
+
+        private void DroneListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            //mainFrame.Content = new ShowDronePage(mainFrame, bl.GetDrone((DroneListView.SelectedItem as IBL.BO.DroneList).ID));
+        }
     }
 }
