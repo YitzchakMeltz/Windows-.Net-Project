@@ -8,6 +8,8 @@
 
   <ItemGroup>
     <None Remove="DroniconIcon_1.0.2.png" />
+    <None Remove="DroniconLogo_1.0.2%28NoBackground%29.png" />
+    <None Remove="DroniconLogo_Top_1.0.2%28NoBackground%29.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -16,6 +18,8 @@
 
   <ItemGroup>
     <Resource Include="DroniconIcon_1.0.2.png" />
+    <Resource Include="DroniconLogo_1.0.2(NoBackground).png" />
+    <Resource Include="DroniconLogo_Top_1.0.2(NoBackground).png" />
   </ItemGroup>
 
 </Project>
