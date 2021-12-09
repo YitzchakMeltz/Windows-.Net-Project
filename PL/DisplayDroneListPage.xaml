@@ -39,7 +39,13 @@ VerticalAlignment="Stretch" Width="auto">
         <ListView Grid.Row="1" Name="DroneListView" MouseDoubleClick="DroneListView_MouseDoubleClick">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn/>
+                    <GridViewColumn Header="ID" DisplayMemberBinding="{Binding ID}"/>
+                    <GridViewColumn Header="Model" DisplayMemberBinding="{Binding Model}"/>
+                    <GridViewColumn Header="Maximum Weight" DisplayMemberBinding="{Binding Weight}"/>
+                    <GridViewColumn Header="Battery" DisplayMemberBinding="{Binding Battery}"/>
+                    <GridViewColumn Header="Status" DisplayMemberBinding="{Binding Status}"/>
+                    <GridViewColumn Header="Location" DisplayMemberBinding="{Binding Location}"/>
+                    <GridViewColumn Header="Package ID" DisplayMemberBinding="{Binding PackageID}"/>
                 </GridView>
             </ListView.View>
         </ListView>
