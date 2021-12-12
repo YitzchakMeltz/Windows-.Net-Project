@@ -94,22 +94,26 @@ namespace PL
 
         private void Deliver_Button_Click(object sender, RoutedEventArgs e)
         {
-
+            bl.DeliverPackage(int.Parse(DroneID_input.Text));
+            mainFrame.Content = new DisplayDroneListPage(bl, mainFrame);
         }
 
         private void Collect_Button_Click(object sender, RoutedEventArgs e)
         {
-
+            bl.CollectPackage(int.Parse(DroneID_input.Text));
+            mainFrame.Content = new DisplayDroneListPage(bl, mainFrame);
         }
 
         private void Assign_Button_Click(object sender, RoutedEventArgs e)
         {
-
+            bl.AssignPackageToDrone(int.Parse(DroneID_input.Text));
+            mainFrame.Content = new DisplayDroneListPage(bl, mainFrame);
         }
 
         private void Release_Button_Click(object sender, RoutedEventArgs e)
         {
-
+            bl.ReleaseDrone(int.Parse(DroneID_input.Text), bl.GetDrone(int.Parse(DroneID_input.Text)).Battery);
+            mainFrame.Content = new DisplayDroneListPage(bl, mainFrame);
         }
 
         private void Charge_Button_Click(object sender, RoutedEventArgs e)
