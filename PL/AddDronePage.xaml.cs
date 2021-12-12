@@ -43,6 +43,12 @@ namespace PL
         {
             windowState = State.Update;
 
+            ChargeButton.Visibility = Visibility.Visible;
+            ReleaseButton.Visibility = Visibility.Visible;
+            AssignButton.Visibility = Visibility.Visible;
+            CollectButton.Visibility = Visibility.Visible;
+            DeliverButton.Visibility = Visibility.Visible;
+
             DroneID_input.IsEnabled = false;
             DroneID_input.Text = drone.ID.ToString();
 
@@ -84,6 +90,31 @@ namespace PL
         private void Cancel_Button_Click(object sender, RoutedEventArgs e)
         {
             mainFrame.Content = new DisplayDroneListPage(bl, mainFrame);
+        }
+
+        private void Deliver_Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Collect_Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Assign_Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Release_Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Charge_Button_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
