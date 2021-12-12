@@ -114,7 +114,8 @@ namespace PL
 
         private void Charge_Button_Click(object sender, RoutedEventArgs e)
         {
-
+            bl.ChargeDrone(int.Parse(DroneID_input.Text));
+            mainFrame.Content = new DisplayDroneListPage(bl, mainFrame);
         }
     }
 }
