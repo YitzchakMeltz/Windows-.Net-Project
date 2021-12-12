@@ -95,26 +95,31 @@ namespace PL
         private void Deliver_Button_Click(object sender, RoutedEventArgs e)
         {
             bl.DeliverPackage(int.Parse(DroneID_input.Text));
+            MessageBox.Show("The Drone has successfully delivered the package.", "Success");
         }
 
         private void Collect_Button_Click(object sender, RoutedEventArgs e)
         {
             bl.CollectPackage(int.Parse(DroneID_input.Text));
+            MessageBox.Show("The Drone has successfully collected the package.", "Success");
         }
 
         private void Assign_Button_Click(object sender, RoutedEventArgs e)
         {
             bl.AssignPackageToDrone(int.Parse(DroneID_input.Text));
+            MessageBox.Show("The Drone has successfully been assigned a package.", "Success");
         }
 
         private void Release_Button_Click(object sender, RoutedEventArgs e)
         {
             bl.ReleaseDrone(int.Parse(DroneID_input.Text), 60);
+            MessageBox.Show("The Drone has been released from charging for 60 minutes.", "Success");
         }
 
         private void Charge_Button_Click(object sender, RoutedEventArgs e)
         {
             bl.ChargeDrone(int.Parse(DroneID_input.Text));
+            MessageBox.Show("The Drone has successfully been sent to charging.", "Success");
         }
     }
 }

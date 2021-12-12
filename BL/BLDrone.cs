@@ -182,7 +182,7 @@ namespace BL
             EnroutePackage enroute = GetEnroutePackage(unassignedPackages.First().ID);
             double batteryPickup = Distance(drone.Location, enroute.CollectionLocation) / PowerConsumption[0];
             double batteryDeliver = enroute.DeliveryDistance / PowerConsumption[(int)enroute.Weight + 1];
-            double batteryCharge = Distance(enroute.DeliveryLocation, ClosestStation(enroute.DeliveryLocation).Location);
+            double batteryCharge = Distance(enroute.DeliveryLocation, ClosestStation(enroute.DeliveryLocation).Location) / PowerConsumption[0];
 
             if (batteryPickup + batteryDeliver + batteryCharge > drone.Battery)
                 throw new InvalidManeuver($"Drone with ID {drone.ID} doesn't have enough battery to make this delivery.");
@@ -246,6 +246,8 @@ namespace BL
 
             droneList.Battery -= drone.Package.DeliveryDistance / PowerConsumption[(int)drone.Package.Weight + 1];
             droneList.Location = drone.Package.DeliveryLocation;
+            droneList.PackageID = null;
+            droneList.Status = DroneStatuses.Free;
 
             dalObject.ParcelDelivered((int)droneList.PackageID);
             Drones[Drones.FindIndex(d => d.ID == droneID)] = droneList;

@@ -14,9 +14,6 @@ namespace BL
                 IDAL.DO.Parcel parcel = dalObject.GetParcel(parcelID);
                 Package package = GetPackage(parcelID);
             
-                if (ParcelStatus(parcel) != Statuses.Collected)
-                    throw new ObjectNotFound($"Parcel with ID: {parcelID} is not enroute");
-
                 Location collectionLocation = GetCustomer(package.Sender.ID).Location;
                 Location deliveryLocation = GetCustomer(package.Receiver.ID).Location;
                 double deliveryDistance = Distance(collectionLocation, deliveryLocation);
