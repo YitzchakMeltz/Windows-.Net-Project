@@ -151,6 +151,14 @@
                 </TextBlock.Style>
             </TextBlock>
 
+            <TextBox x:Name="DroneStatus_output" Grid.Column="1" Grid.Row="8" Height="25" Width="200"  Padding="1,3,2,3" TextWrapping="Wrap" 
+                     Text="Drone Status" VerticalAlignment="Center" HorizontalAlignment="Center" IsEnabled="False"
+                      Visibility="Hidden"></TextBox>
+
+            <TextBox x:Name="DroneBattery_output" Grid.Column="1" Grid.Row="9" Height="25" Width="200"  Padding="1,3,2,3" TextWrapping="Wrap" 
+                     Text="Drone Battery" VerticalAlignment="Center" HorizontalAlignment="Center" IsEnabled="False"
+                     Visibility="Hidden"></TextBox>
+
             <Grid Name="ButtonGrid" HorizontalAlignment="Stretch" Height="auto" Grid.Column="1"  Grid.Row="9"
                     VerticalAlignment="Stretch" Width="auto">
                 <Grid.ColumnDefinitions>
@@ -162,7 +170,7 @@
                     Width="80" Height="24" Background="#FF4194E3" Foreground="White" BorderBrush="#FF4194E3" 
                     FontFamily="Arial" Margin="9,0,0,0" Click="Add_Button_Click"/>
 
-                <Button x:Name="CancelButton" Content="Cancel" Grid.Column="0"  Grid.Row="9" HorizontalAlignment="Right"  VerticalAlignment="Center" 
+                <Button x:Name="CancelButton" Content="Close" Grid.Column="0"  Grid.Row="9" HorizontalAlignment="Right"  VerticalAlignment="Center" 
                     Width="80" Height="24" Background="Gray" Foreground="White" BorderBrush="Gray" 
                     FontFamily="Arial" Margin="0,0,9,0" Click="Cancel_Button_Click"/>
             </Grid>

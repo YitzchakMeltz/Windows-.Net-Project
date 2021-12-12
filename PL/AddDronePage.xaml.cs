@@ -48,6 +48,14 @@ namespace PL
             AssignButton.Visibility = Visibility.Visible;
             CollectButton.Visibility = Visibility.Visible;
             DeliverButton.Visibility = Visibility.Visible;
+            DroneStatus_output.Visibility = Visibility.Visible;
+            DroneBattery_output.Visibility = Visibility.Visible;
+
+            ButtonGrid.SetValue(Grid.RowProperty, 11);
+
+            DroneStatus_output.Text = drone.Status.ToString();
+
+            DroneBattery_output.Text = Math.Round(drone.Battery, 2).ToString() + "%";
 
             DroneID_input.IsEnabled = false;
             DroneID_input.Text = drone.ID.ToString();
