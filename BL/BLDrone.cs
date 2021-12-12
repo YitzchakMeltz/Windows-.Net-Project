@@ -20,6 +20,7 @@ namespace BL
             });
 
             dalObject.AddDrone(ID, model, (IDAL.DO.WeightCategories)weight);
+            dalObject.ChargeDrone(ID, stationID);
         }
 
         public void UpdateDrone(int ID, string model)
@@ -78,7 +79,7 @@ namespace BL
                 if (Drones.Find(d => d.ID == ID).Status != DroneStatuses.Maintenance)
                     throw new InvalidManeuver("Only a Drone in maintenance can be released.");
 
-                drone.Battery += PowerConsumption[4] * minutesCharging;
+                drone.Battery = Math.Min(drone.Battery + PowerConsumption[4] * minutesCharging, 100);
                 drone.Status = DroneStatuses.Free;
 
                 Drones[Drones.FindIndex(d => d.ID == ID)] = drone;

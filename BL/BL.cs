@@ -53,8 +53,10 @@ namespace BL
 
                     if (drone.Status == DroneStatuses.Maintenance)
                     {
-                        drone.Location = CoordinateToLocation(dalObject.GetStationList().ElementAt(random.Next(0, dalObject.GetStationList().Count())).Location);
+                        IDAL.DO.Station randStation = dalObject.GetStationList().ElementAt(random.Next(0, dalObject.GetStationList().Count()));
+                        drone.Location = CoordinateToLocation(randStation.Location);
                         drone.Battery = random.NextDouble() * 20;
+                        dalObject.ChargeDrone(d.ID, randStation.ID);
                     }
                     else // Drone is Free
                     {
