@@ -36,6 +36,51 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
+            <Grid Name="ActionButtonsGridLeft" HorizontalAlignment="Stretch" Height="auto" Grid.Column="0"  Grid.Row="2"
+                    VerticalAlignment="Stretch" Width="auto">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions >
+                <Button x:Name="ChargeButton" Content="Charge" Grid.Column="2" HorizontalAlignment="Center"  VerticalAlignment="Center" 
+                    Width="80" Height="24" Background="#FF88BEF1" Foreground="White" BorderBrush="#FF88BEF1" 
+                    FontFamily="Arial" Margin="6,0,6,0" Click="Charge_Button_Click" Visibility="Hidden"/>
+            </Grid>
+
+            <Grid Name="ActionButtonsGridCenter" HorizontalAlignment="Stretch" Height="auto" Grid.Column="1"  Grid.Row="2"
+                    VerticalAlignment="Stretch" Width="auto">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions >
+                <Button x:Name="ReleaseButton" Content="Release" Grid.Column="0" HorizontalAlignment="Center"  VerticalAlignment="Center" 
+                    Width="80" Height="24" Background="#FF88BEF1" Foreground="White" BorderBrush="#FF88BEF1" 
+                    FontFamily="Arial" Margin="6,0,6,0" Click="Release_Button_Click" Visibility="Hidden"/>
+
+                <Button x:Name="AssignButton" Content="Assign" Grid.Column="1" HorizontalAlignment="Center"  VerticalAlignment="Center" 
+                    Width="80" Height="24" Background="#FF88BEF1" Foreground="White" BorderBrush="#FF88BEF1" 
+                    FontFamily="Arial" Margin="6,0,6,0" Click="Assign_Button_Click" Visibility="Hidden"/>
+
+                <Button x:Name="CollectButton" Content="Collect" Grid.Column="2" HorizontalAlignment="Center"  VerticalAlignment="Center" 
+                    Width="80" Height="24" Background="#FF88BEF1" Foreground="White" BorderBrush="#FF88BEF1" 
+                    FontFamily="Arial" Margin="6,0,6,0" Click="Collect_Button_Click" Visibility="Hidden"/>
+            </Grid>
+
+            <Grid Name="ActionButtonsGridRight" HorizontalAlignment="Stretch" Height="auto" Grid.Column="2"  Grid.Row="2"
+                    VerticalAlignment="Stretch" Width="auto">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions >
+                <Button x:Name="DeliverButton" Content="Deliver" Grid.Column="0" HorizontalAlignment="Center"  VerticalAlignment="Center" 
+                    Width="80" Height="24" Background="#FF88BEF1" Foreground="White" BorderBrush="#FF88BEF1" 
+                    FontFamily="Arial" Margin="6,0,6,0" Click="Deliver_Button_Click" Visibility="Hidden"/>
+            </Grid>
+
+
             <TextBox x:Name="DroneID_input" Grid.Column="1" Grid.Row="4" Height="25" Width="200"  Padding="1,3,2,3" TextWrapping="Wrap" Text="" VerticalAlignment="Center" HorizontalAlignment="Center" ></TextBox>
             <TextBlock x:Name="Placeholder1" Grid.Column="1" Grid.Row="4" IsHitTestVisible="False"  Padding="1,3,2,3" TextWrapping="Wrap" Text=" Drone ID" VerticalAlignment="Center"  Foreground="DarkGray" HorizontalAlignment="Center" Width="200" Height="25">
                 <TextBlock.Style>
