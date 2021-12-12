@@ -9,6 +9,8 @@ namespace BL
     {
         public void AddDrone(int ID, string model, IBL.BO.WeightCategories weight, int stationID)
         {
+            dalObject.AddDrone(ID, model, (IDAL.DO.WeightCategories)weight);
+
             Drones.Add(new DroneList()
             {
                 ID = ID,
@@ -19,7 +21,6 @@ namespace BL
                 Battery = (random.NextDouble() * 20) + 20
             });
 
-            dalObject.AddDrone(ID, model, (IDAL.DO.WeightCategories)weight);
             dalObject.ChargeDrone(ID, stationID);
         }
 
@@ -246,10 +247,11 @@ namespace BL
 
             droneList.Battery -= drone.Package.DeliveryDistance / PowerConsumption[(int)drone.Package.Weight + 1];
             droneList.Location = drone.Package.DeliveryLocation;
-            droneList.PackageID = null;
             droneList.Status = DroneStatuses.Free;
 
             dalObject.ParcelDelivered((int)droneList.PackageID);
+
+            droneList.PackageID = null;
             Drones[Drones.FindIndex(d => d.ID == droneID)] = droneList;
         }
 

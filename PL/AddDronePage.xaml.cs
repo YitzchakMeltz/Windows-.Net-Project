@@ -68,22 +68,29 @@ namespace PL
 
         private void Add_Button_Click(object sender, RoutedEventArgs e)
         {
-            if (DroneID_input.Text != "" && DroneModel_input.Text != "" &&
-                           StationIDSelector.SelectedItem != null && WeightSelector.SelectedItem != null)
+            try
             {
-                switch (windowState)
+                if (DroneID_input.Text != "" && DroneModel_input.Text != "" &&
+                               StationIDSelector.SelectedItem != null && WeightSelector.SelectedItem != null)
                 {
-                    case State.Add:
+                    switch (windowState)
+                    {
+                        case State.Add:
                             bl.AddDrone(int.Parse(DroneID_input.Text), DroneModel_input.Text,
                                 (IBL.BO.WeightCategories)WeightSelector.SelectedItem, (int)StationIDSelector.SelectedItem);
-                        break;
+                            break;
 
-                    case State.Update:
+                        case State.Update:
                             bl.UpdateDrone(int.Parse(DroneID_input.Text), DroneModel_input.Text);
-                        break;
-                }
+                            break;
+                    }
 
-                mainFrame.Content = new DisplayDroneListPage(bl, mainFrame);
+                    mainFrame.Content = new DisplayDroneListPage(bl, mainFrame);
+                }
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -94,32 +101,67 @@ namespace PL
 
         private void Deliver_Button_Click(object sender, RoutedEventArgs e)
         {
-            bl.DeliverPackage(int.Parse(DroneID_input.Text));
-            MessageBox.Show("The Drone has successfully delivered the package.", "Success");
+            try
+            {
+                bl.DeliverPackage(int.Parse(DroneID_input.Text));
+                MessageBox.Show("The Drone has successfully delivered the package.", "Success");
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void Collect_Button_Click(object sender, RoutedEventArgs e)
         {
-            bl.CollectPackage(int.Parse(DroneID_input.Text));
-            MessageBox.Show("The Drone has successfully collected the package.", "Success");
+            try
+            {
+                bl.CollectPackage(int.Parse(DroneID_input.Text));
+                MessageBox.Show("The Drone has successfully collected the package.", "Success");
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void Assign_Button_Click(object sender, RoutedEventArgs e)
         {
-            bl.AssignPackageToDrone(int.Parse(DroneID_input.Text));
-            MessageBox.Show("The Drone has successfully been assigned a package.", "Success");
+            try
+            {
+                bl.AssignPackageToDrone(int.Parse(DroneID_input.Text));
+                MessageBox.Show("The Drone has successfully been assigned a package.", "Success");
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void Release_Button_Click(object sender, RoutedEventArgs e)
         {
-            bl.ReleaseDrone(int.Parse(DroneID_input.Text), 60);
-            MessageBox.Show("The Drone has been released from charging for 60 minutes.", "Success");
+            try
+            {
+                bl.ReleaseDrone(int.Parse(DroneID_input.Text), 60);
+                MessageBox.Show("The Drone has been released from charging for 60 minutes.", "Success");
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void Charge_Button_Click(object sender, RoutedEventArgs e)
         {
-            bl.ChargeDrone(int.Parse(DroneID_input.Text));
-            MessageBox.Show("The Drone has successfully been sent to charging.", "Success");
+            try
+            {
+                bl.ChargeDrone(int.Parse(DroneID_input.Text));
+                MessageBox.Show("The Drone has successfully been sent to charging.", "Success");
+            }
+            catch (Exception exception)
+            { 
+                MessageBox.Show(exception.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error); 
+            }
         }
     }
 }
