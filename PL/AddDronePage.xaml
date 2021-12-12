@@ -43,8 +43,8 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions >
-                <Button x:Name="ChargeButton" Content="Charge" Grid.Column="2" HorizontalAlignment="Center"  VerticalAlignment="Center" 
-                    Width="80" Height="24" Background="#FF88BEF1" Foreground="White" BorderBrush="#FF88BEF1" 
+                <Button x:Name="ChargeButton" Content="Charge" Grid.Column="2" HorizontalAlignment="Stretch"  VerticalAlignment="Center" 
+                    Height="24" Background="#FF88BEF1" Foreground="White" BorderBrush="#FF88BEF1" 
                     FontFamily="Arial" Margin="6,0,6,0" Click="Charge_Button_Click" Visibility="Hidden"/>
             </Grid>
 
@@ -55,16 +55,16 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions >
-                <Button x:Name="ReleaseButton" Content="Release" Grid.Column="0" HorizontalAlignment="Center"  VerticalAlignment="Center" 
-                    Width="80" Height="24" Background="#FF88BEF1" Foreground="White" BorderBrush="#FF88BEF1" 
+                <Button x:Name="ReleaseButton" Content="Release" Grid.Column="0" HorizontalAlignment="Stretch"  VerticalAlignment="Center" 
+                    Height="24" Background="#FF88BEF1" Foreground="White" BorderBrush="#FF88BEF1" 
                     FontFamily="Arial" Margin="6,0,6,0" Click="Release_Button_Click" Visibility="Hidden"/>
 
-                <Button x:Name="AssignButton" Content="Assign" Grid.Column="1" HorizontalAlignment="Center"  VerticalAlignment="Center" 
-                    Width="80" Height="24" Background="#FF88BEF1" Foreground="White" BorderBrush="#FF88BEF1" 
+                <Button x:Name="AssignButton" Content="Assign" Grid.Column="1" HorizontalAlignment="Stretch"  VerticalAlignment="Center" 
+                    Height="24" Background="#FF88BEF1" Foreground="White" BorderBrush="#FF88BEF1" 
                     FontFamily="Arial" Margin="6,0,6,0" Click="Assign_Button_Click" Visibility="Hidden"/>
 
-                <Button x:Name="CollectButton" Content="Collect" Grid.Column="2" HorizontalAlignment="Center"  VerticalAlignment="Center" 
-                    Width="80" Height="24" Background="#FF88BEF1" Foreground="White" BorderBrush="#FF88BEF1" 
+                <Button x:Name="CollectButton" Content="Collect" Grid.Column="2" HorizontalAlignment="Stretch"  VerticalAlignment="Center" 
+                    Height="24" Background="#FF88BEF1" Foreground="White" BorderBrush="#FF88BEF1" 
                     FontFamily="Arial" Margin="6,0,6,0" Click="Collect_Button_Click" Visibility="Hidden"/>
             </Grid>
 
@@ -75,8 +75,8 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions >
-                <Button x:Name="DeliverButton" Content="Deliver" Grid.Column="0" HorizontalAlignment="Center"  VerticalAlignment="Center" 
-                    Width="80" Height="24" Background="#FF88BEF1" Foreground="White" BorderBrush="#FF88BEF1" 
+                <Button x:Name="DeliverButton" Content="Deliver" Grid.Column="0" HorizontalAlignment="Stretch"  VerticalAlignment="Center" 
+                    Height="24" Background="#FF88BEF1" Foreground="White" BorderBrush="#FF88BEF1" 
                     FontFamily="Arial" Margin="6,0,6,0" Click="Deliver_Button_Click" Visibility="Hidden"/>
             </Grid>
 
