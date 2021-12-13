@@ -84,23 +84,26 @@ namespace PL
         {
             try
             {
-                if (DroneID_input.Text != "" && DroneModel_input.Text != "" &&
-                               StationIDSelector.SelectedItem != null && WeightSelector.SelectedItem != null)
+                switch (windowState)
                 {
-                    switch (windowState)
-                    {
-                        case State.Add:
+                    case State.Add:
+                        if (DroneID_input.Text != "" && DroneModel_input.Text != "" &&
+                            StationIDSelector.SelectedItem != null && WeightSelector.SelectedItem != null)
+                        {
                             bl.AddDrone(int.Parse(DroneID_input.Text), DroneModel_input.Text,
                                 (IBL.BO.WeightCategories)WeightSelector.SelectedItem, (int)StationIDSelector.SelectedItem);
-                            break;
+                            mainFrame.Content = new DisplayDroneListPage(bl, mainFrame);
+                        }
+                        break;
 
-                        case State.Update:
+                    case State.Update:
+                        if (DroneID_input.Text != "" && DroneModel_input.Text != "" &&
+                            DroneLocation_output.Text != "" && WeightSelector.SelectedItem != null)
+                        {
                             bl.UpdateDrone(int.Parse(DroneID_input.Text), DroneModel_input.Text);
-                            break;
-                    }
-
-                    mainFrame.Content = new DisplayDroneListPage(bl, mainFrame);
-                }
+                        }
+                        break;
+                } 
             }
             catch (Exception exception)
             {
