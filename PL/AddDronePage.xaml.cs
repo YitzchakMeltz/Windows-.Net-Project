@@ -113,6 +113,7 @@ namespace PL
             {
                 bl.DeliverPackage(int.Parse(DroneID_input.Text));
                 DroneStatus_output.Text = bl.GetDrone(int.Parse(DroneID_input.Text)).Status.ToString();
+                StationIDSelector.ItemsSource = new Location[] { bl.GetDrone(int.Parse(DroneID_input.Text)).Location };
                 MessageBox.Show("The Drone has successfully delivered the package.", "Success");
             }
             catch (Exception exception)
@@ -126,6 +127,8 @@ namespace PL
             try
             {
                 bl.CollectPackage(int.Parse(DroneID_input.Text));
+                DroneBattery_output.Text = Math.Round(bl.GetDrone(int.Parse(DroneID_input.Text)).Battery, 2).ToString() + "%";
+                StationIDSelector.ItemsSource = new Location[] { bl.GetDrone(int.Parse(DroneID_input.Text)).Location };
                 MessageBox.Show("The Drone has successfully collected the package.", "Success");
             }
             catch (Exception exception)
@@ -168,6 +171,7 @@ namespace PL
             try
             {
                 bl.ChargeDrone(int.Parse(DroneID_input.Text));
+                DroneStatus_output.Text = bl.GetDrone(int.Parse(DroneID_input.Text)).Status.ToString();
                 MessageBox.Show("The Drone has successfully been sent to charging.", "Success");
             }
             catch (Exception exception)
