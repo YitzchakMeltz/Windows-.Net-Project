@@ -151,6 +151,10 @@
                 </TextBlock.Style>
             </TextBlock>
 
+            <TextBox x:Name="DroneLocation_output" Grid.Column="1" Grid.Row="7" Height="25" Width="200"  Padding="1,3,2,3" TextWrapping="Wrap" 
+                     Text="Drone Battery" VerticalAlignment="Center" HorizontalAlignment="Center" IsEnabled="False"
+                     Visibility="Hidden"></TextBox>
+
             <TextBox x:Name="DroneStatus_output" Grid.Column="1" Grid.Row="8" Height="25" Width="200"  Padding="1,3,2,3" TextWrapping="Wrap" 
                      Text="Drone Status" VerticalAlignment="Center" HorizontalAlignment="Center" IsEnabled="False"
                       Visibility="Hidden"></TextBox>

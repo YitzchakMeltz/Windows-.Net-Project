@@ -66,10 +66,16 @@ namespace PL
             WeightSelector.SelectedItem = drone.Weight;
             WeightSelector.Foreground = Brushes.Gray;
 
-            StationIDSelector.IsEnabled = false;
-            StationIDSelector.ItemsSource = new Location[] { drone.Location };
-            StationIDSelector.SelectedIndex = 0;
-            StationIDSelector.Foreground = Brushes.Gray;
+            DroneLocation_output.Visibility = Visibility.Visible;
+            DroneLocation_output.Text = drone.Location.ToString();
+
+            StationIDSelector.Visibility = Visibility.Hidden;
+            StationIDSelectorPlaceholder.Visibility = Visibility.Hidden;
+
+            //StationIDSelector.IsEnabled = false;
+            //StationIDSelector.ItemsSource = new Location[] { drone.Location };
+            //StationIDSelector.SelectedIndex = 0;
+            //StationIDSelector.Foreground = Brushes.Gray;
 
             AddButton.Content = "Update";
         }
@@ -113,7 +119,7 @@ namespace PL
             {
                 bl.DeliverPackage(int.Parse(DroneID_input.Text));
                 DroneStatus_output.Text = bl.GetDrone(int.Parse(DroneID_input.Text)).Status.ToString();
-                StationIDSelector.ItemsSource = new Location[] { bl.GetDrone(int.Parse(DroneID_input.Text)).Location };
+                DroneLocation_output.Text = bl.GetDrone(int.Parse(DroneID_input.Text)).Location.ToString();
                 MessageBox.Show("The Drone has successfully delivered the package.", "Success");
             }
             catch (Exception exception)
@@ -128,7 +134,7 @@ namespace PL
             {
                 bl.CollectPackage(int.Parse(DroneID_input.Text));
                 DroneBattery_output.Text = Math.Round(bl.GetDrone(int.Parse(DroneID_input.Text)).Battery, 2).ToString() + "%";
-                StationIDSelector.ItemsSource = new Location[] { bl.GetDrone(int.Parse(DroneID_input.Text)).Location };
+                DroneLocation_output.Text = bl.GetDrone(int.Parse(DroneID_input.Text)).Location.ToString();
                 MessageBox.Show("The Drone has successfully collected the package.", "Success");
             }
             catch (Exception exception)
