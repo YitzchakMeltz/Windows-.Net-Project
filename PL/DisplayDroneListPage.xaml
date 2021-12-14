@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:PL"
       mc:Ignorable="d" 
       d:DesignHeight="640" d:DesignWidth="800"
-      Title="DisplayDroneListPage">
+      Title="DisplayDroneListPage" Loaded="Page_Loaded">
 
     <Grid Name="MainGrid">
 
@@ -47,7 +47,7 @@ VerticalAlignment="Stretch" Width="auto">
 
 
         </Grid>
-        <ListView Grid.Row="1" Name="DroneListView" MouseDoubleClick="DroneListView_MouseDoubleClick" SelectedValuePath="ID">
+        <ListView Grid.Row="1" x:Name="DroneListView" MouseDoubleClick="DroneListView_MouseDoubleClick" SelectedValuePath="ID">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="ID" DisplayMemberBinding="{Binding ID}"/>

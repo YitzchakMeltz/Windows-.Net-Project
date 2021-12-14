@@ -25,12 +25,10 @@ namespace PL
         private State windowState = State.Add;
 
         IBL.IBL bl;
-        Frame mainFrame;
 
-        public AddDronePage(Frame f, IBL.IBL bl)
+        public AddDronePage(IBL.IBL bl)
         {
             this.bl = bl;
-            this.mainFrame = f;
 
             InitializeComponent();
 
@@ -39,7 +37,7 @@ namespace PL
             StationIDSelector.ItemsSource = bl.ListStations().Select(station => station.ID);
         }
 
-        public AddDronePage(Frame f, IBL.IBL bl, Drone drone) : this(f, bl)
+        public AddDronePage(IBL.IBL bl, Drone drone) : this(bl)
         {
             windowState = State.Update;
 
@@ -77,6 +75,7 @@ namespace PL
             //StationIDSelector.SelectedIndex = 0;
             //StationIDSelector.Foreground = Brushes.Gray;
 
+            CancelButton.Content = "Close";
             AddButton.Content = "Update";
         }
 
@@ -87,20 +86,29 @@ namespace PL
                 switch (windowState)
                 {
                     case State.Add:
-                        if (DroneID_input.Text != "" && DroneModel_input.Text != "" &&
+                        if (DroneID_input.Text != "" && int.Parse(DroneID_input.Text) >= 0 && DroneModel_input.Text != "" &&
                             StationIDSelector.SelectedItem != null && WeightSelector.SelectedItem != null)
                         {
                             bl.AddDrone(int.Parse(DroneID_input.Text), DroneModel_input.Text,
                                 (IBL.BO.WeightCategories)WeightSelector.SelectedItem, (int)StationIDSelector.SelectedItem);
-                            mainFrame.Content = new DisplayDroneListPage(bl, mainFrame);
+                            MessageBox.Show("Drone successfully added.", "Success", MessageBoxButton.OK);
+                            NavigationService.GoBack();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Drone could not be added.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                         }
                         break;
 
                     case State.Update:
-                        if (DroneID_input.Text != "" && DroneModel_input.Text != "" &&
-                            DroneLocation_output.Text != "" && WeightSelector.SelectedItem != null)
+                        if (DroneModel_input.Text != "")
                         {
                             bl.UpdateDrone(int.Parse(DroneID_input.Text), DroneModel_input.Text);
+                            MessageBox.Show("Dronw was successfully updated.", "Success", MessageBoxButton.OK);
+                        }
+                        else
+                        {
+                            MessageBox.Show("Drone could not be updated. (The drone model is probably empty).", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                         }
                         break;
                 } 
@@ -113,7 +121,7 @@ namespace PL
 
         private void Cancel_Button_Click(object sender, RoutedEventArgs e)
         {
-            mainFrame.Content = new DisplayDroneListPage(bl, mainFrame);
+            NavigationService.GoBack();
         }
 
         private void Deliver_Button_Click(object sender, RoutedEventArgs e)

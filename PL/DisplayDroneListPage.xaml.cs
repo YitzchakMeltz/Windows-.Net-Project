@@ -21,12 +21,9 @@ namespace PL
     public partial class DisplayDroneListPage : Page
     {
         IBL.IBL bl;
-        Frame mainFrame;
-        public DisplayDroneListPage(IBL.IBL bl, Frame f)
+        public DisplayDroneListPage(IBL.IBL bl)//, Frame f)
         {
             this.bl = bl;
-
-            this.mainFrame = f;
 
             InitializeComponent();
 
@@ -36,25 +33,36 @@ namespace PL
             WeightSelector.ItemsSource = Enum.GetValues<IBL.BO.WeightCategories>().Select(w => w.ToString()).Prepend("All Weights");
         }
 
-        private void SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void FilterItems()
         {
             DroneListView.ItemsSource = bl.ListDronesFiltered(drone => (StatusSelector.SelectedItem is "All Statuses" or null || drone.Status == Enum.Parse<IBL.BO.DroneStatuses>((string)StatusSelector.SelectedItem)) && (WeightSelector.SelectedItem is "All Weights" or null || drone.Weight == Enum.Parse<IBL.BO.WeightCategories>((string)WeightSelector.SelectedItem)));
+            DroneListView.Items.Refresh();
+        }
+        private void SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            FilterItems();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            mainFrame.Content = new AddDronePage(mainFrame, bl);
+            NavigationService.Navigate(new AddDronePage(bl));
         }
 
         private void DroneListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             if (DroneListView.SelectedValue is not null)
-                mainFrame.Content = new AddDronePage(mainFrame, bl, bl.GetDrone((int)DroneListView.SelectedValue));
+                NavigationService.Navigate(new AddDronePage(bl, bl.GetDrone((int)DroneListView.SelectedValue)));
         }
 
         private void Home_Button_Click(object sender, RoutedEventArgs e)
         {
-            mainFrame.Content = new WelcomePage(mainFrame, bl);
+            //mainFrame.Content = new WelcomePage(mainFrame, bl);
+            NavigationService.GoBack();
+        }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            FilterItems();
         }
     }
 }

@@ -20,18 +20,16 @@ namespace PL
     /// </summary>
     public partial class WelcomePage : Page
     {
-        Frame mainFrame;
         IBL.IBL bl;
         public WelcomePage(Frame f, IBL.IBL bl)
         {
             InitializeComponent();
-            this.mainFrame = f;
             this.bl = bl;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            mainFrame.Content =  new DisplayDroneListPage(bl, mainFrame);
+            NavigationService.Navigate(new DisplayDroneListPage(bl));
         }
     }
 }

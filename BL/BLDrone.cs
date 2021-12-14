@@ -108,7 +108,7 @@ namespace BL
             return new DroneList()
             {
                 ID = drone.ID,
-                PackageID = (uint)drone.Package.ID,
+                PackageID = drone.Package is null ? null : (uint)drone.Package.ID,
                 Battery = drone.Battery,
                 Location = drone.Location,
                 Model = drone.Model,
@@ -241,7 +241,7 @@ namespace BL
             }
 
             if (droneList.PackageID == null)
-                throw new InvalidManeuver($"Drone with ID {droneID} doesn't have any package assigned to it.");
+                throw new InvalidManeuver($"Drone with ID {droneID} doesn't have a package assigned to it.");
             if (drone.Package.Delivering == false)
                 throw new InvalidManeuver($"Package with ID {drone.Package.ID} hasn't been collected.");
 
