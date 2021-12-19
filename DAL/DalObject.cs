@@ -14,17 +14,12 @@ namespace DalObject
             DataSource.Initialize();
         }
 
-        private static DalObject instance = null;
-
+        private static readonly Lazy<DalObject> lazy = new Lazy<DalObject>(() => new DalObject());
         public static DalObject Instance
         {
             get
             {
-                if (instance == null)
-                {
-                    instance = new DalObject();
-                }
-                return instance;
+                return lazy.Value;
             }
         }
 
