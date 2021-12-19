@@ -20,8 +20,8 @@ namespace PL
     /// </summary>
     public partial class WelcomePage : Page
     {
-        IBL.IBL bl;
-        public WelcomePage(Frame f, IBL.IBL bl)
+        BlApi.IBL bl;
+        public WelcomePage(Frame f, BlApi.IBL bl)
         {
             InitializeComponent();
             this.bl = bl;

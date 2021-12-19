@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace IBL.BO
+namespace BlApi.BO
 {
     public class Package
     {

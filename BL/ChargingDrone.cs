@@ -1,4 +1,4 @@
-﻿namespace IBL.BO
+﻿namespace BlApi.BO
 {
     // drone in charge
     public class ChargingDrone
