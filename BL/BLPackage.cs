@@ -1,5 +1,5 @@
 ﻿using IBL.BO;
-using IDAL;
+using DalApi;
 using System;
 using System.Collections.Generic;
 
@@ -7,7 +7,7 @@ namespace BL
 {
     partial class BL : IBL.IBL
     {
-        private Statuses ParcelStatus(IDAL.DO.Parcel p)
+        private Statuses ParcelStatus(DalApi.DO.Parcel p)
         {
             if (p.Assigned is null)
             {
@@ -36,12 +36,12 @@ namespace BL
                 Creation = DateTime.Now,
             };
 
-            dalObject.AddParcel(senderID, receiverID, (IDAL.DO.WeightCategories)weight, (IDAL.DO.Priorities)priority, 0);
+            dalObject.AddParcel(senderID, receiverID, (DalApi.DO.WeightCategories)weight, (DalApi.DO.Priorities)priority, 0);
         }
 
         public CustomerPackage ConvertToCustomerPackage(PackageList package, string otherCustomer)
         {
-            int customerID = ((List<IDAL.DO.Customer>)dalObject.GetCustomerList()).Find(customer => customer.Name == otherCustomer).ID;
+            int customerID = ((List<DalApi.DO.Customer>)dalObject.GetCustomerList()).Find(customer => customer.Name == otherCustomer).ID;
             return new CustomerPackage()
             {
                 ID = package.ID,
@@ -56,7 +56,7 @@ namespace BL
         {
             try
             {
-                IDAL.DO.Parcel parcel = dalObject.GetParcel(packageID);
+                DalApi.DO.Parcel parcel = dalObject.GetParcel(packageID);
                 DroneList drone = Drones.Find(d => d.PackageID == packageID);
                 Package package = new Package()
                 {
@@ -74,7 +74,7 @@ namespace BL
 
                 return package;
             }
-            catch (IDAL.DO.ObjectNotFound e)
+            catch (DalApi.DO.ObjectNotFound e)
             {
                 throw new IBL.BO.ObjectNotFound(e.Message);
             }
@@ -82,10 +82,10 @@ namespace BL
 
         public IEnumerable<PackageList> ListPackages()
         {
-            IEnumerable<IDAL.DO.Parcel> dalParcels = dalObject.GetParcelList();
+            IEnumerable<DalApi.DO.Parcel> dalParcels = dalObject.GetParcelList();
             List<PackageList> packages = new List<PackageList>();
 
-            foreach(IDAL.DO.Parcel parcel in dalParcels)
+            foreach(DalApi.DO.Parcel parcel in dalParcels)
             {
                 packages.Add(new PackageList() { ID = parcel.ID, Sender = dalObject.GetCustomer(parcel.SenderID).Name, Receiver = dalObject.GetCustomer(parcel.TargetID).Name, Weight = (WeightCategories)parcel.WeightCategory, Priority = (Priorities)parcel.Priority, Status = ParcelStatus(parcel) });
             }

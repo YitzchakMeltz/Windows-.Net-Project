@@ -6,7 +6,7 @@ namespace BL
 {
     partial class BL : IBL.IBL
     {
-        private Location CoordinateToLocation(IDAL.Util.Coordinate coord)
+        private Location CoordinateToLocation(DalApi.Util.Coordinate coord)
         {
             return new Location()
             {
@@ -20,9 +20,9 @@ namespace BL
             return LocationToCoordinate(source).DistanceTo(LocationToCoordinate(dest)) / 1000;
         }
 
-        private IDAL.Util.Coordinate LocationToCoordinate(Location location)
+        private DalApi.Util.Coordinate LocationToCoordinate(Location location)
         {
-            return new IDAL.Util.Coordinate(location.Latitude, location.Longitude);
+            return new DalApi.Util.Coordinate(location.Latitude, location.Longitude);
         }
     }
 }

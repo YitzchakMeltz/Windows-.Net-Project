@@ -11,7 +11,7 @@ namespace BL
         {
             try
             {
-                IDAL.DO.Parcel parcel = dalObject.GetParcel(parcelID);
+                DalApi.DO.Parcel parcel = dalObject.GetParcel(parcelID);
                 Package package = GetPackage(parcelID);
             
                 Location collectionLocation = GetCustomer(package.Sender.ID).Location;
@@ -32,7 +32,7 @@ namespace BL
 
                 return enroute;
             }
-            catch (IDAL.DO.ObjectNotFound e)
+            catch (DalApi.DO.ObjectNotFound e)
             {
                 throw new ObjectNotFound(e.Message);
             }

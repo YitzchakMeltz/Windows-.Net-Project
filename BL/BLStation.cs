@@ -1,5 +1,5 @@
 ﻿using IBL.BO;
-using IDAL.DO;
+using DalApi.DO;
 using System;
 using System.Collections.Generic;
 
@@ -10,7 +10,7 @@ namespace BL
         private BaseStation ClosestStation(Location location)
         {
             List<Station> listOfStations = (List<Station>)dalObject.GetStationList();
-            IDAL.Util.Coordinate coord = LocationToCoordinate(location);
+            DalApi.Util.Coordinate coord = LocationToCoordinate(location);
 
             listOfStations.Sort((x, y) => (int)(x.Location.DistanceTo(coord) - y.Location.DistanceTo(coord)));
             return GetStation(listOfStations[0].ID);
@@ -20,7 +20,7 @@ namespace BL
         {
             try
             {
-                IDAL.DO.Station station = dalObject.GetStation(stationID);
+                DalApi.DO.Station station = dalObject.GetStation(stationID);
 
                 BaseStation baseStation = new BaseStation()
                 {
@@ -38,7 +38,7 @@ namespace BL
 
                 return baseStation;
             }
-            catch (IDAL.DO.ObjectNotFound e)
+            catch (DalApi.DO.ObjectNotFound e)
             {
                 throw new IBL.BO.ObjectNotFound(e.Message);
             }
@@ -55,7 +55,7 @@ namespace BL
 
             try
             {
-                IDAL.DO.Station station = dalObject.GetStation(ID);
+                DalApi.DO.Station station = dalObject.GetStation(ID);
 
                 if (name != null)
                 {
@@ -70,7 +70,7 @@ namespace BL
                 dalObject.RemoveStation(ID);
                 dalObject.AddStation(station);
             }
-            catch (IDAL.DO.ObjectNotFound e)
+            catch (DalApi.DO.ObjectNotFound e)
             {
                 throw new IBL.BO.ObjectNotFound(e.Message);
             }

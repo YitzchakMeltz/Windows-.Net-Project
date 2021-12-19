@@ -9,7 +9,7 @@ namespace BL
     {
         public void AddDrone(int ID, string model, IBL.BO.WeightCategories weight, int stationID)
         {
-            dalObject.AddDrone(ID, model, (IDAL.DO.WeightCategories)weight);
+            dalObject.AddDrone(ID, model, (DalApi.DO.WeightCategories)weight);
 
             Drones.Add(new DroneList()
             {
@@ -30,7 +30,7 @@ namespace BL
             Drones[Drones.FindIndex(d => d.ID == ID)].Model = model;
 
             // Update DALDrone
-            IDAL.DO.Drone drone = dalObject.GetDrone(ID);
+            DalApi.DO.Drone drone = dalObject.GetDrone(ID);
             drone.Model = model;
 
             dalObject.RemoveDrone(ID);
@@ -46,7 +46,7 @@ namespace BL
         {
             try
             {
-                IDAL.DO.Drone dalDrone = dalObject.GetDrone(ID);
+                DalApi.DO.Drone dalDrone = dalObject.GetDrone(ID);
                 DroneList drone = Drones.Find(d => d.ID == ID);
 
                 if (Drones.Find(d => d.ID == ID).Status != DroneStatuses.Free)
@@ -64,7 +64,7 @@ namespace BL
 
                 dalObject.ChargeDrone(ID, closestStation.ID);
             }
-            catch (IDAL.DO.ObjectNotFound e)
+            catch (DalApi.DO.ObjectNotFound e)
             {
                 throw new ObjectNotFound(e.Message);
             }
@@ -74,7 +74,7 @@ namespace BL
         {
             try
             {
-                IDAL.DO.Drone dalDrone = dalObject.GetDrone(ID);
+                DalApi.DO.Drone dalDrone = dalObject.GetDrone(ID);
                 DroneList drone = Drones.Find(d => d.ID == ID);
 
                 if (Drones.Find(d => d.ID == ID).Status != DroneStatuses.Maintenance)
@@ -87,7 +87,7 @@ namespace BL
 
                 dalObject.ReleaseDrone(ID);
             }
-            catch (IDAL.DO.ObjectNotFound e)
+            catch (DalApi.DO.ObjectNotFound e)
             {
                 throw new ObjectNotFound(e.Message);
             }
@@ -121,7 +121,7 @@ namespace BL
         {
             try
             {
-                IDAL.DO.Drone dalDrone = dalObject.GetDrone(droneID);
+                DalApi.DO.Drone dalDrone = dalObject.GetDrone(droneID);
                 DroneList droneList = Drones.Find(d => d.ID == droneID);
 
                 Drone drone = new Drone()
@@ -137,7 +137,7 @@ namespace BL
 
                 return drone;
             }
-            catch (IDAL.DO.ObjectNotFound e)
+            catch (DalApi.DO.ObjectNotFound e)
             {
                 throw new IBL.BO.ObjectNotFound(e.Message);
             }
@@ -207,7 +207,7 @@ namespace BL
                 drone = GetDrone(droneID);
                 droneList = ConvertToDroneList(drone);
             }
-            catch (IDAL.DO.ObjectNotFound e)
+            catch (DalApi.DO.ObjectNotFound e)
             {
                 throw new ObjectNotFound(e.Message);
             }
@@ -235,7 +235,7 @@ namespace BL
                 drone = GetDrone(droneID);
                 droneList = ConvertToDroneList(drone);
             }
-            catch (IDAL.DO.ObjectNotFound e)
+            catch (DalApi.DO.ObjectNotFound e)
             {
                 throw new ObjectNotFound(e.Message);
             }
