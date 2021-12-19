@@ -6,7 +6,7 @@ using static DalObject.DataSource;
 
 namespace DalObject
 {
-    public partial class DalObject : DalApi.IDal
+    internal partial class DalObject : DalApi.IDal
     {
         private Random rd = new Random();
         public DalObject()
