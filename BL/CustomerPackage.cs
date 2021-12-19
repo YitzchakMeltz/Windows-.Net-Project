@@ -1,4 +1,4 @@
-﻿namespace BlApi.BO
+﻿namespace IBL.BO
 {
     // package at customer
     public class CustomerPackage

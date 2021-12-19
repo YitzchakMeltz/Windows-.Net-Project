@@ -1,11 +1,11 @@
-﻿using DalApi.DO;
+﻿using IDAL.DO;
 using System;
 using System.Collections.Generic;
 using static DalObject.DataSource;
 
 namespace DalObject
 {
-    partial class DalObject : DalApi.IDal
+    partial class DalObject : IDAL.IDal
     {
         /// <summary>
         /// Adds a Parcel to DataSource

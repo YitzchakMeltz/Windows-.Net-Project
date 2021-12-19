@@ -1,9 +1,9 @@
-﻿using DalApi.DO;
+﻿using IDAL.DO;
 using static DalObject.DataSource;
 
 namespace DalObject
 {
-    partial class DalObject : DalApi.IDal
+    partial class DalObject : IDAL.IDal
     {
         /// <summary>
         /// Charges a Drone

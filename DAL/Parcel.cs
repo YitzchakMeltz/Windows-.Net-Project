@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DalApi
+namespace IDAL
 {
     namespace DO
     {
