@@ -1,5 +1,5 @@
-﻿using DalApi;
-
+﻿namespace IDAL
+{
     namespace DO
     {
         public struct Drone
@@ -20,4 +20,4 @@
             }
         }
     }
-
+}

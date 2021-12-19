@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace BlApi.BO
+namespace IBL.BO
 {
     public class BaseStation
     {

@@ -1,16 +1,16 @@
-﻿using BlApi.BO;
-using DalApi.DO;
+﻿using IBL.BO;
+using IDAL.DO;
 using System;
 using System.Collections.Generic;
 
 namespace BL
 {
-    partial class BL : BlApi.IBL
+    partial class BL : IBL.IBL
     {
         private BaseStation ClosestStation(Location location)
         {
             List<Station> listOfStations = (List<Station>)dalObject.GetStationList();
-            DalApi.Util.Coordinate coord = LocationToCoordinate(location);
+            IDAL.Util.Coordinate coord = LocationToCoordinate(location);
 
             listOfStations.Sort((x, y) => (int)(x.Location.DistanceTo(coord) - y.Location.DistanceTo(coord)));
             return GetStation(listOfStations[0].ID);
@@ -20,7 +20,7 @@ namespace BL
         {
             try
             {
-                DalApi.DO.Station station = dalObject.GetStation(stationID);
+                IDAL.DO.Station station = dalObject.GetStation(stationID);
 
                 BaseStation baseStation = new BaseStation()
                 {
@@ -31,16 +31,16 @@ namespace BL
                     ChargingDrones = new List<ChargingDrone>()
                 };
 
-                foreach (BlApi.BO.DroneList drone in Drones.FindAll(d => d.Location == baseStation.Location && d.Status == DroneStatuses.Maintenance))
+                foreach (IBL.BO.DroneList drone in Drones.FindAll(d => d.Location == baseStation.Location && d.Status == DroneStatuses.Maintenance))
                 {
                     baseStation.ChargingDrones.Add(new ChargingDrone() { ID = drone.ID, Battery = drone.Battery });
                 }
 
                 return baseStation;
             }
-            catch (DalApi.DO.ObjectNotFound e)
+            catch (IDAL.DO.ObjectNotFound e)
             {
-                throw new BlApi.BO.ObjectNotFound(e.Message);
+                throw new IBL.BO.ObjectNotFound(e.Message);
             }
         }
 
@@ -55,7 +55,7 @@ namespace BL
 
             try
             {
-                DalApi.DO.Station station = dalObject.GetStation(ID);
+                IDAL.DO.Station station = dalObject.GetStation(ID);
 
                 if (name != null)
                 {
@@ -70,9 +70,9 @@ namespace BL
                 dalObject.RemoveStation(ID);
                 dalObject.AddStation(station);
             }
-            catch (DalApi.DO.ObjectNotFound e)
+            catch (IDAL.DO.ObjectNotFound e)
             {
-                throw new BlApi.BO.ObjectNotFound(e.Message);
+                throw new IBL.BO.ObjectNotFound(e.Message);
             }
         }
 

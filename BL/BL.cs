@@ -1,12 +1,12 @@
-﻿using BlApi.BO;
-using DalApi;
+﻿using IBL.BO;
+using IDAL;
 using System;
 using System.Linq;
 using System.Collections.Generic;
 
 namespace BL
 {
-    public partial class BL : BlApi.IBL
+    public partial class BL : IBL.IBL
     {
         Random random = new Random();
         List<DroneList> Drones = new List<DroneList>();
@@ -17,7 +17,7 @@ namespace BL
         {
             dalObject = new DalObject.DalObject();
             PowerConsumption = dalObject.PowerConsumption();
-            foreach (DalApi.DO.Drone d in dalObject.GetDroneList())
+            foreach (IDAL.DO.Drone d in dalObject.GetDroneList())
             {
                 DroneList drone = new DroneList()
                 {
@@ -26,9 +26,9 @@ namespace BL
                     Weight = (WeightCategories)d.WeightCategory
                 };
 
-                DalApi.DO.Parcel parcel = ((List<DalApi.DO.Parcel>)dalObject.GetParcelList()).Find(p => p.DroneID == d.ID && ParcelStatus(p) != Statuses.Delivered);
+                IDAL.DO.Parcel parcel = ((List<IDAL.DO.Parcel>)dalObject.GetParcelList()).Find(p => p.DroneID == d.ID && ParcelStatus(p) != Statuses.Delivered);
 
-                if (!parcel.Equals(default(DalApi.DO.Parcel))) {
+                if (!parcel.Equals(default(IDAL.DO.Parcel))) {
                     drone.Status = DroneStatuses.Delivering;
 
                     EnroutePackage enroute = GetEnroutePackage(parcel.ID);
@@ -53,14 +53,14 @@ namespace BL
 
                     if (drone.Status == DroneStatuses.Maintenance)
                     {
-                        DalApi.DO.Station randStation = dalObject.GetStationList().ElementAt(random.Next(0, dalObject.GetStationList().Count()));
+                        IDAL.DO.Station randStation = dalObject.GetStationList().ElementAt(random.Next(0, dalObject.GetStationList().Count()));
                         drone.Location = CoordinateToLocation(randStation.Location);
                         drone.Battery = random.NextDouble() * 20;
                         dalObject.ChargeDrone(d.ID, randStation.ID);
                     }
                     else // Drone is Free
                     {
-                        IEnumerable<DalApi.DO.Parcel> deliveredParcels = dalObject.GetParcelList().Where(parcel => !parcel.Delivered.Equals(DateTime.MinValue)).ToArray();
+                        IEnumerable<IDAL.DO.Parcel> deliveredParcels = dalObject.GetParcelList().Where(parcel => !parcel.Delivered.Equals(DateTime.MinValue)).ToArray();
                         /*if (deliveredParcels.Count() == 0)
                             throw new InvalidManeuver("No Parcels have been delivered so starting drone location could not be determined.");*/
                         drone.Location = CoordinateToLocation(dalObject.GetCustomer(deliveredParcels.ElementAt(random.Next(0, deliveredParcels.Count())).TargetID).Location);
