@@ -6,30 +6,23 @@ using System.Threading.Tasks;
 using DalApi;
 using DO;
 
-namespace DalObject
+namespace DalApi
 {
     public static class DalFactory
     {
         public static DalApi.IDal GetDal(string objectType)
         {
-            DalApi.IDal returnValue = new DalObject();
-
-            if (objectType == "DalObject")
+            switch(objectType)
             {
-                return returnValue;
-            }
+                case "DalObject":
+                    return DalObject.DalObject.Instance;
 
-            else if(objectType == "DalXml")
-            {
-                //returnValue = new DalXml();
-            }
+                case "DalXml":
+                    throw new NotImplementedException();
 
-            else
-            {
-                throw new StringNotValid($"{objectType} is an invalid string. Must be 'DalObject' or 'DalXml'");
+                default:
+                    throw new StringNotValid($"{objectType} is an invalid string. String must be 'DalObject' or 'DalXml'");
             }
-
-            return returnValue;
         }
     }
 }

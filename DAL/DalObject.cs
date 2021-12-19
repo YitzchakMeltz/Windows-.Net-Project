@@ -9,7 +9,7 @@ namespace DalObject
     internal partial class DalObject : DalApi.IDal
     {
         private Random rd = new Random();
-        public DalObject()
+        private DalObject()
         {
             DataSource.Initialize();
         }
