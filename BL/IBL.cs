@@ -1,8 +1,12 @@
+<<<<<<< HEAD
 ﻿using BL;
+=======
+﻿using IBL.BO;
+>>>>>>> parent of d4aee0b (change namespaces IDAL/IBL to DalAPI/BlApi)
 using System;
 using System.Collections.Generic;
 
-namespace BlApi
+namespace IBL
 {
     public interface IBL
     {

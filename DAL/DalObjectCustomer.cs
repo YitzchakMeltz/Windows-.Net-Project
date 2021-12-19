@@ -1,10 +1,10 @@
-﻿using DalApi.DO;
+﻿using IDAL.DO;
 using System.Collections.Generic;
 using static DalObject.DataSource;
 
 namespace DalObject
 {
-    partial class DalObject : DalApi.IDal
+    partial class DalObject : IDAL.IDal
     {
         /// <summary>
         /// Adds a Customer to DataSource
@@ -58,7 +58,7 @@ namespace DalObject
                 ID = id,
                 Name = name,
                 Phone = phoneNum,
-                Location = new DalApi.Util.Coordinate(latitude, longitude)
+                Location = new IDAL.Util.Coordinate(latitude, longitude)
             };
 
             AddCustomer(customer);

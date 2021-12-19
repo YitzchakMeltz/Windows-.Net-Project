@@ -1,11 +1,15 @@
+<<<<<<< HEAD
 ﻿using DO;
+=======
+﻿using IDAL.DO;
+>>>>>>> parent of d4aee0b (change namespaces IDAL/IBL to DalAPI/BlApi)
 using System;
 using System.Collections.Generic;
 using static DalObject.DataSource;
 
 namespace DalObject
 {
-    partial class DalObject : DalApi.IDal
+    partial class DalObject : IDAL.IDal
     {
         /// <summary>
         /// Adds a Parcel to DataSource

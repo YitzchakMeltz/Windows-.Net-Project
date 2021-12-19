@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 ﻿namespace BL
+=======
+﻿namespace IBL.BO
+>>>>>>> parent of d4aee0b (change namespaces IDAL/IBL to DalAPI/BlApi)
 {
     public class DroneList
     {

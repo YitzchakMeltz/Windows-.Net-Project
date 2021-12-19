@@ -1,4 +1,4 @@
-﻿namespace BlApi.BO
+﻿namespace IBL.BO
 {
     public class ObjectNotFound : System.Exception
     {

@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 ﻿using BL;
+=======
+﻿using IBL.BO;
+>>>>>>> parent of d4aee0b (change namespaces IDAL/IBL to DalAPI/BlApi)
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,20 +28,24 @@ namespace PL
         private enum State { Add, Update }
         private State windowState = State.Add;
 
-        BlApi.IBL bl;
+        IBL.IBL bl;
 
-        public AddDronePage(BlApi.IBL bl)
+        public AddDronePage(IBL.IBL bl)
         {
             this.bl = bl;
 
             InitializeComponent();
 
+<<<<<<< HEAD
             WeightSelector.ItemsSource = Enum.GetValues(typeof(BL.WeightCategories));
+=======
+            WeightSelector.ItemsSource = Enum.GetValues(typeof(IBL.BO.WeightCategories));
+>>>>>>> parent of d4aee0b (change namespaces IDAL/IBL to DalAPI/BlApi)
 
             StationIDSelector.ItemsSource = bl.ListStations().Select(station => station.ID);
         }
 
-        public AddDronePage(BlApi.IBL bl, Drone drone) : this(bl)
+        public AddDronePage(IBL.IBL bl, Drone drone) : this(bl)
         {
             windowState = State.Update;
 
@@ -90,7 +98,7 @@ namespace PL
                             StationIDSelector.SelectedItem != null && WeightSelector.SelectedItem != null)
                         {
                             bl.AddDrone(int.Parse(DroneID_input.Text), DroneModel_input.Text,
-                                (BlApi.BO.WeightCategories)WeightSelector.SelectedItem, (int)StationIDSelector.SelectedItem);
+                                (IBL.BO.WeightCategories)WeightSelector.SelectedItem, (int)StationIDSelector.SelectedItem);
                             MessageBox.Show("Drone successfully added.", "Success", MessageBoxButton.OK);
                             NavigationService.GoBack();
                         }

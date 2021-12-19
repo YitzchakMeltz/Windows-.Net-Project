@@ -1,4 +1,4 @@
-﻿namespace DalApi
+﻿namespace IDAL
 {
     namespace DO
     {
