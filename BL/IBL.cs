@@ -1,19 +1,15 @@
-<<<<<<< HEAD
-﻿using BL;
-=======
-﻿using IBL.BO;
->>>>>>> parent of d4aee0b (change namespaces IDAL/IBL to DalAPI/BlApi)
+﻿using BO;
 using System;
 using System.Collections.Generic;
 
-namespace IBL
+namespace BlApi
 {
     public interface IBL
     {
         public void AddStation(int ID, string name, double latitude, double longitude, int availableChargeStations);
-        public void AddDrone(int ID, string model, BL.WeightCategories weight, int stationID);
+        public void AddDrone(int ID, string model, BO.WeightCategories weight, int stationID);
         public void AddCustomer(int ID, string name, string phone, double longitude, double latitude);
-        public void AddPackage(int senderID, int receiverID, BL.WeightCategories weight, BL.Priorities priority);
+        public void AddPackage(int senderID, int receiverID, BO.WeightCategories weight, BO.Priorities priority);
 
         public void UpdateDrone(int ID, string model);
         public void UpdateStation(int ID, string name = null, int? totalChargeStation = null);

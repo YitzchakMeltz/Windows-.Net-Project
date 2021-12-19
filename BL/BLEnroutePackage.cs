@@ -1,17 +1,17 @@
-﻿using IBL.BO;
+﻿using BO;
 using System;
 using System.Collections.Generic;
 
 namespace BL
 {
-    partial class BL : IBL.IBL
+    partial class BL : BlApi.IBL
     {
         // gets EnroutePackage based off parcel ID
         private EnroutePackage GetEnroutePackage(int parcelID)
         {
             try
             {
-                IDAL.DO.Parcel parcel = dalObject.GetParcel(parcelID);
+                DO.Parcel parcel = dalObject.GetParcel(parcelID);
                 Package package = GetPackage(parcelID);
             
                 Location collectionLocation = GetCustomer(package.Sender.ID).Location;
@@ -32,7 +32,7 @@ namespace BL
 
                 return enroute;
             }
-            catch (IDAL.DO.ObjectNotFound e)
+            catch (DO.ObjectNotFound e)
             {
                 throw new ObjectNotFound(e.Message);
             }

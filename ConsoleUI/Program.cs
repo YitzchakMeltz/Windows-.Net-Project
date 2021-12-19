@@ -1,12 +1,12 @@
 ﻿using System;
-using IDAL.DO;
+using DO;
 
 namespace ConsoleUI
 {
     class Program
     {
 
-        static IDAL.IDal dalObject = new DalObject.DalObject();
+        static DalApi.IDal dalObject = new DalObject.DalObject();
         private enum MainMenu { Exit, Add, Update, Show, List, Distance }
         static void Main(string[] args)
         {
@@ -105,7 +105,7 @@ namespace ConsoleUI
                         string model = Console.ReadLine();
 
                         Console.WriteLine("Please enter the weight: \n0 for Light \n1 for Medium \n2 for Heavy");
-                        WeightCategories weight = (IDAL.DO.WeightCategories)Convert.ToInt32(Console.ReadLine());
+                        WeightCategories weight = (DO.WeightCategories)Convert.ToInt32(Console.ReadLine());
 
                         dalObject.AddDrone(ID, model, weight);
                         break;
@@ -141,7 +141,7 @@ namespace ConsoleUI
                         int targetID = Convert.ToInt32(Console.ReadLine());
 
                         Console.WriteLine("Please enter the weight: \n0 for Light \n1 for Medium \n2 for Heavy");
-                        WeightCategories weight = (IDAL.DO.WeightCategories)Convert.ToInt32(Console.ReadLine());
+                        WeightCategories weight = (DO.WeightCategories)Convert.ToInt32(Console.ReadLine());
 
                         Console.WriteLine("Please enter the priority: \n0 for Regular \n1 for Fast \n2 for Emergency");
                         Priorities priority = (Priorities)Convert.ToInt32(Console.ReadLine());
@@ -372,7 +372,7 @@ namespace ConsoleUI
             double latitude = Double.Parse(Console.ReadLine());
             Console.Write("Longitude: ");
             double longitude = Double.Parse(Console.ReadLine());
-            IDAL.Util.Coordinate location = new IDAL.Util.Coordinate(latitude, longitude);
+            DalApi.Util.Coordinate location = new DalApi.Util.Coordinate(latitude, longitude);
             Console.WriteLine();
 
             switch (selection)
