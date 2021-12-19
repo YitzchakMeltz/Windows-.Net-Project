@@ -14,6 +14,20 @@ namespace DalObject
             DataSource.Initialize();
         }
 
+        private static DalObject instance = null;
+
+        public static DalObject Instance
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    instance = new DalObject();
+                }
+                return instance;
+            }
+        }
+
         public double[] PowerConsumption()
         {
             return new double[] { Config.Free, Config.LightConsumption, Config.MediumConsumption, Config.HeavyConsumption, Config.ChargeRate };
