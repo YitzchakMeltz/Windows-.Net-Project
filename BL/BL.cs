@@ -6,14 +6,14 @@ using System.Collections.Generic;
 
 namespace BL
 {
-    public partial class BL : BlApi.IBL
+    internal partial class BL : BlApi.IBL
     {
         Random random = new Random();
         List<DroneList> Drones = new List<DroneList>();
         IDal dalObject;
         double[] PowerConsumption;
 
-        public BL()
+        private BL()
         {
             dalObject = DalFactory.GetDal("DalObject");
             PowerConsumption = dalObject.PowerConsumption();
@@ -73,6 +73,15 @@ namespace BL
                 }
 
                 Drones.Add(drone);
+            }
+        }
+
+        private static readonly Lazy<BL> lazy = new Lazy<BL>(() => new BL());
+        public static BL Instance
+        {
+            get
+            {
+                return lazy.Value;
             }
         }
     }
