@@ -1,4 +1,4 @@
-﻿namespace IBL.BO
+﻿namespace BlApi.BO
 {
     // package in transfer
     public class EnroutePackage
