@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 //using System.Linq;
-using DalApi.DO;
+using DO;
 using DalApi.Util;
 
 namespace DalObject
@@ -55,7 +55,7 @@ namespace DalObject
                 Drone d = new Drone()
                 {
                     Model = "Drone" + rd.Next(10),
-                    WeightCategory = (DalApi.DO.WeightCategories)rd.Next(0, 3)
+                    WeightCategory = (DO.WeightCategories)rd.Next(0, 3)
                 };
 
                 do {
@@ -104,8 +104,8 @@ namespace DalObject
                 Parcel p = new Parcel()
                 {
                     SenderID = Customers[rd.Next(Customers.Count)].ID,
-                    WeightCategory = (DalApi.DO.WeightCategories)rd.Next(0, 3),
-                    Priority = (DalApi.DO.Priorities)rd.Next(0, 3),
+                    WeightCategory = (DO.WeightCategories)rd.Next(0, 3),
+                    Priority = (DO.Priorities)rd.Next(0, 3),
                     Scheduled = earliest.AddSeconds(rd.NextDouble() * DateTime.Now.Subtract(earliest).TotalSeconds)
                 };
 

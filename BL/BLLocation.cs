@@ -1,10 +1,10 @@
-﻿using IBL.BO;
+﻿using BO;
 using System;
 using System.Collections.Generic;
 
 namespace BL
 {
-    partial class BL : IBL.IBL
+    partial class BL : BlApi.IBL
     {
         private Location CoordinateToLocation(DalApi.Util.Coordinate coord)
         {

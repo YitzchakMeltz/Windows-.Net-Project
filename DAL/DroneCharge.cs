@@ -1,6 +1,4 @@
-﻿namespace DalApi
-{
-    namespace DO
+﻿    namespace DO
     {
         public struct DroneCharge
         {
@@ -18,4 +16,3 @@
         }
 
     }
-}

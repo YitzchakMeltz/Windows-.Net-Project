@@ -1,12 +1,12 @@
 ﻿using System;
-using IBL;
-using IBL.BO;
+using BlApi;
+using BO;
 
 namespace ConsoleUI_BL
 {
     class Program
     {
-        static IBL.IBL bl = new BL.BL();
+        static BlApi.IBL bl = new BL.BL();
 
         private enum MainMenu { Exit, Add, Update, Show, List }
         static void Main(string[] args)
@@ -100,7 +100,7 @@ namespace ConsoleUI_BL
                     Console.WriteLine("0 Light ");
                     Console.WriteLine("1 Medium ");
                     Console.WriteLine("2 Heavy ");
-                    IBL.BO.WeightCategories weight = (IBL.BO.WeightCategories)Convert.ToInt32(Console.ReadLine());
+                    BO.WeightCategories weight = (BO.WeightCategories)Convert.ToInt32(Console.ReadLine());
 
                     Console.WriteLine("Please enter the station ID for first charging: ");
                     int firstChargingStationID = Convert.ToInt32(Console.ReadLine());
@@ -138,13 +138,13 @@ namespace ConsoleUI_BL
                     Console.WriteLine("0 Light ");
                     Console.WriteLine("1 Medium ");
                     Console.WriteLine("2 Heavy ");
-                    IBL.BO.WeightCategories packageWeight = (IBL.BO.WeightCategories)Convert.ToInt32(Console.ReadLine());
+                    BO.WeightCategories packageWeight = (BO.WeightCategories)Convert.ToInt32(Console.ReadLine());
 
                     Console.WriteLine("Please enter the priority of the package: ");
                     Console.WriteLine("0 Regular ");
                     Console.WriteLine("1 Fast ");
                     Console.WriteLine("2 Emergency ");
-                    IBL.BO.Priorities packagePriority = (IBL.BO.Priorities)Convert.ToInt32(Console.ReadLine());
+                    BO.Priorities packagePriority = (BO.Priorities)Convert.ToInt32(Console.ReadLine());
 
                     bl.AddPackage(senderID, receiverID, packageWeight, packagePriority);
                     break;

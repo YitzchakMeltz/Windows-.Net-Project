@@ -1,4 +1,4 @@
-﻿namespace IBL.BO
+﻿namespace BO
 {
     // package at customer
     public class CustomerPackage

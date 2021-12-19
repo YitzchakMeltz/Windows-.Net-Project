@@ -1,4 +1,4 @@
-﻿using DalApi.DO;
+﻿using DO;
 using static DalObject.DataSource;
 
 namespace DalObject

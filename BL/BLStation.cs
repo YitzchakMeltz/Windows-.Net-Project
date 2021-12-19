@@ -1,11 +1,11 @@
-﻿using IBL.BO;
-using DalApi.DO;
+﻿using BO;
+using DO;
 using System;
 using System.Collections.Generic;
 
 namespace BL
 {
-    partial class BL : IBL.IBL
+    partial class BL : BlApi.IBL
     {
         private BaseStation ClosestStation(Location location)
         {
@@ -20,7 +20,7 @@ namespace BL
         {
             try
             {
-                DalApi.DO.Station station = dalObject.GetStation(stationID);
+                DO.Station station = dalObject.GetStation(stationID);
 
                 BaseStation baseStation = new BaseStation()
                 {
@@ -31,16 +31,16 @@ namespace BL
                     ChargingDrones = new List<ChargingDrone>()
                 };
 
-                foreach (IBL.BO.DroneList drone in Drones.FindAll(d => d.Location == baseStation.Location && d.Status == DroneStatuses.Maintenance))
+                foreach (BO.DroneList drone in Drones.FindAll(d => d.Location == baseStation.Location && d.Status == DroneStatuses.Maintenance))
                 {
                     baseStation.ChargingDrones.Add(new ChargingDrone() { ID = drone.ID, Battery = drone.Battery });
                 }
 
                 return baseStation;
             }
-            catch (DalApi.DO.ObjectNotFound e)
+            catch (DO.ObjectNotFound e)
             {
-                throw new IBL.BO.ObjectNotFound(e.Message);
+                throw new BO.ObjectNotFound(e.Message);
             }
         }
 
@@ -55,7 +55,7 @@ namespace BL
 
             try
             {
-                DalApi.DO.Station station = dalObject.GetStation(ID);
+                DO.Station station = dalObject.GetStation(ID);
 
                 if (name != null)
                 {
@@ -70,9 +70,9 @@ namespace BL
                 dalObject.RemoveStation(ID);
                 dalObject.AddStation(station);
             }
-            catch (DalApi.DO.ObjectNotFound e)
+            catch (DO.ObjectNotFound e)
             {
-                throw new IBL.BO.ObjectNotFound(e.Message);
+                throw new BO.ObjectNotFound(e.Message);
             }
         }
 

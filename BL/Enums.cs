@@ -1,4 +1,4 @@
-﻿namespace IBL.BO
+﻿namespace BO
 {
     public enum DroneStatuses { Free, Delivering, Maintenance }
     public enum Priorities { Regular, Fast, Emergency }
