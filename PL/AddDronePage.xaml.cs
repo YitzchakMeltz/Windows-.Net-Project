@@ -1,4 +1,4 @@
-﻿using BlApi.BO;
+﻿using BL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,7 +32,7 @@ namespace PL
 
             InitializeComponent();
 
-            WeightSelector.ItemsSource = Enum.GetValues(typeof(BlApi.BO.WeightCategories));
+            WeightSelector.ItemsSource = Enum.GetValues(typeof(BL.WeightCategories));
 
             StationIDSelector.ItemsSource = bl.ListStations().Select(station => station.ID);
         }

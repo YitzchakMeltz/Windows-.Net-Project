@@ -17,7 +17,7 @@ namespace BL
         {
             dalObject = new DalObject.DalObject();
             PowerConsumption = dalObject.PowerConsumption();
-            foreach (DalApi.DO.Drone d in dalObject.GetDroneList())
+            foreach (DO.Drone d in dalObject.GetDroneList())
             {
                 DroneList drone = new DroneList()
                 {
@@ -26,9 +26,9 @@ namespace BL
                     Weight = (WeightCategories)d.WeightCategory
                 };
 
-                DalApi.DO.Parcel parcel = ((List<DalApi.DO.Parcel>)dalObject.GetParcelList()).Find(p => p.DroneID == d.ID && ParcelStatus(p) != Statuses.Delivered);
+                DO.Parcel parcel = ((List<DO.Parcel>)dalObject.GetParcelList()).Find(p => p.DroneID == d.ID && ParcelStatus(p) != Statuses.Delivered);
 
-                if (!parcel.Equals(default(DalApi.DO.Parcel))) {
+                if (!parcel.Equals(default(DO.Parcel))) {
                     drone.Status = DroneStatuses.Delivering;
 
                     EnroutePackage enroute = GetEnroutePackage(parcel.ID);

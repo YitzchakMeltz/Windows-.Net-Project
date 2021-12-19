@@ -1,4 +1,4 @@
-﻿namespace BlApi.BO
+﻿namespace BL
 {
     public class DroneList
     {
