@@ -1,4 +1,5 @@
-﻿
+﻿namespace IDAL
+{
     namespace DO
     {
         public struct Station
@@ -8,7 +9,7 @@
             public int AvailableChargeSlots { get; set; }
             //public double Longitude { get; set; }
             //public double Latitude { get; set; }
-            public DalApi.Util.Coordinate Location { get; set; }
+            public Util.Coordinate Location { get; set; }
 
             /// <summary>
             /// Returns a String with details about the Station
@@ -21,3 +22,4 @@
         }
 
     }
+}

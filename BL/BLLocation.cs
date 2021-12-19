@@ -1,12 +1,12 @@
-﻿using BlApi.BO;
+﻿using IBL.BO;
 using System;
 using System.Collections.Generic;
 
 namespace BL
 {
-    partial class BL : BlApi.IBL
+    partial class BL : IBL.IBL
     {
-        private Location CoordinateToLocation(DalApi.Util.Coordinate coord)
+        private Location CoordinateToLocation(IDAL.Util.Coordinate coord)
         {
             return new Location()
             {
@@ -20,9 +20,9 @@ namespace BL
             return LocationToCoordinate(source).DistanceTo(LocationToCoordinate(dest)) / 1000;
         }
 
-        private DalApi.Util.Coordinate LocationToCoordinate(Location location)
+        private IDAL.Util.Coordinate LocationToCoordinate(Location location)
         {
-            return new DalApi.Util.Coordinate(location.Latitude, location.Longitude);
+            return new IDAL.Util.Coordinate(location.Latitude, location.Longitude);
         }
     }
 }

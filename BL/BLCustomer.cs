@@ -1,10 +1,10 @@
-﻿using BlApi.BO;
+﻿using IBL.BO;
 using System;
 using System.Collections.Generic;
 
 namespace BL
 {
-    partial class BL : BlApi.IBL
+    partial class BL : IBL.IBL
     {
         private PackageCustomer ConvertToPackageCustomer(Customer customer)
         {
@@ -33,7 +33,7 @@ namespace BL
             // Update DALCustomer
             try
             {
-                DalApi.DO.Customer customer = dalObject.GetCustomer(ID);
+                IDAL.DO.Customer customer = dalObject.GetCustomer(ID);
 
                 if (name != null)
                 {
@@ -48,7 +48,7 @@ namespace BL
                 dalObject.RemoveCustomer(ID);
                 dalObject.AddCustomer(customer);
             }
-            catch (DalApi.DO.ObjectNotFound e)
+            catch (IDAL.DO.ObjectNotFound e)
             {
                 throw new ObjectNotFound(e.Message);
             }
@@ -58,7 +58,7 @@ namespace BL
         {
             try
             {
-                DalApi.DO.Customer dalCustomer = dalObject.GetCustomer(customerID);
+                IDAL.DO.Customer dalCustomer = dalObject.GetCustomer(customerID);
 
                 Customer customer = new Customer()
                 {
@@ -84,9 +84,9 @@ namespace BL
 
                 return customer;
             }
-            catch (DalApi.DO.ObjectNotFound e)
+            catch (IDAL.DO.ObjectNotFound e)
             {
-                throw new BlApi.BO.ObjectNotFound(e.Message);
+                throw new IBL.BO.ObjectNotFound(e.Message);
             }
         }
 
@@ -97,10 +97,10 @@ namespace BL
 
         public IEnumerable<CustomerList> ListCustomers()
         {
-            IEnumerable<DalApi.DO.Customer> dalCustomers = dalObject.GetCustomerList();
+            IEnumerable<IDAL.DO.Customer> dalCustomers = dalObject.GetCustomerList();
 
             List<CustomerList> blCustomers = new List<CustomerList>();
-            foreach (DalApi.DO.Customer dalCustomer in dalCustomers)
+            foreach (IDAL.DO.Customer dalCustomer in dalCustomers)
             {
                 Customer customer = GetCustomer(dalCustomer.ID);
                 blCustomers.Add(new CustomerList() 
