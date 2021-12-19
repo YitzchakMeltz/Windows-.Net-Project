@@ -15,7 +15,7 @@ namespace BL
 
         public BL()
         {
-            dalObject = new DalObject.DalObject();
+            dalObject = DalFactory.GetDal("DalObject");
             PowerConsumption = dalObject.PowerConsumption();
             foreach (DO.Drone d in dalObject.GetDroneList())
             {
