@@ -1,5 +1,5 @@
-﻿using DalApi;
-
+﻿namespace DalApi
+{
     namespace DO
     {
         public struct Drone
@@ -20,4 +20,4 @@
             }
         }
     }
-
+}
