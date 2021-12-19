@@ -53,14 +53,14 @@ namespace BL
 
                     if (drone.Status == DroneStatuses.Maintenance)
                     {
-                        DalApi.DO.Station randStation = dalObject.GetStationList().ElementAt(random.Next(0, dalObject.GetStationList().Count()));
+                        DO.Station randStation = dalObject.GetStationList().ElementAt(random.Next(0, dalObject.GetStationList().Count()));
                         drone.Location = CoordinateToLocation(randStation.Location);
                         drone.Battery = random.NextDouble() * 20;
                         dalObject.ChargeDrone(d.ID, randStation.ID);
                     }
                     else // Drone is Free
                     {
-                        IEnumerable<DalApi.DO.Parcel> deliveredParcels = dalObject.GetParcelList().Where(parcel => !parcel.Delivered.Equals(DateTime.MinValue)).ToArray();
+                        IEnumerable<DO.Parcel> deliveredParcels = dalObject.GetParcelList().Where(parcel => !parcel.Delivered.Equals(DateTime.MinValue)).ToArray();
                         /*if (deliveredParcels.Count() == 0)
                             throw new InvalidManeuver("No Parcels have been delivered so starting drone location could not be determined.");*/
                         drone.Location = CoordinateToLocation(dalObject.GetCustomer(deliveredParcels.ElementAt(random.Next(0, deliveredParcels.Count())).TargetID).Location);

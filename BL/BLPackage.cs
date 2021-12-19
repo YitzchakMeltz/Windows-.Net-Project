@@ -1,4 +1,4 @@
-﻿using BlApi.BO;
+﻿using BL;
 using DalApi;
 using System;
 using System.Collections.Generic;
@@ -7,7 +7,7 @@ namespace BL
 {
     partial class BL : BlApi.IBL
     {
-        private Statuses ParcelStatus(DalApi.DO.Parcel p)
+        private Statuses ParcelStatus(DO.Parcel p)
         {
             if (p.Assigned is null)
             {
@@ -24,7 +24,7 @@ namespace BL
             return Statuses.Delivered;
         }
 
-        public void AddPackage(int senderID, int receiverID, BlApi.BO.WeightCategories weight, BlApi.BO.Priorities priority)
+        public void AddPackage(int senderID, int receiverID, BL.WeightCategories weight, BL.Priorities priority)
         {
             Package package = new()
             {
@@ -36,12 +36,12 @@ namespace BL
                 Creation = DateTime.Now,
             };
 
-            dalObject.AddParcel(senderID, receiverID, (DalApi.DO.WeightCategories)weight, (DalApi.DO.Priorities)priority, 0);
+            dalObject.AddParcel(senderID, receiverID, (DO.WeightCategories)weight, (DO.Priorities)priority, 0);
         }
 
         public CustomerPackage ConvertToCustomerPackage(PackageList package, string otherCustomer)
         {
-            int customerID = ((List<DalApi.DO.Customer>)dalObject.GetCustomerList()).Find(customer => customer.Name == otherCustomer).ID;
+            int customerID = ((List<DO.Customer>)dalObject.GetCustomerList()).Find(customer => customer.Name == otherCustomer).ID;
             return new CustomerPackage()
             {
                 ID = package.ID,
@@ -56,7 +56,7 @@ namespace BL
         {
             try
             {
-                DalApi.DO.Parcel parcel = dalObject.GetParcel(packageID);
+                DO.Parcel parcel = dalObject.GetParcel(packageID);
                 DroneList drone = Drones.Find(d => d.PackageID == packageID);
                 Package package = new Package()
                 {
@@ -74,18 +74,18 @@ namespace BL
 
                 return package;
             }
-            catch (DalApi.DO.ObjectNotFound e)
+            catch (DO.ObjectNotFound e)
             {
-                throw new BlApi.BO.ObjectNotFound(e.Message);
+                throw new BL.ObjectNotFound(e.Message);
             }
         }
 
         public IEnumerable<PackageList> ListPackages()
         {
-            IEnumerable<DalApi.DO.Parcel> dalParcels = dalObject.GetParcelList();
+            IEnumerable<DO.Parcel> dalParcels = dalObject.GetParcelList();
             List<PackageList> packages = new List<PackageList>();
 
-            foreach(DalApi.DO.Parcel parcel in dalParcels)
+            foreach(DO.Parcel parcel in dalParcels)
             {
                 packages.Add(new PackageList() { ID = parcel.ID, Sender = dalObject.GetCustomer(parcel.SenderID).Name, Receiver = dalObject.GetCustomer(parcel.TargetID).Name, Weight = (WeightCategories)parcel.WeightCategory, Priority = (Priorities)parcel.Priority, Status = ParcelStatus(parcel) });
             }
@@ -96,19 +96,5 @@ namespace BL
         {
             return ((List<PackageList>)ListPackages()).FindAll(pred);
         }
-        /*public IEnumerable<PackageList> ListUnassignedPackages()
-        {
-            IEnumerable<IDAL.DO.Parcel> dalParcels = dalObject.GetUnassignedParcelList();
-            List<PackageList> packages = new List<PackageList>();
-
-            foreach (IDAL.DO.Parcel parcel in dalParcels)
-            {
-                if (ParcelStatus(parcel) != Statuses.Created)
-                    throw new IBL.BO.LogicError($"Package with ID {parcel.ID} has status {ParcelStatus(parcel)} but is listed as unassigned.");
-                packages.Add(new PackageList() { ID = parcel.ID, Sender = dalObject.GetCustomer(parcel.SenderID).Name, Receiver = dalObject.GetCustomer(parcel.TargetID).Name, Weight = (WeightCategories)parcel.WeightCategory, Priority = (Priorities)parcel.Priority, Status = Statuses.Created });
-            }
-
-            return packages;
-        }*/
     }
 }
