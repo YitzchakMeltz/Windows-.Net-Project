@@ -1,4 +1,6 @@
-﻿using System;
+﻿using DalApi.Util;
+using DO;
+using System;
 using System.Collections.Generic;
 
 namespace Dal
@@ -52,7 +54,7 @@ namespace Dal
                 Drone d = new Drone()
                 {
                     Model = "Drone" + rd.Next(10),
-                    WeightCategory = (IDAL.DO.WeightCategories)rd.Next(0, 3)
+                    WeightCategory = (DO.WeightCategories)rd.Next(0, 3)
                 };
 
                 do
@@ -103,8 +105,8 @@ namespace Dal
                 Parcel p = new Parcel()
                 {
                     SenderID = Customers[rd.Next(Customers.Count)].ID,
-                    WeightCategory = (IDAL.DO.WeightCategories)rd.Next(0, 3),
-                    Priority = (IDAL.DO.Priorities)rd.Next(0, 3),
+                    WeightCategory = (WeightCategories)rd.Next(0, 3),
+                    Priority = (Priorities)rd.Next(0, 3),
                     Scheduled = earliest.AddSeconds(rd.NextDouble() * DateTime.Now.Subtract(earliest).TotalSeconds)
                 };
 

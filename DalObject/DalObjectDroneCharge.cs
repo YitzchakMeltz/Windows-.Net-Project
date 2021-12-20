@@ -1,4 +1,4 @@
-﻿using IDAL.DO;
+﻿using DO;
 using static Dal.DataSource;
 
 namespace Dal

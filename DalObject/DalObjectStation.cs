@@ -1,5 +1,5 @@
-﻿using IDAL.DO;
-using IDAL.Util;
+﻿using DO;
+using DalApi.Util;
 using System;
 using System.Collections.Generic;
 using static Dal.DataSource;

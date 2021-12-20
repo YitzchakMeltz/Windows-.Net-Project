@@ -1,4 +1,4 @@
-﻿using IDAL.DO;
+﻿using DO;
 using System.Collections.Generic;
 using static Dal.DataSource;
 
@@ -58,7 +58,7 @@ namespace Dal
                 ID = id,
                 Name = name,
                 Phone = phoneNum,
-                Location = new IDAL.Util.Coordinate(latitude, longitude)
+                Location = new DalApi.Util.Coordinate(latitude, longitude)
             };
 
             AddCustomer(customer);
