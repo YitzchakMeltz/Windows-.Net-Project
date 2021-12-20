@@ -15,7 +15,10 @@ namespace DalApi
             switch(objectType)
             {
                 case "DalObject":
-                    return DalObject.DalObject.Instance;
+                    Activator.CreateInstance(@"..\..\..\..\DalObject\bin\Debug\net5.0\ref\DalObject.dll", "DalObject").Unwrap();
+                    System.Reflection.Assembly.LoadFrom(@"..\..\..\..\DalObject\bin\Debug\net5.0\ref\DalObject.dll");
+                    //return DalObject.DalObject.Instance;
+                    throw new NotImplementedException();
 
                 case "DalXml":
                     throw new NotImplementedException();

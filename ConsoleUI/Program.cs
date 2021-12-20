@@ -6,7 +6,7 @@ namespace ConsoleUI
     class Program
     {
 
-        static DalApi.IDal dalObject = new DalObject.DalObject();
+        static DalApi.IDal dalObject = DalApi.DalFactory.GetDal("DalObject");
         private enum MainMenu { Exit, Add, Update, Show, List, Distance }
         static void Main(string[] args)
         {
@@ -329,14 +329,14 @@ namespace ConsoleUI
                     break;
 
                 case ListMenu.UnassignedParcels:
-                    foreach (Parcel p in dalObject.GetUnassignedParcelList())
+                    foreach (Parcel p in dalObject.GetFilteredParcelList(p => p.Assigned is null))
                     {
                         Console.WriteLine(p);
                     }
                     break;
 
                 case ListMenu.AvailableBaseStations:
-                    foreach (Station s in dalObject.GetAvailableStationList())
+                    foreach (Station s in dalObject.GetFilteredStationList(s => s.AvailableChargeSlots > 0))
                     {
                         Console.WriteLine(s);
                     }

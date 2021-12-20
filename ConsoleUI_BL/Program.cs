@@ -6,7 +6,7 @@ namespace ConsoleUI_BL
 {
     class Program
     {
-        static BlApi.IBL bl = new BL.BL();
+        static BlApi.IBL bl = BlFactory.GetBl();
 
         private enum MainMenu { Exit, Add, Update, Show, List }
         static void Main(string[] args)

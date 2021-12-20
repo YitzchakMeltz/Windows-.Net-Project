@@ -71,7 +71,7 @@ namespace Dal
         public void AddStation(int id, string name, int chargeSlots, double latitude, double longitude)
         {
             if (Stations.Exists(s => s.ID == id))
-                throw new IDAL.DO.ObjectAlreadyExists($"Station with ID: {id} already exists.");
+                throw new ObjectAlreadyExists($"Station with ID: {id} already exists.");
 
             Station station = new Station()
             {
