@@ -1,10 +1,10 @@
-﻿using DO;
-using DalApi.Util;
+﻿using IDAL.DO;
+using IDAL.Util;
 using System;
 using System.Collections.Generic;
-using static DalObject.DataSource;
+using static Dal.DataSource;
 
-namespace DalObject
+namespace Dal
 {
     partial class DalObject : DalApi.IDal
     {
@@ -71,7 +71,7 @@ namespace DalObject
         public void AddStation(int id, string name, int chargeSlots, double latitude, double longitude)
         {
             if (Stations.Exists(s => s.ID == id))
-                throw new DO.ObjectAlreadyExists($"Station with ID: {id} already exists.");
+                throw new IDAL.DO.ObjectAlreadyExists($"Station with ID: {id} already exists.");
 
             Station station = new Station()
             {

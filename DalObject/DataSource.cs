@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-//using System.Linq;
-using DO;
-using DalApi.Util;
 
-namespace DalObject
+namespace Dal
 {
     class DataSource
     {
@@ -33,7 +30,7 @@ namespace DalObject
         {
             Random rd = new Random();
 
-            for (int i = 0; i < 2; ++i) 
+            for (int i = 0; i < 2; ++i)
             {
                 Station s = new Station()
                 {
@@ -55,10 +52,11 @@ namespace DalObject
                 Drone d = new Drone()
                 {
                     Model = "Drone" + rd.Next(10),
-                    WeightCategory = (DO.WeightCategories)rd.Next(0, 3)
+                    WeightCategory = (IDAL.DO.WeightCategories)rd.Next(0, 3)
                 };
 
-                do {
+                do
+                {
                     d.ID = rd.Next(100000000, 999999999);
                 } while (Drones.Exists(drone => drone.ID == d.ID));
 
@@ -89,7 +87,8 @@ namespace DalObject
                     c.ID = rd.Next(100000000, 999999999);
                 } while (Customers.Exists(cust => cust.ID == c.ID)); // prevent overlapping IDs
 
-                do {
+                do
+                {
                     c.Phone = "0" + rd.Next(500000000, 589999999);
                 } while (Customers.Exists(cust => cust.Phone == c.Phone)); // prevent overlapping Phone Numbers
 
@@ -104,8 +103,8 @@ namespace DalObject
                 Parcel p = new Parcel()
                 {
                     SenderID = Customers[rd.Next(Customers.Count)].ID,
-                    WeightCategory = (DO.WeightCategories)rd.Next(0, 3),
-                    Priority = (DO.Priorities)rd.Next(0, 3),
+                    WeightCategory = (IDAL.DO.WeightCategories)rd.Next(0, 3),
+                    Priority = (IDAL.DO.Priorities)rd.Next(0, 3),
                     Scheduled = earliest.AddSeconds(rd.NextDouble() * DateTime.Now.Subtract(earliest).TotalSeconds)
                 };
 

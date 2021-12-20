@@ -1,8 +1,8 @@
 ﻿using DO;
 using System.Collections.Generic;
-using static DalObject.DataSource;
+using static Dal.DataSource;
 
-namespace DalObject
+namespace Dal
 {
     partial class DalObject : DalApi.IDal
     {

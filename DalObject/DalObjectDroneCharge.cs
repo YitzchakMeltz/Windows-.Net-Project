@@ -1,7 +1,7 @@
-﻿using DO;
-using static DalObject.DataSource;
+﻿using IDAL.DO;
+using static Dal.DataSource;
 
-namespace DalObject
+namespace Dal
 {
     partial class DalObject : DalApi.IDal
     {
