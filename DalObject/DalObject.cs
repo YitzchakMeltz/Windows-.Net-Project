@@ -3,12 +3,21 @@ using static Dal.DataSource;
 
 namespace Dal
 {
-    public partial class DalObject : DalApi.IDal
+    internal partial class DalObject : DalApi.IDal
     {
         private Random rd = new Random();
-        public DalObject()
+        private DalObject()
         {
             DataSource.Initialize();
+        }
+
+        private static readonly Lazy<DalObject> lazy = new Lazy<DalObject>(() => new DalObject());
+        public static DalObject Instance
+        {
+            get
+            {
+                return lazy.Value;
+            }
         }
 
         public double[] PowerConsumption()

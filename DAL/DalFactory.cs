@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using DalApi;
@@ -10,15 +11,12 @@ namespace DalApi
 {
     public static class DalFactory
     {
-        public static DalApi.IDal GetDal(string objectType)
+        public static IDal GetDal(string objectType)
         {
             switch(objectType)
             {
                 case "DalObject":
-                    Activator.CreateInstance(@"..\..\..\..\DalObject\bin\Debug\net5.0\ref\DalObject.dll", "DalObject").Unwrap();
-                    System.Reflection.Assembly.LoadFrom(@"..\..\..\..\DalObject\bin\Debug\net5.0\ref\DalObject.dll");
-                    //return DalObject.DalObject.Instance;
-                    throw new NotImplementedException();
+                    return (IDal)Assembly.LoadFrom(@"..\..\..\..\DalObject\bin\Debug\net5.0\DalObject.dll").GetType("Dal.DalObject").GetProperty("Instance").GetValue(null);
 
                 case "DalXml":
                     throw new NotImplementedException();
