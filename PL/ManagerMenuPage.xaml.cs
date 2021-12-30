@@ -16,35 +16,40 @@ using System.Windows.Shapes;
 namespace PL
 {
     /// <summary>
-    /// Interaction logic for WelcomePage.xaml
+    /// Interaction logic for ManagerMenuPage.xaml
     /// </summary>
-    public partial class WelcomePage : Page
+    public partial class ManagerMenuPage : Page
     {
         BlApi.IBL bl;
-        public WelcomePage(Frame f, BlApi.IBL bl)
+        public ManagerMenuPage(BlApi.IBL bl)
         {
-            InitializeComponent();
             this.bl = bl;
+            InitializeComponent();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Drones_Menu_Button_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new DisplayDroneListPage(bl));
         }
 
-        private void Manager_Button_Click(object sender, RoutedEventArgs e)
+        private void Stations_Menu_Button_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new ManagerMenuPage(bl));
+
         }
 
-        private void New_Customer_Button_Click(object sender, RoutedEventArgs e)
+        private void Customers_Menu_Button_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new UserSignInPage(bl));
+
         }
 
-        private void Existing_Customer_Button_Click(object sender, RoutedEventArgs e)
+        private void Packages_Menu_Button_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void Back_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.GoBack();
         }
     }
 }
