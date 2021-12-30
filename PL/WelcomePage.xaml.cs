@@ -34,12 +34,12 @@ namespace PL
 
         private void Manager_Button_Click(object sender, RoutedEventArgs e)
         {
-
+            NavigationService.Navigate(new DisplayDroneListPage(bl));
         }
 
         private void New_Customer_Button_Click(object sender, RoutedEventArgs e)
         {
-
+            NavigationService.Navigate(new UserSignInPage(bl));
         }
 
         private void Existing_Customer_Button_Click(object sender, RoutedEventArgs e)
