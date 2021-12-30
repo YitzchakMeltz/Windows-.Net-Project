@@ -31,5 +31,20 @@ namespace PL
         {
             NavigationService.Navigate(new DisplayDroneListPage(bl));
         }
+
+        private void Manager_Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void New_Customer_Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Existing_Customer_Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

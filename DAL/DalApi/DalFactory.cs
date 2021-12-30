@@ -20,6 +20,7 @@ namespace DalApi
             try { Assembly.LoadFrom(dalPkg["path"]); }
             catch (Exception e) { throw new DalConfigException($"Failed to load {dalPkg}.dll"); }
 
+
             Type type = Type.GetType($"{dalPkg["namespace"]}.{dalPkg["class"]}, {dalPkg["class"]}");
             if (type == null) throw new DalConfigException($"Class {dalPkg} was not found in {dalPkg}.dll");
 
