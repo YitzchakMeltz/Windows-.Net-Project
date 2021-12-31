@@ -8,7 +8,31 @@
       d:DesignHeight="640" d:DesignWidth="800"
       Title="DisplayDroneListPage" Loaded="Page_Loaded">
 
-    <Grid Name="MainGrid">
+    <Page.Resources>
+        <LinearGradientBrush x:Key="myLinearGradientBrush" StartPoint="0,1" EndPoint="0,0">
+            <GradientStop Color="#FF343437" Offset="0" />
+            <GradientStop Color="#FF1b1b1d" Offset="0.9" />
+        </LinearGradientBrush>
+
+        <Style x:Key="GridViewColumnHeaderStyle1" TargetType="{x:Type GridViewColumnHeader}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type GridViewColumnHeader}">
+                        <Border BorderThickness="0,0,0,1" BorderBrush="Gray" Background="Transparent">
+                            <TextBlock x:Name="ContentHeader" Text="{TemplateBinding Content}" Padding="5,5,5,0" Width="{TemplateBinding Width}" TextAlignment="Center" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="OverridesDefaultStyle" Value="True" />
+            <Setter Property="Foreground" Value="LightGray" />
+            <Setter Property="FontFamily" Value="Segoe UI" />
+            <Setter Property="FontSize" Value="14" />
+        </Style>
+    </Page.Resources>
+
+
+        <Grid Name="MainGrid" Background="{StaticResource myLinearGradientBrush}">
 
         <Grid.RowDefinitions>
             <RowDefinition Height="50*"/>
@@ -23,33 +47,57 @@ VerticalAlignment="Stretch" Width="auto">
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions >
-            <ComboBox Grid.Column="1" Name="StatusSelector" Height="25"
-                HorizontalAlignment= "Stretch"
-                VerticalAlignment="Stretch" SelectionChanged="SelectionChanged" Padding="13,3,5,3" Margin="5,16,5,16" SelectedIndex="0"/>
+
+            <ComboBox Grid.Column="1" Name="StatusSelector" Height="30"
+                HorizontalAlignment= "Stretch" FontSize="16"
+                VerticalAlignment="Stretch" SelectionChanged="SelectionChanged" Padding="13,3,5,3" Margin="5,16,5,16" SelectedIndex="0">
+            </ComboBox>
 
             <ComboBox Grid.Column="2" Name="WeightSelector"
-                HorizontalAlignment= "Stretch" Height="25"
+                HorizontalAlignment= "Stretch" Height="30" FontSize="16"
                 VerticalAlignment="Stretch" SelectionChanged="SelectionChanged" Margin="5,16,5,16" SelectedIndex="0" />
+            
             <Button Grid.Column="3" Content="+ Add Drone"  Margin="0,0,0,0" HorizontalAlignment="Center"  VerticalAlignment="Center"   
-                    Height="25" FontWeight="Normal" FontFamily="Arial" FontSize="12" Background="#FF4194E3" 
-                    Foreground="White" Padding="10,0,10,0" BorderThickness="0,0,0,0" Click="Button_Click"/>
-
-            <Button Grid.Column="0"   Margin="0,0,0,0" HorizontalAlignment="Center"  VerticalAlignment="Center"   
-                    Height="25" Background="LightGray" 
-                    Foreground="White" Padding="10,0,10,0" BorderThickness="0,0,0,0" Click="Home_Button_Click">
-
-                <StackPanel Orientation="Horizontal">
-                    <Image Source="/icons/homepage_icon_white.png" Height="15" Width="15"/>
-                    <TextBlock Text=" Homepage"  VerticalAlignment="Center"   
-                               Height="15" FontWeight="Normal" FontFamily="Arial" FontSize="12"/>
-                </StackPanel>
+                    Height="30" FontWeight="Normal" FontFamily="Arial" FontSize="16" Background="#FF4194E3" 
+                    Foreground="White" Padding="10,0,10,0" BorderThickness="0,0,0,0" Click="Button_Click">
+                <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="5"/>
+                </Style>
+                </Button.Resources>
             </Button>
 
+            <Button x:Name="BackButton" Grid.Column="0"  HorizontalAlignment="Left"  VerticalAlignment="Center" 
+                    Width="70" Height="70" FontSize="25" Background="Transparent"  Foreground="White" BorderThickness="0" 
+                    FontFamily="Arial" Margin="20,0,0,0" Click="Back_Click">
+                <Image Source="/icons/left.png" Height="25" Width="25"/>
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="Background" Value="Transparent"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="Button">
+                                    <Border Name="border" BorderThickness="0" 
+                                        Background="Transparent">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="Transparent"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
 
         </Grid>
-        <ListView Grid.Row="1" x:Name="DroneListView" MouseDoubleClick="DroneListView_MouseDoubleClick" SelectedValuePath="ID">
+        <ListView Grid.Row="1" x:Name="DroneListView" MouseDoubleClick="DroneListView_MouseDoubleClick" SelectedValuePath="ID" 
+                  Background="{StaticResource myLinearGradientBrush}" BorderThickness="0" Foreground="#FFCDD1DC" FontSize="14">
             <ListView.View>
-                <GridView>
+                <GridView ColumnHeaderContainerStyle="{StaticResource GridViewColumnHeaderStyle1}">
                     <GridViewColumn Header="ID" DisplayMemberBinding="{Binding ID}"/>
                     <GridViewColumn Header="Model" DisplayMemberBinding="{Binding Model}"/>
                     <GridViewColumn Header="Maximum Weight" DisplayMemberBinding="{Binding Weight}"/>

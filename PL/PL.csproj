@@ -15,7 +15,9 @@
     <None Remove="icons\customer.png" />
     <None Remove="icons\drone.png" />
     <None Remove="icons\homepage_icon_white.png" />
+    <None Remove="icons\left-hover.png" />
     <None Remove="icons\left.png" />
+    <None Remove="icons\package.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -31,6 +33,8 @@
     <Resource Include="icons\customer.png" />
     <Resource Include="icons\drone.png" />
     <Resource Include="icons\homepage_icon_white.png" />
+    <Resource Include="icons\left-hover.png" />
+    <Resource Include="icons\package.png" />
     <Resource Include="icons\left.png" />
   </ItemGroup>
 

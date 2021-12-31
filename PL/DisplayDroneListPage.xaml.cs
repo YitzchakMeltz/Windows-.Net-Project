@@ -54,7 +54,7 @@ namespace PL
                 NavigationService.Navigate(new AddDronePage(bl, bl.GetDrone((int)DroneListView.SelectedValue)));
         }
 
-        private void Home_Button_Click(object sender, RoutedEventArgs e)
+        private void Back_Click(object sender, RoutedEventArgs e)
         {
             //mainFrame.Content = new WelcomePage(mainFrame, bl);
             NavigationService.GoBack();

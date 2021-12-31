@@ -13,7 +13,6 @@
             <GradientStop Color="#FF1b1b1d" Offset="0.9" />
         </LinearGradientBrush>
     </Page.Resources>
-    
 
     <Grid Background="{StaticResource myLinearGradientBrush}">
 
@@ -32,8 +31,28 @@
 
             <Button x:Name="BackButton" Grid.Column="0"  Grid.Row="0" HorizontalAlignment="Left"  VerticalAlignment="Top" 
                     Width="70" Height="70" FontSize="25" Background="Transparent"  Foreground="White" BorderThickness="0" 
-                    FontFamily="Arial" Margin="30,30,30,30" Click="Back_Click">
+                    FontFamily="Arial" Margin="20,-1.1,15,15" Click="Back_Click">
                 <Image Source="/icons/left.png" Height="25" Width="25"/>
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="Background" Value="Transparent"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="Button">
+                                    <Border Name="border" BorderThickness="0" 
+                                        Background="Transparent">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="Transparent"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
             </Button>
 
             <Button x:Name="DroneMenuButton" Grid.Column="0"  Grid.Row="0" HorizontalAlignment="Right"  VerticalAlignment="Bottom" 
