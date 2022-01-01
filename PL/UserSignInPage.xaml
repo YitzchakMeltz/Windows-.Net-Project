@@ -158,6 +158,21 @@
                 </TextBlock.Style>
             </TextBlock>
 
+            <Button x:Name="ViewPackagesButton" Grid.Column="1"  Grid.Row="8" HorizontalAlignment="Center"  VerticalAlignment="Center" 
+                    Width="200" Height="30" Background="#FF4194E3" Foreground="White" BorderThickness="0" 
+                    FontFamily="Arial" Margin="0,0,0,0" Click="View_Packages_Button_Click" Visibility="Hidden">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="5"/>
+                    </Style>
+                </Button.Resources>
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="/icons/box.png" Height="20" Width="20"/>
+                    <TextBlock Text=" View Packages"  VerticalAlignment="Center"   HorizontalAlignment="Center" Padding="5"
+                               Height="25" FontWeight="Normal" FontFamily="Arial" FontSize="14"/>
+                </StackPanel>
+            </Button>
+
             <Grid Name="ButtonGrid" HorizontalAlignment="Stretch" Height="auto" Grid.Column="1"  Grid.Row="10"
                     VerticalAlignment="Stretch" Width="auto">
                 <Grid.ColumnDefinitions>

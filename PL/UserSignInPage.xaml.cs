@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,7 +21,11 @@ namespace PL
     /// </summary>
     public partial class UserSignInPage : Page
     {
+        private enum State { Add, Update }
+        private State windowState = State.Add;
+
         BlApi.IBL bl;
+
         public UserSignInPage(BlApi.IBL bl)
         {
             this.bl = bl;
@@ -28,7 +33,32 @@ namespace PL
             InitializeComponent();
         }
 
-        private void Add_Button_Click(object sender, RoutedEventArgs e)
+        public UserSignInPage(BlApi.IBL bl, Customer customer) : this(bl)
+        {
+            windowState = State.Update;
+
+            AddButton.Content = "Update";
+
+            ViewPackagesButton.Visibility = Visibility.Visible;
+
+            ID_input.Text = customer.ID.ToString();
+            ID_input.IsEnabled = false;
+            ID_input.Foreground = Brushes.Gray;
+
+            Name_input.Text = customer.Name;
+
+            Phone_input.Text = customer.Phone;
+
+            Longitude_input.Text = customer.Location.ToString();
+            Longitude_input.IsEnabled = false;
+            Longitude_input.Foreground = Brushes.Gray;
+
+            Latitude_input.Visibility = Visibility.Hidden;
+
+            ButtonGrid.SetValue(Grid.RowProperty, 10);
+        }
+
+            private void Add_Button_Click(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -44,6 +74,11 @@ namespace PL
         private void Cancel_Button_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.GoBack();
+        }
+
+        private void View_Packages_Button_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

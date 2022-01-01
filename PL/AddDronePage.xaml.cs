@@ -70,11 +70,6 @@ namespace PL
             StationIDSelector.Visibility = Visibility.Hidden;
             StationIDSelectorPlaceholder.Visibility = Visibility.Hidden;
 
-            //StationIDSelector.IsEnabled = false;
-            //StationIDSelector.ItemsSource = new Location[] { drone.Location };
-            //StationIDSelector.SelectedIndex = 0;
-            //StationIDSelector.Foreground = Brushes.Gray;
-
             CancelButton.Content = "Close";
             AddButton.Content = "Update";
         }
