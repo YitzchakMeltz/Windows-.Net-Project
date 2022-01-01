@@ -175,7 +175,7 @@ namespace PL
                 bl.ReleaseDrone(int.Parse(DroneID_input.Text));
                 DroneBattery_output.Text = Math.Round(bl.GetDrone(int.Parse(DroneID_input.Text)).Battery, 2).ToString() + "%";
                 DroneStatus_output.Text = bl.GetDrone(int.Parse(DroneID_input.Text)).Status.ToString();
-                MessageBox.Show("The Drone has been released from charging for 60 minutes.", "Success");
+                MessageBox.Show("The Drone has been released from charging.", "Success");
             }
             catch (Exception exception)
             {
