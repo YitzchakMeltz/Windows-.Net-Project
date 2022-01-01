@@ -78,7 +78,7 @@ namespace PL
 
         private void View_Packages_Button_Click(object sender, RoutedEventArgs e)
         {
-
+            NavigationService.Navigate(new CustomerPackageListPage(bl, bl.GetCustomer(int.Parse(ID_input.Text))));
         }
     }
 }
