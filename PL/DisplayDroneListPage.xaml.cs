@@ -56,7 +56,6 @@ namespace PL
 
         private void Back_Click(object sender, RoutedEventArgs e)
         {
-            //mainFrame.Content = new WelcomePage(mainFrame, bl);
             NavigationService.GoBack();
         }
 
