@@ -259,10 +259,10 @@ namespace ConsoleUI_BL
                 case UpdateMenu.UpdateReleaseDrone:
                     Console.WriteLine("Please enter the Drone ID: ");
                     droneID = Convert.ToInt32(Console.ReadLine());
-                    Console.WriteLine("Please enter how many minutes it was charging for: ");
-                    int chargingTime = Convert.ToInt32(Console.ReadLine());
+                    //Console.WriteLine("Please enter how many minutes it was charging for: ");
+                    //int chargingTime = Convert.ToInt32(Console.ReadLine());
 
-                    bl.ReleaseDrone(droneID, chargingTime);
+                    bl.ReleaseDrone(droneID);
                     break;
 
                 case UpdateMenu.UpdateAssignPackage:

@@ -1,9 +1,12 @@
-﻿    namespace DO
+﻿using System;
+
+namespace DO
     {
         public struct DroneCharge
         {
             public int DroneID { get; set; }
             public int StationID { get; set; }
+            public DateTime ChargeTime { init; get; }
 
             /// <summary>
             /// Returns a String that matches a Drone to its Base Station
@@ -11,7 +14,7 @@
             /// <returns></returns>
             public override string ToString()
             {
-                return $"DroneID: {DroneID}, StationID: {StationID}";
+                return $"DroneID: {DroneID}, StationID: {StationID}, ChargeTime: {ChargeTime}";
             }
         }
 

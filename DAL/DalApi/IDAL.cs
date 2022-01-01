@@ -34,7 +34,7 @@ namespace DalApi
         public void ParcelCollected(int parcelID);
         public void ParcelDelivered(int parcelID);
         public void ChargeDrone(int droneID, int stationID);
-        public void ReleaseDrone(int droneID);
+        public double ReleaseDrone(int droneID);
         
         public double[] PowerConsumption();
     }

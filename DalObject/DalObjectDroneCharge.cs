@@ -1,4 +1,5 @@
 ﻿using DO;
+using System;
 using static Dal.DataSource;
 
 namespace Dal
@@ -19,7 +20,8 @@ namespace Dal
             DroneCharge dc = new DroneCharge()
             {
                 DroneID = droneID,
-                StationID = stationID
+                StationID = stationID,
+                ChargeTime = System.DateTime.Now
             };
 
             DroneCharges.Add(dc);
@@ -28,7 +30,7 @@ namespace Dal
         /// <summary>
         /// Releases a Drone from charging
         /// </summary>
-        public void ReleaseDrone(int droneID)
+        public double ReleaseDrone(int droneID)
         {
             Drone drone = GetDrone(droneID);                                                  // Forces error if drone doesn't exist
 
@@ -43,6 +45,8 @@ namespace Dal
             Station station = GetStation(dc.StationID);
             station.AvailableChargeSlots += 1;
             Stations[Stations.FindIndex(s => s.ID == dc.StationID)] = station;
+
+            return DateTime.Now.Subtract(dc.ChargeTime).TotalMinutes;
         }
     }
 }

@@ -70,7 +70,7 @@ namespace BL
             }
         }
 
-        public void ReleaseDrone(int ID, double minutesCharging)
+        public void ReleaseDrone(int ID)
         {
             try
             {
@@ -80,12 +80,11 @@ namespace BL
                 if (Drones.Find(d => d.ID == ID).Status != DroneStatuses.Maintenance)
                     throw new InvalidManeuver("Only a Drone in maintenance can be released.");
 
+                double minutesCharging = dalObject.ReleaseDrone(ID);
                 drone.Battery = Math.Min(drone.Battery + PowerConsumption[4] * minutesCharging, 100);
                 drone.Status = DroneStatuses.Free;
 
                 Drones[Drones.FindIndex(d => d.ID == ID)] = drone;
-
-                dalObject.ReleaseDrone(ID);
             }
             catch (DO.ObjectNotFound e)
             {

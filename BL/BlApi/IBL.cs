@@ -15,7 +15,7 @@ namespace BlApi
         public void UpdateStation(int ID, string name = null, int? totalChargeStation = null);
         public void UpdateCustomer(int ID, string name = null, string phone = null);
         public void ChargeDrone(int droneID);
-        public void ReleaseDrone(int droneID, double chargingTime);
+        public void ReleaseDrone(int droneID);
         public void AssignPackageToDrone(int droneID);
         public void CollectPackage(int droneID);
         public void DeliverPackage(int droneID);
