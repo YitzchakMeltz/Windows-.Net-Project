@@ -98,11 +98,11 @@
                       Margin="7" >
                 <ListView.View>
                     <GridView ColumnHeaderContainerStyle="{StaticResource GridViewColumnHeaderStyle1}">
-                        <GridViewColumn Header="Receiver ID" DisplayMemberBinding="{Binding Receiver}"/>
+                        <GridViewColumn Header="Receiver ID" DisplayMemberBinding="{Binding Customer.ID}"/>
                         <GridViewColumn Header="Weight" DisplayMemberBinding="{Binding Weight}"/>
                         <GridViewColumn Header="Priority" DisplayMemberBinding="{Binding Priority}"/>
-                        <GridViewColumn Header="Date Sent" DisplayMemberBinding="{Binding Creation}"/>
-                        <GridViewColumn Header="Drone ID" DisplayMemberBinding="{Binding Drone}"/>
+                        <GridViewColumn Header="Status" DisplayMemberBinding="{Binding Status}"/>
+                        <!--<GridViewColumn Header="Drone ID" DisplayMemberBinding="{Binding Drone}"/>-->
                     </GridView>
                 </ListView.View>
             </ListView>
@@ -111,11 +111,11 @@
                       Margin="7" >
                 <ListView.View>
                     <GridView ColumnHeaderContainerStyle="{StaticResource GridViewColumnHeaderStyle1}">
-                        <GridViewColumn Header="Sender ID" DisplayMemberBinding="{Binding Sender}"/>
+                        <GridViewColumn Header="Sender ID" DisplayMemberBinding="{Binding Customer.ID}"/>
                         <GridViewColumn Header="Weight" DisplayMemberBinding="{Binding Weight}"/>
                         <GridViewColumn Header="Priority" DisplayMemberBinding="{Binding Priority}"/>
-                        <GridViewColumn Header="Date Sent" DisplayMemberBinding="{Binding Creation}"/>
-                        <GridViewColumn Header="Drone ID" DisplayMemberBinding="{Binding Drone}"/>
+                        <GridViewColumn Header="Status" DisplayMemberBinding="{Binding Status}"/>
+                        <!--<GridViewColumn Header="Drone ID" DisplayMemberBinding="{Binding Drone}"/>-->
                     </GridView>
                 </ListView.View>
             </ListView>
