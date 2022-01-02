@@ -1,0 +1,32 @@
+﻿<Window x:Class="PL.MsgBox"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PL"
+        mc:Ignorable="d"
+        Title="Error" Height="200" Width="420">
+    
+    <Grid Background="#FF343437">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="250*"/>
+            <RowDefinition Height="150*"/>
+        </Grid.RowDefinitions>
+
+        <TextBox Grid.Row="0" Background="Transparent" HorizontalAlignment="Center" VerticalAlignment="Center"
+                 Foreground="LightGray" FontSize="16" BorderThickness="0" >
+            You Can't Do That!
+        </TextBox>
+
+        <Button x:Name="OkButton" Content="Stop Bothering Me" Grid.Row="1" HorizontalAlignment="Right"  VerticalAlignment="Center" 
+                    Padding="7" FontSize="14" Background="Gray" Foreground="White" BorderThickness="0" 
+                    FontFamily="Arial" Margin="0,0,50,0" Click="Ok_Button_Click">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="5"/>
+                </Style>
+            </Button.Resources>
+        </Button>
+
+    </Grid>
+</Window>
