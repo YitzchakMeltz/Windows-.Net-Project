@@ -50,8 +50,7 @@ namespace PL
                 Welcome_msg.Visibility = Visibility.Visible;
                 Welcome_msg.Text = "Welcome Back " + customer.Name + "!";
 
-                LogOutButton.Visibility = Visibility.Visible;
-                //ButtonGrid.SetValue(Grid.RowProperty, 10);
+                LogoutButton.Visibility = Visibility.Visible;
             }
 
             ViewPackagesButton.Visibility = Visibility.Visible;
@@ -73,14 +72,10 @@ namespace PL
 
         private void Cancel_Button_Click(object sender, RoutedEventArgs e)
         {
-            if (isUser)
+            if(!isUser)
             {
-                while (NavigationService.CanGoBack)
-                {
-                    NavigationService.GoBack();
-                }
+                NavigationService.GoBack();
             }
-            else NavigationService.GoBack();
         }
 
         private void View_Packages_Button_Click(object sender, RoutedEventArgs e)
@@ -107,7 +102,7 @@ namespace PL
                     try
                     {
                         bl.UpdateCustomer(int.Parse(ID_input.Text), Name_input.Text, Phone_input.Text);
-                        NavigationService.GoBack();
+                        MessageBox.Show("  Customer Update Succesful!            ");
                     }
                     catch (Exception exception)
                     {
@@ -119,7 +114,14 @@ namespace PL
 
         private void Logout_Button_Click(object sender, RoutedEventArgs e)
         {
-
+            if (isUser)
+            {
+                while (NavigationService.CanGoBack)
+                {
+                    NavigationService.GoBack();
+                }
+            }
+            else NavigationService.GoBack();
         }
     }
 }

@@ -42,6 +42,32 @@
 
             </Grid.RowDefinitions>
 
+            <Button x:Name="LogoutButton" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Right"  VerticalAlignment="Center" 
+                    Width="70" Height="70" FontSize="25" Background="Transparent"  Foreground="White" BorderThickness="0" 
+                    FontFamily="Arial" Margin="0,0,20,0" Click="Logout_Button_Click" Visibility="Hidden">
+                <Image Source="/icons/logout.png" Height="25" Width="25"/>
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="Background" Value="Transparent"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="Button">
+                                    <Border Name="border" BorderThickness="0" 
+                                        Background="Transparent">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="Transparent"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+
             <Image x:Name="User_image" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1" Grid.Row="2" Source="/icons/user.png" Width="80" Height="80"/>
             <TextBox x:Name="Welcome_msg" Grid.Column="1" Grid.Row="2" Background="Transparent"
                      HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="34" Foreground="Gray"
@@ -173,21 +199,6 @@
                 <StackPanel Orientation="Horizontal">
                     <Image Source="/icons/box.png" Height="20" Width="20"/>
                     <TextBlock Text=" View Packages"  VerticalAlignment="Center"   HorizontalAlignment="Center" Padding="5"
-                               Height="25" FontWeight="Normal" FontFamily="Arial" FontSize="14"/>
-                </StackPanel>
-            </Button>
-
-            <Button x:Name="LogOutButton" Grid.Column="1"  Grid.Row="13" HorizontalAlignment="Center"  VerticalAlignment="Center" 
-                    Width="150" Height="30" Background="Red" Foreground="White" BorderThickness="0" 
-                    FontFamily="Arial" Margin="0,0,0,0" Click="Logout_Button_Click" Visibility="Hidden">
-                <Button.Resources>
-                    <Style TargetType="Border">
-                        <Setter Property="CornerRadius" Value="5"/>
-                    </Style>
-                </Button.Resources>
-                <StackPanel Orientation="Horizontal">
-                    <Image Source="/icons/logout.png" Height="20" Width="20"/>
-                    <TextBlock Text=" Log Out"  VerticalAlignment="Center"   HorizontalAlignment="Center" Padding="5"
                                Height="25" FontWeight="Normal" FontFamily="Arial" FontSize="14"/>
                 </StackPanel>
             </Button>
