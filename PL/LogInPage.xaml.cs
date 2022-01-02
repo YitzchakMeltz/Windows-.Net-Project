@@ -51,5 +51,17 @@ namespace PL
         {
             NavigationService.GoBack();
         }
+
+        private void Handle_Placeholder(object sender, RoutedEventArgs e)
+        {
+            if (Password_input.SecurePassword.Length == 0)
+            {
+                PasswordPlaceholder.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                PasswordPlaceholder.Visibility = Visibility.Hidden;
+            }
+        }
     }
 }

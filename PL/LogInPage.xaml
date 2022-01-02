@@ -94,7 +94,7 @@
             </TextBlock>
 
             <PasswordBox x:Name="Password_input" Grid.Column="1" Grid.Row="6" FontSize="16" Height="30" Width="200"  Padding="1,3,2,3" 
-                         HorizontalAlignment="Center" MaxLength="25" PasswordChar="●" >
+                         HorizontalAlignment="Center" MaxLength="25" PasswordChar="●" PasswordChanged="Handle_Placeholder">
                 <PasswordBox.Style>
                     <Style TargetType="{x:Type PasswordBox}">
                         <Style.Resources>
@@ -134,20 +134,10 @@
                     </Style>
                 </PasswordBox.Style>
             </PasswordBox>
-            <TextBlock x:Name="Placeholder2" Grid.Column="1" Grid.Row="6" IsHitTestVisible="False"   
+            <TextBlock x:Name="PasswordPlaceholder" Grid.Column="1" Grid.Row="6" IsHitTestVisible="False"   
                        Padding="1,3,2,3" TextWrapping="Wrap" Text=" Password" FontSize="16"
                        VerticalAlignment="Center"  Foreground="DarkGray" HorizontalAlignment="Center" 
                        Width="200" Height="30">
-                <TextBlock.Style>
-                    <Style TargetType="{x:Type TextBlock}">
-                        <Setter Property="Visibility" Value="Collapsed"/>
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding Password, ElementName=Password_input}" Value="">
-                                <Setter Property="Visibility" Value="Visible"/>
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </TextBlock.Style>
             </TextBlock>
 
             <Button x:Name="AddButton" Content="Log In" Grid.Column="1"  Grid.Row="8" HorizontalAlignment="Center"  VerticalAlignment="Center" 
