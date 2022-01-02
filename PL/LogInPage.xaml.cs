@@ -35,7 +35,10 @@ namespace PL
         {
             try 
             {
-                if (bl.Login(int.Parse(ID_input.Text), System.Text.Encoding.UTF8.GetBytes(Password_input.Password)))
+                int customerID;
+                if (int.TryParse(ID_input.Text, out customerID) == false)
+                    throw new BO.InvalidManeuver("Inputted ID is not valid.");
+                if (bl.Login(customerID, System.Text.Encoding.UTF8.GetBytes(Password_input.Password)))
                 {
                     NavigationService.Navigate(new CustomerPage(bl, bl.GetCustomer(int.Parse(ID_input.Text)), true));
                 }

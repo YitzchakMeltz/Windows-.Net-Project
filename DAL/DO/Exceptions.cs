@@ -14,10 +14,10 @@
             public ObjectNotFound(string message, System.Exception inner) : base(message, inner) { }
         }
 
-        public class StringNotValid : System.Exception
+        public class InvalidInput : System.Exception
         {
-            public StringNotValid() { }
-            public StringNotValid(string message) : base(message) { }
-            public StringNotValid(string message, System.Exception inner) : base(message, inner) { }
+            public InvalidInput() { }
+            public InvalidInput(string message) : base(message) { }
+            public InvalidInput(string message, System.Exception inner) : base(message, inner) { }
         }
     }

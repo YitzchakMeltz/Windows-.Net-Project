@@ -92,8 +92,6 @@ VerticalAlignment="Stretch" Width="auto">
                     <GridViewColumn Header="ID" DisplayMemberBinding="{Binding ID}"/>
                     <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}"/>
                     <GridViewColumn Header="Phone No." DisplayMemberBinding="{Binding Phone}"/>
-                    <GridViewColumn Header="Location" DisplayMemberBinding="{Binding Location}"/>
-                    <GridViewColumn Header="Package ID" DisplayMemberBinding="{Binding PackageID}"/>
                 </GridView>
             </ListView.View>
         </ListView>

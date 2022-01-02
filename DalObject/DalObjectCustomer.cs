@@ -52,7 +52,8 @@ namespace Dal
         {
             if (Customers.Exists(c => c.ID == id))
                 throw new ObjectAlreadyExists($"Customer with ID: {id} already exists.");
-
+            if (latitude < -90 || latitude > 90 || longitude < -180 || longitude > 180)
+                throw new InvalidInput("Location is invalid.");
             Customer customer = new Customer()
             {
                 ID = id,

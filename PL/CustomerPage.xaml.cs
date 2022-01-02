@@ -85,12 +85,21 @@ namespace PL
 
         private void Save_Button_Click(object sender, RoutedEventArgs e)
         {
-            switch(windowState)
+            switch (windowState)
             {
                 case State.Add:
                     try
                     {
-                        bl.AddCustomer(int.Parse(ID_input.Text), Name_input.Text, Phone_input.Text, double.Parse(Longitude_input.Text), double.Parse(Latitude_input.Text));
+                        int customerID;
+                        if (int.TryParse(ID_input.Text, out customerID) == false)
+                            throw new BO.InvalidManeuver("Inputted Customer ID is not valid.");
+                        double longitude;
+                        if (double.TryParse(Longitude_input.Text, out longitude) == false)
+                            throw new BO.InvalidManeuver("Inputted Longitude is not valid.");
+                        double latitude;
+                        if (double.TryParse(Latitude_input.Text, out latitude) == false)
+                            throw new BO.InvalidManeuver("Inputted Latitude is not valid.");
+                        bl.AddCustomer(customerID, Name_input.Text, Phone_input.Text, longitude, latitude);
                         NavigationService.GoBack();
                     }
                     catch (Exception exception)
