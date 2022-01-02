@@ -94,8 +94,7 @@
             </TextBlock>
 
             <PasswordBox x:Name="Password_input" Grid.Column="1" Grid.Row="6" FontSize="16" Height="30" Width="200"  Padding="1,3,2,3" 
-                         HorizontalAlignment="Center" MaxLength="15" PasswordChar="●" PasswordChanged="Handle_Placeholder" 
-                         GotFocus="Handle_CapsLock">
+                         HorizontalAlignment="Center" MaxLength="15" PasswordChar="●" PasswordChanged="Handle_Placeholder" KeyDown="Password_input_KeyDown" GotFocus="Handle_CapsLock">
                 <PasswordBox.Style>
                     <Style TargetType="{x:Type PasswordBox}">
                         <Style.Resources>

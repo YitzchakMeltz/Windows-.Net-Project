@@ -99,5 +99,17 @@ namespace PL
                     break;
             }   
         }
+
+        private void Password_input_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.CapsLock && e.IsToggled)
+            {
+                CapsLockMsg.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                CapsLockMsg.Visibility = Visibility.Collapsed;
+            }
+        }
     }
 }
