@@ -32,7 +32,7 @@ namespace PL
 
         public static void Show(string type, string msg)
         {
-            new MsgBox(type, msg).ShowDialog();
+            MsgBox.Show(type, msg);
         }
 
         private void Ok_Button_Click(object sender, RoutedEventArgs e)
