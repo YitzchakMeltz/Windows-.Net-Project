@@ -65,6 +65,18 @@ namespace PL
             }
         }
 
+        private void Handle_CapsLock(object sender, RoutedEventArgs e)
+        {
+            if (Keyboard.IsKeyToggled(Key.CapsLock))
+            {
+                CapsLockMsg.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                CapsLockMsg.Visibility = Visibility.Collapsed;
+            }
+        }
+
         private void Visibility_Click(object sender, RoutedEventArgs e)
         {
             switch(passwordState)
