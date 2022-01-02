@@ -5,22 +5,33 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="Error" Height="200" Width="420">
+        Title="Error" Height="180" Width="330">
     
-    <Grid Background="#FF343437">
+    <Grid x:Name="MainGrid" Background="#FF343437">
         <Grid.RowDefinitions>
             <RowDefinition Height="250*"/>
             <RowDefinition Height="150*"/>
         </Grid.RowDefinitions>
 
-        <TextBox Grid.Row="0" Background="Transparent" HorizontalAlignment="Center" VerticalAlignment="Center"
-                 Foreground="LightGray" FontSize="16" BorderThickness="0" >
-            You Can't Do That!
-        </TextBox>
+        <Grid x:Name="ErrorGrid">
 
-        <Button x:Name="OkButton" Content="Stop Bothering Me" Grid.Row="1" HorizontalAlignment="Right"  VerticalAlignment="Center" 
+            <Grid.RowDefinitions>
+                <RowDefinition Height="120*"/>
+                <RowDefinition Height="130*"/>
+            </Grid.RowDefinitions>
+
+            <Image x:Name="msgbox_icon" Source="/icons/warning.png" Grid.Row="0" Width="25" Height="25" VerticalAlignment="Bottom"
+                   HorizontalAlignment="Center"></Image>
+
+            <TextBox x:Name="msg_text" Grid.Row="1" Background="Transparent" HorizontalAlignment="Center" 
+                     VerticalAlignment="Top" Foreground="LightGray" FontSize="15" BorderThickness="0" 
+                     TextWrapping="WrapWithOverflow" Margin="15,9,15,0">You Can't Do That!</TextBox>
+
+        </Grid>
+
+        <Button x:Name="OkButton" Content="I Understand" Grid.Row="1" HorizontalAlignment="Right"  VerticalAlignment="Center" 
                     Padding="7" FontSize="14" Background="Gray" Foreground="White" BorderThickness="0" 
-                    FontFamily="Arial" Margin="0,0,50,0" Click="Ok_Button_Click">
+                    FontFamily="Arial" Margin="0,0,40,0" Click="Ok_Button_Click">
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="5"/>

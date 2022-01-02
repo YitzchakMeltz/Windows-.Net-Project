@@ -24,6 +24,10 @@ namespace PL
             InitializeComponent();
 
             this.Title = type;
+            msg_text.Text = msg;
+
+            if (type.Equals("Success"))
+                msgbox_icon.Source = new BitmapImage(new Uri(@"/icons/check.png"));
         }
 
         private void Ok_Button_Click(object sender, RoutedEventArgs e)

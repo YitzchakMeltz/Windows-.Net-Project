@@ -40,6 +40,7 @@ namespace PL
             }
             catch (Exception exception)
             {
+                new MsgBox("Error", exception.Message).Show();
                 MessageBox.Show(exception.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
