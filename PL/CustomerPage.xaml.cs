@@ -95,28 +95,18 @@ namespace PL
                     }
                     catch (Exception exception)
                     {
-                        // Set the owner so it can be centered
-                        MsgBox msgbox = new MsgBox("Error", exception.Message);
-                        msgbox.Owner = Application.Current.MainWindow;
-                        msgbox.ShowDialog();
+                        MsgBox.Show("Error", exception.Message);
                     }
                     break;
                 case State.Update:
                     try
                     {
                         bl.UpdateCustomer(int.Parse(ID_input.Text), Name_input.Text, Phone_input.Text);
-
-                        // Set the owner so it can be centered
-                        MsgBox msgbox = new MsgBox("Success", "Customer Succesfully Updated");
-                        msgbox.Owner = Application.Current.MainWindow;
-                        msgbox.ShowDialog();
+                        MsgBox.Show("Success", "Customer Succesfully Updated");
                     }
                     catch (Exception exception)
                     {
-                        // Set the owner so it can be centered
-                        MsgBox msgbox = new MsgBox("Error", exception.Message);
-                        msgbox.Owner = Application.Current.MainWindow;
-                        msgbox.ShowDialog();
+                        MsgBox.Show("Error", exception.Message);
                     }
                     break;
             }

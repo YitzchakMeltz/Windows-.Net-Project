@@ -30,6 +30,11 @@ namespace PL
                 msgbox_icon.Source = new BitmapImage(new Uri(@"\icons\check.png", UriKind.Relative));
         }
 
+        public static void Show(string type, string msg)
+        {
+            MsgBox.Show(type, msg);
+        }
+
         private void Ok_Button_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
