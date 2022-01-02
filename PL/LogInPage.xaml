@@ -94,7 +94,7 @@
             </TextBlock>
 
             <PasswordBox x:Name="Password_input" Grid.Column="1" Grid.Row="6" FontSize="16" Height="30" Width="200"  Padding="1,3,2,3" 
-                         HorizontalAlignment="Center" MaxLength="25" PasswordChar="●" PasswordChanged="Handle_Placeholder">
+                         HorizontalAlignment="Center" MaxLength="15" PasswordChar="●" PasswordChanged="Handle_Placeholder">
                 <PasswordBox.Style>
                     <Style TargetType="{x:Type PasswordBox}">
                         <Style.Resources>
@@ -139,6 +139,49 @@
                        VerticalAlignment="Center"  Foreground="DarkGray" HorizontalAlignment="Center" 
                        Width="200" Height="30">
             </TextBlock>
+
+            <TextBox x:Name="VisiblePassword_input" Grid.Column="1" Grid.Row="6" FontSize="16" Height="30" Width="200"  Padding="1,3,2,3" 
+                     TextWrapping="Wrap" Text="" VerticalAlignment="Center" HorizontalAlignment="Center" Visibility="Collapsed">
+                <TextBox.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="5"/>
+                    </Style>
+                </TextBox.Resources>
+            </TextBox>
+
+
+            <Grid Grid.Row="6" Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="200"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions >
+                <Button x:Name="VisibilityButton" Grid.Column="1" HorizontalAlignment="Right"  VerticalAlignment="Center" 
+                        Width="30" Height="30" FontSize="16" Background="Transparent"  Foreground="White" BorderThickness="0" 
+                        FontFamily="Arial" Margin="0,0,3,0" Click="Visibility_Click" IsEnabled="False">
+                    <Image x:Name="VisibilityIcon" Source="/icons/hidden.png" Height="20" Width="20"/>
+                    <Button.Style>
+                        <Style TargetType="{x:Type Button}">
+                            <Setter Property="Background" Value="Transparent"/>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="Button">
+                                        <Border Name="border" BorderThickness="0" 
+                                            Background="Transparent">
+                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                        </Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="Transparent"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
+            </Grid>
 
             <Button x:Name="AddButton" Content="Log In" Grid.Column="1"  Grid.Row="8" HorizontalAlignment="Center"  VerticalAlignment="Center" 
                     Width="150" Height="30" FontSize="14" Background="#FF4194E3" Foreground="White" BorderThickness="0" 

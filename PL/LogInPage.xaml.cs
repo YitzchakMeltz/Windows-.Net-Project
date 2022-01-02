@@ -20,6 +20,9 @@ namespace PL
     /// </summary>
     public partial class LogInPage : Page
     {
+        private enum PasswordState {Visible, Hidden}
+        private PasswordState passwordState = PasswordState.Hidden;
+
         BlApi.IBL bl;
         public LogInPage(BlApi.IBL bl)
         {
@@ -61,7 +64,31 @@ namespace PL
             else
             {
                 PasswordPlaceholder.Visibility = Visibility.Hidden;
+                VisibilityButton.IsEnabled = true;
             }
+        }
+
+        private void Visibility_Click(object sender, RoutedEventArgs e)
+        {
+            switch(passwordState)
+            {
+                case PasswordState.Hidden:
+                    VisiblePassword_input.Visibility = Visibility.Visible;
+                    VisiblePassword_input.Text = Password_input.Password;
+
+                    Password_input.Visibility = Visibility.Collapsed;
+                    VisibilityIcon.Source = new BitmapImage(new Uri(@"\icons\visible.png", UriKind.Relative));
+                    passwordState = PasswordState.Visible;
+                    break;
+                case PasswordState.Visible:
+                    VisiblePassword_input.Visibility = Visibility.Collapsed;
+                    Password_input.Password = VisiblePassword_input.Text;
+
+                    Password_input.Visibility = Visibility.Visible;
+                    VisibilityIcon.Source = new BitmapImage(new Uri(@"\icons\hidden.png", UriKind.Relative));
+                    passwordState = PasswordState.Hidden;
+                    break;
+            }   
         }
     }
 }
