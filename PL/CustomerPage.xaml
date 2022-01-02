@@ -212,7 +212,7 @@
 
                 <Button x:Name="AddButton" Content="+ Add" Grid.Column="1"  Grid.Row="9" HorizontalAlignment="Left"  VerticalAlignment="Center" 
                     Width="80" Height="30" FontSize="14" Background="#FF4194E3" Foreground="White" BorderThickness="0" 
-                    FontFamily="Arial" Margin="9,0,0,0" Click="Save_Button_Click">
+                    FontFamily="Arial" Margin="9,0,0,0" Click="Save_Button_Click" IsDefault="True">
                     <Button.Resources>
                         <Style TargetType="Border">
                             <Setter Property="CornerRadius" Value="5"/>
