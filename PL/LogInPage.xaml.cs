@@ -40,10 +40,7 @@ namespace PL
             }
             catch (Exception exception)
             {
-                // Set the owner so it can be centered
-                MsgBox msgbox = new MsgBox("Error", exception.Message);
-                msgbox.Owner = Application.Current.MainWindow;
-                msgbox.ShowDialog();
+                MsgBox.Show("Error", exception.Message);
             }
         }
 

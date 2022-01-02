@@ -86,12 +86,12 @@ namespace PL
                         {
                             bl.AddDrone(int.Parse(DroneID_input.Text), DroneModel_input.Text,
                                 (BO.WeightCategories)WeightSelector.SelectedItem, (int)StationIDSelector.SelectedItem);
-                            MessageBox.Show("Drone successfully added.", "Success", MessageBoxButton.OK);
+                            MsgBox.Show("Success", "Drone successfully added.");
                             NavigationService.GoBack();
                         }
                         else
                         {
-                            MessageBox.Show("Drone could not be added.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                            MsgBox.Show("Error", "Drone could not be added.");
                         }
                         break;
 
@@ -99,18 +99,18 @@ namespace PL
                         if (DroneModel_input.Text != "")
                         {
                             bl.UpdateDrone(int.Parse(DroneID_input.Text), DroneModel_input.Text);
-                            MessageBox.Show("Dronw was successfully updated.", "Success", MessageBoxButton.OK);
+                            MsgBox.Show("Success", "Drone was successfully updated.");
                         }
                         else
                         {
-                            MessageBox.Show("Drone could not be updated. (The drone model is probably empty).", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                            MsgBox.Show("Error", "Drone could not be updated. (The drone model is probably empty).");
                         }
                         break;
                 } 
             }
             catch (Exception exception)
             {
-                MessageBox.Show(exception.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MsgBox.Show("Error", exception.Message);
             }
         }
 
@@ -126,11 +126,11 @@ namespace PL
                 bl.DeliverPackage(int.Parse(DroneID_input.Text));
                 DroneStatus_output.Text = bl.GetDrone(int.Parse(DroneID_input.Text)).Status.ToString();
                 DroneLocation_output.Text = bl.GetDrone(int.Parse(DroneID_input.Text)).Location.ToString();
-                MessageBox.Show("The Drone has successfully delivered the package.", "Success");
+                MsgBox.Show("Success", "The Drone has successfully delivered the package.");
             }
             catch (Exception exception)
             {
-                MessageBox.Show(exception.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MsgBox.Show("Error", exception.Message);
             }
         }
 
@@ -141,11 +141,11 @@ namespace PL
                 bl.CollectPackage(int.Parse(DroneID_input.Text));
                 DroneBattery_output.Text = Math.Round(bl.GetDrone(int.Parse(DroneID_input.Text)).Battery, 2).ToString() + "%";
                 DroneLocation_output.Text = bl.GetDrone(int.Parse(DroneID_input.Text)).Location.ToString();
-                MessageBox.Show("The Drone has successfully collected the package.", "Success");
+                MsgBox.Show("Success", "The Drone has successfully collected the package.");
             }
             catch (Exception exception)
             {
-                MessageBox.Show(exception.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MsgBox.Show("Error", exception.Message);
             }
         }
 
@@ -155,11 +155,11 @@ namespace PL
             {
                 bl.AssignPackageToDrone(int.Parse(DroneID_input.Text));
                 DroneStatus_output.Text = bl.GetDrone(int.Parse(DroneID_input.Text)).Status.ToString();
-                MessageBox.Show("The Drone has successfully been assigned a package.", "Success");
+                MsgBox.Show("Success", "The Drone has successfully been assigned a package.");
             }
             catch (Exception exception)
             {
-                MessageBox.Show(exception.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MsgBox.Show("Error", exception.Message);
             }
         }
 
@@ -170,11 +170,11 @@ namespace PL
                 bl.ReleaseDrone(int.Parse(DroneID_input.Text));
                 DroneBattery_output.Text = Math.Round(bl.GetDrone(int.Parse(DroneID_input.Text)).Battery, 2).ToString() + "%";
                 DroneStatus_output.Text = bl.GetDrone(int.Parse(DroneID_input.Text)).Status.ToString();
-                MessageBox.Show("The Drone has been released from charging.", "Success");
+                MsgBox.Show("Success", "The Drone has been released from charging.");
             }
             catch (Exception exception)
             {
-                MessageBox.Show(exception.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MsgBox.Show("Error", exception.Message);
             }
         }
 
@@ -184,11 +184,11 @@ namespace PL
             {
                 bl.ChargeDrone(int.Parse(DroneID_input.Text));
                 DroneStatus_output.Text = bl.GetDrone(int.Parse(DroneID_input.Text)).Status.ToString();
-                MessageBox.Show("The Drone has successfully been sent to charging.", "Success");
+                MsgBox.Show("Success", "The Drone has successfully been sent to charging.");
             }
             catch (Exception exception)
             { 
-                MessageBox.Show(exception.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error); 
+                MsgBox.Show("Error", exception.Message); 
             }
         }
     }
