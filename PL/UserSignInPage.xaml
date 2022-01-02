@@ -43,6 +43,10 @@
             </Grid.RowDefinitions>
 
             <Image x:Name="User_image" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1" Grid.Row="2" Source="/icons/user.png" Width="80" Height="80"/>
+            <TextBox x:Name="Welcome_msg" Grid.Column="1" Grid.Row="2" Background="Transparent"
+                     HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="34" Foreground="Gray"
+                     Margin="-100,0,-100,0" Visibility="Hidden"
+                     BorderThickness="0" FontFamily="Candara">Welcome Back!</TextBox>
 
             <TextBox x:Name="ID_input" Grid.Column="1" Grid.Row="4" FontSize="16" Height="30" Width="200"  Padding="1,3,2,3" TextWrapping="Wrap" Text="" VerticalAlignment="Center" HorizontalAlignment="Center" >
                 <TextBox.Resources>

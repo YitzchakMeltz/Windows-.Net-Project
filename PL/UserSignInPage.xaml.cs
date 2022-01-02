@@ -33,11 +33,19 @@ namespace PL
             InitializeComponent();
         }
 
-        public UserSignInPage(BlApi.IBL bl, Customer customer) : this(bl)
+        public UserSignInPage(BlApi.IBL bl, Customer customer, Boolean isUser) : this(bl)
         {
             windowState = State.Update;
 
             AddButton.Content = "Update";
+
+            if(isUser)
+            {
+                User_image.Visibility = Visibility.Hidden;
+
+                Welcome_msg.Visibility = Visibility.Visible;
+                Welcome_msg.Text = "Welcome Back " + customer.Name + "!";
+            }
 
             ViewPackagesButton.Visibility = Visibility.Visible;
 
@@ -58,7 +66,7 @@ namespace PL
             ButtonGrid.SetValue(Grid.RowProperty, 10);
         }
 
-            private void Add_Button_Click(object sender, RoutedEventArgs e)
+        private void Add_Button_Click(object sender, RoutedEventArgs e)
         {
             try
             {
