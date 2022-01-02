@@ -1,6 +1,8 @@
 ﻿using BO;
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 
 namespace BL
 {
@@ -15,20 +17,21 @@ namespace BL
             };
         }
 
-        public void AddCustomer(int ID, string name, string phone, double longitude, double latitude)
+        public void AddCustomer(int ID, string name, string phone, double longitude, double latitude, string password = "")
         {
-            Customer customer = new Customer()
+            /*Customer customer = new Customer()
             {
                 ID = ID,
                 Name = name,
                 Phone = phone,
-                Location = new Location() { Latitude = latitude, Longitude = longitude }
-            };
+                Location = new Location() { Latitude = latitude, Longitude = longitude },
+                Password = System.Text.Encoding.UTF8.GetBytes(password)
+            };*/
 
-            dalObject.AddCustomer(ID, name, phone, latitude, longitude);
+            dalObject.AddCustomer(ID, name, phone, latitude, longitude, password);
         }
 
-        public void UpdateCustomer(int ID, string name = null, string phone = null)
+        public void UpdateCustomer(int ID, string name = null, string phone = null, string password = null)
         {
             // Update DALCustomer
             try
@@ -43,6 +46,11 @@ namespace BL
                 if (phone != null)
                 {
                     customer.Phone = phone;
+                }
+
+                if (password != null)
+                {
+                    customer.Password = System.Text.Encoding.UTF8.GetBytes(password);
                 }
 
                 dalObject.RemoveCustomer(ID);
@@ -67,7 +75,8 @@ namespace BL
                     Phone = dalCustomer.Phone,
                     Location = CoordinateToLocation(dalCustomer.Location),
                     Incoming = new List<CustomerPackage>(),
-                    Outgoing = new List<CustomerPackage>()
+                    Outgoing = new List<CustomerPackage>(),
+                    Password = dalCustomer.Password
                 };
 
                 foreach (PackageList package in ListPackages())
@@ -90,6 +99,13 @@ namespace BL
             }
         }
 
+        public bool Login(int ID, byte[] password)
+        {
+            if (StructuralComparisons.StructuralEqualityComparer.Equals(SHA256.Create().ComputeHash(password), GetCustomer(ID).Password))
+                return true;
+
+            return false;
+        }
         public string ShowStation(int stationID)
         {
             return GetStation(stationID).ToString();

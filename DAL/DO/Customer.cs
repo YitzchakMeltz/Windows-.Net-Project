@@ -1,13 +1,19 @@
-﻿namespace DO
+﻿using System;
+using System.Security.Cryptography;
+
+namespace DO
 {
     public struct Customer
     {
         public int ID { get; set; }
         public string Name { get; set; }
         public string Phone { get; set; }
-        //public double Longitude { get; set; }
-        //public double Latitude { get; set; }
         public DalApi.Util.Coordinate Location { get; set; }
+        private byte[] _hash;
+        public byte[] Password {
+            get { return _hash; }
+            set { _hash =  SHA256.Create().ComputeHash(value); }
+        }
 
         /// <summary>
         /// Returns a String with details about the Customer

@@ -118,7 +118,7 @@
 
             <Button x:Name="AddButton" Content="Log In" Grid.Column="1"  Grid.Row="8" HorizontalAlignment="Center"  VerticalAlignment="Center" 
                     Width="150" Height="30" FontSize="14" Background="#FF4194E3" Foreground="White" BorderThickness="0" 
-                    FontFamily="Arial" Margin="0,0,0,0" Click="Login_Button_Click">
+                    FontFamily="Arial" Margin="0,0,0,0" Click="Login_Button_Click" IsDefault="True">
                     <Button.Resources>
                         <Style TargetType="Border">
                             <Setter Property="CornerRadius" Value="5"/>

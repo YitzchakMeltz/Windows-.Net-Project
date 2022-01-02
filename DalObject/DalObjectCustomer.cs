@@ -48,7 +48,7 @@ namespace Dal
         /// Adds a Customer to DataSource
         /// </summary>
         /// <param name="customer"></param>
-        public void AddCustomer(int id, string name, string phoneNum, double latitude, double longitude)
+        public void AddCustomer(int id, string name, string phoneNum, double latitude, double longitude, string password = "")
         {
             if (Customers.Exists(c => c.ID == id))
                 throw new ObjectAlreadyExists($"Customer with ID: {id} already exists.");
@@ -58,7 +58,8 @@ namespace Dal
                 ID = id,
                 Name = name,
                 Phone = phoneNum,
-                Location = new DalApi.Util.Coordinate(latitude, longitude)
+                Location = new DalApi.Util.Coordinate(latitude, longitude),
+                Password = System.Text.Encoding.UTF8.GetBytes(password)
             };
 
             AddCustomer(customer);

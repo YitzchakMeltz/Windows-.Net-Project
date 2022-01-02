@@ -32,7 +32,11 @@ namespace PL
         {
             try 
             {
-                NavigationService.Navigate(new CustomerPage(bl, bl.GetCustomer(int.Parse(ID_input.Text)), true));
+                if (bl.Login(int.Parse(ID_input.Text), System.Text.Encoding.UTF8.GetBytes(Password_input.Text)))
+                {
+                    NavigationService.Navigate(new CustomerPage(bl, bl.GetCustomer(int.Parse(ID_input.Text)), true));
+                }
+                else throw new BO.InvalidManeuver("Invalid credentials.");
             }
             catch (Exception exception)
             {

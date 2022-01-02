@@ -23,7 +23,7 @@ namespace DalApi
         
         public void AddStation(int id, string name, int chargeSlots, double latitude, double longitude);
         public void AddDrone(int id, string model, WeightCategories weightCat);
-        public void AddCustomer(int id, string name, string phoneNum, double latitude, double longitude);
+        public void AddCustomer(int id, string name, string phoneNum, double latitude, double longitude, string password = "");
         public int AddParcel(int senderID, int targetID, WeightCategories weightCat, Priorities priority, int droneID);
 
         public void RemoveCustomer(int ID);
