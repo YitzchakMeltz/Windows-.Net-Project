@@ -17,9 +17,9 @@ using System.Windows.Shapes;
 namespace PL
 {
     /// <summary>
-    /// Interaction logic for UserSignInPage.xaml
+    /// Interaction logic for CustomerPage.xaml
     /// </summary>
-    public partial class UserSignInPage : Page
+    public partial class CustomerPage : Page
     {
         private enum State { Add, Update }
         private State windowState = State.Add;
@@ -27,14 +27,14 @@ namespace PL
 
         BlApi.IBL bl;
 
-        public UserSignInPage(BlApi.IBL bl)
+        public CustomerPage(BlApi.IBL bl)
         {
             this.bl = bl;
 
             InitializeComponent();
         }
 
-        public UserSignInPage(BlApi.IBL bl, Customer customer, Boolean isUser) : this(bl)
+        public CustomerPage(BlApi.IBL bl, Customer customer, Boolean isUser) : this(bl)
         {
             windowState = State.Update;
             this.isUser = isUser;

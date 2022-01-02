@@ -32,7 +32,7 @@ namespace PL
         {
             try 
             {
-                NavigationService.Navigate(new UserSignInPage(bl, bl.GetCustomer(int.Parse(ID_input.Text)), true));
+                NavigationService.Navigate(new CustomerPage(bl, bl.GetCustomer(int.Parse(ID_input.Text)), true));
             }
             catch (Exception exception)
             {

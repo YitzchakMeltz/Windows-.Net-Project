@@ -39,7 +39,7 @@ namespace PL
 
         private void New_Customer_Button_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new UserSignInPage(bl));
+            NavigationService.Navigate(new CustomerPage(bl));
         }
 
         private void Existing_Customer_Button_Click(object sender, RoutedEventArgs e)

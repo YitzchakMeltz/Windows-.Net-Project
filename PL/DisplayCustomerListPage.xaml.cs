@@ -44,7 +44,7 @@ namespace PL
         private void CustomerListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             if (CustomerListView.SelectedValue is not null)
-                NavigationService.Navigate(new UserSignInPage(bl, bl.GetCustomer((int)CustomerListView.SelectedValue), false));
+                NavigationService.Navigate(new CustomerPage(bl, bl.GetCustomer((int)CustomerListView.SelectedValue), false));
         }
     }
 }
