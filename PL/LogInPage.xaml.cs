@@ -32,7 +32,7 @@ namespace PL
         {
             try 
             {
-                if (bl.Login(int.Parse(ID_input.Text), System.Text.Encoding.UTF8.GetBytes(Password_input.Text)))
+                if (bl.Login(int.Parse(ID_input.Text), System.Text.Encoding.UTF8.GetBytes(Password_input.Password)))
                 {
                     NavigationService.Navigate(new CustomerPage(bl, bl.GetCustomer(int.Parse(ID_input.Text)), true));
                 }
