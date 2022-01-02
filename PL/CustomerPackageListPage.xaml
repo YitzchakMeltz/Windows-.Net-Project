@@ -102,7 +102,6 @@
                         <GridViewColumn Header="Weight" DisplayMemberBinding="{Binding Weight}"/>
                         <GridViewColumn Header="Priority" DisplayMemberBinding="{Binding Priority}"/>
                         <GridViewColumn Header="Status" DisplayMemberBinding="{Binding Status}"/>
-                        <!--<GridViewColumn Header="Drone ID" DisplayMemberBinding="{Binding Drone}"/>-->
                     </GridView>
                 </ListView.View>
             </ListView>
@@ -115,7 +114,6 @@
                         <GridViewColumn Header="Weight" DisplayMemberBinding="{Binding Weight}"/>
                         <GridViewColumn Header="Priority" DisplayMemberBinding="{Binding Priority}"/>
                         <GridViewColumn Header="Status" DisplayMemberBinding="{Binding Status}"/>
-                        <!--<GridViewColumn Header="Drone ID" DisplayMemberBinding="{Binding Drone}"/>-->
                     </GridView>
                 </ListView.View>
             </ListView>

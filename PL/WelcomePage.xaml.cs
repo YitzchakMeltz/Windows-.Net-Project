@@ -44,7 +44,7 @@ namespace PL
 
         private void Existing_Customer_Button_Click(object sender, RoutedEventArgs e)
         {
-
+            NavigationService.Navigate(new LogInPage(bl));
         }
     }
 }
