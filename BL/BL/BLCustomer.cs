@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Security.Cryptography;
 
 namespace BL
@@ -101,7 +102,7 @@ namespace BL
 
         public bool Login(int ID, byte[] password)
         {
-            if (StructuralComparisons.StructuralEqualityComparer.Equals(SHA256.Create().ComputeHash(password), GetCustomer(ID).Password))
+            if (SHA256.Create().ComputeHash(password).SequenceEqual(GetCustomer(ID).Password))
                 return true;
 
             return false;

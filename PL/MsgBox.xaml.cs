@@ -27,7 +27,7 @@ namespace PL
             msg_text.Text = msg;
 
             if (type.Equals("Success"))
-                msgbox_icon.Source = new BitmapImage(new Uri(@"/icons/check.png"));
+                msgbox_icon.Source = new BitmapImage(new Uri(@"\icons\check.png", UriKind.Relative));
         }
 
         private void Ok_Button_Click(object sender, RoutedEventArgs e)
