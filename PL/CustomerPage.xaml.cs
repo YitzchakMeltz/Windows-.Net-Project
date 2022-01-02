@@ -95,18 +95,18 @@ namespace PL
                     }
                     catch (Exception exception)
                     {
-                        new MsgBox("Error", exception.Message).Show();
+                        new MsgBox("Error", exception.Message).ShowDialog();
                     }
                     break;
                 case State.Update:
                     try
                     {
                         bl.UpdateCustomer(int.Parse(ID_input.Text), Name_input.Text, Phone_input.Text);
-                        new MsgBox("Success", "Customer Succesfully Updated").Show();
+                        new MsgBox("Success", "Customer Succesfully Updated").ShowDialog();
                     }
                     catch (Exception exception)
                     {
-                        MessageBox.Show(exception.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        new MsgBox("Error", exception.Message).ShowDialog();
                     }
                     break;
             }
