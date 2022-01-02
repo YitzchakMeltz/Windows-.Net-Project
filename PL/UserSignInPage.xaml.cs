@@ -66,19 +66,6 @@ namespace PL
             ButtonGrid.SetValue(Grid.RowProperty, 10);
         }
 
-        private void Add_Button_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                bl.AddCustomer(int.Parse(ID_input.Text), Name_input.Text,Phone_input.Text,double.Parse(Longitude_input.Text), double.Parse(Latitude_input.Text));
-                NavigationService.GoBack();
-            }
-            catch (Exception exception)
-            {
-                MessageBox.Show(exception.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-        }
-
         private void Cancel_Button_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.GoBack();
@@ -87,6 +74,35 @@ namespace PL
         private void View_Packages_Button_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new CustomerPackageListPage(bl, bl.GetCustomer(int.Parse(ID_input.Text))));
+        }
+
+        private void Save_Button_Click(object sender, RoutedEventArgs e)
+        {
+            switch(windowState)
+            {
+                case State.Add:
+                    try
+                    {
+                        bl.AddCustomer(int.Parse(ID_input.Text), Name_input.Text, Phone_input.Text, double.Parse(Longitude_input.Text), double.Parse(Latitude_input.Text));
+                        NavigationService.GoBack();
+                    }
+                    catch (Exception exception)
+                    {
+                        MessageBox.Show(exception.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                    break;
+                case State.Update:
+                    try
+                    {
+                        bl.UpdateCustomer(int.Parse(ID_input.Text), Name_input.Text, Phone_input.Text);
+                        NavigationService.GoBack();
+                    }
+                    catch (Exception exception)
+                    {
+                        MessageBox.Show(exception.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                    break;
+            }
         }
     }
 }
