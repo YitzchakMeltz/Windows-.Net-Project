@@ -177,6 +177,21 @@
                 </StackPanel>
             </Button>
 
+            <Button x:Name="LogOutButton" Grid.Column="1"  Grid.Row="13" HorizontalAlignment="Center"  VerticalAlignment="Center" 
+                    Width="150" Height="30" Background="Red" Foreground="White" BorderThickness="0" 
+                    FontFamily="Arial" Margin="0,0,0,0" Click="Logout_Button_Click" Visibility="Hidden">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="5"/>
+                    </Style>
+                </Button.Resources>
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="/icons/logout.png" Height="20" Width="20"/>
+                    <TextBlock Text=" Log Out"  VerticalAlignment="Center"   HorizontalAlignment="Center" Padding="5"
+                               Height="25" FontWeight="Normal" FontFamily="Arial" FontSize="14"/>
+                </StackPanel>
+            </Button>
+
             <Grid Name="ButtonGrid" HorizontalAlignment="Stretch" Height="auto" Grid.Column="1"  Grid.Row="10"
                     VerticalAlignment="Stretch" Width="auto">
                 <Grid.ColumnDefinitions>

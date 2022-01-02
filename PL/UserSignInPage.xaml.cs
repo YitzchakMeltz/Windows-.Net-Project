@@ -41,12 +41,17 @@ namespace PL
 
             AddButton.Content = "Update";
 
-            if(isUser)
+            ButtonGrid.SetValue(Grid.RowProperty, 10);
+
+            if (isUser)
             {
                 User_image.Visibility = Visibility.Hidden;
 
                 Welcome_msg.Visibility = Visibility.Visible;
                 Welcome_msg.Text = "Welcome Back " + customer.Name + "!";
+
+                LogOutButton.Visibility = Visibility.Visible;
+                //ButtonGrid.SetValue(Grid.RowProperty, 10);
             }
 
             ViewPackagesButton.Visibility = Visibility.Visible;
@@ -64,8 +69,6 @@ namespace PL
             Longitude_input.Foreground = Brushes.Gray;
 
             Latitude_input.Visibility = Visibility.Hidden;
-
-            ButtonGrid.SetValue(Grid.RowProperty, 10);
         }
 
         private void Cancel_Button_Click(object sender, RoutedEventArgs e)
@@ -112,6 +115,11 @@ namespace PL
                     }
                     break;
             }
+        }
+
+        private void Logout_Button_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
