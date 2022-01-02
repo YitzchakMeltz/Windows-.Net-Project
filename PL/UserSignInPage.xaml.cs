@@ -23,6 +23,7 @@ namespace PL
     {
         private enum State { Add, Update }
         private State windowState = State.Add;
+        private bool isUser;
 
         BlApi.IBL bl;
 
@@ -36,6 +37,7 @@ namespace PL
         public UserSignInPage(BlApi.IBL bl, Customer customer, Boolean isUser) : this(bl)
         {
             windowState = State.Update;
+            this.isUser = isUser;
 
             AddButton.Content = "Update";
 
@@ -68,7 +70,14 @@ namespace PL
 
         private void Cancel_Button_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.GoBack();
+            if (isUser)
+            {
+                while (NavigationService.CanGoBack)
+                {
+                    NavigationService.GoBack();
+                }
+            }
+            else NavigationService.GoBack();
         }
 
         private void View_Packages_Button_Click(object sender, RoutedEventArgs e)
