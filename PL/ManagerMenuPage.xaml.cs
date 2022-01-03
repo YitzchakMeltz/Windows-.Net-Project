@@ -34,7 +34,7 @@ namespace PL
 
         private void Stations_Menu_Button_Click(object sender, RoutedEventArgs e)
         {
-
+            NavigationService.Navigate(new DisplayStationListPage(bl));
         }
 
         private void Customers_Menu_Button_Click(object sender, RoutedEventArgs e)
