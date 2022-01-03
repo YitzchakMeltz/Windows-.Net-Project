@@ -107,6 +107,7 @@ namespace PL
                 case PasswordState.Visible:
                     VisiblePassword_input.Visibility = Visibility.Collapsed;
                     Password_input.Password = VisiblePassword_input.Text;
+                    VisiblePassword_input.Text = "";
 
                     Password_input.Visibility = Visibility.Visible;
                     VisibilityIcon.Source = new BitmapImage(new Uri(@"\icons\hidden.png", UriKind.Relative));
