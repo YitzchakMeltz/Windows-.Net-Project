@@ -31,7 +31,7 @@ namespace PL
         }
         private void Add_Station_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.GoBack();
+            NavigationService.Navigate(new StationPage(bl));
         }
 
         private void Back_Click(object sender, RoutedEventArgs e)
@@ -42,7 +42,8 @@ namespace PL
         private void StationListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             if (StationListView.SelectedValue is not null)
-                NavigationService.Navigate(new CustomerPage(bl, bl.GetCustomer((int)StationListView.SelectedValue), false));
+                NavigationService.Navigate(new StationPage(bl, bl.GetStation((int)StationListView.SelectedValue)));
         }
     }
+    
 }

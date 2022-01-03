@@ -12,10 +12,12 @@
     <None Remove="DroniconLogo_1.0.2%28NoBackground%29.png" />
     <None Remove="DroniconLogo_Top_1.0.2%28NoBackground%29.png" />
     <None Remove="icons\box.png" />
+    <None Remove="icons\charging-station%28gray%29.png" />
     <None Remove="icons\charging-station.png" />
     <None Remove="icons\check.png" />
     <None Remove="icons\customer.png" />
     <None Remove="icons\drone.png" />
+    <None Remove="icons\gas-station%28gray%29.png" />
     <None Remove="icons\hidden.png" />
     <None Remove="icons\homepage_icon_white.png" />
     <None Remove="icons\left-hover.png" />
@@ -37,10 +39,12 @@
     <Resource Include="DroniconLogo_1.0.2(NoBackground).png" />
     <Resource Include="DroniconLogo_Top_1.0.2(NoBackground).png" />
     <Resource Include="icons\box.png" />
+    <Resource Include="icons\charging-station(gray).png" />
     <Resource Include="icons\charging-station.png" />
     <Resource Include="icons\check.png" />
     <Resource Include="icons\customer.png" />
     <Resource Include="icons\drone.png" />
+    <Resource Include="icons\gas-station(gray).png" />
     <Resource Include="icons\hidden.png" />
     <Resource Include="icons\homepage_icon_white.png" />
     <Resource Include="icons\left-hover.png" />
