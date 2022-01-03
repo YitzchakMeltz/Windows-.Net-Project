@@ -25,6 +25,7 @@
     <None Remove="icons\logout.png" />
     <None Remove="icons\not-visible.png" />
     <None Remove="icons\package.png" />
+    <None Remove="icons\question.png" />
     <None Remove="icons\user.png" />
     <None Remove="icons\visible.png" />
     <None Remove="icons\warning.png" />
@@ -51,6 +52,7 @@
     <Resource Include="icons\logout.png" />
     <Resource Include="icons\package.png" />
     <Resource Include="icons\left.png" />
+    <Resource Include="icons\question.png" />
     <Resource Include="icons\user.png" />
     <Resource Include="icons\visible.png" />
     <Resource Include="icons\warning.png" />

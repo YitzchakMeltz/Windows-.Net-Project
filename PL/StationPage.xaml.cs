@@ -42,9 +42,7 @@ namespace PL
 
             Name_input.Text = station.Name;
 
-            Available_input.Text = station.AvailableChargingSlots.ToString();
-            Available_input.IsEnabled = false;
-            Available_input.Foreground = Brushes.Gray;
+            TotalSlots_input.Text = station.AvailableChargingSlots.ToString();
 
             Longitude_input.Text = station.Location.ToString();
             Longitude_input.IsEnabled = false;
@@ -66,7 +64,41 @@ namespace PL
 
         private void Save_Button_Click(object sender, RoutedEventArgs e)
         {
-
+            switch (windowState)
+            {
+                case State.Add:
+                    try
+                    {
+                        int stationID;
+                        if (int.TryParse(ID_input.Text, out stationID) == false)
+                            throw new BO.InvalidManeuver("Inputted Customer ID is not valid.");
+                        double longitude;
+                        if (double.TryParse(Longitude_input.Text, out longitude) == false)
+                            throw new BO.InvalidManeuver("Inputted Longitude is not valid.");
+                        double latitude;
+                        if (double.TryParse(Latitude_input.Text, out latitude) == false)
+                            throw new BO.InvalidManeuver("Inputted Latitude is not valid.");
+                        bl.AddStation(stationID, Name_input.Text, longitude, latitude, int.Parse(TotalSlots_input.Text));
+                        MsgBox.Show("Success", "Station Added Succesfully");
+                        NavigationService.GoBack();
+                    }
+                    catch (Exception exception)
+                    {
+                        MsgBox.Show("Error", exception.Message);
+                    }
+                    break;
+                case State.Update:
+                    try
+                    {
+                        bl.UpdateStation(int.Parse(ID_input.Text), Name_input.Text, int.Parse(TotalSlots_input.Text));
+                        MsgBox.Show("Success", "Customer Succesfully Updated");
+                    }
+                    catch (Exception exception)
+                    {
+                        MsgBox.Show("Error", exception.Message);
+                    }
+                    break;
+            }
         }
 
         private void Cancel_Button_Click(object sender, RoutedEventArgs e)

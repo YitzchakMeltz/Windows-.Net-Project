@@ -126,6 +126,7 @@ namespace PL
                     {
                         bl.UpdateCustomer(int.Parse(ID_input.Text), Name_input.Text, Phone_input.Text);
                         MsgBox.Show("Success", "Customer Succesfully Updated");
+                        NavigationService.GoBack();
                     }
                     catch (Exception exception)
                     {
@@ -139,6 +140,8 @@ namespace PL
         {
             if (isUser)
             {
+                MsgBox.Show("Question", "Are you sure you want to log out?");
+
                 while (NavigationService.CanGoBack)
                 {
                     NavigationService.GoBack();

@@ -27,12 +27,20 @@ namespace PL
             msg_text.Text = msg;
 
             if (type.Equals("Success"))
+            {
                 msgbox_icon.Source = new BitmapImage(new Uri(@"\icons\check.png", UriKind.Relative));
+                OkButton.Content = "Ok, great!";
+            }
+            else if(type.Equals("Question"))
+            {
+                msgbox_icon.Source = new BitmapImage(new Uri(@"\icons\question.png", UriKind.Relative));
+                OkButton.Content = "Yup";
+            }
         }
 
         public static void Show(string type, string msg)
         {
-            MsgBox msgbox = new MsgBox("Error", msg);
+            MsgBox msgbox = new MsgBox(type, msg);
             msgbox.Owner = Application.Current.MainWindow;
             msgbox.ShowDialog();
         }
