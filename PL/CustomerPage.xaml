@@ -44,7 +44,7 @@
 
             <Button x:Name="LogoutButton" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Right"  VerticalAlignment="Center" 
                     Width="70" Height="70" FontSize="25" Background="Transparent"  Foreground="White" BorderThickness="0" 
-                    FontFamily="Arial" Margin="0,0,20,0" Click="Logout_Button_Click" Visibility="Hidden">
+                    FontFamily="Arial" Margin="0,0,20,0" Click="Logout_Button_Click" Visibility="Hidden" ToolTip="Log Out">
                 <Image Source="/icons/logout.png" Height="25" Width="25"/>
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">

@@ -114,6 +114,7 @@ namespace PL
                         if (double.TryParse(Latitude_input.Text, out latitude) == false)
                             throw new BO.InvalidManeuver("Inputted Latitude is not valid.");
                         bl.AddCustomer(customerID, Name_input.Text, Phone_input.Text, longitude, latitude, Password_input.Password);
+                        MsgBox.Show("Success", "Customer Succesfully Added");
                         NavigationService.GoBack();
                     }
                     catch (Exception exception)
