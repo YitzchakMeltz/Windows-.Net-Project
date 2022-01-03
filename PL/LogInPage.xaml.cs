@@ -80,6 +80,18 @@ namespace PL
             }
         }
 
+        private void Password_input_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.CapsLock && e.IsToggled)
+            {
+                CapsLockMsg.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                CapsLockMsg.Visibility = Visibility.Collapsed;
+            }
+        }
+
         private void Visibility_Click(object sender, RoutedEventArgs e)
         {
             switch(passwordState)
@@ -101,18 +113,6 @@ namespace PL
                     passwordState = PasswordState.Hidden;
                     break;
             }   
-        }
-
-        private void Password_input_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.CapsLock && e.IsToggled)
-            {
-                CapsLockMsg.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                CapsLockMsg.Visibility = Visibility.Collapsed;
-            }
         }
     }
 }

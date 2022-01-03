@@ -141,7 +141,8 @@
             </TextBlock>
 
             <TextBox x:Name="VisiblePassword_input" Grid.Column="1" Grid.Row="6" FontSize="16" Height="30" Width="200"  Padding="1,3,2,3" 
-                     TextWrapping="Wrap" Text="" VerticalAlignment="Center" HorizontalAlignment="Center" Visibility="Collapsed">
+                     TextWrapping="Wrap" Text="" VerticalAlignment="Center" HorizontalAlignment="Center" 
+                     Visibility="Collapsed" KeyDown="Password_input_KeyDown" GotFocus="Handle_CapsLock">
                 <TextBox.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="5"/>
