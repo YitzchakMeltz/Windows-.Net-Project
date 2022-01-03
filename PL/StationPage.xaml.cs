@@ -59,7 +59,7 @@ namespace PL
 
         private void View_Drones_Button_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new CustomerPackageListPage(bl, bl.GetCustomer(int.Parse(ID_input.Text))));
+            NavigationService.Navigate(new StationDroneListPage(bl, bl.GetStation(int.Parse(ID_input.Text))));
         }
 
         private void Save_Button_Click(object sender, RoutedEventArgs e)

@@ -169,7 +169,7 @@
                     </Style>
                 </Button.Resources>
                 <StackPanel Orientation="Horizontal">
-                    <Image Source="/icons/charging-station.png" Height="20" Width="20"/>
+                    <Image Source="/icons/drone.png" Height="20" Width="20"/>
                     <TextBlock Text=" View Drones"  VerticalAlignment="Center"   HorizontalAlignment="Center" Padding="5"
                                Height="25" FontWeight="Normal" FontFamily="Arial" FontSize="14"/>
                 </StackPanel>
