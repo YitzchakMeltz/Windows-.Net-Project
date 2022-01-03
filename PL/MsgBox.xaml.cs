@@ -32,7 +32,9 @@ namespace PL
 
         public static void Show(string type, string msg)
         {
-            new MsgBox(type, msg).ShowDialog();
+            MsgBox msgbox = new MsgBox("Error", msg);
+            msgbox.Owner = Application.Current.MainWindow;
+            msgbox.ShowDialog();
         }
 
         private void Ok_Button_Click(object sender, RoutedEventArgs e)
