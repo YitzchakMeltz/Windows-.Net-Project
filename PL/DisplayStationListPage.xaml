@@ -91,8 +91,7 @@ VerticalAlignment="Stretch" Width="auto">
                 <GridView ColumnHeaderContainerStyle="{StaticResource GridViewColumnHeaderStyle1}">
                     <GridViewColumn Header="ID" DisplayMemberBinding="{Binding ID}"/>
                     <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}"/>
-                    <GridViewColumn Header="Location" DisplayMemberBinding="{Binding Location}"/>
-                    <GridViewColumn Header="Available Charging Slots" DisplayMemberBinding="{Binding AvailableChargingSlots}"/>
+                    <GridViewColumn Header="Available Charging Slots" DisplayMemberBinding="{Binding ChargingSlotsAvailable}"/>
                 </GridView>
             </ListView.View>
             <ListView.GroupStyle>

@@ -70,50 +70,31 @@
             </Button>
 
             <TextBox Name="HeaderTitle" Background="Transparent" Foreground="DimGray" FontFamily="Arial" FontSize="18" FontWeight="Bold" HorizontalAlignment="Center"
-                     VerticalAlignment="Center" Grid.Column="0" BorderThickness="0">Customer ID: 000000000</TextBox>
+                     VerticalAlignment="Center" Grid.Column="0" BorderThickness="0">Station ID: 000000000</TextBox>
 
         </Grid>
 
         <Grid Name="TitleGrid" Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
             <TextBox Background="Transparent" Foreground="SkyBlue" FontFamily="Arial" FontSize="16" FontWeight="Bold" HorizontalAlignment="Center"
-                     VerticalAlignment="Center" Grid.Column="0" BorderThickness="0">Sent Packages</TextBox>
-
-            <TextBox Background="Transparent" Foreground="SkyBlue" FontFamily="Arial" FontSize="16" FontWeight="Bold" HorizontalAlignment="Center"
-                     VerticalAlignment="Center" Grid.Column="1" BorderThickness="0">Received Packages</TextBox>
+                     VerticalAlignment="Center" Grid.Column="0" BorderThickness="0">Drones In Station</TextBox>
         </Grid>
 
         <Grid Name="ListGrid" Grid.Row="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
             <ListView Grid.Column="0" x:Name="SentListView" SelectedValuePath="ID" 
                       Background="{StaticResource myLinearGradientBrush}" BorderThickness="1" Foreground="#FFCDD1DC" FontSize="14"
-                      Margin="7" >
+                      Margin="200,7, 200, 20" >
                 <ListView.View>
                     <GridView ColumnHeaderContainerStyle="{StaticResource GridViewColumnHeaderStyle1}">
-                        <GridViewColumn Header="Receiver ID" DisplayMemberBinding="{Binding Customer.ID}"/>
-                        <GridViewColumn Header="Weight" DisplayMemberBinding="{Binding Weight}"/>
-                        <GridViewColumn Header="Priority" DisplayMemberBinding="{Binding Priority}"/>
-                        <GridViewColumn Header="Status" DisplayMemberBinding="{Binding Status}"/>
-                    </GridView>
-                </ListView.View>
-            </ListView>
-            <ListView Grid.Column="1" x:Name="ReceivedListView" SelectedValuePath="ID" 
-                      Background="{StaticResource myLinearGradientBrush}" BorderThickness="1" Foreground="#FFCDD1DC" FontSize="14"
-                      Margin="7" >
-                <ListView.View>
-                    <GridView ColumnHeaderContainerStyle="{StaticResource GridViewColumnHeaderStyle1}">
-                        <GridViewColumn Header="Sender ID" DisplayMemberBinding="{Binding Customer.ID}"/>
-                        <GridViewColumn Header="Weight" DisplayMemberBinding="{Binding Weight}"/>
-                        <GridViewColumn Header="Priority" DisplayMemberBinding="{Binding Priority}"/>
-                        <GridViewColumn Header="Status" DisplayMemberBinding="{Binding Status}"/>
+                        <GridViewColumn Width="100" Header="Drone ID" DisplayMemberBinding="{Binding Drone.ID}"/>
+                        <GridViewColumn Width="100" Header="Battery" DisplayMemberBinding="{Binding Battery}"/>
                     </GridView>
                 </ListView.View>
             </ListView>
