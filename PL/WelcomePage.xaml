@@ -26,7 +26,7 @@
             </Grid.RowDefinitions>
 
             <Image HorizontalAlignment="Center" Height="265" Margin="0,30,0,0" VerticalAlignment="Top" Width="406" 
-               Source="/DroniconLogo_Top_1.0.2(NoBackground).png" Grid.Row="0"/>
+               Source="/logos/DroniconLogo_Top_1.0.2(NoBackground).png" Grid.Row="0"/>
 
             <Grid Name="InnerGrid" HorizontalAlignment="Stretch" Height="auto" Grid.Row="1"
                     VerticalAlignment="Stretch" Width="auto">

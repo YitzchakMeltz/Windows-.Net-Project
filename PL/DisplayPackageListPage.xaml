@@ -1,4 +1,4 @@
-﻿<Page x:Class="PL.DisplayCustomerListPage"
+﻿<Page x:Class="PL.DisplayPackageListPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:PL"
       mc:Ignorable="d" 
       d:DesignHeight="640" d:DesignWidth="800"
-      Title="DisplayCustomerListPage">
+      Title="DisplayPackageListPage">
 
     <Page.Resources>
         <LinearGradientBrush x:Key="myLinearGradientBrush" StartPoint="0,1" EndPoint="0,0">
@@ -48,9 +48,9 @@ VerticalAlignment="Stretch" Width="auto">
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions >
 
-            <Button Grid.Column="3" Content="+ Add Customer"  Margin="0,0,0,0" HorizontalAlignment="Center"  VerticalAlignment="Center"   
+            <Button Grid.Column="3" Content="+ Add Package"  Margin="0,0,0,0" HorizontalAlignment="Center"  VerticalAlignment="Center"   
                     Height="30" FontWeight="Normal" FontFamily="Arial" FontSize="16" Background="#FF4194E3" 
-                    Foreground="White" Padding="10,0,10,0" BorderThickness="0,0,0,0" Click="Add_Customer_Click">
+                    Foreground="White" Padding="10,0,10,0" BorderThickness="0,0,0,0" Click="Add_Package_Click">
                 <Button.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="5"/>
@@ -85,13 +85,15 @@ VerticalAlignment="Stretch" Width="auto">
             </Button>
 
         </Grid>
-        <ListView Grid.Row="1" x:Name="CustomerListView" MouseDoubleClick="CustomerListView_MouseDoubleClick" SelectedValuePath="ID" 
+        <ListView Grid.Row="1" x:Name="PackageListView" MouseDoubleClick="PackageListView_MouseDoubleClick" SelectedValuePath="ID" 
                   Background="{StaticResource myLinearGradientBrush}" BorderThickness="0" Foreground="#FFCDD1DC" FontSize="14">
             <ListView.View>
                 <GridView ColumnHeaderContainerStyle="{StaticResource GridViewColumnHeaderStyle1}">
-                    <GridViewColumn Header="ID" DisplayMemberBinding="{Binding ID}"/>
-                    <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}"/>
-                    <GridViewColumn Header="Phone No." DisplayMemberBinding="{Binding Phone}"/>
+                    <GridViewColumn Header="Sender ID" DisplayMemberBinding="{Binding Sender}"/>
+                    <GridViewColumn Header="Receiver ID" DisplayMemberBinding="{Binding Receiver}"/>
+                    <GridViewColumn Header="Weight" DisplayMemberBinding="{Binding Weight}"/>
+                    <GridViewColumn Header="Priority" DisplayMemberBinding="{Binding Priority}"/>
+                    <GridViewColumn Header="Drone ID" DisplayMemberBinding="{Binding Drone}"/>
                 </GridView>
             </ListView.View>
         </ListView>

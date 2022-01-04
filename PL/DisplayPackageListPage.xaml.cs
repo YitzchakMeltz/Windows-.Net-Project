@@ -16,24 +16,23 @@ using System.Windows.Shapes;
 namespace PL
 {
     /// <summary>
-    /// Interaction logic for DisplayCustomerListPage.xaml
+    /// Interaction logic for DisplayPackageListPage.xaml
     /// </summary>
-    public partial class DisplayCustomerListPage : Page
+    public partial class DisplayPackageListPage : Page
     {
         BlApi.IBL bl;
-        public DisplayCustomerListPage(BlApi.IBL bl)
+        public DisplayPackageListPage(BlApi.IBL bl)
         {
             this.bl = bl;
 
             InitializeComponent();
 
-            CustomerListView.ItemsSource = bl.ListCustomers();
-            
+            PackageListView.ItemsSource = bl.ListPackages();
         }
 
-        private void Add_Customer_Click(object sender, RoutedEventArgs e)
+        private void Add_Package_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new CustomerPage(bl));
+            NavigationService.Navigate(new PackagePage(bl));
         }
 
         private void Back_Click(object sender, RoutedEventArgs e)
@@ -41,10 +40,10 @@ namespace PL
             NavigationService.GoBack();
         }
 
-        private void CustomerListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private void PackageListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            if (CustomerListView.SelectedValue is not null)
-                NavigationService.Navigate(new CustomerPage(bl, bl.GetCustomer((int)CustomerListView.SelectedValue), false));
+            if (PackageListView.SelectedValue is not null)
+                NavigationService.Navigate(new PackagePage(bl, bl.GetPackage((int)PackageListView.SelectedValue)));
         }
     }
 }
