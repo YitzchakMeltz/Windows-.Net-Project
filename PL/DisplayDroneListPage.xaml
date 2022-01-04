@@ -200,12 +200,12 @@ VerticalAlignment="Stretch" Width="auto">
             </Grid.ColumnDefinitions >
 
             <ComboBox Grid.Column="1" Name="StatusSelector" Height="30"
-                HorizontalAlignment= "Stretch" FontSize="16"
+                HorizontalAlignment= "Stretch" FontSize="16" ItemsSource="{Binding Path=Statuses}"
                 VerticalAlignment="Stretch" SelectionChanged="SelectionChanged" Padding="13,3,5,3" Margin="5,16,5,16" SelectedIndex="0">
             </ComboBox>
 
             <ComboBox Grid.Column="2" Name="WeightSelector"
-                HorizontalAlignment= "Stretch" Height="30" FontSize="16"
+                HorizontalAlignment= "Stretch" Height="30" FontSize="16" ItemsSource="{Binding Path=Weights}"
                 VerticalAlignment="Stretch" SelectionChanged="SelectionChanged" Margin="5,16,5,16" SelectedIndex="0" />
             
             <Button Grid.Column="3" Content="+ Add Drone"  Margin="0,0,0,0" HorizontalAlignment="Center"  VerticalAlignment="Center"   
@@ -245,8 +245,8 @@ VerticalAlignment="Stretch" Width="auto">
             </Button>
 
         </Grid>
-        <ListView Grid.Row="1" x:Name="DroneListView" MouseDoubleClick="DroneListView_MouseDoubleClick" SelectedValuePath="ID" 
-                  Background="{StaticResource myLinearGradientBrush}" BorderThickness="0" Foreground="#FFCDD1DC" FontSize="14">
+        <ListView Grid.Row="1" x:Name="DroneListView" MouseDoubleClick="DroneListView_MouseDoubleClick" 
+                  Background="{StaticResource myLinearGradientBrush}" BorderThickness="0" Foreground="#FFCDD1DC" FontSize="14" ItemsSource="{Binding Path=Collection}" SelectedItem="{Binding Path=SelectedDrone}">
             <ListView.View>
                 <GridView ColumnHeaderContainerStyle="{StaticResource GridViewColumnHeaderStyle1}">
                     <GridViewColumn Header="ID" DisplayMemberBinding="{Binding ID}"/>
@@ -255,7 +255,7 @@ VerticalAlignment="Stretch" Width="auto">
                     <GridViewColumn Header="Battery" DisplayMemberBinding="{Binding Battery}"/>
                     <GridViewColumn Header="Status" DisplayMemberBinding="{Binding Status}"/>
                     <GridViewColumn Header="Location" DisplayMemberBinding="{Binding Location}"/>
-                    <GridViewColumn Header="Package ID" DisplayMemberBinding="{Binding PackageID}"/>
+                    <GridViewColumn Header="Package ID" DisplayMemberBinding="{Binding Package.ID}"/>
                 </GridView>
             </ListView.View>
         </ListView>

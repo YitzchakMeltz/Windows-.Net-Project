@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,7 +12,10 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
+using System.Collections.ObjectModel;
 using System.Windows.Shapes;
+using PL.Models;
+using BlApi;
 
 namespace PL
 {
@@ -20,23 +24,21 @@ namespace PL
     /// </summary>
     public partial class DisplayDroneListPage : Page
     {
-        BlApi.IBL bl;
-        public DisplayDroneListPage(BlApi.IBL bl)//, Frame f)
+        private IBL bl;
+        public DisplayDroneListPage(BlApi.IBL bl)
         {
-            this.bl = bl;
-
             InitializeComponent();
 
-            DroneListView.ItemsSource = bl.ListDrones();
+            this.bl = bl;
 
-            StatusSelector.ItemsSource = Enum.GetValues<BO.DroneStatuses>().Select(s => s.ToString()).Prepend("All Statuses");
-            WeightSelector.ItemsSource = Enum.GetValues<BO.WeightCategories>().Select(w => w.ToString()).Prepend("All Weights");
+            //DataContext = new DroneListModel(bl.ListDrones(), bl);
         }
 
         private void FilterItems()
         {
-            DroneListView.ItemsSource = bl.ListDronesFiltered(drone => (StatusSelector.SelectedItem is "All Statuses" or null || drone.Status == Enum.Parse<BO.DroneStatuses>((string)StatusSelector.SelectedItem)) && (WeightSelector.SelectedItem is "All Weights" or null || drone.Weight == Enum.Parse<BO.WeightCategories>((string)WeightSelector.SelectedItem)));
-            DroneListView.Items.Refresh();
+            DataContext = new DroneListModel(bl.ListDrones(), bl);
+            //DroneListView.ItemsSource = bl.ListDronesFiltered(drone => (StatusSelector.SelectedItem is "All Statuses" or null || drone.Status == Enum.Parse<BO.DroneStatuses>((string)StatusSelector.SelectedItem)) && (WeightSelector.SelectedItem is "All Weights" or null || drone.Weight == Enum.Parse<BO.WeightCategories>((string)WeightSelector.SelectedItem)));
+            //DroneListView.Items.Refresh();
         }
         private void SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -45,13 +47,14 @@ namespace PL
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new AddDronePage(bl));
+            (DataContext as DroneListModel).SelectedDrone = null;
+            NavigationService.Navigate(new AddDronePage(DataContext as DroneListModel, AddDronePage.State.Add));
         }
 
         private void DroneListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             if (DroneListView.SelectedValue is not null)
-                NavigationService.Navigate(new AddDronePage(bl, bl.GetDrone((int)DroneListView.SelectedValue)));
+                NavigationService.Navigate(new AddDronePage(DataContext as DroneListModel, AddDronePage.State.Update));
         }
 
         private void Back_Click(object sender, RoutedEventArgs e)

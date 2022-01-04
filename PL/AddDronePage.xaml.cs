@@ -1,4 +1,5 @@
 ﻿using BO;
+using PL.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,25 +22,16 @@ namespace PL
     /// </summary>
     public partial class AddDronePage : Page
     {
-        private enum State { Add, Update }
-        private State windowState = State.Add;
+        public enum State { Add, Update }
 
-        BlApi.IBL bl;
-
-        public AddDronePage(BlApi.IBL bl)
+        public AddDronePage(DroneListModel drones, State windowsState)
         {
-            this.bl = bl;
+            DataContext = drones;
 
             InitializeComponent();
 
-            WeightSelector.ItemsSource = Enum.GetValues(typeof(BO.WeightCategories));
-
-            StationIDSelector.ItemsSource = bl.ListStations().Select(station => station.ID);
-        }
-
-        public AddDronePage(BlApi.IBL bl, Drone drone) : this(bl)
-        {
-            windowState = State.Update;
+            //StationIDSelector.ItemsSource = bl.ListStations().Select(station => station.ID);
+            if (windowsState == State.Add) return;
 
             ChargeButton.Visibility = Visibility.Visible;
             ReleaseButton.Visibility = Visibility.Visible;
@@ -51,62 +43,37 @@ namespace PL
 
             ButtonGrid.SetValue(Grid.RowProperty, 11);
 
-            DroneStatus_output.Text = drone.Status.ToString();
-
-            DroneBattery_output.Text = Math.Round(drone.Battery, 2).ToString() + "%";
-
             DroneID_input.IsEnabled = false;
-            DroneID_input.Text = drone.ID.ToString();
-
-            DroneModel_input.Text = drone.Model;
 
             WeightSelector.IsEnabled = false;
-            WeightSelector.SelectedItem = drone.Weight;
             WeightSelector.Foreground = Brushes.Gray;
 
             DroneLocation_output.Visibility = Visibility.Visible;
-            DroneLocation_output.Text = drone.Location.ToString();
 
             StationIDSelector.Visibility = Visibility.Hidden;
             StationIDSelectorPlaceholder.Visibility = Visibility.Hidden;
 
             CancelButton.Content = "Close";
-            AddButton.Content = "Update";
+            AddButton.Visibility = Visibility.Hidden;
         }
 
         private void Add_Button_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                switch (windowState)
+                
+                if (DroneID_input.Text != "" && int.Parse(DroneID_input.Text) >= 0 && DroneModel_input.Text != "" &&
+                    StationIDSelector.SelectedItem != null && WeightSelector.SelectedItem != null)
                 {
-                    case State.Add:
-                        if (DroneID_input.Text != "" && int.Parse(DroneID_input.Text) >= 0 && DroneModel_input.Text != "" &&
-                            StationIDSelector.SelectedItem != null && WeightSelector.SelectedItem != null)
-                        {
-                            bl.AddDrone(int.Parse(DroneID_input.Text), DroneModel_input.Text,
-                                (BO.WeightCategories)WeightSelector.SelectedItem, (int)StationIDSelector.SelectedItem);
-                            MsgBox.Show("Success", "Drone successfully added.");
-                            NavigationService.GoBack();
-                        }
-                        else
-                        {
-                            MsgBox.Show("Error", "Drone could not be added.");
-                        }
-                        break;
-
-                    case State.Update:
-                        if (DroneModel_input.Text != "")
-                        {
-                            bl.UpdateDrone(int.Parse(DroneID_input.Text), DroneModel_input.Text);
-                            MsgBox.Show("Success", "Drone was successfully updated.");
-                        }
-                        else
-                        {
-                            MsgBox.Show("Error", "Drone could not be updated. (The drone model is probably empty).");
-                        }
-                        break;
-                } 
+                    (DataContext as DroneListModel).Add(int.Parse(DroneID_input.Text), DroneModel_input.Text,
+                        (BO.WeightCategories)WeightSelector.SelectedItem, (int)StationIDSelector.SelectedItem);
+                    MsgBox.Show("Success", "Drone successfully added.");
+                    NavigationService.GoBack();
+                }
+                else
+                {
+                    MsgBox.Show("Error", "Drone could not be added.");
+                }
             }
             catch (Exception exception)
             {
@@ -123,9 +90,7 @@ namespace PL
         {
             try
             {
-                bl.DeliverPackage(int.Parse(DroneID_input.Text));
-                DroneStatus_output.Text = bl.GetDrone(int.Parse(DroneID_input.Text)).Status.ToString();
-                DroneLocation_output.Text = bl.GetDrone(int.Parse(DroneID_input.Text)).Location.ToString();
+                (DataContext as DroneListModel).SelectedDrone.Deliver();
                 MsgBox.Show("Success", "The Drone has successfully delivered the package.");
             }
             catch (Exception exception)
@@ -138,9 +103,7 @@ namespace PL
         {
             try
             {
-                bl.CollectPackage(int.Parse(DroneID_input.Text));
-                DroneBattery_output.Text = Math.Round(bl.GetDrone(int.Parse(DroneID_input.Text)).Battery, 2).ToString() + "%";
-                DroneLocation_output.Text = bl.GetDrone(int.Parse(DroneID_input.Text)).Location.ToString();
+                (DataContext as DroneListModel).SelectedDrone.Collect();
                 MsgBox.Show("Success", "The Drone has successfully collected the package.");
             }
             catch (Exception exception)
@@ -153,8 +116,7 @@ namespace PL
         {
             try
             {
-                bl.AssignPackageToDrone(int.Parse(DroneID_input.Text));
-                DroneStatus_output.Text = bl.GetDrone(int.Parse(DroneID_input.Text)).Status.ToString();
+                (DataContext as DroneListModel).SelectedDrone.Assign();
                 MsgBox.Show("Success", "The Drone has successfully been assigned a package.");
             }
             catch (Exception exception)
@@ -167,9 +129,7 @@ namespace PL
         {
             try
             {
-                bl.ReleaseDrone(int.Parse(DroneID_input.Text));
-                DroneBattery_output.Text = Math.Round(bl.GetDrone(int.Parse(DroneID_input.Text)).Battery, 2).ToString() + "%";
-                DroneStatus_output.Text = bl.GetDrone(int.Parse(DroneID_input.Text)).Status.ToString();
+                (DataContext as DroneListModel).SelectedDrone.Release();
                 MsgBox.Show("Success", "The Drone has been released from charging.");
             }
             catch (Exception exception)
@@ -182,8 +142,7 @@ namespace PL
         {
             try
             {
-                bl.ChargeDrone(int.Parse(DroneID_input.Text));
-                DroneStatus_output.Text = bl.GetDrone(int.Parse(DroneID_input.Text)).Status.ToString();
+                (DataContext as DroneListModel).SelectedDrone.Charge();
                 MsgBox.Show("Success", "The Drone has successfully been sent to charging.");
             }
             catch (Exception exception)
