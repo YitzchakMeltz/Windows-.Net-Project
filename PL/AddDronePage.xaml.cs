@@ -44,17 +44,29 @@ namespace PL
             ButtonGrid.SetValue(Grid.RowProperty, 11);
 
             DroneID_input.IsEnabled = false;
+            DroneID_input.Foreground = Brushes.Gray;
 
             WeightSelector.IsEnabled = false;
             WeightSelector.Foreground = Brushes.Gray;
+
+            DroneLocation_output.Foreground = Brushes.Gray;
+
+            DroneStatus_output.Foreground = Brushes.Gray;
+
+            DroneBattery_output.Foreground = Brushes.Gray;
 
             DroneLocation_output.Visibility = Visibility.Visible;
 
             StationIDSelector.Visibility = Visibility.Hidden;
             StationIDSelectorPlaceholder.Visibility = Visibility.Hidden;
 
-            CancelButton.Content = "Close";
-            AddButton.Visibility = Visibility.Hidden;
+            ActionButtonsGridLeft.Background = new SolidColorBrush(Color.FromArgb(0x4d, 0x4d, 0x4d, 0x4d));
+            ActionButtonsGridCenter.Background = new SolidColorBrush(Color.FromArgb(0x4d, 0x4d, 0x4d, 0x4d));
+            ActionButtonsGridRight.Background = new SolidColorBrush(Color.FromArgb(0x4d, 0x4d, 0x4d, 0x4d));
+
+            ButtonGrid.Visibility = Visibility.Collapsed;
+            CancelUpdateButton.Visibility = Visibility.Visible;
+            BackButton.Visibility = Visibility.Visible;
         }
 
         private void Add_Button_Click(object sender, RoutedEventArgs e)
@@ -149,6 +161,11 @@ namespace PL
             { 
                 MsgBox.Show("Error", exception.Message); 
             }
+        }
+
+        private void Back_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.GoBack();
         }
     }
 }
