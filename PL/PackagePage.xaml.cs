@@ -60,12 +60,12 @@ namespace PL
         }
         private void Delete_Package_Button_Click(object sender, RoutedEventArgs e)
         {
-
+            MsgBox.Show("Error", "Not Implemented Yet!");
         }
 
         private void Save_Button_Click(object sender, RoutedEventArgs e)
         {
-
+            MsgBox.Show("Error", "Not Implemented Yet!");
         }
 
         private void Cancel_Button_Click(object sender, RoutedEventArgs e)

@@ -9,15 +9,15 @@
     
     <Grid x:Name="MainGrid" Background="#FF343437">
         <Grid.RowDefinitions>
-            <RowDefinition Height="250*"/>
-            <RowDefinition Height="150*"/>
+            <RowDefinition Height="260*"/>
+            <RowDefinition Height="140*"/>
         </Grid.RowDefinitions>
 
         <Grid x:Name="ErrorGrid">
 
             <Grid.RowDefinitions>
-                <RowDefinition Height="120*"/>
-                <RowDefinition Height="130*"/>
+                <RowDefinition Height="125*"/>
+                <RowDefinition Height="135*"/>
             </Grid.RowDefinitions>
 
             <Image x:Name="msgbox_icon" Source="/icons/warning.png" Grid.Row="0" Width="25" Height="25" VerticalAlignment="Bottom"
