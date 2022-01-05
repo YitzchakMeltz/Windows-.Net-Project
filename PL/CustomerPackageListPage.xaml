@@ -72,6 +72,16 @@
             <TextBox Name="HeaderTitle" Background="Transparent" Foreground="DimGray" FontFamily="Arial" FontSize="18" FontWeight="Bold" HorizontalAlignment="Center"
                      VerticalAlignment="Center" Grid.Column="0" BorderThickness="0">Customer ID: 000000000</TextBox>
 
+            <Button x:Name="AddPackageButton" Content="+ Add Package" Grid.Column="1"  Grid.Row="9" HorizontalAlignment="Right"  VerticalAlignment="Center" 
+                    Width="120" Height="30" FontSize="14" Background="#FF4194E3" Foreground="White" BorderThickness="0" 
+                    FontFamily="Arial" Margin="0,0,40,0" Click="Add_Package_Button_Click" IsDefault="True">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="5"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+
         </Grid>
 
         <Grid Name="TitleGrid" Grid.Row="1">

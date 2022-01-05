@@ -22,9 +22,12 @@ namespace PL
     public partial class CustomerPackageListPage : Page
     {
         BlApi.IBL bl;
-        public CustomerPackageListPage(BlApi.IBL bl, Customer customer)
+        private Boolean isUser;
+        public CustomerPackageListPage(BlApi.IBL bl, Customer customer, Boolean isUser)
         {
             this.bl = bl;
+
+            this.isUser = isUser;
 
             InitializeComponent();
 
@@ -32,11 +35,24 @@ namespace PL
 
             SentListView.ItemsSource = customer.Outgoing;
             ReceivedListView.ItemsSource = customer.Incoming;
+
+            if(!isUser)
+            {
+                AddPackageButton.Visibility = Visibility.Collapsed;
+            }
         }
 
         private void Back_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.GoBack();
+        }
+
+        private void Add_Package_Button_Click(object sender, RoutedEventArgs e)
+        {
+            if(isUser)
+            {
+                NavigationService.Navigate(new PackagePage(bl, HeaderTitle.Text.Replace("Customer","Sender"), isUser));
+            }
         }
     }
 }

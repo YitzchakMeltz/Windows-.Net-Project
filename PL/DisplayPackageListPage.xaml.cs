@@ -21,9 +21,12 @@ namespace PL
     public partial class DisplayPackageListPage : Page
     {
         BlApi.IBL bl;
-        public DisplayPackageListPage(BlApi.IBL bl)
+        private Boolean isUser;
+        public DisplayPackageListPage(BlApi.IBL bl, Boolean isUser)
         {
             this.bl = bl;
+
+            this.isUser = isUser;
 
             InitializeComponent();
 
@@ -32,7 +35,7 @@ namespace PL
 
         private void Add_Package_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new PackagePage(bl));
+            NavigationService.Navigate(new PackagePage(bl, isUser));
         }
 
         private void Back_Click(object sender, RoutedEventArgs e)
@@ -43,7 +46,7 @@ namespace PL
         private void PackageListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             if (PackageListView.SelectedValue is not null)
-                NavigationService.Navigate(new PackagePage(bl, bl.GetPackage((int)PackageListView.SelectedValue)));
+                NavigationService.Navigate(new PackagePage(bl, bl.GetPackage((int)PackageListView.SelectedValue), isUser));
         }
     }
 }
