@@ -11,6 +11,7 @@
     <None Remove="DroniconIcon_1.0.2.png" />
     <None Remove="DroniconLogo_1.0.2%28NoBackground%29.png" />
     <None Remove="DroniconLogo_Top_1.0.2%28NoBackground%29.png" />
+    <None Remove="icons\battery.png" />
     <None Remove="icons\bin.png" />
     <None Remove="icons\box%28gray%29.png" />
     <None Remove="icons\box.png" />
@@ -20,6 +21,7 @@
     <None Remove="icons\customer.png" />
     <None Remove="icons\drone%28gray%29.png" />
     <None Remove="icons\drone.png" />
+    <None Remove="icons\fingerprint.png" />
     <None Remove="icons\gas-station%28gray%29.png" />
     <None Remove="icons\hidden.png" />
     <None Remove="icons\homepage_icon_white.png" />
@@ -28,10 +30,13 @@
     <None Remove="icons\logout.png" />
     <None Remove="icons\not-visible.png" />
     <None Remove="icons\package.png" />
+    <None Remove="icons\pin.png" />
     <None Remove="icons\question.png" />
+    <None Remove="icons\status.png" />
     <None Remove="icons\user.png" />
     <None Remove="icons\visible.png" />
     <None Remove="icons\warning.png" />
+    <None Remove="icons\weight.png" />
     <None Remove="logos\DroniconIcon_1.0.2.png" />
     <None Remove="logos\DroniconLogo_1.0.2%28NoBackground%29.png" />
     <None Remove="logos\DroniconLogo_Top_1.0.2%28NoBackground%29.png" />
@@ -42,6 +47,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="icons\battery.png" />
     <Resource Include="icons\bin.png" />
     <Resource Include="icons\box(gray).png" />
     <Resource Include="icons\box.png" />
@@ -51,6 +57,7 @@
     <Resource Include="icons\customer.png" />
     <Resource Include="icons\drone(gray).png" />
     <Resource Include="icons\drone.png" />
+    <Resource Include="icons\fingerprint.png" />
     <Resource Include="icons\gas-station(gray).png" />
     <Resource Include="icons\hidden.png" />
     <Resource Include="icons\homepage_icon_white.png" />
@@ -58,10 +65,13 @@
     <Resource Include="icons\logout.png" />
     <Resource Include="icons\package.png" />
     <Resource Include="icons\left.png" />
+    <Resource Include="icons\pin.png" />
     <Resource Include="icons\question.png" />
+    <Resource Include="icons\status.png" />
     <Resource Include="icons\user.png" />
     <Resource Include="icons\visible.png" />
     <Resource Include="icons\warning.png" />
+    <Resource Include="icons\weight.png" />
     <Resource Include="logos\DroniconIcon_1.0.2.png" />
     <Resource Include="logos\DroniconLogo_1.0.2(NoBackground).png" />
     <Resource Include="logos\DroniconLogo_Top_1.0.2(NoBackground).png" />

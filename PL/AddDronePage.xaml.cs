@@ -45,15 +45,25 @@ namespace PL
 
             DroneID_input.IsEnabled = false;
             DroneID_input.Foreground = Brushes.Gray;
+            ID_Icon.Visibility = Visibility.Visible;
+            DroneID_input.Padding = new Thickness(25,3,2,3);
 
             WeightSelector.IsEnabled = false;
             WeightSelector.Foreground = Brushes.Gray;
+            Weight_Icon.Visibility = Visibility.Visible;
+            WeightSelector.Padding = new Thickness(25, 3, 2, 3);
 
             DroneLocation_output.Foreground = Brushes.Gray;
+            Location_Icon.Visibility = Visibility.Visible;
+            DroneLocation_output.Padding = new Thickness(25, 3, 2, 3);
 
             DroneStatus_output.Foreground = Brushes.Gray;
+            Status_Icon.Visibility = Visibility.Visible;
+            DroneStatus_output.Padding = new Thickness(25, 3, 2, 3);
 
             DroneBattery_output.Foreground = Brushes.Gray;
+            Battery_Icon.Visibility = Visibility.Visible;
+            DroneBattery_output.Padding = new Thickness(25, 3, 2, 3);
 
             DroneLocation_output.Visibility = Visibility.Visible;
 
