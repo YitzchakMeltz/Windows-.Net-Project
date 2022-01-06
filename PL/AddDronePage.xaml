@@ -184,7 +184,11 @@
                                 <Trigger Property="IsEnabled" Value="false">
                                 <Setter Property="Foreground" Value="#888888"/>
                             </Trigger>
-                            </ControlTemplate.Triggers>
+                            <Trigger Property="ComboBoxItem.IsMouseOver" Value="True">
+                                <Setter TargetName="Border"  Property="Background" Value="DarkGray"></Setter>
+                                <Setter TargetName="Border"  Property="TextElement.Foreground" Value="Black"></Setter>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
                         </ControlTemplate>
                     </Setter.Value>
                 </Setter>
