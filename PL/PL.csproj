@@ -33,6 +33,7 @@
     <None Remove="icons\pin.png" />
     <None Remove="icons\question.png" />
     <None Remove="icons\status.png" />
+    <None Remove="icons\undo-circular-arrow.png" />
     <None Remove="icons\user.png" />
     <None Remove="icons\visible.png" />
     <None Remove="icons\warning.png" />
@@ -68,6 +69,7 @@
     <Resource Include="icons\pin.png" />
     <Resource Include="icons\question.png" />
     <Resource Include="icons\status.png" />
+    <Resource Include="icons\undo-circular-arrow.png" />
     <Resource Include="icons\user.png" />
     <Resource Include="icons\visible.png" />
     <Resource Include="icons\warning.png" />
