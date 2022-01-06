@@ -12,16 +12,16 @@ namespace PL.Models
     public class DroneListModel
     {
         private IBL bl;
-
-        private ObservableCollection<PO.Drone> _collection = new ObservableCollection<PO.Drone>();
-
-        public IEnumerable<string> Statuses { get => Enum.GetValues<BO.DroneStatuses>().Select(s => s.ToString()).Prepend("All Statuses"); }
-        public IEnumerable<string> Weights { get => Enum.GetValues<BO.WeightCategories>().Select(w => w.ToString()).Prepend("All Weights"); }
-
-        public DroneListModel(IEnumerable<DroneList> e, IBL bl) {
+        public DroneListModel(IEnumerable<DroneList> e, IBL bl)
+        {
             this.bl = bl;
             foreach (DroneList drone in e) _collection.Add(new PO.Drone(drone.ID, bl));
         }
+
+        private ObservableCollection<PO.Drone> _collection = new ObservableCollection<PO.Drone>();
+        public IEnumerable<string> Statuses { get => Enum.GetValues<BO.DroneStatuses>().Select(s => s.ToString()).Prepend("All Statuses"); }
+        public IEnumerable<string> Weights { get => Enum.GetValues<BO.WeightCategories>().Select(w => w.ToString()).Prepend("All Weights"); }
+
 
         public ObservableCollection<PO.Drone> Collection { get { return _collection; } }
         public PO.Drone SelectedDrone { get; set; }

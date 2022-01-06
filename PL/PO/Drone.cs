@@ -22,24 +22,17 @@ namespace PL.PO
 
         public int ID { init; get; }
         public string Model {
-            get { return bl.GetDrone(ID).Model; }
+            get => bl.GetDrone(ID).Model;
             set {
                 bl.UpdateDrone(ID, value);
                 PropertyChanged(this, new PropertyChangedEventArgs("Model"));
             }
         }
         public WeightCategories Weight { init; get; }
-        public double Battery {
-            get { return bl.GetDrone(ID).Battery; }
-        }
-        public DroneStatuses Status {
-            get { return bl.GetDrone(ID).Status; }
-        }
+        public double Battery => bl.GetDrone(ID).Battery;
+        public DroneStatuses Status => bl.GetDrone(ID).Status;
         public Location Location => bl.GetDrone(ID).Location;
-        public EnroutePackage Package
-        {
-            get { return bl.GetDrone(ID).Package; }
-        }
+        public EnroutePackage Package => bl.GetDrone(ID).Package;
 
         public void Charge()
         {

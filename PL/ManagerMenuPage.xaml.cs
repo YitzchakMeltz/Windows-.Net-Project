@@ -39,7 +39,7 @@ namespace PL
 
         private void Customers_Menu_Button_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new DisplayCustomerListPage(bl));
+            NavigationService.Navigate(new DisplayCustomerListPage(new Models.CustomersModel(bl, null)));
         }
 
         private void Packages_Menu_Button_Click(object sender, RoutedEventArgs e)

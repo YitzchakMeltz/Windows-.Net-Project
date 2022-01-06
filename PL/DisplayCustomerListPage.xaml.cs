@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PL.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,20 +21,18 @@ namespace PL
     /// </summary>
     public partial class DisplayCustomerListPage : Page
     {
-        BlApi.IBL bl;
-        public DisplayCustomerListPage(BlApi.IBL bl)
+        public DisplayCustomerListPage(CustomersModel model)
         {
-            this.bl = bl;
-
             InitializeComponent();
 
-            CustomerListView.ItemsSource = bl.ListCustomers();
-            
+            DataContext = model;
         }
 
         private void Add_Customer_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new CustomerPage(bl));
+            (DataContext as CustomersModel).State = CustomersModel.WindowState.Add;
+            (DataContext as CustomersModel).SelectedCustomer = null;
+            NavigationService.Navigate(new CustomerPage(DataContext as CustomersModel));
         }
 
         private void Back_Click(object sender, RoutedEventArgs e)
@@ -44,7 +43,10 @@ namespace PL
         private void CustomerListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             if (CustomerListView.SelectedValue is not null)
-                NavigationService.Navigate(new CustomerPage(bl, bl.GetCustomer((int)CustomerListView.SelectedValue), false));
+            {
+                (DataContext as CustomersModel).State = CustomersModel.WindowState.Update;
+                NavigationService.Navigate(new CustomerPage(DataContext as CustomersModel));
+            }
         }
     }
 }

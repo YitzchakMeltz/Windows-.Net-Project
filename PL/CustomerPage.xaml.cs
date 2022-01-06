@@ -1,4 +1,5 @@
 ﻿using BO;
+using PL.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,44 +22,30 @@ namespace PL
     /// </summary>
     public partial class CustomerPage : Page
     {
-        private enum State { Add, Update }
-        private State windowState = State.Add;
-        private bool isUser;
-
-        private enum PasswordState { Visible, Hidden }
-        private PasswordState passwordState = PasswordState.Hidden;
-
-        BlApi.IBL bl;
-
-        public CustomerPage(BlApi.IBL bl)
+        public CustomerPage(CustomersModel model)
         {
-            this.bl = bl;
-
             InitializeComponent();
-        }
 
-        public CustomerPage(BlApi.IBL bl, Customer customer, Boolean isUser) : this(bl)
-        {
-            windowState = State.Update;
-            this.isUser = isUser;
+            DataContext = model;
+            if (model.State == CustomersModel.WindowState.Add) return;
 
-            AddButton.Content = "Update";
+            AddButton.Visibility = Visibility.Hidden;
 
             ButtonGrid.SetValue(Grid.RowProperty, 10);
 
-            if (isUser)
+            if (!model.IsAdmin)
             {
                 User_image.Visibility = Visibility.Hidden;
 
                 Welcome_msg.Visibility = Visibility.Visible;
-                Welcome_msg.Text = "Welcome Back " + customer.Name + "!";
+                //Welcome_msg.Text = "Welcome Back " + customer.Name + "!";
 
                 LogoutButton.Visibility = Visibility.Visible;
             }
 
             ViewPackagesButton.Visibility = Visibility.Visible;
 
-            ID_input.Text = customer.ID.ToString();
+            //ID_input.Text = customer.ID.ToString();
             ID_input.IsEnabled = false;
             ID_input.Foreground = Brushes.Gray;
 
@@ -73,11 +60,11 @@ namespace PL
             Latitude_input.SetValue(Grid.RowProperty, 8);
             Latitude_placeholder.SetValue(Grid.RowProperty, 8);
 
-            Name_input.Text = customer.Name;
+            //Name_input.Text = customer.Name;
 
-            Phone_input.Text = customer.Phone;
+            //Phone_input.Text = customer.Phone;
 
-            Longitude_input.Text = customer.Location.ToString();
+            //Longitude_input.Text = customer.Location.ToString();
             Longitude_input.IsEnabled = false;
             Longitude_input.Foreground = Brushes.Gray;
 
@@ -86,60 +73,44 @@ namespace PL
 
         private void Cancel_Button_Click(object sender, RoutedEventArgs e)
         {
-            if(!isUser)
+            if((DataContext as CustomersModel).IsAdmin)
             {
                 NavigationService.GoBack();
             }
         }
-
+        
         private void View_Packages_Button_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new CustomerPackageListPage(bl, bl.GetCustomer(int.Parse(ID_input.Text)), isUser));
+            NavigationService.Navigate(new CustomerPackageListPage(DataContext as CustomersModel));
         }
 
         private void Save_Button_Click(object sender, RoutedEventArgs e)
         {
-            switch (windowState)
-            {
-                case State.Add:
-                    try
-                    {
-                        int customerID;
-                        if (int.TryParse(ID_input.Text, out customerID) == false)
-                            throw new BO.InvalidManeuver("Inputted Customer ID is not valid.");
-                        double longitude;
-                        if (double.TryParse(Longitude_input.Text, out longitude) == false)
-                            throw new BO.InvalidManeuver("Inputted Longitude is not valid.");
-                        double latitude;
-                        if (double.TryParse(Latitude_input.Text, out latitude) == false)
-                            throw new BO.InvalidManeuver("Inputted Latitude is not valid.");
-                        bl.AddCustomer(customerID, Name_input.Text, Phone_input.Text, longitude, latitude, Password_input.Password);
-                        MsgBox.Show("Success", "Customer Succesfully Added");
-                        NavigationService.GoBack();
-                    }
-                    catch (Exception exception)
-                    {
-                        MsgBox.Show("Error", exception.Message);
-                    }
-                    break;
-                case State.Update:
-                    try
-                    {
-                        bl.UpdateCustomer(int.Parse(ID_input.Text), Name_input.Text, Phone_input.Text);
-                        MsgBox.Show("Success", "Customer Succesfully Updated");
-                        NavigationService.GoBack();
-                    }
-                    catch (Exception exception)
-                    {
-                        MsgBox.Show("Error", exception.Message);
-                    }
-                    break;
-            }
+            if ((DataContext as CustomersModel).State == CustomersModel.WindowState.Add)
+                try
+                {
+                    int customerID;
+                    if (int.TryParse(ID_input.Text, out customerID) == false)
+                        throw new BO.InvalidManeuver("Inputted Customer ID is not valid.");
+                    double longitude;
+                    if (double.TryParse(Longitude_input.Text, out longitude) == false)
+                        throw new BO.InvalidManeuver("Inputted Longitude is not valid.");
+                    double latitude;
+                    if (double.TryParse(Latitude_input.Text, out latitude) == false)
+                        throw new BO.InvalidManeuver("Inputted Latitude is not valid.");
+                    (DataContext as CustomersModel).Add(customerID, Name_input.Text, Phone_input.Text, longitude, latitude, Password_input.Password);
+                    MsgBox.Show("Success", "Customer Succesfully Added");
+                    NavigationService.GoBack();
+                }
+                catch (Exception exception)
+                {
+                    MsgBox.Show("Error", exception.Message);
+                }
         }
 
         private void Logout_Button_Click(object sender, RoutedEventArgs e)
         {
-            if (isUser)
+            if (!(DataContext as CustomersModel).IsAdmin)
             {
                 MsgBox.Show("Question", "Are you sure you want to log out?");
 
@@ -190,6 +161,7 @@ namespace PL
 
         private void Visibility_Click(object sender, RoutedEventArgs e)
         {
+            return;/*
             switch (passwordState)
             {
                 case PasswordState.Hidden:
@@ -209,7 +181,7 @@ namespace PL
                     VisibilityIcon.Source = new BitmapImage(new Uri(@"\icons\hidden.png", UriKind.Relative));
                     passwordState = PasswordState.Hidden;
                     break;
-            }
+            }*/
         }
     }
 }

@@ -40,7 +40,7 @@ namespace PL
                     throw new BO.InvalidManeuver("Inputted ID is not valid.");
                 if (bl.Login(customerID, System.Text.Encoding.UTF8.GetBytes(Password_input.Password)))
                 {
-                    NavigationService.Navigate(new CustomerPage(bl, bl.GetCustomer(int.Parse(ID_input.Text)), true));
+                    NavigationService.Navigate(new CustomerPage(new Models.CustomersModel(bl, int.Parse(ID_input.Text))));
                 }
                 else throw new BO.InvalidManeuver("Invalid credentials.");
             }

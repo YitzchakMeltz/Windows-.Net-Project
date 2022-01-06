@@ -85,7 +85,7 @@ VerticalAlignment="Stretch" Width="auto">
             </Button>
 
         </Grid>
-        <ListView Grid.Row="1" x:Name="CustomerListView" MouseDoubleClick="CustomerListView_MouseDoubleClick" SelectedValuePath="ID" 
+        <ListView Grid.Row="1" x:Name="CustomerListView" MouseDoubleClick="CustomerListView_MouseDoubleClick" ItemsSource="{Binding Path=Collection}" SelectedItem="{Binding Path=SelectedCustomer}"
                   Background="{StaticResource myLinearGradientBrush}" BorderThickness="0" Foreground="#FFCDD1DC" FontSize="14">
             <ListView.View>
                 <GridView ColumnHeaderContainerStyle="{StaticResource GridViewColumnHeaderStyle1}">

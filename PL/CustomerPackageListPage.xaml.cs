@@ -1,4 +1,5 @@
 ﻿using BO;
+using PL.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,22 +22,13 @@ namespace PL
     /// </summary>
     public partial class CustomerPackageListPage : Page
     {
-        BlApi.IBL bl;
-        private Boolean isUser;
-        public CustomerPackageListPage(BlApi.IBL bl, Customer customer, Boolean isUser)
+        public CustomerPackageListPage(CustomersModel model)
         {
-            this.bl = bl;
-
-            this.isUser = isUser;
-
             InitializeComponent();
 
-            HeaderTitle.Text = "Customer ID: " + customer.ID.ToString();
+            DataContext = model;
 
-            SentListView.ItemsSource = customer.Outgoing;
-            ReceivedListView.ItemsSource = customer.Incoming;
-
-            if(!isUser)
+            if((DataContext as CustomersModel).IsAdmin)
             {
                 AddPackageButton.Visibility = Visibility.Collapsed;
             }
@@ -49,9 +41,9 @@ namespace PL
 
         private void Add_Package_Button_Click(object sender, RoutedEventArgs e)
         {
-            if(isUser)
+            if(!(DataContext as CustomersModel).IsAdmin)
             {
-                NavigationService.Navigate(new PackagePage(bl, HeaderTitle.Text.Replace("Customer","Sender"), isUser));
+                //NavigationService.Navigate(new PackagePage(bl, HeaderTitle.Text.Replace("Customer","Sender"), isUser));
             }
         }
     }
