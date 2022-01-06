@@ -34,21 +34,15 @@ namespace PL
 
             DroneID_input.IsEnabled = false;
             DroneID_input.Foreground = Brushes.Gray;
-            DroneID_input.Padding = new Thickness(25,3,2,3);
 
             WeightSelector.IsEnabled = false;
             WeightSelector.Foreground = Brushes.Gray;
-            WeightSelector.Padding = new Thickness(25, 3, 2, 3);
 
             DroneLocation_output.Foreground = Brushes.Gray;
-            DroneLocation_output.Padding = new Thickness(25, 3, 2, 3);
 
             DroneStatus_output.Foreground = Brushes.Gray;
-            DroneStatus_output.Padding = new Thickness(25, 3, 2, 3);
 
             DroneBattery_output.Foreground = Brushes.Gray;
-            DroneBattery_output.Padding = new Thickness(25, 3, 2, 3);
-
 
             ActionButtonsGridLeft.Background = new SolidColorBrush(Color.FromArgb(0x4d, 0x4d, 0x4d, 0x4d));
             ActionButtonsGridCenter.Background = new SolidColorBrush(Color.FromArgb(0x4d, 0x4d, 0x4d, 0x4d));
