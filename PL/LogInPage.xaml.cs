@@ -33,6 +33,12 @@ namespace PL
 
         private void Login_Button_Click(object sender, RoutedEventArgs e)
         {
+            if(passwordState == PasswordState.Visible)
+            {
+                Password_input.Password = VisiblePassword_input.Text;
+                VisiblePassword_input.Text = "";    //clear plaintext password from memory for security reasons
+            }
+
             try 
             {
                 int customerID;
@@ -107,7 +113,7 @@ namespace PL
                 case PasswordState.Visible:
                     VisiblePassword_input.Visibility = Visibility.Collapsed;
                     Password_input.Password = VisiblePassword_input.Text;
-                    VisiblePassword_input.Text = "";
+                    VisiblePassword_input.Text = "";    //clear plaintext password from memory for security reasons
 
                     Password_input.Visibility = Visibility.Visible;
                     VisibilityIcon.Source = new BitmapImage(new Uri(@"\icons\hidden.png", UriKind.Relative));
