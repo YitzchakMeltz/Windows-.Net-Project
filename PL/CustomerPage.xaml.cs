@@ -22,6 +22,7 @@ namespace PL
     /// </summary>
     public partial class CustomerPage : Page
     {
+        private String originalName, originalPhone;
         public CustomerPage(CustomersModel model)
         {
             InitializeComponent();
@@ -60,7 +61,8 @@ namespace PL
             Latitude_input.SetValue(Grid.RowProperty, 8);
             Latitude_placeholder.SetValue(Grid.RowProperty, 8);
 
-            //Name_input.Text = customer.Name;
+            originalName = (DataContext as CustomersModel).SelectedCustomer.Name;
+            originalPhone = (DataContext as CustomersModel).SelectedCustomer.Phone;
 
             //Phone_input.Text = customer.Phone;
 
@@ -73,12 +75,15 @@ namespace PL
 
         private void Cancel_Button_Click(object sender, RoutedEventArgs e)
         {
-            if((DataContext as CustomersModel).AdminVisibility == Visibility.Collapsed)
-            {
-                NavigationService.GoBack();
-            }
+            NavigationService.GoBack();
         }
-        
+
+        private void Revert_Button_Click(object sender, RoutedEventArgs e)
+        {
+            (DataContext as CustomersModel).SelectedCustomer.Name = originalName;
+            (DataContext as CustomersModel).SelectedCustomer.Phone = originalPhone;
+        }
+
         private void View_Packages_Button_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new CustomerPackageListPage(DataContext as CustomersModel));
@@ -110,16 +115,14 @@ namespace PL
 
         private void Logout_Button_Click(object sender, RoutedEventArgs e)
         {
-            if ((DataContext as CustomersModel).AdminVisibility == Visibility.Collapsed)
-            {
-                MsgBox.Show("Question", "Are you sure you want to log out?");
-
-                while (NavigationService.CanGoBack)
+                if (MsgBox.Show("Question", "Are you sure you want to log out?").Value)
                 {
-                    NavigationService.GoBack();
+
+                    while (NavigationService.CanGoBack)
+                    {
+                        NavigationService.GoBack();
+                    }
                 }
-            }
-            else NavigationService.GoBack();
         }
 
         private void Handle_Placeholder(object sender, RoutedEventArgs e)

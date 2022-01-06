@@ -300,7 +300,7 @@
             </Button>
 
             <Grid Name="ButtonGrid" HorizontalAlignment="Stretch" Height="auto" Grid.Column="1"  Grid.Row="11"
-                    VerticalAlignment="Stretch" Width="auto">
+                    VerticalAlignment="Stretch" Width="auto" Visibility="{Binding Path=AddVisibility}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
@@ -326,6 +326,16 @@
                     </Button.Resources>
                 </Button>
             </Grid>
+
+            <Button x:Name="RevertChangesButton" Content="Revert Changes" Grid.Column="1"  Grid.Row="10" HorizontalAlignment="Center"  VerticalAlignment="Center" 
+                    Width="150" Height="30" Background="Gray" Foreground="White" BorderThickness="0"  
+                    FontFamily="Arial" Click="Revert_Button_Click" FontSize="16" Visibility="{Binding Path=UpdateVisibility}">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="5"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
 
         </Grid>
     </Grid>

@@ -38,15 +38,16 @@ namespace PL
             }
         }
 
-        public static void Show(string type, string msg)
+        public static Boolean? Show(string type, string msg)
         {
             MsgBox msgbox = new MsgBox(type, msg);
             msgbox.Owner = Application.Current.MainWindow;
-            msgbox.ShowDialog();
+            return msgbox.ShowDialog();
         }
 
         private void Ok_Button_Click(object sender, RoutedEventArgs e)
         {
+            DialogResult = true;
             this.Close();
         }
     }
