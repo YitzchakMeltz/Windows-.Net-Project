@@ -52,6 +52,15 @@
                   Data="M0,0 L0,2 L4,6 L8,2 L8,0 L4,4 z"
                 />
             </Grid>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter TargetName="Border" Property="Background" Value="#a2a2a3" />
+                    <Setter TargetName="Border2" Property="Background" Value="#a2a2a3" />
+                    <Setter TargetName="Border" Property="BorderBrush" Value="#727377" />
+                    <Setter Property="Foreground" Value="#5a5a5b"/>
+                    <Setter TargetName="Arrow" Property="Fill" Value="#808080" />
+                </Trigger>
+            </ControlTemplate.Triggers>
         </ControlTemplate>
 
             <ControlTemplate x:Key="ComboBoxTextBox" TargetType="{x:Type TextBox}">
@@ -128,7 +137,11 @@
                                     <Setter Property="Foreground" Value="Gray"/>
                                     <Setter Property="Background" Value="Gray"/>
                             </Trigger>
-                                <Trigger Property="IsGrouping" Value="true">
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Foreground" Value="Gray"/>
+                                <Setter Property="Background" Value="Gray"/>
+                            </Trigger>
+                            <Trigger Property="IsGrouping" Value="true">
                                     <Setter Property="ScrollViewer.CanContentScroll" Value="false"/>
                                 </Trigger>
                                 <Trigger SourceName="Popup" Property="Popup.AllowsTransparency" Value="true">
@@ -146,9 +159,9 @@
                 </Setter>
                 <Style.Triggers>
                     <DataTrigger Binding="{Binding Path=State}" Value="Update">
-                    <Setter Property="IsEnabled" Value="False" />
-                </DataTrigger>
-            </Style.Triggers>
+                        <Setter Property="IsEnabled" Value="False" />
+                    </DataTrigger>
+                </Style.Triggers>
             </Style>
 
             <!-- SimpleStyles: ComboBoxItem -->
