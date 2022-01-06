@@ -208,9 +208,9 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
-                <Button x:Name="BackButton" Grid.Column="0"  HorizontalAlignment="Left"  VerticalAlignment="Center" 
+                <Button x:Name="BackButton" Grid.Column="0"  HorizontalAlignment="Left"  VerticalAlignment="Center"
                     Width="70" Height="70" FontSize="25" Background="Transparent"  Foreground="White" BorderThickness="0" 
-                    FontFamily="Arial" Margin="20,0,0,0" Click="Back_Click" Visibility="Collapsed">
+                    FontFamily="Arial" Margin="20,0,0,0" Click="Back_Click" Visibility="{Binding Path=UpdateVisibility}">
                     <Image Source="/icons/left.png" Height="25" Width="25"/>
                     <Button.Style>
                         <Style TargetType="{x:Type Button}">
@@ -236,7 +236,7 @@
                 
                 <Button x:Name="ChargeButton" Content="Charge" Grid.Column="2" HorizontalAlignment="Stretch"  VerticalAlignment="Center" 
                     Height="30" Background="#FF88BEF1" Foreground="White" BorderThickness="0" 
-                    FontFamily="Arial" Margin="6,0,6,0" Click="Charge_Button_Click" Visibility="Hidden" FontSize="16">
+                    FontFamily="Arial" Margin="6,0,6,0" Click="Charge_Button_Click" Visibility="{Binding Path=UpdateVisibility}" FontSize="16">
                     <Button.Resources>
                         <Style TargetType="Border">
                             <Setter Property="CornerRadius" Value="5"/>
@@ -254,7 +254,7 @@
                 </Grid.ColumnDefinitions>
                 <Button x:Name="ReleaseButton" Content="Release" Grid.Column="0" HorizontalAlignment="Stretch"  VerticalAlignment="Center" 
                     Height="30" Background="#FF88BEF1" Foreground="White" BorderThickness="0" FontSize="16"
-                    FontFamily="Arial" Margin="6,0,6,0" Click="Release_Button_Click" Visibility="Hidden">
+                    FontFamily="Arial" Margin="6,0,6,0" Click="Release_Button_Click" Visibility="{Binding Path=UpdateVisibility}">
                     <Button.Resources>
                         <Style TargetType="Border">
                             <Setter Property="CornerRadius" Value="5"/>
@@ -264,7 +264,7 @@
 
                 <Button x:Name="AssignButton" Content="Assign" Grid.Column="1" HorizontalAlignment="Stretch"  VerticalAlignment="Center" 
                     Height="30" Background="#FF88BEF1" Foreground="White" BorderThickness="0" FontSize="16"
-                    FontFamily="Arial" Margin="6,0,6,0" Click="Assign_Button_Click" Visibility="Hidden">
+                    FontFamily="Arial" Margin="6,0,6,0" Click="Assign_Button_Click" Visibility="{Binding Path=UpdateVisibility}">
                     <Button.Resources>
                         <Style TargetType="Border">
                             <Setter Property="CornerRadius" Value="5"/>
@@ -274,7 +274,7 @@
 
                 <Button x:Name="CollectButton" Content="Collect" Grid.Column="2" HorizontalAlignment="Stretch"  VerticalAlignment="Center" 
                     Height="30" Background="#FF88BEF1" Foreground="White" BorderThickness="0" FontSize="16"
-                    FontFamily="Arial" Margin="6,0,6,0" Click="Collect_Button_Click" Visibility="Hidden">
+                    FontFamily="Arial" Margin="6,0,6,0" Click="Collect_Button_Click" Visibility="{Binding Path=UpdateVisibility}">
                     <Button.Resources>
                         <Style TargetType="Border">
                             <Setter Property="CornerRadius" Value="5"/>
@@ -292,7 +292,7 @@
                 </Grid.ColumnDefinitions>
                 <Button x:Name="DeliverButton" Content="Deliver" Grid.Column="0" HorizontalAlignment="Stretch"  VerticalAlignment="Center" 
                     Height="30" Background="#FF88BEF1" Foreground="White" BorderThickness="0" FontSize="16" 
-                    FontFamily="Arial" Margin="6,0,6,0" Click="Deliver_Button_Click" Visibility="Hidden">
+                    FontFamily="Arial" Margin="6,0,6,0" Click="Deliver_Button_Click" Visibility="{Binding Path=UpdateVisibility}">
                     <Button.Resources>
                         <Style TargetType="Border">
                             <Setter Property="CornerRadius" Value="5"/>
@@ -326,7 +326,7 @@
                 </TextBlock.Style>
             </TextBlock>
             <Grid x:Name="ID_Icon" Grid.Column="1" Grid.Row="4" Height="30" Width="200" VerticalAlignment="Center" 
-                  HorizontalAlignment="Center" Visibility="Collapsed">
+                  HorizontalAlignment="Center" Visibility="{Binding Path=UpdateVisibility}">
                 <Image HorizontalAlignment="Left" VerticalAlignment="Center" 
                    Source="/icons/fingerprint.png" Width="18" Height="18" Margin="5,0,0,0"/>
             </Grid>
@@ -352,7 +352,7 @@
                 </TextBlock.Style>
             </TextBlock>
 
-            <ComboBox x:Name="WeightSelector" Grid.Column="1" Grid.Row="6" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="200" 
+            <ComboBox x:Name="WeightSelector" Grid.Column="1" Grid.Row="6" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="200"
                       Height="30" FontSize="16" BorderBrush="White" ItemsSource="{Binding Source={StaticResource Weights}}" SelectedItem="{Binding SelectedDrone.Weight}">
                 <ComboBox.Background>
                     <RadialGradientBrush>
@@ -376,13 +376,13 @@
                 </TextBlock.Style>
             </TextBlock>
             <Grid x:Name="Weight_Icon" Grid.Column="1" Grid.Row="6" Height="30" Width="200" VerticalAlignment="Center" 
-                  HorizontalAlignment="Center" Visibility="Collapsed">
-                <Image HorizontalAlignment="Left" VerticalAlignment="Center"  
+                  HorizontalAlignment="Center" Visibility="{Binding Path=UpdateVisibility}">
+                <Image HorizontalAlignment="Left" VerticalAlignment="{Binding Path=UpdateVisibility}"  
                    Source="/icons/weight.png" Width="18" Height="18" Margin="5,0,0,0"/>
             </Grid>
 
             <ComboBox x:Name="StationIDSelector" Grid.Column="1" Grid.Row="7" HorizontalAlignment="Center"  VerticalAlignment="Center" 
-                      Width="200" Height="30" FontSize="16" BorderBrush="White" ItemsSource="{Binding Path=Stations}">
+                      Width="200" Height="30" FontSize="16" BorderBrush="White" ItemsSource="{Binding Path=Stations}" Visibility="{Binding Path=AddVisibility}">
                 <ComboBox.Background>
                     <RadialGradientBrush>
                         <GradientStop Color="#FFF0F0F0" Offset="1"/>
@@ -392,7 +392,7 @@
             </ComboBox>
             <TextBlock x:Name="StationIDSelectorPlaceholder" Grid.Column="1" Grid.Row="7" IsHitTestVisible="False"  Padding="1,3,2,3" 
                        TextWrapping="Wrap" Text=" Station ID" VerticalAlignment="Center"  Foreground="DarkGray" 
-                       HorizontalAlignment="Center" Width="200" Height="30" FontSize="16">
+                       HorizontalAlignment="Center" Width="200" Height="30" FontSize="16" Visibility="{Binding Path=AddVisibility}">
                 <TextBlock.Style>
                     <Style TargetType="{x:Type TextBlock}">
                         <Setter Property="Visibility" Value="Collapsed"/>
@@ -407,7 +407,7 @@
 
             <TextBox x:Name="DroneLocation_output" Grid.Column="1" Grid.Row="7" Height="30" Width="200"  Padding="1,3,2,3" TextWrapping="Wrap" FontSize="16"
                      Text="{Binding SelectedDrone.Location, Mode=OneWay}" VerticalAlignment="Center" HorizontalAlignment="Center" IsEnabled="False"
-                     Visibility="Hidden">
+                     Visibility="{Binding Path=UpdateVisibility}">
                 <TextBox.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="5"/>
@@ -415,14 +415,14 @@
                 </TextBox.Resources>
             </TextBox>
             <Grid x:Name="Location_Icon" Grid.Column="1" Grid.Row="7" Height="30" Width="200" VerticalAlignment="Center" 
-                  HorizontalAlignment="Center" Visibility="Collapsed">
+                  HorizontalAlignment="Center" Visibility="{Binding Path=UpdateVisibility}">
                 <Image HorizontalAlignment="Left" VerticalAlignment="Center"  
                    Source="/icons/pin.png" Width="18" Height="18" Margin="5,0,0,0"/>
             </Grid>
 
             <TextBox x:Name="DroneBattery_output" Grid.Column="1" Grid.Row="9" Height="30" Width="200"  Padding="1,3,2,3" TextWrapping="Wrap" FontSize="16"
                      Text="{Binding SelectedDrone.Battery, StringFormat={}{0:0.##}%, Mode=OneWay}" VerticalAlignment="Center" HorizontalAlignment="Center" IsEnabled="False"
-                     Visibility="Hidden">
+                     Visibility="{Binding Path=UpdateVisibility}">
                 <TextBox.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="5"/>
@@ -430,14 +430,14 @@
                 </TextBox.Resources>
             </TextBox>
             <Grid x:Name="Battery_Icon" Grid.Column="1" Grid.Row="9" Height="30" Width="200" VerticalAlignment="Center" 
-                  HorizontalAlignment="Center" Visibility="Collapsed">
+                  HorizontalAlignment="Center" Visibility="{Binding Path=UpdateVisibility}">
                 <Image HorizontalAlignment="Left" VerticalAlignment="Center"  
                    Source="/icons/battery.png" Width="18" Height="18" Margin="5,0,0,0"/>
             </Grid>
 
             <TextBox x:Name="DroneStatus_output" Grid.Column="1" Grid.Row="8" Height="30" Width="200"  Padding="1,3,2,3" TextWrapping="Wrap" FontSize="16"
                      Text="{Binding SelectedDrone.Status, Mode=OneWay}" VerticalAlignment="Center" HorizontalAlignment="Center" IsEnabled="False"
-                      Visibility="Hidden">
+                      Visibility="{Binding Path=UpdateVisibility}">
                 <TextBox.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="5"/>
@@ -446,13 +446,13 @@
             </TextBox>
 
             <Grid x:Name="Status_Icon" Grid.Column="1" Grid.Row="8" Height="30" Width="200" VerticalAlignment="Center" 
-                  HorizontalAlignment="Center" Visibility="Collapsed">
+                  HorizontalAlignment="Center" Visibility="{Binding Path=UpdateVisibility}">
                 <Image HorizontalAlignment="Left" VerticalAlignment="Center"  
                    Source="/icons/status.png" Width="18" Height="18" Margin="5,0,0,0"/>
             </Grid>
 
             <Grid x:Name="ButtonGrid" HorizontalAlignment="Stretch" Height="auto" Grid.Column="1"  Grid.Row="9"
-                    VerticalAlignment="Stretch" Width="auto">
+                    VerticalAlignment="Stretch" Width="auto" Visibility="{Binding Path=AddVisibility}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
@@ -481,7 +481,7 @@
 
             <Button x:Name="CancelUpdateButton" Content="Cancel" Grid.Column="1"  Grid.Row="11" HorizontalAlignment="Center"  VerticalAlignment="Center" 
                     Width="150" Height="30" Background="Gray" Foreground="White" BorderThickness="0"  
-                    FontFamily="Arial" Click="Cancel_Button_Click" FontSize="16" Visibility="Collapsed">
+                    FontFamily="Arial" Click="Cancel_Button_Click" FontSize="16" Visibility="{Binding Path=UpdateVisibility}">
                 <Button.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="5"/>

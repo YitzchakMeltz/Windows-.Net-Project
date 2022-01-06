@@ -29,11 +29,11 @@ namespace PL
             DataContext = model;
             if (model.State == CustomersModel.WindowState.Add) return;
 
-            AddButton.Visibility = Visibility.Hidden;
+            //AddButton.Visibility = Visibility.Hidden;
 
             ButtonGrid.SetValue(Grid.RowProperty, 10);
 
-            if (!model.IsAdmin)
+            /*if (model.AdminVisibility == Visibility.Collapsed)
             {
                 User_image.Visibility = Visibility.Hidden;
 
@@ -41,7 +41,7 @@ namespace PL
                 //Welcome_msg.Text = "Welcome Back " + customer.Name + "!";
 
                 LogoutButton.Visibility = Visibility.Visible;
-            }
+            }*/
 
             ViewPackagesButton.Visibility = Visibility.Visible;
 
@@ -73,7 +73,7 @@ namespace PL
 
         private void Cancel_Button_Click(object sender, RoutedEventArgs e)
         {
-            if((DataContext as CustomersModel).IsAdmin)
+            if((DataContext as CustomersModel).AdminVisibility == Visibility.Collapsed)
             {
                 NavigationService.GoBack();
             }
@@ -110,7 +110,7 @@ namespace PL
 
         private void Logout_Button_Click(object sender, RoutedEventArgs e)
         {
-            if (!(DataContext as CustomersModel).IsAdmin)
+            if ((DataContext as CustomersModel).AdminVisibility == Visibility.Collapsed)
             {
                 MsgBox.Show("Question", "Are you sure you want to log out?");
 
@@ -161,27 +161,20 @@ namespace PL
 
         private void Visibility_Click(object sender, RoutedEventArgs e)
         {
-            return;/*
-            switch (passwordState)
+            switch ((DataContext as CustomersModel).PasswordVisible)
             {
-                case PasswordState.Hidden:
-                    VisiblePassword_input.Visibility = Visibility.Visible;
+                case Visibility.Collapsed:
+                    (DataContext as CustomersModel).PasswordVisible = Visibility.Visible;
                     VisiblePassword_input.Text = Password_input.Password;
-
-                    Password_input.Visibility = Visibility.Collapsed;
                     VisibilityIcon.Source = new BitmapImage(new Uri(@"\icons\visible.png", UriKind.Relative));
-                    passwordState = PasswordState.Visible;
                     break;
-                case PasswordState.Visible:
-                    VisiblePassword_input.Visibility = Visibility.Collapsed;
+                case Visibility.Visible:
+                    (DataContext as CustomersModel).PasswordVisible = Visibility.Collapsed;
                     Password_input.Password = VisiblePassword_input.Text;
                     VisiblePassword_input.Text = "";
-
-                    Password_input.Visibility = Visibility.Visible;
                     VisibilityIcon.Source = new BitmapImage(new Uri(@"\icons\hidden.png", UriKind.Relative));
-                    passwordState = PasswordState.Hidden;
                     break;
-            }*/
+            }
         }
     }
 }

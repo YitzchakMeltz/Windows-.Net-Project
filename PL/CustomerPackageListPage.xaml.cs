@@ -28,7 +28,7 @@ namespace PL
 
             DataContext = model;
 
-            if((DataContext as CustomersModel).IsAdmin)
+            if((DataContext as CustomersModel).AdminVisibility == Visibility.Visible)
             {
                 AddPackageButton.Visibility = Visibility.Collapsed;
             }
@@ -41,7 +41,7 @@ namespace PL
 
         private void Add_Package_Button_Click(object sender, RoutedEventArgs e)
         {
-            if(!(DataContext as CustomersModel).IsAdmin)
+            if((DataContext as CustomersModel).AdminVisibility == Visibility.Collapsed)
             {
                 //NavigationService.Navigate(new PackagePage(bl, HeaderTitle.Text.Replace("Customer","Sender"), isUser));
             }
