@@ -237,7 +237,7 @@
                 </Button>
             </Grid>
 
-            <TextBox x:Name="CapsLockMsg" Background="Transparent" BorderThickness="0" Foreground="LightGray" Grid.Column="1" Grid.Row="7" 
+            <TextBox x:Name="CapsLockMsg" Background="Transparent" BorderThickness="0" Foreground="LightGray" Grid.Column="1" Grid.Row="10" 
                      VerticalAlignment="Top" HorizontalAlignment="Center" Visibility="Collapsed">Caps Lock is Enabled</TextBox>
 
 
