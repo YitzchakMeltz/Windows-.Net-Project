@@ -48,7 +48,6 @@ namespace PL
         private void Ok_Button_Click(object sender, RoutedEventArgs e)
         {
             DialogResult = true;
-            this.Close();
         }
     }
 }
