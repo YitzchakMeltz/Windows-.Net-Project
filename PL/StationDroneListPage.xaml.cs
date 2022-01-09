@@ -1,4 +1,5 @@
 ﻿using BO;
+using PL.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,14 +22,11 @@ namespace PL
     /// </summary>
     public partial class StationDroneListPage : Page
     {
-        BlApi.IBL bl;
-        public StationDroneListPage(BlApi.IBL bl, BaseStation station)
+        public StationDroneListPage(StationsModel model)
         {
-            this.bl = bl;
-
             InitializeComponent();
 
-            HeaderTitle.Text = "Station ID: " + station.ID.ToString();
+            DataContext = model;
         }
 
         private void Back_Click(object sender, RoutedEventArgs e)

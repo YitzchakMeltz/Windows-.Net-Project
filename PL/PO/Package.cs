@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace PL.PO
 {
-    public class Package// : INotifyPropertyChanged
+    public class Package
     {
         private IBL bl;
         public Package(int ID, IBL bl)
@@ -17,8 +17,6 @@ namespace PL.PO
             this.ID = ID;
             this.bl = bl;
         }
-
-        //public event PropertyChangedEventHandler PropertyChanged;
 
         public int ID { init; get; }
         public PackageCustomer Sender => bl.GetPackage(ID).Sender;

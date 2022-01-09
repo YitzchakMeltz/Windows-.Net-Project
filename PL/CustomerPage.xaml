@@ -105,6 +105,14 @@
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="5"/>
                     </Style>
+                    <Style TargetType="TextBox">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding State}" Value="Update">
+                                <Setter Property="IsEnabled" Value="False"/>
+                                <Setter Property="Background" Value="Gray"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
                 </TextBox.Resources>
             </TextBox>
             <TextBlock x:Name="Placeholder1" Grid.Column="1" Grid.Row="4" IsHitTestVisible="False"  
@@ -269,6 +277,14 @@
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="5"/>
                     </Style>
+                    <Style TargetType="TextBox">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding State}" Value="Update">
+                                <Setter Property="IsEnabled" Value="False"/>
+                                <Setter Property="Background" Value="Gray"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
                 </TextBox.Resources>
             </TextBox>
             <TextBlock x:Name="Longitude_placeholder" Grid.Column="1" Grid.Row="8" IsHitTestVisible="False"  
@@ -312,10 +328,15 @@
 
             <Button x:Name="ViewPackagesButton" Grid.Column="1"  Grid.Row="8" HorizontalAlignment="Center"  VerticalAlignment="Center" 
                     Width="200" Height="30" Background="#FF4194E3" Foreground="White" BorderThickness="0" 
-                    FontFamily="Arial" Margin="0,0,0,0" Click="View_Packages_Button_Click" Visibility="Hidden">
+                    FontFamily="Arial" Margin="0,0,0,0" Click="View_Packages_Button_Click">
                 <Button.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="5"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding State}" Value="Add">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                            </DataTrigger>
+                        </Style.Triggers>
                     </Style>
                 </Button.Resources>
                 <StackPanel Orientation="Horizontal">

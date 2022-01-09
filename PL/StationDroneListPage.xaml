@@ -70,7 +70,7 @@
             </Button>
 
             <TextBox Name="HeaderTitle" Background="Transparent" Foreground="DimGray" FontFamily="Arial" FontSize="18" FontWeight="Bold" HorizontalAlignment="Center"
-                     VerticalAlignment="Center" Grid.Column="0" BorderThickness="0">Station ID: 000000000</TextBox>
+                     VerticalAlignment="Center" Grid.Column="0" BorderThickness="0" Text="{Binding SelectedStation.ID, StringFormat='Station ID: {0}'}"/>
 
         </Grid>
 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PL.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,18 +21,17 @@ namespace PL
     /// </summary>
     public partial class DisplayStationListPage : Page
     {
-        BlApi.IBL bl;
-        public DisplayStationListPage(BlApi.IBL bl)
+        public DisplayStationListPage(StationsModel model)
         {
-            this.bl = bl;
-
             InitializeComponent();
 
-            StationListView.ItemsSource = bl.ListStations();
+            DataContext = model;
         }
         private void Add_Station_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new StationPage(bl));
+            (DataContext as StationsModel).State = StationsModel.WindowState.Add;
+            (DataContext as StationsModel).SelectedStation = null;
+            NavigationService.Navigate(new StationPage(DataContext as StationsModel));
         }
 
         private void Back_Click(object sender, RoutedEventArgs e)
@@ -42,7 +42,10 @@ namespace PL
         private void StationListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             if (StationListView.SelectedValue is not null)
-                NavigationService.Navigate(new StationPage(bl, bl.GetStation((int)StationListView.SelectedValue)));
+            {
+                (DataContext as StationsModel).State = StationsModel.WindowState.Update;
+                NavigationService.Navigate(new StationPage(DataContext as StationsModel));
+            }
         }
     }
     

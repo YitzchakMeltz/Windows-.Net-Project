@@ -85,13 +85,13 @@ VerticalAlignment="Stretch" Width="auto">
             </Button>
 
         </Grid>
-        <ListView Grid.Row="1" x:Name="StationListView" MouseDoubleClick="StationListView_MouseDoubleClick" SelectedValuePath="ID" 
-                  Background="{StaticResource myLinearGradientBrush}" BorderThickness="0" Foreground="#FFCDD1DC" FontSize="14">
+        <ListView Grid.Row="1" x:Name="StationListView" MouseDoubleClick="StationListView_MouseDoubleClick" ItemsSource="{Binding Collection}"
+                  Background="{StaticResource myLinearGradientBrush}" BorderThickness="0" Foreground="#FFCDD1DC" FontSize="14" SelectedItem="{Binding SelectedStation}">
             <ListView.View>
                 <GridView ColumnHeaderContainerStyle="{StaticResource GridViewColumnHeaderStyle1}">
                     <GridViewColumn Header="ID" DisplayMemberBinding="{Binding ID}"/>
                     <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}"/>
-                    <GridViewColumn Header="Available Charging Slots" DisplayMemberBinding="{Binding ChargingSlotsAvailable}"/>
+                    <GridViewColumn Header="Available Charging Slots" DisplayMemberBinding="{Binding AvailableChargingSlots}"/>
                 </GridView>
             </ListView.View>
             <ListView.GroupStyle>

@@ -42,7 +42,7 @@ namespace PL.Models
             }
         }
 
-        public ObservableCollection<PO.Drone> Collection { get { return _collection; } }
+        public ObservableCollection<PO.Drone> Collection => _collection;
         public PO.Drone SelectedDrone { get; set; }
         public IEnumerable<int> Stations { get { return bl.ListStations().Select(s => s.ID); } }
 

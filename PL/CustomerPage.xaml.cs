@@ -30,27 +30,9 @@ namespace PL
             DataContext = model;
             if (model.State == CustomersModel.WindowState.Add) return;
 
-            //AddButton.Visibility = Visibility.Hidden;
-
             ButtonGrid.SetValue(Grid.RowProperty, 10);
 
-            /*if (model.AdminVisibility == Visibility.Collapsed)
-            {
-                User_image.Visibility = Visibility.Hidden;
-
-                Welcome_msg.Visibility = Visibility.Visible;
-                //Welcome_msg.Text = "Welcome Back " + customer.Name + "!";
-
-                LogoutButton.Visibility = Visibility.Visible;
-            }*/
-
             ViewPackagesButton.Visibility = Visibility.Visible;
-
-            //ID_input.Text = customer.ID.ToString();
-            ID_input.IsEnabled = false;
-            ID_input.Foreground = Brushes.Gray;
-
-            Password_input.Visibility = Visibility.Collapsed;
 
             Phone_input.SetValue(Grid.RowProperty, 6);
             Phone_placeholder.SetValue(Grid.RowProperty, 6);
@@ -63,14 +45,6 @@ namespace PL
 
             originalName = (DataContext as CustomersModel).SelectedCustomer.Name;
             originalPhone = (DataContext as CustomersModel).SelectedCustomer.Phone;
-
-            //Phone_input.Text = customer.Phone;
-
-            //Longitude_input.Text = customer.Location.ToString();
-            Longitude_input.IsEnabled = false;
-            Longitude_input.Foreground = Brushes.Gray;
-
-            Latitude_input.Visibility = Visibility.Hidden;
         }
 
         private void Cancel_Button_Click(object sender, RoutedEventArgs e)
