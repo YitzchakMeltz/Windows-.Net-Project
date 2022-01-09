@@ -69,6 +69,11 @@ namespace PL
                 int receiverID;
                 if (int.TryParse(ReceiverID_input.Text, out receiverID) == false)
                     throw new BO.InvalidManeuver("Inputted Receiver ID is not valid");
+                if (WeightSelector.SelectedItem == null)
+                    throw new BO.InvalidManeuver("Weight was not selected.");
+                if (PrioritySelector.SelectedItem == null)
+                    throw new BO.InvalidManeuver("Priority was not selected.");
+
                 (DataContext as PackagesModel).Add(senderID, receiverID, (BO.WeightCategories)WeightSelector.SelectedItem, (BO.Priorities)PrioritySelector.SelectedItem);
                 MsgBox.Show("Success", "Package Succesfully Added");
                 NavigationService.GoBack();

@@ -14,9 +14,8 @@ namespace Dal
         /// <returns>PackageID</returns>
         public int AddParcel(Parcel parcel)
         {
-            //if (Parcels.Exists(p => p.ID == parcel.ID))
-            //    throw new ObjectAlreadyExists($"Parcel with ID {parcel.ID} already exists.");
-            parcel.ID = ++Config.PackageID;
+            if (Parcels.Exists(p => p.ID == parcel.ID))
+                throw new ObjectAlreadyExists($"Parcel with ID {parcel.ID} already exists.");
             Parcels.Add(parcel);
             return parcel.ID;
         }

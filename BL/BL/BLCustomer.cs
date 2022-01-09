@@ -86,7 +86,7 @@ namespace BL
                     {
                         customer.Outgoing.Add(ConvertToCustomerPackage(package, package.Receiver));
                     }
-                    else if (package.Receiver == customer.Name)
+                    if (package.Receiver == customer.Name)
                     {
                         customer.Incoming.Add(ConvertToCustomerPackage(package, package.Sender));
                     }

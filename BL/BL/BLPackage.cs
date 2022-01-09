@@ -26,17 +26,17 @@ namespace BL
 
         public int AddPackage(int senderID, int receiverID, BO.WeightCategories weight, BO.Priorities priority)
         {
-            Package package = new()
+            try
             {
-                Sender = new PackageCustomer { ID = senderID, Name = dalObject.GetCustomer(senderID).Name },
-                Receiver = new PackageCustomer { ID = receiverID, Name = dalObject.GetCustomer(receiverID).Name },
-                Weight = weight,
-                Priority = priority,
-                Drone = null,
-                Creation = DateTime.Now,
-            };
+                dalObject.GetCustomer(senderID);
+                dalObject.GetCustomer(receiverID);
 
-            return dalObject.AddParcel(senderID, receiverID, (DO.WeightCategories)weight, (DO.Priorities)priority, 0);
+                return dalObject.AddParcel(senderID, receiverID, (DO.WeightCategories)weight, (DO.Priorities)priority, 0);
+            }
+            catch (DO.ObjectNotFound e)
+            {
+                throw new ObjectNotFound(e.Message);
+            }
         }
 
         public CustomerPackage ConvertToCustomerPackage(PackageList package, string otherCustomer)
@@ -65,7 +65,7 @@ namespace BL
                     Receiver = ConvertToPackageCustomer(GetCustomer(parcel.TargetID)),
                     Weight = (WeightCategories)parcel.WeightCategory,
                     Priority = (Priorities)parcel.Priority,
-                    Drone = (drone == null ? null : ConvertToDeliveryDrone(drone)),
+                    Drone = drone == null ? null : ConvertToDeliveryDrone(drone),
                     Creation = parcel.Scheduled,
                     AssignmentTime = parcel.Assigned,
                     CollectionTime = parcel.PickedUp,

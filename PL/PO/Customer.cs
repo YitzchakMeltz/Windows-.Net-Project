@@ -2,6 +2,7 @@
 using BO;
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
@@ -41,5 +42,10 @@ namespace PL.PO
         public List<CustomerPackage> Outgoing { get => bl.GetCustomer(ID).Outgoing; }
         public List<CustomerPackage> Incoming { get => bl.GetCustomer(ID).Incoming; }
 
+        public void PackagesChanged()
+        {
+            PropertyChanged(this, new PropertyChangedEventArgs("Incoming"));
+            PropertyChanged(this, new PropertyChangedEventArgs("Outgoing"));
+        }
     }
 }

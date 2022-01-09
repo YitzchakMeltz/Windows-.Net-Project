@@ -3,6 +3,7 @@ using BO;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
@@ -21,10 +22,11 @@ namespace PL.Models
             foreach (PackageList p in bl.ListPackages()) _collection.Add(new PO.Package(p.ID, bl));
         }
 
-        public PackagesModel(IBL bl, int ID) : this(bl)
+        public PackagesModel(IBL bl, PO.Customer customer) : this(bl)
         {
             IsAdmin = false;
-            SenderID = ID;
+            SenderID = customer.ID;
+            Collection.CollectionChanged += (object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs args) => customer.PackagesChanged();
             State = WindowState.Add;
         }
 
@@ -63,7 +65,7 @@ namespace PL.Models
         public void Remove()
         {
             bl.DeletePackage(SelectedPackage.ID);
-            _collection.Remove(new PO.Package(SelectedPackage.ID, bl));
+            _collection.Remove(SelectedPackage);
         }
     }
 }
