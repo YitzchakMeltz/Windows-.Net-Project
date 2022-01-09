@@ -43,6 +43,32 @@
 
             </Grid.RowDefinitions>
 
+            <Button x:Name="BackButton" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left"  VerticalAlignment="Center"
+                    Width="70" Height="70" FontSize="25" Background="Transparent"  Foreground="White" BorderThickness="0" 
+                    FontFamily="Arial" Margin="20,0,0,0" Click="Back_Click" Visibility="{Binding Path=UpdateVisibility}">
+                <Image Source="/icons/left.png" Height="25" Width="25"/>
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="Background" Value="Transparent"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="Button">
+                                    <Border Name="border" BorderThickness="0" 
+                                        Background="Transparent">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="Transparent"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+
             <Image x:Name="Station_image" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1" Grid.Row="2" 
                    Source="/icons/charging-station(gray).png" Width="80" Height="80" Margin="20,0,0,0"/>
 
@@ -202,7 +228,7 @@
             </Button>
 
             <Grid Name="ButtonGrid" HorizontalAlignment="Stretch" Height="auto" Grid.Column="1"  Grid.Row="10"
-                    VerticalAlignment="Stretch" Width="auto">
+                    VerticalAlignment="Stretch" Width="auto" Visibility="{Binding Path=AddVisibility}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
@@ -214,11 +240,6 @@
                     <Button.Resources>
                         <Style TargetType="Border">
                             <Setter Property="CornerRadius" Value="5"/>
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding State}" Value="Update">
-                                    <Setter Property="Visibility" Value="Collapsed"/>
-                                </DataTrigger>
-                            </Style.Triggers>
                         </Style>
                     </Button.Resources>
                 </Button>
@@ -233,6 +254,21 @@
                     </Button.Resources>
                 </Button>
             </Grid>
+
+            <Button x:Name="RevertChangesButton" Grid.Column="1"  Grid.Row="10" HorizontalAlignment="Center"  VerticalAlignment="Center" 
+                    Width="170" Height="30" Background="Gray" Foreground="White" BorderThickness="0"  
+                    FontFamily="Arial" Click="Revert_Button_Click" Visibility="{Binding Path=UpdateVisibility}">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="5"/>
+                    </Style>
+                </Button.Resources>
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="/icons/undo-circular-arrow.png" Height="20" Width="20"/>
+                    <TextBlock Text=" Revert Changes"  VerticalAlignment="Center"   HorizontalAlignment="Center" Padding="5"
+                               Height="25" FontWeight="Normal" FontFamily="Arial" FontSize="14"/>
+                </StackPanel>
+            </Button>
 
         </Grid>
     </Grid>

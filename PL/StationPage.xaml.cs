@@ -22,21 +22,17 @@ namespace PL
     /// </summary>
     public partial class StationPage : Page
     {
+        private String originalName, originalTotalSlots;
         public StationPage(StationsModel model)
         {
             InitializeComponent();
 
             DataContext = model;
 
-            /*
-            ID_input.IsEnabled = false;
-            ID_input.Foreground = Brushes.Gray;
-            
-
-            Longitude_input.IsEnabled = false;
-            Longitude_input.Foreground = Brushes.Gray;
-            */
             ButtonGrid.SetValue(Grid.RowProperty, 11);
+
+            originalName = (DataContext as StationsModel).SelectedStation.Name;
+            originalTotalSlots = (DataContext as StationsModel).SelectedStation.AvailableChargingSlots.ToString();
         }
 
         private void View_Drones_Button_Click(object sender, RoutedEventArgs e)
@@ -70,6 +66,17 @@ namespace PL
         private void Cancel_Button_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.GoBack();
+        }
+
+        private void Back_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.GoBack();
+        }
+
+        private void Revert_Button_Click(object sender, RoutedEventArgs e)
+        {
+            (DataContext as StationsModel).SelectedStation.Name = originalName;
+            (DataContext as StationsModel).SelectedStation.AvailableChargingSlots = uint.Parse(originalTotalSlots);
         }
     }
 }
