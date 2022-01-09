@@ -80,6 +80,14 @@ namespace BL
             }
         }
 
+        public void DeletePackage(int ID)
+        {
+            if (ParcelStatus(dalObject.GetParcel(ID)) == Statuses.Collected)
+                throw new BO.InvalidManeuver("Can not delete a package once it's been collected");
+
+            dalObject.RemoveParcel(ID);
+        }
+
         public IEnumerable<PackageList> ListPackages()
         {
             IEnumerable<DO.Parcel> dalParcels = dalObject.GetParcelList();
@@ -96,19 +104,5 @@ namespace BL
         {
             return ((List<PackageList>)ListPackages()).FindAll(pred);
         }
-        /*public IEnumerable<PackageList> ListUnassignedPackages()
-        {
-            IEnumerable<IDAL.DO.Parcel> dalParcels = dalObject.GetUnassignedParcelList();
-            List<PackageList> packages = new List<PackageList>();
-
-            foreach (IDAL.DO.Parcel parcel in dalParcels)
-            {
-                if (ParcelStatus(parcel) != Statuses.Created)
-                    throw new BO.LogicError($"Package with ID {parcel.ID} has status {ParcelStatus(parcel)} but is listed as unassigned.");
-                packages.Add(new PackageList() { ID = parcel.ID, Sender = dalObject.GetCustomer(parcel.SenderID).Name, Receiver = dalObject.GetCustomer(parcel.TargetID).Name, Weight = (WeightCategories)parcel.WeightCategory, Priority = (Priorities)parcel.Priority, Status = Statuses.Created });
-            }
-
-            return packages;
-        }*/
     }
 }

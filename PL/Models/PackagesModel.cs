@@ -59,5 +59,11 @@ namespace PL.Models
         {
             _collection.Add(new PO.Package(bl.AddPackage(senderID, receiverID, weight, priority), bl));
         }
+
+        public void Remove()
+        {
+            bl.DeletePackage(SelectedPackage.ID);
+            _collection.Remove(new PO.Package(SelectedPackage.ID, bl));
+        }
     }
 }

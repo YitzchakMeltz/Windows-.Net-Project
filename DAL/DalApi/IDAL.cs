@@ -29,6 +29,7 @@ namespace DalApi
         public void RemoveCustomer(int ID);
         public void RemoveDrone(int ID);
         public void RemoveStation(int ID);
+        public void RemoveParcel(int ID);
 
         public void AssignParcel(int parcelID, int droneID);
         public void ParcelCollected(int parcelID);

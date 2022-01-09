@@ -19,6 +19,7 @@ namespace BlApi
         public void AssignPackageToDrone(int droneID);
         public void CollectPackage(int droneID);
         public void DeliverPackage(int droneID);
+        public void DeletePackage(int SenderID);
 
         public bool Login(int ID, byte[] password);
 

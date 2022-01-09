@@ -27,6 +27,6 @@ namespace PL.PO
         public DeliveryDrone Drone => bl.GetPackage(ID).Drone;
         public DateTime? AssignmentTime => bl.GetPackage(ID).AssignmentTime;
         public DateTime? CollectionTime => bl.GetPackage(ID).CollectionTime;
-        public DateTime? DeliveryTime => bl.GetPackage(ID).DeliveryTime;
+        public DateTime? DeliveryTime => bl.GetPackage(ID).DeliveryTime; 
     }
 }

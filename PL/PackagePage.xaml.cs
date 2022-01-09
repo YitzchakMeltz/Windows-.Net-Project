@@ -46,7 +46,17 @@ namespace PL
 
         private void Delete_Package_Button_Click(object sender, RoutedEventArgs e)
         {
-            MsgBox.Show("Error", "Not Implemented Yet!");
+            try
+            {
+                (DataContext as PackagesModel).Remove();
+                MsgBox.Show("Success", "Successfully Deleted Package!");
+                NavigationService.GoBack();
+
+            }
+            catch (Exception exception)
+            {
+                MsgBox.Show("Error", exception.Message);
+            }
         }
 
         private void Save_Button_Click(object sender, RoutedEventArgs e)

@@ -133,5 +133,11 @@ namespace Dal
 
             Parcels[Parcels.FindIndex(p => p.ID == parcel.ID)] = parcel;
         }
+
+        public void RemoveParcel(int ID)
+        {
+            if (Parcels.RemoveAll(p => p.ID == ID) == 0)
+                throw new ObjectNotFound($"Parcel with ID: {ID} doesn't exist");
+        }
     }
 }
