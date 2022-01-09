@@ -73,5 +73,10 @@ namespace PL
         {
             NavigationService.GoBack();
         }
+
+        private void Back_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.GoBack();
+        }
     }
 }
