@@ -22,13 +22,13 @@ namespace PL
     /// </summary>
     public partial class AddDronePage : Page
     {
-        public AddDronePage(DroneListModel drones)
+        public AddDronePage(DronesModel drones)
         {
             DataContext = drones;
 
             InitializeComponent();
 
-            if (drones.State == DroneListModel.WindowState.Add) return;
+            if (drones.State == DronesModel.WindowState.Add) return;
 
             ButtonGrid.SetValue(Grid.RowProperty, 11);
 
@@ -57,7 +57,7 @@ namespace PL
                 if (DroneID_input.Text != "" && int.Parse(DroneID_input.Text) >= 0 && DroneModel_input.Text != "" &&
                     StationIDSelector.SelectedItem != null && WeightSelector.SelectedItem != null)
                 {
-                    (DataContext as DroneListModel).Add(int.Parse(DroneID_input.Text), DroneModel_input.Text,
+                    (DataContext as DronesModel).Add(int.Parse(DroneID_input.Text), DroneModel_input.Text,
                         (BO.WeightCategories)WeightSelector.SelectedItem, (int)StationIDSelector.SelectedItem);
                     MsgBox.Show("Success", "Drone successfully added.");
                     NavigationService.GoBack();
@@ -82,7 +82,7 @@ namespace PL
         {
             try
             {
-                (DataContext as DroneListModel).SelectedDrone.Deliver();
+                (DataContext as DronesModel).SelectedDrone.Deliver();
                 MsgBox.Show("Success", "The Drone has successfully delivered the package.");
             }
             catch (Exception exception)
@@ -95,7 +95,7 @@ namespace PL
         {
             try
             {
-                (DataContext as DroneListModel).SelectedDrone.Collect();
+                (DataContext as DronesModel).SelectedDrone.Collect();
                 MsgBox.Show("Success", "The Drone has successfully collected the package.");
             }
             catch (Exception exception)
@@ -108,7 +108,7 @@ namespace PL
         {
             try
             {
-                (DataContext as DroneListModel).SelectedDrone.Assign();
+                (DataContext as DronesModel).SelectedDrone.Assign();
                 MsgBox.Show("Success", "The Drone has successfully been assigned a package.");
             }
             catch (Exception exception)
@@ -121,7 +121,7 @@ namespace PL
         {
             try
             {
-                (DataContext as DroneListModel).SelectedDrone.Release();
+                (DataContext as DronesModel).SelectedDrone.Release();
                 MsgBox.Show("Success", "The Drone has been released from charging.");
             }
             catch (Exception exception)
@@ -134,7 +134,7 @@ namespace PL
         {
             try
             {
-                (DataContext as DroneListModel).SelectedDrone.Charge();
+                (DataContext as DronesModel).SelectedDrone.Charge();
                 MsgBox.Show("Success", "The Drone has successfully been sent to charging.");
             }
             catch (Exception exception)

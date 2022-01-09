@@ -24,7 +24,7 @@ namespace BL
             return Statuses.Delivered;
         }
 
-        public void AddPackage(int senderID, int receiverID, BO.WeightCategories weight, BO.Priorities priority)
+        public int AddPackage(int senderID, int receiverID, BO.WeightCategories weight, BO.Priorities priority)
         {
             Package package = new()
             {
@@ -36,7 +36,7 @@ namespace BL
                 Creation = DateTime.Now,
             };
 
-            dalObject.AddParcel(senderID, receiverID, (DO.WeightCategories)weight, (DO.Priorities)priority, 0);
+            return dalObject.AddParcel(senderID, receiverID, (DO.WeightCategories)weight, (DO.Priorities)priority, 0);
         }
 
         public CustomerPackage ConvertToCustomerPackage(PackageList package, string otherCustomer)

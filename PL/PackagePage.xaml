@@ -3,12 +3,25 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:sys="clr-namespace:System;assembly=mscorlib"
+      xmlns:bo="clr-namespace:BO;assembly=BL"
       xmlns:local="clr-namespace:PL"
       mc:Ignorable="d" 
       d:DesignHeight="640" d:DesignWidth="800"
       Title="PackagePage">
 
     <Page.Resources>
+        <ObjectDataProvider x:Key="Weights" MethodName="GetValues" ObjectType="{x:Type sys:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="bo:WeightCategories"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+        <ObjectDataProvider x:Key="Priorities" MethodName="GetValues" ObjectType="{x:Type sys:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="bo:Priorities"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+        
         <LinearGradientBrush x:Key="myLinearGradientBrush" StartPoint="0,1" EndPoint="0,0">
             <GradientStop Color="#FF343437" Offset="0" />
             <GradientStop Color="#FF1b1b1d" Offset="0.9" />
@@ -200,7 +213,18 @@
             <Image x:Name="Package_image" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1" Grid.Row="2" 
                    Source="/icons/box(gray).png" Width="80" Height="80"/>
 
-            <TextBox x:Name="SenderID_input" Grid.Column="1" Grid.Row="4" FontSize="16" Height="30" Width="200"  Padding="1,3,2,3" TextWrapping="Wrap" Text="" VerticalAlignment="Center" HorizontalAlignment="Center" >
+            <TextBox x:Name="SenderID_input" Grid.Column="1" Grid.Row="4" FontSize="16" Height="30" Width="200"  Padding="1,3,2,3" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <TextBox.Style>
+                    <Style TargetType="TextBox">
+                        <Setter Property="Text" Value="{Binding SelectedPackage.Sender.ID}"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsAdmin}" Value="false">
+                                <Setter Property="Text" Value="{Binding SenderID}"/>
+                                <Setter Property="IsEnabled" Value="false"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBox.Style>
                 <TextBox.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="5"/>
@@ -222,7 +246,7 @@
                 </TextBlock.Style>
             </TextBlock>
 
-            <TextBox x:Name="ReceiverID_input" Grid.Column="1" Grid.Row="5" FontSize="16" Height="30" Width="200"  Padding="1,3,2,3" TextWrapping="Wrap" Text="" VerticalAlignment="Center" HorizontalAlignment="Center" >
+            <TextBox x:Name="ReceiverID_input" Grid.Column="1" Grid.Row="5" FontSize="16" Height="30" Width="200"  Padding="1,3,2,3" TextWrapping="Wrap" Text="{Binding SelectedPackage.Receiver.ID}" VerticalAlignment="Center" HorizontalAlignment="Center" >
                 <TextBox.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="5"/>
@@ -246,8 +270,8 @@
             </TextBlock>
 
 
-            <ComboBox x:Name="WeightSelector" Grid.Column="1" Grid.Row="6" HorizontalAlignment="Center"  VerticalAlignment="Center" 
-                      Width="200" Height="30" BorderBrush="White" FontSize="16">
+            <ComboBox x:Name="WeightSelector" Grid.Column="1" Grid.Row="6" HorizontalAlignment="Center"  VerticalAlignment="Center" SelectedItem="{Binding SelectedPackage.Weight, Mode=OneWay}"
+                      Width="200" Height="30" BorderBrush="White" FontSize="16" ItemsSource="{Binding Source={StaticResource Weights}}">
                 <ComboBox.Background>
                     <RadialGradientBrush>
                         <GradientStop Color="#FFF0F0F0" Offset="1"/>
@@ -270,8 +294,8 @@
                 </TextBlock.Style>
             </TextBlock>
 
-            <ComboBox x:Name="PrioritySelector" Grid.Column="1" Grid.Row="7" HorizontalAlignment="Center"  VerticalAlignment="Center" 
-                      Width="200" Height="30" BorderBrush="White" FontSize="16">
+            <ComboBox x:Name="PrioritySelector" Grid.Column="1" Grid.Row="7" HorizontalAlignment="Center"  VerticalAlignment="Center" SelectedItem="{Binding SelectedPackage.Priority, Mode=OneWay}"
+                      Width="200" Height="30" BorderBrush="White" FontSize="16" ItemsSource="{Binding Source={StaticResource Priorities}}">
                 <ComboBox.Background>
                     <RadialGradientBrush>
                         <GradientStop Color="#FFF0F0F0" Offset="1"/>
@@ -296,7 +320,7 @@
 
             <Button x:Name="DeletePackageButton" Grid.Column="1"  Grid.Row="8" HorizontalAlignment="Center"  VerticalAlignment="Center" 
                     Width="200" Height="30" Background="Red" Foreground="White" BorderThickness="0" 
-                    FontFamily="Arial" Margin="0,0,0,0" Click="Delete_Package_Button_Click" Visibility="Collapsed">
+                    FontFamily="Arial" Margin="0,0,0,0" Click="Delete_Package_Button_Click" Visibility="{Binding UpdateVisibility}">
                 <Button.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="5"/>
@@ -318,7 +342,7 @@
 
                 <Button x:Name="AddButton" Content="+ Add" Grid.Column="1"  Grid.Row="9" HorizontalAlignment="Left"  VerticalAlignment="Center" 
                     Width="80" Height="30" FontSize="14" Background="#FF4194E3" Foreground="White" BorderThickness="0" 
-                    FontFamily="Arial" Margin="9,0,0,0" Click="Save_Button_Click" IsDefault="True">
+                    FontFamily="Arial" Margin="9,0,0,0" Click="Save_Button_Click" IsDefault="True" Visibility="{Binding AddVisibility}">
                     <Button.Resources>
                         <Style TargetType="Border">
                             <Setter Property="CornerRadius" Value="5"/>

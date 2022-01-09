@@ -44,7 +44,7 @@ namespace PL
 
         private void Packages_Menu_Button_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new DisplayPackageListPage(bl, false));
+            NavigationService.Navigate(new DisplayPackageListPage(new Models.PackagesModel(bl)));
         }
 
         private void Back_Click(object sender, RoutedEventArgs e)

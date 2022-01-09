@@ -13,7 +13,7 @@ namespace PL.Models
 {
     public class CustomersModel : INotifyPropertyChanged
     {
-        private IBL bl;
+        public IBL bl;
 
         private ObservableCollection<PO.Customer> _collection = new ObservableCollection<PO.Customer>();
 
@@ -36,11 +36,6 @@ namespace PL.Models
         public enum WindowState { Add, Update }
         public WindowState State { get; set; }
         public Visibility AdminVisibility { init; get; }
-        /*public Visibility NewVisibility { 
-            get {
-                if (State == WindowState.Add && AdminVisibility == Visibility.Collapsed) return Visibility.Visible;
-                else return Visibility.Collapsed;
-            } }*/
         public Visibility UserVisibility { 
             get
             {

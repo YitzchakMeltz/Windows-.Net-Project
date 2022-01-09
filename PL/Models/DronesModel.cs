@@ -10,14 +10,14 @@ using System.Windows;
 
 namespace PL.Models
 {
-    public class DroneListModel
+    public class DronesModel
     {
         private IBL bl;
-        public DroneListModel(IEnumerable<DroneList> e, IBL bl, WindowState state)
+        public DronesModel(IBL bl, WindowState state)
         {
             this.bl = bl;
             State = state;
-            foreach (DroneList drone in e) _collection.Add(new PO.Drone(drone.ID, bl));
+            foreach (DroneList drone in bl.ListDrones()) _collection.Add(new PO.Drone(drone.ID, bl));
         }
 
         private ObservableCollection<PO.Drone> _collection = new ObservableCollection<PO.Drone>();

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PL.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,22 +21,18 @@ namespace PL
     /// </summary>
     public partial class DisplayPackageListPage : Page
     {
-        BlApi.IBL bl;
-        private Boolean isUser;
-        public DisplayPackageListPage(BlApi.IBL bl, Boolean isUser)
+        public DisplayPackageListPage(PackagesModel model)
         {
-            this.bl = bl;
-
-            this.isUser = isUser;
-
             InitializeComponent();
 
-            PackageListView.ItemsSource = bl.ListPackages();
+            DataContext = model;
         }
 
         private void Add_Package_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new PackagePage(bl, isUser));
+            (DataContext as PackagesModel).SelectedPackage = null;
+            (DataContext as PackagesModel).State = PackagesModel.WindowState.Add;
+            NavigationService.Navigate(new PackagePage(DataContext as PackagesModel));
         }
 
         private void Back_Click(object sender, RoutedEventArgs e)
@@ -46,7 +43,10 @@ namespace PL
         private void PackageListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             if (PackageListView.SelectedValue is not null)
-                NavigationService.Navigate(new PackagePage(bl, bl.GetPackage((int)PackageListView.SelectedValue), isUser));
+            {
+                (DataContext as PackagesModel).State = PackagesModel.WindowState.Update;
+                NavigationService.Navigate(new PackagePage(DataContext as PackagesModel));
+            }
         }
     }
 }

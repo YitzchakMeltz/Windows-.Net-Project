@@ -43,7 +43,7 @@ namespace PL
         {
             if((DataContext as CustomersModel).AdminVisibility == Visibility.Collapsed)
             {
-                //NavigationService.Navigate(new PackagePage(bl, HeaderTitle.Text.Replace("Customer","Sender"), isUser));
+                NavigationService.Navigate(new PackagePage(new PackagesModel((DataContext as CustomersModel).bl, (DataContext as CustomersModel).SelectedCustomer.ID))); //HeaderTitle.Text.Replace("Customer","Sender"), isUser));
             }
         }
     }

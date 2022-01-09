@@ -36,7 +36,7 @@ namespace PL
 
         private void FilterItems()
         {
-            DataContext = new DroneListModel(bl.ListDrones(), bl, DroneListModel.WindowState.Update);
+            DataContext = new DronesModel(bl, DronesModel.WindowState.Update);
             //DroneListView.ItemsSource = bl.ListDronesFiltered(drone => (StatusSelector.SelectedItem is "All Statuses" or null || drone.Status == Enum.Parse<BO.DroneStatuses>((string)StatusSelector.SelectedItem)) && (WeightSelector.SelectedItem is "All Weights" or null || drone.Weight == Enum.Parse<BO.WeightCategories>((string)WeightSelector.SelectedItem)));
             //DroneListView.Items.Refresh();
         }
@@ -47,15 +47,15 @@ namespace PL
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            (DataContext as DroneListModel).SelectedDrone = null;
-            (DataContext as DroneListModel).State = DroneListModel.WindowState.Add;
-            NavigationService.Navigate(new AddDronePage(DataContext as DroneListModel));
+            (DataContext as DronesModel).SelectedDrone = null;
+            (DataContext as DronesModel).State = DronesModel.WindowState.Add;
+            NavigationService.Navigate(new AddDronePage(DataContext as DronesModel));
         }
 
         private void DroneListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             if (DroneListView.SelectedValue is not null)
-                NavigationService.Navigate(new AddDronePage(DataContext as DroneListModel));
+                NavigationService.Navigate(new AddDronePage(DataContext as DronesModel));
         }
 
         private void Back_Click(object sender, RoutedEventArgs e)

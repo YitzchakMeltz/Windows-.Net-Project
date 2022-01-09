@@ -85,15 +85,17 @@ VerticalAlignment="Stretch" Width="auto">
             </Button>
 
         </Grid>
-        <ListView Grid.Row="1" x:Name="PackageListView" MouseDoubleClick="PackageListView_MouseDoubleClick" SelectedValuePath="ID" 
-                  Background="{StaticResource myLinearGradientBrush}" BorderThickness="0" Foreground="#FFCDD1DC" FontSize="14">
+        <ListView Grid.Row="1" x:Name="PackageListView" MouseDoubleClick="PackageListView_MouseDoubleClick" SelectedItem="{Binding SelectedPackage}"
+                  Background="{StaticResource myLinearGradientBrush}" BorderThickness="0" Foreground="#FFCDD1DC" FontSize="14"
+                  ItemsSource="{Binding Collection}">
             <ListView.View>
                 <GridView ColumnHeaderContainerStyle="{StaticResource GridViewColumnHeaderStyle1}">
-                    <GridViewColumn Header="Sender ID" DisplayMemberBinding="{Binding Sender}"/>
-                    <GridViewColumn Header="Receiver ID" DisplayMemberBinding="{Binding Receiver}"/>
+                    <GridViewColumn Header="Sender ID" DisplayMemberBinding="{Binding Sender.ID}"/>
+                    <GridViewColumn Header="Receiver ID" DisplayMemberBinding="{Binding Receiver.ID}"/>
                     <GridViewColumn Header="Weight" DisplayMemberBinding="{Binding Weight}"/>
                     <GridViewColumn Header="Priority" DisplayMemberBinding="{Binding Priority}"/>
-                    <GridViewColumn Header="Drone ID" DisplayMemberBinding="{Binding Drone}"/>
+                    <GridViewColumn Header="Creation" DisplayMemberBinding="{Binding Drone.Creation}"/>
+                    <GridViewColumn Header="Drone ID" DisplayMemberBinding="{Binding Drone.ID}"/>
                 </GridView>
             </ListView.View>
         </ListView>
