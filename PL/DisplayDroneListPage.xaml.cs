@@ -67,5 +67,13 @@ namespace PL
         {
             FilterItems();
         }
+
+        private void Group_Button_Click(object sender, RoutedEventArgs e)
+        {
+            if (GroupedText.Text == "None")
+                GroupedText.Text = "Skimmer";
+            else
+                GroupedText.Text = "None";
+        }
     }
 }

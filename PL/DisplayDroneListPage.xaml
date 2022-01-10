@@ -197,18 +197,35 @@ VerticalAlignment="Stretch" Width="auto">
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions >
 
-            <ComboBox Grid.Column="1" Name="StatusSelector" Height="30"
+            <Button x:Name="GroupButton" Grid.Column="1" HorizontalAlignment= "Stretch"  VerticalAlignment="Center" 
+                    Height="30" Background="#FF3F3F3F" Foreground="White" BorderThickness="1" BorderBrush="#FF97A0A5"
+                    FontFamily="Arial" Margin="5,16,5,16" Click="Group_Button_Click">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="5"/>
+                    </Style>
+                </Button.Resources>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Grouped By: "  VerticalAlignment="Center"   HorizontalAlignment="Center" Padding="5,5,0,5"
+                               Height="25" FontWeight="Bold" FontFamily="Arial" FontSize="12"/>
+                    <TextBlock x:Name="GroupedText" Text="None"  VerticalAlignment="Center"   HorizontalAlignment="Center" Padding="0,5,5,5"
+                               Height="25" FontWeight="Normal" FontFamily="Arial" FontSize="12" Foreground="LightGray"/>
+                </StackPanel>
+            </Button>
+
+            <ComboBox Grid.Column="2" Name="StatusSelector" Height="30"
                 HorizontalAlignment= "Stretch" FontSize="16" ItemsSource="{Binding Path=Statuses}"
                 VerticalAlignment="Stretch" SelectionChanged="SelectionChanged" Padding="13,3,5,3" Margin="5,16,5,16" SelectedIndex="0">
             </ComboBox>
 
-            <ComboBox Grid.Column="2" Name="WeightSelector"
+            <ComboBox Grid.Column="3" Name="WeightSelector"
                 HorizontalAlignment= "Stretch" Height="30" FontSize="16" ItemsSource="{Binding Path=Weights}"
                 VerticalAlignment="Stretch" SelectionChanged="SelectionChanged" Margin="5,16,5,16" SelectedIndex="0" />
             
-            <Button Grid.Column="3" Content="+ Add Drone"  Margin="0,0,0,0" HorizontalAlignment="Center"  VerticalAlignment="Center"   
+            <Button Grid.Column="4" Content="+ Add Drone"  Margin="0,0,0,0" HorizontalAlignment="Center"  VerticalAlignment="Center"   
                     Height="30" FontWeight="Normal" FontFamily="Arial" FontSize="16" Background="#FF4194E3" 
                     Foreground="White" Padding="10,0,10,0" BorderThickness="0,0,0,0" Click="Button_Click">
                 <Button.Resources>
