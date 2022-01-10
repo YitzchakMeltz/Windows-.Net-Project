@@ -376,7 +376,7 @@
 
             <ComboBox x:Name="WeightSelector" Grid.Column="1" Grid.Row="6" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="200"
                       Height="30" FontSize="16" BorderBrush="White" ItemsSource="{Binding Source={StaticResource Weights}}" 
-                      ItemStringFormat="      {0}" SelectedItem="{Binding SelectedDrone.Weight}">
+                      ItemStringFormat="      {0}" SelectedItem="{Binding SelectedDrone.Weight, Mode=OneWay}">
             </ComboBox>
             <TextBlock x:Name="WeightSelectorPlaceholder" Grid.Column="1" Grid.Row="6" IsHitTestVisible="False"  Padding="1,3,2,3" 
                        TextWrapping="Wrap" Text=" Weight Category" VerticalAlignment="Center"  Foreground="DarkGray" 

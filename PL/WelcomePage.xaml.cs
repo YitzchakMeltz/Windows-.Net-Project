@@ -29,7 +29,7 @@ namespace PL
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new DisplayDroneListPage(bl));
+            NavigationService.Navigate(new DisplayDroneListPage(new Models.DronesModel(bl)));
         }
 
         private void Manager_Button_Click(object sender, RoutedEventArgs e)

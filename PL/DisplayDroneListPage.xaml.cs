@@ -24,25 +24,11 @@ namespace PL
     /// </summary>
     public partial class DisplayDroneListPage : Page
     {
-        private IBL bl;
-        public DisplayDroneListPage(BlApi.IBL bl)
+        public DisplayDroneListPage(DronesModel model)
         {
             InitializeComponent();
 
-            this.bl = bl;
-
-            //DataContext = new DroneListModel(bl.ListDrones(), bl);
-        }
-
-        private void FilterItems()
-        {
-            DataContext = new DronesModel(bl, DronesModel.WindowState.Update);
-            //DroneListView.ItemsSource = bl.ListDronesFiltered(drone => (StatusSelector.SelectedItem is "All Statuses" or null || drone.Status == Enum.Parse<BO.DroneStatuses>((string)StatusSelector.SelectedItem)) && (WeightSelector.SelectedItem is "All Weights" or null || drone.Weight == Enum.Parse<BO.WeightCategories>((string)WeightSelector.SelectedItem)));
-            //DroneListView.Items.Refresh();
-        }
-        private void SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            FilterItems();
+            DataContext = model;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -55,7 +41,10 @@ namespace PL
         private void DroneListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             if (DroneListView.SelectedValue is not null)
+            {
+                (DataContext as DronesModel).State = DronesModel.WindowState.Update;
                 NavigationService.Navigate(new AddDronePage(DataContext as DronesModel));
+            }
         }
 
         private void Back_Click(object sender, RoutedEventArgs e)
@@ -63,17 +52,14 @@ namespace PL
             NavigationService.GoBack();
         }
 
-        private void Page_Loaded(object sender, RoutedEventArgs e)
-        {
-            FilterItems();
-        }
-
         private void Group_Button_Click(object sender, RoutedEventArgs e)
         {
-            if (GroupedText.Text == "None")
-                GroupedText.Text = "Skimmer";
-            else
-                GroupedText.Text = "None";
+            (DataContext as DronesModel).NextGroup();
+        }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            (DataContext as DronesModel).CollectionView.Refresh();
         }
     }
 }

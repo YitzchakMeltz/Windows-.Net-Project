@@ -211,19 +211,19 @@ VerticalAlignment="Stretch" Width="auto">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Text="Grouped By: "  VerticalAlignment="Center"   HorizontalAlignment="Center" Padding="5,5,0,5"
                                Height="25" FontWeight="Bold" FontFamily="Arial" FontSize="12"/>
-                    <TextBlock x:Name="GroupedText" Text="None"  VerticalAlignment="Center"   HorizontalAlignment="Center" Padding="0,5,5,5"
+                    <TextBlock x:Name="GroupedText" Text="{Binding GroupBy}"  VerticalAlignment="Center"   HorizontalAlignment="Center" Padding="0,5,5,5"
                                Height="25" FontWeight="Normal" FontFamily="Arial" FontSize="12" Foreground="LightGray"/>
                 </StackPanel>
             </Button>
 
             <ComboBox Grid.Column="2" Name="StatusSelector" Height="30"
-                HorizontalAlignment= "Stretch" FontSize="16" ItemsSource="{Binding Path=Statuses}"
-                VerticalAlignment="Stretch" SelectionChanged="SelectionChanged" Padding="13,3,5,3" Margin="5,16,5,16" SelectedIndex="0">
+                HorizontalAlignment= "Stretch" FontSize="16" ItemsSource="{Binding Statuses}"
+                VerticalAlignment="Stretch" Padding="13,3,5,3" Margin="5,16,5,16" SelectedItem="{Binding Status}">
             </ComboBox>
 
             <ComboBox Grid.Column="3" Name="WeightSelector"
-                HorizontalAlignment= "Stretch" Height="30" FontSize="16" ItemsSource="{Binding Path=Weights}"
-                VerticalAlignment="Stretch" SelectionChanged="SelectionChanged" Margin="5,16,5,16" SelectedIndex="0" />
+                HorizontalAlignment= "Stretch" Height="30" FontSize="16" ItemsSource="{Binding Weights}"
+                VerticalAlignment="Stretch" Margin="5,16,5,16" SelectedItem="{Binding Weight}" />
             
             <Button Grid.Column="4" Content="+ Add Drone"  Margin="0,0,0,0" HorizontalAlignment="Center"  VerticalAlignment="Center"   
                     Height="30" FontWeight="Normal" FontFamily="Arial" FontSize="16" Background="#FF4194E3" 
@@ -263,7 +263,7 @@ VerticalAlignment="Stretch" Width="auto">
 
         </Grid>
         <ListView Grid.Row="1" x:Name="DroneListView" MouseDoubleClick="DroneListView_MouseDoubleClick" 
-                  Background="{StaticResource myLinearGradientBrush}" BorderThickness="0" Foreground="#FFCDD1DC" FontSize="14" ItemsSource="{Binding Path=Collection}" SelectedItem="{Binding Path=SelectedDrone}">
+                  Background="{StaticResource myLinearGradientBrush}" BorderThickness="0" Foreground="#FFCDD1DC" FontSize="14" ItemsSource="{Binding Path=CollectionView}" SelectedItem="{Binding Path=SelectedDrone}">
             <ListView.View>
                 <GridView ColumnHeaderContainerStyle="{StaticResource GridViewColumnHeaderStyle1}">
                     <GridViewColumn Header="ID" DisplayMemberBinding="{Binding ID}"/>

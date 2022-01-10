@@ -28,7 +28,7 @@ namespace PL.PO
                 PropertyChanged(this, new PropertyChangedEventArgs("Model"));
             }
         }
-        public WeightCategories Weight { init; get; }
+        public WeightCategories Weight => bl.GetDrone(ID).Weight;
         public double Battery => bl.GetDrone(ID).Battery;
         public DroneStatuses Status => bl.GetDrone(ID).Status;
         public Location Location => bl.GetDrone(ID).Location;
