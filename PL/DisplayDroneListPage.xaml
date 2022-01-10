@@ -216,12 +216,12 @@ VerticalAlignment="Stretch" Width="auto">
                 </StackPanel>
             </Button>
 
-            <ComboBox Grid.Column="2" Name="StatusSelector" Height="30"
+            <ComboBox Grid.Column="2" Name="StatusSelector" Height="30" ItemStringFormat=" {0}"
                 HorizontalAlignment= "Stretch" FontSize="14" ItemsSource="{Binding Statuses}"
                 VerticalAlignment="Stretch" Padding="13,3,5,3" Margin="5,16,5,16" SelectedItem="{Binding Status}">
             </ComboBox>
 
-            <ComboBox Grid.Column="3" Name="WeightSelector"
+            <ComboBox Grid.Column="3" Name="WeightSelector" ItemStringFormat=" {0}"
                 HorizontalAlignment= "Stretch" Height="30" FontSize="14" ItemsSource="{Binding Weights}"
                 VerticalAlignment="Stretch" Margin="5,16,5,16" SelectedItem="{Binding Weight}" />
             
