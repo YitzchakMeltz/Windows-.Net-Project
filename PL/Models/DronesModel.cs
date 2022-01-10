@@ -24,10 +24,10 @@ namespace PL.Models
             foreach (DroneList drone in bl.ListDrones()) _collection.Add(new PO.Drone(drone.ID, bl));
 
             CollectionView = CollectionViewSource.GetDefaultView(_collection);
-            CollectionView.Filter = (d) =>
+            CollectionView.Filter += (o) =>
             {
-                if ((Status == "All Statuses" || (d as PO.Drone).Status.ToString() == Status) &&
-                    (Weight == "All Weights" || (d as PO.Drone).Weight.ToString() == Weight)) return true;
+                if ((Status == "All Statuses" || (o as PO.Drone).Status.ToString() == Status) &&
+                    (Weight == "All Weights" || (o as PO.Drone).Weight.ToString() == Weight)) return true;
                 else return false;
             };
         }

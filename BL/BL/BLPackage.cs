@@ -65,6 +65,7 @@ namespace BL
                     Receiver = ConvertToPackageCustomer(GetCustomer(parcel.TargetID)),
                     Weight = (WeightCategories)parcel.WeightCategory,
                     Priority = (Priorities)parcel.Priority,
+                    Status = ParcelStatus(parcel),
                     Drone = drone == null ? null : ConvertToDeliveryDrone(drone),
                     Creation = parcel.Scheduled,
                     AssignmentTime = parcel.Assigned,
