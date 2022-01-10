@@ -47,6 +47,13 @@ namespace PL
                 NavigationService.Navigate(new StationPage(DataContext as StationsModel));
             }
         }
+
+        private void Group_Button_Click(object sender, RoutedEventArgs e)
+        {
+            GroupingWindow gp = new GroupingWindow("Station");
+            gp.Owner = Application.Current.MainWindow;
+            gp.ShowDialog();
+        }
     }
     
 }

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="Group" Height="200" Width="160" WindowStartupLocation="CenterOwner">
+        Title="Group" Height="200" Width="200" WindowStartupLocation="CenterOwner">
 
     <Grid x:Name="MainGrid" Background="#FF343437">
         <Grid.RowDefinitions>
@@ -22,12 +22,12 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <TextBox Grid.Row="0" Background="Transparent" Foreground="#FF878585" BorderThickness="0" VerticalAlignment="Bottom"
-                         Margin="0,0,0,0">Group By</TextBox>
-            <RadioButton Content=" None" Grid.Column="1" VerticalAlignment="Bottom" 
+                         Margin="3,0,0,0">Group By</TextBox>
+            <RadioButton x:Name="RadioButton1"  Content=" None" Grid.Column="1" VerticalAlignment="Bottom" 
                          Foreground="#FFA4A4A4" Background="#FFD1CECE" Grid.Row="1"/>
-            <RadioButton Content=" Sender ID" Grid.Column="1" VerticalAlignment="Center" 
+            <RadioButton x:Name="RadioButton2" Content=" Sender ID" Grid.Column="1" VerticalAlignment="Center" 
                          Foreground="#FFA4A4A4" Background="#FFD1CECE" Grid.Row="2"/>
-            <RadioButton Content=" Reciever ID" Grid.Column="1" VerticalAlignment="Top" 
+            <RadioButton x:Name="RadioButton3" Content=" Receiver ID" Grid.Column="1" VerticalAlignment="Top" 
                          Foreground="#FFA4A4A4" Background="#FFD1CECE" Grid.Row="3"/>
         </Grid>
 
@@ -35,7 +35,7 @@
 
         <Button x:Name="OkButton" Content="Ok" Grid.Row="1" HorizontalAlignment="Center"  VerticalAlignment="Center" 
                     Padding="10,7,10,7" FontSize="14" Background="Gray" Foreground="White" BorderThickness="0" 
-                    FontFamily="Arial" Click="Ok_Button_Click" IsDefault="True">
+                    FontFamily="Arial" Click="Ok_Button_Click" IsDefault="True" Width="60">
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="5"/>

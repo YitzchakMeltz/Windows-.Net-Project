@@ -51,7 +51,7 @@ namespace PL
 
         private void Group_Button_Click(object sender, RoutedEventArgs e)
         {
-            GroupingWindow gp = new GroupingWindow();
+            GroupingWindow gp = new GroupingWindow("Package");
             gp.Owner = Application.Current.MainWindow;
             gp.ShowDialog();
         }

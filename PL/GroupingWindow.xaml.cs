@@ -19,9 +19,17 @@ namespace PL
     /// </summary>
     public partial class GroupingWindow : Window
     {
-        public GroupingWindow()
+        public GroupingWindow(String type)
         {
             InitializeComponent();
+
+            switch (type)
+            {
+                case "Station":
+                    RadioButton2.Content = " Available Slots";
+                    RadioButton3.Content = " Num of Available Slots";
+                    break;
+            }
         }
 
         private void Ok_Button_Click(object sender, RoutedEventArgs e)
