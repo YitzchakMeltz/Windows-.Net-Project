@@ -262,7 +262,7 @@ VerticalAlignment="Stretch" Width="auto">
                 VerticalAlignment="Center"  Margin="15,5" SelectedItem="{Binding DateChoice}"/>
         </Grid>
 
-        <ListView Grid.Row="1" x:Name="PackageListView" MouseDoubleClick="PackageListView_MouseDoubleClick" SelectedItem="{Binding SelectedPackage, IsAsync=True}"
+        <ListView Grid.Row="1" x:Name="PackageListView" MouseDoubleClick="PackageListView_MouseDoubleClick" SelectedItem="{Binding SelectedPackage}"
                   Background="{StaticResource myLinearGradientBrush}" BorderThickness="0" Foreground="#FFCDD1DC" FontSize="14"
                   ItemsSource="{Binding CollectionView}">
             <ListView.View>

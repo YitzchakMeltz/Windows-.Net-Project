@@ -21,7 +21,7 @@ namespace PL.Models
         {
             this.bl = bl;
 
-            foreach (DroneList drone in bl.ListDrones()) _collection.Add(new PO.Drone(drone.ID, bl));
+            bl.ListDrones().ToList().ForEach(drone => _collection.Add(new PO.Drone(drone.ID, bl)));
 
             CollectionView = CollectionViewSource.GetDefaultView(_collection);
             CollectionView.Filter += (o) =>

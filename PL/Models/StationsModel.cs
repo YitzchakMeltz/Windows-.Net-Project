@@ -19,7 +19,8 @@ namespace PL.Models
         public StationsModel(IBL bl)
         {
             this.bl = bl;
-            foreach (BaseStationList s in bl.ListStations()) _collection.Add(new PO.Station(s.ID, bl));
+
+            bl.ListStations().ToList().ForEach(station => _collection.Add(new PO.Station(station.ID, bl)));
 
             CollectionView = CollectionViewSource.GetDefaultView(_collection);
         }

@@ -20,7 +20,8 @@ namespace PL.Models
         {
             this.bl = bl;
             IsAdmin = true;
-            foreach (PackageList p in bl.ListPackages()) _collection.Add(new PO.Package(p.ID, bl));
+
+            bl.ListPackages().ToList().ForEach(package => _collection.Add(new PO.Package(package.ID, bl)));
 
             CollectionView = CollectionViewSource.GetDefaultView(_collection);
             CollectionView.Filter += (o) =>

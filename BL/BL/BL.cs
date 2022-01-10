@@ -29,6 +29,7 @@ namespace BL
                 DO.Parcel parcel = ((List<DO.Parcel>)dalObject.GetParcelList()).Find(p => p.DroneID == d.ID && ParcelStatus(p) != Statuses.Delivered);
 
                 if (!parcel.Equals(default(DO.Parcel))) {
+                    drone.PackageID = (uint)parcel.ID;
                     drone.Status = DroneStatuses.Delivering;
 
                     EnroutePackage enroute = GetEnroutePackage(parcel.ID);
@@ -45,7 +46,7 @@ namespace BL
                     double distToStation = Distance(enroute.DeliveryLocation, ClosestStation(enroute.DeliveryLocation).Location);
                     double minBattery = (distToDest / PowerConsumption[(int)drone.Weight + 1]) + distToStation / PowerConsumption[0];
 
-                    drone.Battery = (random.NextDouble() * (100 - minBattery) + minBattery);
+                    drone.Battery = random.NextDouble() * (100 - minBattery) + minBattery;
                 }
                 else
                 {
@@ -60,9 +61,8 @@ namespace BL
                     }
                     else // Drone is Free
                     {
-                        IEnumerable<DO.Parcel> deliveredParcels = dalObject.GetParcelList().Where(parcel => !parcel.Delivered.Equals(DateTime.MinValue)).ToArray();
-                        /*if (deliveredParcels.Count() == 0)
-                            throw new InvalidManeuver("No Parcels have been delivered so starting drone location could not be determined.");*/
+                        IEnumerable<DO.Parcel> deliveredParcels = dalObject.GetParcelList().Where(parcel => !parcel.Delivered.Equals(null)).ToArray();
+
                         drone.Location = CoordinateToLocation(dalObject.GetCustomer(deliveredParcels.ElementAt(random.Next(0, deliveredParcels.Count())).TargetID).Location);
 
                         double batteryToStation = Distance(ClosestStation(drone.Location).Location, drone.Location) / PowerConsumption[0];

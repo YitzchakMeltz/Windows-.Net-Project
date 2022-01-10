@@ -123,6 +123,7 @@ namespace Dal
                 if (rd.NextDouble() < .5 || i == 9 && !deliveredPackage)
                 {
                     p.Assigned = p.Scheduled.AddMinutes(rd.Next(10));
+                    p.DroneID = Drones[rd.Next(Drones.Count)].ID;
                     if (rd.NextDouble() < .5 || i == 9 && !deliveredPackage)
                     {
                         p.PickedUp = p.Assigned.Value.AddMinutes(rd.Next(5, 60));

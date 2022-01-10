@@ -28,7 +28,8 @@ namespace PL.Models
                 SelectedCustomer = new PO.Customer(customerID.Value, bl);
                 AdminVisibility = Visibility.Collapsed;
             }
-            foreach (CustomerList customer in bl.ListCustomers()) _collection.Add(new PO.Customer(customer.ID, bl));
+
+            bl.ListCustomers().ToList().ForEach(customer => _collection.Add(new PO.Customer(customer.ID, bl)));
         }
 
         public ObservableCollection<PO.Customer> Collection => _collection;
