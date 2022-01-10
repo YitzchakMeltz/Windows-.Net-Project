@@ -40,8 +40,7 @@ namespace PL
 
         public static Boolean? Show(string type, string msg)
         {
-            MsgBox msgbox = new MsgBox(type, msg);
-            msgbox.Owner = Application.Current.MainWindow;
+            MsgBox msgbox = new MsgBox(type, msg) { Owner = Application.Current.MainWindow };
             return msgbox.ShowDialog();
         }
 

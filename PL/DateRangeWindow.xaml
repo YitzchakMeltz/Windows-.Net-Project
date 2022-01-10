@@ -24,7 +24,7 @@
             <TextBox Grid.Row="0" Background="Transparent" Foreground="#FF878585" BorderThickness="0" VerticalAlignment="Bottom"
                          HorizontalAlignment="Center" Margin="0,0,0,0">Start Date</TextBox>
 
-            <DatePicker HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" BorderBrush="{x:Null}" Foreground="#FFC6C6C6" SelectedDateFormat="Short">
+            <DatePicker HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" BorderBrush="{x:Null}" Foreground="#FFC6C6C6" SelectedDateFormat="Short" SelectedDate="{Binding StartDate, Mode=OneWayToSource}">
                 <DatePicker.Resources>
                     <Style TargetType="{x:Type DatePickerTextBox}" >
                         <Setter Property="Background" Value="Gray" />
@@ -35,7 +35,7 @@
             <TextBox Grid.Row="2" Background="Transparent" Foreground="#FF878585" BorderThickness="0" VerticalAlignment="Bottom"
                          HorizontalAlignment="Center" Margin="0,0,0,0">End Date</TextBox>
 
-            <DatePicker HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="3" BorderBrush="{x:Null}" Foreground="#FFC6C6C6" SelectedDateFormat="Short">
+            <DatePicker HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="3" BorderBrush="{x:Null}" Foreground="#FFC6C6C6" SelectedDateFormat="Short" SelectedDate="{Binding EndDate, Mode=OneWayToSource}">
                 <DatePicker.Resources>
                     <Style TargetType="{x:Type DatePickerTextBox}" >
                         <Setter Property="Background" Value="Gray" />

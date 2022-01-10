@@ -257,12 +257,12 @@ VerticalAlignment="Stretch" Width="auto">
                 VerticalAlignment="Center" Padding="13,3,5,3" Margin="15,5" SelectedItem="{Binding Status}">
             </ComboBox>
 
-            <ComboBox Grid.Column="3" Name="DateSelector"
+            <ComboBox Grid.Column="3" Name="DateSelector" ItemsSource="{Binding DateChoices}"
                 HorizontalAlignment= "Stretch" Height="30" FontSize="16"
-                VerticalAlignment="Center"  Margin="15,5" SelectedIndex="0" />
+                VerticalAlignment="Center"  Margin="15,5" SelectedItem="{Binding DateChoice}"/>
         </Grid>
 
-        <ListView Grid.Row="1" x:Name="PackageListView" MouseDoubleClick="PackageListView_MouseDoubleClick" SelectedItem="{Binding SelectedPackage}"
+        <ListView Grid.Row="1" x:Name="PackageListView" MouseDoubleClick="PackageListView_MouseDoubleClick" SelectedItem="{Binding SelectedPackage, IsAsync=True}"
                   Background="{StaticResource myLinearGradientBrush}" BorderThickness="0" Foreground="#FFCDD1DC" FontSize="14"
                   ItemsSource="{Binding CollectionView}">
             <ListView.View>
@@ -272,7 +272,7 @@ VerticalAlignment="Stretch" Width="auto">
                     <GridViewColumn Header="Weight" DisplayMemberBinding="{Binding Weight}"/>
                     <GridViewColumn Header="Priority" DisplayMemberBinding="{Binding Priority}"/>
                     <GridViewColumn Header="Status" DisplayMemberBinding="{Binding Status}"/>
-                    <GridViewColumn Header="Creation" DisplayMemberBinding="{Binding Drone.Creation}"/>
+                    <GridViewColumn Header="Creation" DisplayMemberBinding="{Binding Creation}"/>
                     <GridViewColumn Header="Drone ID" DisplayMemberBinding="{Binding Drone.ID}"/>
                 </GridView>
             </ListView.View>

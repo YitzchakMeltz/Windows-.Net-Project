@@ -26,7 +26,8 @@ namespace PL.Models
             CollectionView.Filter += (o) =>
             {
                 if ((Status == "All Statuses" || (o as PO.Package).Status.ToString() == Status) &&
-                    (Date == DateTime.MinValue || (o as PO.Package).CollectionTime >= Date)) return true;
+                    (StartDate == DateTime.MinValue || (o as PO.Package).Creation >= StartDate) && 
+                    (EndDate == DateTime.MinValue || (o as PO.Package).Creation <= EndDate)) return true;
                 else return false;
             };
         }
@@ -52,16 +53,49 @@ namespace PL.Models
                 CollectionView.Refresh();
             }
         }
-        private DateTime _date;
-        public DateTime Date
+
+        public IEnumerable<string> DateChoices => new string[] { "All Dates", "Select Dates" };
+        private string _dateChoice = "All Dates";
+        public string DateChoice {
+            get => _dateChoice;
+            set 
+            {
+                if (value == "All Dates")
+                {
+                    _dateChoice = value;
+                    StartDate = DateTime.MinValue;
+                    EndDate = DateTime.MaxValue;
+                }
+                else
+                {
+                    if (DateRangeWindow.Show(this))
+                        _dateChoice = value;
+                    else DateChoice = "All Dates";
+                }
+                PropertyChanged(this, new PropertyChangedEventArgs("DateChoice"));
+            }
+        }
+        private DateTime _startDate = DateTime.MinValue;
+        public DateTime StartDate
         {
-            get => _date;
+            get => _startDate;
             set
             {
-                _date = value;
+                _startDate = value;
                 CollectionView.Refresh();
             }
         }
+        private DateTime _endDate = DateTime.MaxValue;
+        public DateTime EndDate
+        {
+            get => _endDate;
+            set
+            {
+                _endDate = value;
+                CollectionView.Refresh();
+            }
+        }
+
         public enum Groups { None, Sender, Receiver }
         private Groups _groupBy = Groups.None;
 

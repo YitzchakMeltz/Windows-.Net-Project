@@ -8,7 +8,7 @@ namespace Dal
     class DataSource
     {
         internal static List<Drone> Drones = new List<Drone>();
-        internal static List<DroneCharge> DroneCharges = new List<DroneCharge>(10); // I think this should be here
+        internal static List<DroneCharge> DroneCharges = new List<DroneCharge>(10);
         internal static List<Station> Stations = new List<Station>();
         internal static List<Customer> Customers = new List<Customer>();
         internal static List<Parcel> Parcels = new List<Parcel>();
@@ -122,7 +122,7 @@ namespace Dal
 
                 if (rd.NextDouble() < .5 || i == 9 && !deliveredPackage)
                 {
-                    p.Assigned = p.Scheduled.Value.AddMinutes(rd.Next(10));
+                    p.Assigned = p.Scheduled.AddMinutes(rd.Next(10));
                     if (rd.NextDouble() < .5 || i == 9 && !deliveredPackage)
                     {
                         p.PickedUp = p.Assigned.Value.AddMinutes(rd.Next(5, 60));

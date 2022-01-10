@@ -23,7 +23,7 @@ namespace PL.PO
         public PackageCustomer Receiver => bl.GetPackage(ID).Receiver;
         public WeightCategories Weight => bl.GetPackage(ID).Weight;
         public Priorities Priority => bl.GetPackage(ID).Priority; 
-        public DateTime? Creation => bl.GetPackage(ID).Creation;
+        public DateTime Creation => bl.GetPackage(ID).Creation;
         public DeliveryDrone Drone => bl.GetPackage(ID).Drone;
         public Statuses Status => bl.GetPackage(ID).Status;
         public DateTime? AssignmentTime => bl.GetPackage(ID).AssignmentTime;

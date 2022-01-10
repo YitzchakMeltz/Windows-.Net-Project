@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PL.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,14 +20,19 @@ namespace PL
     /// </summary>
     public partial class DateRangeWindow : Window
     {
-        public DateRangeWindow()
+        public DateRangeWindow(PackagesModel model)
         {
             InitializeComponent();
+            DataContext = model;
         }
 
+        public static bool Show(PackagesModel model)
+        {
+            return new DateRangeWindow(model) { Owner = Application.Current.MainWindow }.ShowDialog().Value;
+        }
         private void Ok_Button_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            DialogResult = true;
         }
     }
 }

@@ -10,7 +10,7 @@
             public WeightCategories WeightCategory { get; set; }
             public Priorities Priority { get; set; }
             public int DroneID { get; set; }
-            public DateTime? Scheduled { get; set; }
+            public DateTime Scheduled { get; set; }
             public DateTime? Assigned { get; set; }
             public DateTime? PickedUp { get; set; }
             public DateTime? Delivered { get; set; }
