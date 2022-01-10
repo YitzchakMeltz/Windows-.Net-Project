@@ -31,7 +31,7 @@ namespace PL.Models
             foreach (CustomerList customer in bl.ListCustomers()) _collection.Add(new PO.Customer(customer.ID, bl));
         }
 
-        public ObservableCollection<PO.Customer> Collection => _collection;
+        public ObservableCollection<PO.Customer> Collection { get { return _collection; } }
         public PO.Customer SelectedCustomer { get; set; }
         public enum WindowState { Add, Update }
         public WindowState State { get; set; }

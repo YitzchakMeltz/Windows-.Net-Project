@@ -7,56 +7,22 @@ using System.Text;
 using System.Threading.Tasks;
 using BlApi;
 using System.Windows;
-using System.Windows.Data;
-using System.ComponentModel;
 
 namespace PL.Models
 {
     public class DronesModel
     {
         private IBL bl;
-        public DronesModel(IBL bl)
+        public DronesModel(IBL bl, WindowState state)
         {
             this.bl = bl;
-
-            //ObservableCollection<PO.Drone> collection = new ObservableCollection<PO.Drone>();
+            State = state;
             foreach (DroneList drone in bl.ListDrones()) _collection.Add(new PO.Drone(drone.ID, bl));
-
-            collectionView = CollectionViewSource.GetDefaultView(_collection);
-            collectionView.Filter = (d) =>
-            {
-                if ((Status == "All Statuses" || (d as PO.Drone).Status.ToString() == Status) &&
-                    (Weight == "All Weights" || (d as PO.Drone).Weight.ToString() == Weight)) return true;
-                else return false;
-            };
         }
 
-
-        public ObservableCollection<PO.Drone> _collection = new ObservableCollection<PO.Drone>();
-        private ICollectionView collectionView;
+        private ObservableCollection<PO.Drone> _collection = new ObservableCollection<PO.Drone>();
         public IEnumerable<string> Statuses { get => Enum.GetValues<BO.DroneStatuses>().Select(s => s.ToString()).Prepend("All Statuses"); }
-        private string _status = "All Statuses";
-        public string Status
-        {
-            get => _status;
-            set
-            {
-                _status = value;
-                collectionView.Refresh();
-            }
-        }
         public IEnumerable<string> Weights { get => Enum.GetValues<BO.WeightCategories>().Select(w => w.ToString()).Prepend("All Weights"); }
-        private string _weight = "All Weights";
-        public string Weight
-        {
-            get => _weight;
-            set
-            {
-                _weight = value;
-                collectionView.Refresh();
-            }
-        }
-
 
         public enum WindowState { Add, Update }
         public WindowState State { get; set; }
@@ -84,7 +50,6 @@ namespace PL.Models
         {
             bl.AddDrone(ID, model, weight, stationID);
             _collection.Add(new PO.Drone(ID, bl));
-            collectionView.Refresh();
         }
 
     }
