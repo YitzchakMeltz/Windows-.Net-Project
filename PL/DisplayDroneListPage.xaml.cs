@@ -24,26 +24,23 @@ namespace PL
     /// </summary>
     public partial class DisplayDroneListPage : Page
     {
-        private IBL bl;
-        public DisplayDroneListPage(BlApi.IBL bl)
+        public DisplayDroneListPage(DronesModel model)
         {
             InitializeComponent();
 
-            this.bl = bl;
-
-            //DataContext = new DroneListModel(bl.ListDrones(), bl);
+            DataContext = model;
         }
 
-        private void FilterItems()
+        /*private void FilterItems()
         {
-            DataContext = new DronesModel(bl, DronesModel.WindowState.Update);
+            //DataContext = new DronesModel(bl, DronesModel.WindowState.Update);
             //DroneListView.ItemsSource = bl.ListDronesFiltered(drone => (StatusSelector.SelectedItem is "All Statuses" or null || drone.Status == Enum.Parse<BO.DroneStatuses>((string)StatusSelector.SelectedItem)) && (WeightSelector.SelectedItem is "All Weights" or null || drone.Weight == Enum.Parse<BO.WeightCategories>((string)WeightSelector.SelectedItem)));
             //DroneListView.Items.Refresh();
         }
         private void SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             FilterItems();
-        }
+        }*/
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -55,13 +52,17 @@ namespace PL
         private void DroneListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             if (DroneListView.SelectedValue is not null)
+            {
+                (DataContext as DronesModel).State = DronesModel.WindowState.Update;
                 NavigationService.Navigate(new AddDronePage(DataContext as DronesModel));
+            }
         }
 
         private void Back_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.GoBack();
         }
+<<<<<<< Updated upstream
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
@@ -75,5 +76,7 @@ namespace PL
             else
                 GroupedText.Text = "None";
         }
+=======
+>>>>>>> Stashed changes
     }
 }
