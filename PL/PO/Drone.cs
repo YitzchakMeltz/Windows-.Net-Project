@@ -52,13 +52,14 @@ namespace PL.PO
         {
             bl.AssignPackageToDrone(ID);
             PropertyChanged(this, new PropertyChangedEventArgs("Status"));
-            PropertyChanged(this, new PropertyChangedEventArgs("PackageID"));
+            PropertyChanged(this, new PropertyChangedEventArgs("Package"));
         }
         public void Collect()
         {
             bl.CollectPackage(ID);
             PropertyChanged(this, new PropertyChangedEventArgs("Battery"));
             PropertyChanged(this, new PropertyChangedEventArgs("Location"));
+            PropertyChanged(this, new PropertyChangedEventArgs("Package"));
         }
         public void Deliver()
         {

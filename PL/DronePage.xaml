@@ -337,7 +337,7 @@
                                         <Setter Property="IsEnabled" Value="True"/>
                                     </MultiDataTrigger.Setters>
                                 </MultiDataTrigger>
-                                <DataTrigger Binding="{Binding SelectedDrone.Package.Delivering}" Value="False">
+                                <DataTrigger Binding="{Binding SelectedDrone.Package.Delivering}" Value="True">
                                     <Setter Property="IsEnabled" Value="False"/>
                                 </DataTrigger>
                             </Style.Triggers>

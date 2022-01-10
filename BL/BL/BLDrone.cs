@@ -130,7 +130,7 @@ namespace BL
                     Weight = (WeightCategories)dalDrone.WeightCategory,
                     Battery = droneList.Battery,
                     Status = droneList.Status,
-                    Package = (droneList.PackageID == null ? null : GetEnroutePackage((int)droneList.PackageID)),
+                    Package = droneList.PackageID == null ? null : GetEnroutePackage((int)droneList.PackageID),
                     Location = droneList.Location
                 };
 
