@@ -210,19 +210,19 @@ VerticalAlignment="Stretch" Width="auto">
                 </Button.Resources>
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Text="Grouped By: "  VerticalAlignment="Center"   HorizontalAlignment="Center" Padding="5,5,0,5"
-                               Height="25" FontWeight="Bold" FontFamily="Arial" FontSize="12"/>
+                               Height="25" FontWeight="Bold" FontFamily="Arial" FontSize="14"/>
                     <TextBlock x:Name="GroupedText" Text="{Binding GroupBy}"  VerticalAlignment="Center"   HorizontalAlignment="Center" Padding="0,5,5,5"
-                               Height="25" FontWeight="Normal" FontFamily="Arial" FontSize="12" Foreground="LightGray"/>
+                               Height="25" FontWeight="Normal" FontFamily="Arial" FontSize="14" Foreground="LightGray"/>
                 </StackPanel>
             </Button>
 
             <ComboBox Grid.Column="2" Name="StatusSelector" Height="30"
-                HorizontalAlignment= "Stretch" FontSize="16" ItemsSource="{Binding Statuses}"
+                HorizontalAlignment= "Stretch" FontSize="14" ItemsSource="{Binding Statuses}"
                 VerticalAlignment="Stretch" Padding="13,3,5,3" Margin="5,16,5,16" SelectedItem="{Binding Status}">
             </ComboBox>
 
             <ComboBox Grid.Column="3" Name="WeightSelector"
-                HorizontalAlignment= "Stretch" Height="30" FontSize="16" ItemsSource="{Binding Weights}"
+                HorizontalAlignment= "Stretch" Height="30" FontSize="14" ItemsSource="{Binding Weights}"
                 VerticalAlignment="Stretch" Margin="5,16,5,16" SelectedItem="{Binding Weight}" />
             
             <Button Grid.Column="4" Content="+ Add Drone"  Margin="0,0,0,0" HorizontalAlignment="Center"  VerticalAlignment="Center"   
