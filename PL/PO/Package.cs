@@ -25,6 +25,7 @@ namespace PL.PO
         public Priorities Priority => bl.GetPackage(ID).Priority; 
         public DateTime? Creation => bl.GetPackage(ID).Creation;
         public DeliveryDrone Drone => bl.GetPackage(ID).Drone;
+        public Statuses Status => bl.GetPackage(ID).Status;
         public DateTime? AssignmentTime => bl.GetPackage(ID).AssignmentTime;
         public DateTime? CollectionTime => bl.GetPackage(ID).CollectionTime;
         public DateTime? DeliveryTime => bl.GetPackage(ID).DeliveryTime; 

@@ -7,20 +7,45 @@ using System.Windows;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel;
+using System.Windows.Data;
 
 namespace PL.Models
 {
-    public class StationsModel
+    public class StationsModel : INotifyPropertyChanged
     {
         private IBL bl;
+        public event PropertyChangedEventHandler PropertyChanged;
         public StationsModel(IBL bl)
         {
             this.bl = bl;
             foreach (BaseStationList s in bl.ListStations()) _collection.Add(new PO.Station(s.ID, bl));
+
+            CollectionView = CollectionViewSource.GetDefaultView(_collection);
         }
 
         private ObservableCollection<PO.Station> _collection = new ObservableCollection<PO.Station>();
-        public ObservableCollection<PO.Station> Collection => _collection;
+        public ICollectionView CollectionView { init; get; }
+        public enum Groups { None, AvailableChargingSlots }
+        private Groups _groupBy = Groups.None;
+
+        public Groups GroupBy
+        {
+            get => _groupBy;
+            set
+            {
+                _groupBy = value;
+                PropertyChanged(this, new PropertyChangedEventArgs("GroupBy"));
+                CollectionView.GroupDescriptions.Clear();
+                if (value != Groups.None)
+                    CollectionView.GroupDescriptions.Add(new PropertyGroupDescription(value.ToString()));
+            }
+        }
+        public void NextGroup()
+        {
+            Groups[] groups = Enum.GetValues<Groups>();
+            GroupBy = groups[(Array.IndexOf(groups, _groupBy) + 1) % groups.Length];
+        }
 
         public PO.Station SelectedStation { get; set; }
 

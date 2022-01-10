@@ -58,7 +58,7 @@ VerticalAlignment="Stretch" Width="auto">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Text="Grouped By: "  VerticalAlignment="Center"   HorizontalAlignment="Center" Padding="5,5,0,5"
                                Height="25" FontWeight="Bold" FontFamily="Arial" FontSize="12"/>
-                    <TextBlock x:Name="GroupedText" Text="None"  VerticalAlignment="Center"   HorizontalAlignment="Center" Padding="0,5,5,5"
+                    <TextBlock x:Name="GroupedText" Text="{Binding GroupBy}"  VerticalAlignment="Center"   HorizontalAlignment="Center" Padding="0,5,5,5"
                                Height="25" FontWeight="Normal" FontFamily="Arial" FontSize="12" Foreground="LightGray"/>
                 </StackPanel>
             </Button>
@@ -100,13 +100,14 @@ VerticalAlignment="Stretch" Width="auto">
             </Button>
 
         </Grid>
-        <ListView Grid.Row="1" x:Name="StationListView" MouseDoubleClick="StationListView_MouseDoubleClick" ItemsSource="{Binding Collection}"
+        <ListView Grid.Row="1" x:Name="StationListView" MouseDoubleClick="StationListView_MouseDoubleClick" ItemsSource="{Binding CollectionView}"
                   Background="{StaticResource myLinearGradientBrush}" BorderThickness="0" Foreground="#FFCDD1DC" FontSize="14" SelectedItem="{Binding SelectedStation}">
             <ListView.View>
                 <GridView ColumnHeaderContainerStyle="{StaticResource GridViewColumnHeaderStyle1}">
                     <GridViewColumn Header="ID" DisplayMemberBinding="{Binding ID}"/>
                     <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}"/>
                     <GridViewColumn Header="Available Charging Slots" DisplayMemberBinding="{Binding AvailableChargingSlots}"/>
+                    <GridViewColumn Header="Location" DisplayMemberBinding="{Binding Location}"/>
                 </GridView>
             </ListView.View>
             <ListView.GroupStyle>

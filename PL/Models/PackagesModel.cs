@@ -8,32 +8,80 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Data;
 
 namespace PL.Models
 {
-    public class PackagesModel
+    public class PackagesModel : INotifyPropertyChanged
     {
         private IBL bl;
-
+        public event PropertyChangedEventHandler PropertyChanged;
         public PackagesModel(IBL bl)
         {
             this.bl = bl;
             IsAdmin = true;
             foreach (PackageList p in bl.ListPackages()) _collection.Add(new PO.Package(p.ID, bl));
+
+            CollectionView = CollectionViewSource.GetDefaultView(_collection);
+            CollectionView.Filter += (o) =>
+            {
+                if ((Status == "All Statuses" || (o as PO.Package).Status.ToString() == Status) &&
+                    (Date == DateTime.MinValue || (o as PO.Package).CollectionTime >= Date)) return true;
+                else return false;
+            };
         }
 
         public PackagesModel(IBL bl, PO.Customer customer) : this(bl)
         {
             IsAdmin = false;
             SenderID = customer.ID;
-            Collection.CollectionChanged += (object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs args) => customer.PackagesChanged();
+            CollectionView.CollectionChanged += (object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs args) => customer.PackagesChanged();
             State = WindowState.Add;
         }
 
         private ObservableCollection<PO.Package> _collection = new ObservableCollection<PO.Package>();
+        public ICollectionView CollectionView { init; get; }
+        public IEnumerable<string> Statuses { get => Enum.GetValues<BO.Statuses>().Select(s => s.ToString()).Prepend("All Statuses"); }
+        private string _status = "All Statuses";
+        public string Status
+        {
+            get => _status;
+            set
+            {
+                _status = value;
+                CollectionView.Refresh();
+            }
+        }
+        private DateTime _date;
+        public DateTime Date
+        {
+            get => _date;
+            set
+            {
+                _date = value;
+                CollectionView.Refresh();
+            }
+        }
+        public enum Groups { None, Sender, Receiver }
+        private Groups _groupBy = Groups.None;
 
-        
-        public ObservableCollection<PO.Package> Collection => _collection;
+        public Groups GroupBy
+        {
+            get => _groupBy;
+            set
+            {
+                _groupBy = value;
+                PropertyChanged(this, new PropertyChangedEventArgs("GroupBy"));
+                CollectionView.GroupDescriptions.Clear();
+                if (value != Groups.None)
+                    CollectionView.GroupDescriptions.Add(new PropertyGroupDescription(value.ToString()));
+            }
+        }
+        public void NextGroup()
+        {
+            Groups[] groups = Enum.GetValues<Groups>();
+            GroupBy = groups[(Array.IndexOf(groups, _groupBy) + 1) % groups.Length];
+        }
         public IEnumerable<int> Customers => bl.ListCustomers().Select(c => c.ID);
 
         public PO.Package SelectedPackage { get; set; }
