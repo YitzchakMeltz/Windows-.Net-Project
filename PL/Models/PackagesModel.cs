@@ -35,7 +35,7 @@ namespace PL.Models
         {
             IsAdmin = false;
             SenderID = customer.ID;
-            CollectionView.CollectionChanged += (object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs args) => customer.PackagesChanged();
+            _collection.CollectionChanged += (object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs args) => customer.PackagesChanged();
             State = WindowState.Add;
         }
 
@@ -74,7 +74,7 @@ namespace PL.Models
                 PropertyChanged(this, new PropertyChangedEventArgs("GroupBy"));
                 CollectionView.GroupDescriptions.Clear();
                 if (value != Groups.None)
-                    CollectionView.GroupDescriptions.Add(new PropertyGroupDescription(value.ToString()));
+                    CollectionView.GroupDescriptions.Add(new PropertyGroupDescription($"{value.ToString()}.ID"));
             }
         }
         public void NextGroup()
