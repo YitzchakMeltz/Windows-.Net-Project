@@ -48,5 +48,12 @@ namespace PL
                 NavigationService.Navigate(new PackagePage(DataContext as PackagesModel));
             }
         }
+
+        private void Group_Button_Click(object sender, RoutedEventArgs e)
+        {
+            GroupingWindow gp = new GroupingWindow();
+            gp.Owner = Application.Current.MainWindow;
+            gp.ShowDialog();
+        }
     }
 }

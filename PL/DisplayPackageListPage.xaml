@@ -186,11 +186,10 @@
     <Grid Name="MainGrid" Background="{StaticResource myLinearGradientBrush}">
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="80*"/>
+            <RowDefinition Height="50*"/>
             <RowDefinition Height="400*"/>
         </Grid.RowDefinitions>
 
-        <Border x:Name="HeaderBorder" Background="Transparent" BorderBrush="#FF545454" BorderThickness="0,0,0,1" Margin="0,0,0,8">
         <Grid Name="UpGrid" HorizontalAlignment="Stretch" Height="auto" Grid.Row="0"
 VerticalAlignment="Stretch" Width="auto">
             <Grid.ColumnDefinitions>
@@ -198,9 +197,10 @@ VerticalAlignment="Stretch" Width="auto">
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions >
 
-            <Button Grid.Column="3" Content="+ Add Package"  Margin="0,0,0,0" HorizontalAlignment="Center"  VerticalAlignment="Center"   
+            <Button Grid.Column="4" Content="+ Add Package"  Margin="0,0,0,0" HorizontalAlignment="Center"  VerticalAlignment="Center"   
                     Height="30" FontWeight="Normal" FontFamily="Arial" FontSize="16" Background="#FF4194E3" 
                     Foreground="White" Padding="10,0,10,0" BorderThickness="0,0,0,0" Click="Add_Package_Click">
                 <Button.Resources>
@@ -236,42 +236,32 @@ VerticalAlignment="Stretch" Width="auto">
                 </Button.Style>
             </Button>
 
-            <Grid Name="GroupingGrid" HorizontalAlignment="Center" Height="auto" Grid.Row="0"
-                        Grid.Column="1" VerticalAlignment="Stretch" Width="auto">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-                <TextBox Grid.Row="0" Background="Transparent" Foreground="#FF878585" BorderThickness="0" VerticalAlignment="Bottom"
-                         Margin="0,0,0,0">Group By</TextBox>
-                <RadioButton Content=" None" Grid.Column="1" VerticalAlignment="Bottom" 
-                         Foreground="#FFA4A4A4" Background="#FFD1CECE" Grid.Row="1"/>
-                <RadioButton Content=" Sender ID" Grid.Column="1" VerticalAlignment="Center" 
-                         Foreground="#FFA4A4A4" Background="#FFD1CECE" Grid.Row="2"/>
-                <RadioButton Content=" Reciever ID" Grid.Column="1" VerticalAlignment="Top" 
-                         Foreground="#FFA4A4A4" Background="#FFD1CECE" Grid.Row="3"/>
-            </Grid>
+            <Button x:Name="GroupButton" Grid.Column="1" HorizontalAlignment= "Stretch"  VerticalAlignment="Center" 
+                    Height="30" Background="#FF3F3F3F" Foreground="White" BorderThickness="1" BorderBrush="#FF97A0A5"
+                    FontFamily="Arial" Margin="15,5" Click="Group_Button_Click">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="5"/>
+                    </Style>
+                </Button.Resources>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Grouped By: "  VerticalAlignment="Center"   HorizontalAlignment="Center" Padding="5,5,0,5"
+                               Height="25" FontWeight="Bold" FontFamily="Arial" FontSize="12"/>
+                    <TextBlock x:Name="GroupedText" Text="None"  VerticalAlignment="Center"   HorizontalAlignment="Center" Padding="0,5,5,5"
+                               Height="25" FontWeight="Normal" FontFamily="Arial" FontSize="12" Foreground="LightGray"/>
+                </StackPanel>
+            </Button>
 
-                <Grid Name="FilterGrid" HorizontalAlignment="Stretch" Height="auto" Grid.Row="0"
-                        Grid.Column="2" VerticalAlignment="Stretch" Width="auto">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-                    <ComboBox Grid.Row="0" Name="StatusSelector" Height="30"
+            <ComboBox Grid.Column="2" Name="StatusSelector" Height="30"
                 HorizontalAlignment= "Stretch" FontSize="16" ItemsSource="{Binding Path=Statuses}"
-                VerticalAlignment="Bottom" Padding="13,3,5,3" Margin="15,5" SelectedIndex="0">
-                    </ComboBox>
+                VerticalAlignment="Center" Padding="13,3,5,3" Margin="15,5" SelectedIndex="0">
+            </ComboBox>
 
-                    <ComboBox Grid.Row="1" Name="DateSelector"
+            <ComboBox Grid.Column="3" Name="DateSelector"
                 HorizontalAlignment= "Stretch" Height="30" FontSize="16"
-                VerticalAlignment="Top"  Margin="15,5" SelectedIndex="0" />
-                </Grid>
-            </Grid>
-        </Border>
-        
+                VerticalAlignment="Center"  Margin="15,5" SelectedIndex="0" />
+        </Grid>
+
         <ListView Grid.Row="1" x:Name="PackageListView" MouseDoubleClick="PackageListView_MouseDoubleClick" SelectedItem="{Binding SelectedPackage}"
                   Background="{StaticResource myLinearGradientBrush}" BorderThickness="0" Foreground="#FFCDD1DC" FontSize="14"
                   ItemsSource="{Binding Collection}">
