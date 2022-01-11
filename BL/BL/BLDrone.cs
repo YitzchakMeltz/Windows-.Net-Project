@@ -49,7 +49,7 @@ namespace BL
                 DO.Drone dalDrone = dalObject.GetDrone(ID);
                 DroneList drone = Drones.Find(d => d.ID == ID);
 
-                if (Drones.Find(d => d.ID == ID).Status != DroneStatuses.Free)
+                if (drone.Status != DroneStatuses.Free)
                     throw new InvalidManeuver("Only a free Drone can be charged.");
 
                 BaseStation closestStation = ClosestStation(drone.Location);

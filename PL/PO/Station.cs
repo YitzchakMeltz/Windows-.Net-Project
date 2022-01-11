@@ -37,7 +37,7 @@ namespace PL.PO
             }
         }
         public Location Location => bl.GetStation(ID).Location;
-        public List<ChargingDrone> ChargingDrones { init; get; }
+        public List<ChargingDrone> ChargingDrones => bl.GetStation(ID).ChargingDrones;
 
         public event PropertyChangedEventHandler PropertyChanged;
     }

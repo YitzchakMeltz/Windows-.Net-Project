@@ -14,6 +14,8 @@ namespace Dal
             GetDrone(droneID);                                               // Forces error if drone doesn't exist
 
             Station station = GetStation(stationID);
+            if (station.AvailableChargeSlots == 0)
+                throw new DO.InvalidInput("No charging slots available in nearest station.");
             station.AvailableChargeSlots -= 1;
             Stations[Stations.FindIndex(s => s.ID == stationID)] = station;
 

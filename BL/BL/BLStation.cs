@@ -31,10 +31,8 @@ namespace BL
                     ChargingDrones = new List<ChargingDrone>()
                 };
 
-                foreach (BO.DroneList drone in Drones.FindAll(d => d.Location == baseStation.Location && d.Status == DroneStatuses.Maintenance))
-                {
-                    baseStation.ChargingDrones.Add(new ChargingDrone() { ID = drone.ID, Battery = drone.Battery });
-                }
+                Drones.FindAll(d => d.Status == DroneStatuses.Maintenance && d.Location == baseStation.Location).ForEach(drone =>
+                    baseStation.ChargingDrones.Add(new ChargingDrone() { ID = drone.ID, Battery = drone.Battery }));
 
                 return baseStation;
             }

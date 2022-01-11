@@ -88,13 +88,13 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <ListView Grid.Column="0" x:Name="SentListView" SelectedValuePath="ID" 
+            <ListView Grid.Column="0" x:Name="SentListView" ItemsSource="{Binding SelectedStation.ChargingDrones}"
                       Background="{StaticResource myLinearGradientBrush}" BorderThickness="1" Foreground="#FFCDD1DC" FontSize="14"
                       Margin="200,7, 200, 20" >
                 <ListView.View>
                     <GridView ColumnHeaderContainerStyle="{StaticResource GridViewColumnHeaderStyle1}">
-                        <GridViewColumn Width="100" Header="Drone ID" DisplayMemberBinding="{Binding Drone.ID}"/>
-                        <GridViewColumn Width="100" Header="Battery" DisplayMemberBinding="{Binding Battery}"/>
+                        <GridViewColumn Width="100" Header="Drone ID" DisplayMemberBinding="{Binding ID}"/>
+                        <GridViewColumn Width="100" Header="Battery" DisplayMemberBinding="{Binding Battery, StringFormat={}{0:0.##}%}"/>
                     </GridView>
                 </ListView.View>
             </ListView>
