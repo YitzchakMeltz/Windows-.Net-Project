@@ -280,8 +280,14 @@ VerticalAlignment="Stretch" Width="auto">
                 <GroupStyle>
                     <GroupStyle.HeaderTemplate>
                         <DataTemplate>
-                            <TextBlock FontWeight="Bold" FontFamily="Arial" FontSize="16" Foreground="Silver"
-                                       Text="{Binding Name, StringFormat=' {0}'}"/>
+                            <TextBlock FontWeight="Bold" FontFamily="Arial" FontSize="16" Foreground="Silver">
+                                <TextBlock.Text>
+                                    <MultiBinding StringFormat=" {0}: {1}" >
+                                        <Binding ElementName="GroupedText" Path="Text" />
+                                        <Binding Path="Name" />
+                                    </MultiBinding>
+                                </TextBlock.Text>
+                            </TextBlock>
                         </DataTemplate>
                     </GroupStyle.HeaderTemplate>
                 </GroupStyle>
