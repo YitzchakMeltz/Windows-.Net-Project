@@ -83,8 +83,9 @@ namespace BL
 
         public void DeletePackage(int ID)
         {
-            if (ParcelStatus(dalObject.GetParcel(ID)) == Statuses.Collected)
-                throw new BO.InvalidManeuver("Can not delete a package once it's been collected");
+            Statuses status = ParcelStatus(dalObject.GetParcel(ID));
+            if (status != Statuses.Created)
+                throw new BO.InvalidManeuver("Can not delete a package once it has been assigned.");
 
             dalObject.RemoveParcel(ID);
         }
