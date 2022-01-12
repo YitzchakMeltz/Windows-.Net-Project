@@ -275,6 +275,16 @@ VerticalAlignment="Stretch" Width="auto">
                     <GridViewColumn Header="Package ID" DisplayMemberBinding="{Binding Package.ID}"/>
                 </GridView>
             </ListView.View>
+            <ListView.GroupStyle>
+                <GroupStyle>
+                    <GroupStyle.HeaderTemplate>
+                        <DataTemplate>
+                            <TextBlock FontWeight="Bold" FontFamily="Arial" FontSize="16" Foreground="Silver"
+                                       Text="{Binding Name, StringFormat=' {0}'}"/>
+                        </DataTemplate>
+                    </GroupStyle.HeaderTemplate>
+                </GroupStyle>
+            </ListView.GroupStyle>
         </ListView>
     </Grid>
 </Page>

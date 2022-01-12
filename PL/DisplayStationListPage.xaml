@@ -114,7 +114,8 @@ VerticalAlignment="Stretch" Width="auto">
                 <GroupStyle>
                     <GroupStyle.HeaderTemplate>
                         <DataTemplate>
-                            <TextBlock FontWeight="Bold" FontFamily="Arial" FontSize="16" Text="{Binding Name}"/>
+                            <TextBlock FontWeight="Bold" FontFamily="Arial" FontSize="16" Foreground="Silver"
+                                       Text="{Binding Name, StringFormat={} {0} Stations Available}"/>
                         </DataTemplate>
                     </GroupStyle.HeaderTemplate>
                 </GroupStyle>

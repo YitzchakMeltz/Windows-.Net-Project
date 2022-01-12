@@ -51,9 +51,6 @@ namespace PL
         private void Group_Button_Click(object sender, RoutedEventArgs e)
         {
             (DataContext as StationsModel).NextGroup();
-            /*GroupingWindow gp = new GroupingWindow("Station");
-            gp.Owner = Application.Current.MainWindow;
-            gp.ShowDialog();*/
         }
     }
     
