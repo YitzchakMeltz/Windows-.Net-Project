@@ -36,6 +36,9 @@ namespace PL.PO
                 PropertyChanged(this, new PropertyChangedEventArgs("AvailableChargingSlots"));
             }
         }
+
+        public bool IsAvailable => bl.GetStation(ID).AvailableChargingSlots > 0;
+
         public Location Location => bl.GetStation(ID).Location;
         public List<ChargingDrone> ChargingDrones => bl.GetStation(ID).ChargingDrones;
 

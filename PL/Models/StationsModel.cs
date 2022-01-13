@@ -27,7 +27,7 @@ namespace PL.Models
 
         private ObservableCollection<PO.Station> _collection = new ObservableCollection<PO.Station>();
         public ICollectionView CollectionView { init; get; }
-        public enum Groups { None, AvailableChargingSlots, Capacity }
+        public enum Groups { None, AvailableChargingSlots, IsAvailable }
         private Groups _groupBy = Groups.None;
 
         public Groups GroupBy
@@ -39,9 +39,7 @@ namespace PL.Models
                 PropertyChanged(this, new PropertyChangedEventArgs("GroupBy"));
                 CollectionView.GroupDescriptions.Clear();
                 if (value != Groups.None)
-                    //if (value == Groups.Capacity)
-                        //CollectionView.GroupDescriptions.Add(new PropertyGroupDescription("")
-                    CollectionView.GroupDescriptions.Add(new PropertyGroupDescription(value.ToString()));
+                        CollectionView.GroupDescriptions.Add(new PropertyGroupDescription(value.ToString()));   
             }
         }
         public void NextGroup()
