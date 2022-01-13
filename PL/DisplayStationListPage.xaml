@@ -114,13 +114,13 @@ VerticalAlignment="Stretch" Width="auto">
                 <GroupStyle>
                     <GroupStyle.HeaderTemplate>
                         <DataTemplate>
-                            <TextBlock FontWeight="Bold" FontFamily="Arial" FontSize="16" Foreground="Silver"
-                                       Text="{Binding Name, StringFormat={} {0} Stations Available}">
+                            <TextBlock FontWeight="Bold" FontFamily="Arial" FontSize="16" Foreground="Silver">
                                 <TextBlock.Style>
                                     <Style TargetType="TextBlock">
+                                        <Setter Property="Text" Value="{Binding Name, StringFormat={} {0} Stations Available}"/>
                                         <Style.Triggers>
                                             <DataTrigger Binding="{Binding ElementName=GroupedText, Path=Text}"  Value="IsAvailable">
-                                                <Setter Property="Text" Value="{Binding Name}"/>
+                                                <Setter Property="Text" Value="{Binding Name, StringFormat={} {0}}"/>
                                             </DataTrigger>
                                         </Style.Triggers>
                                     </Style>

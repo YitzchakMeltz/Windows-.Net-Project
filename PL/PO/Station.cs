@@ -12,6 +12,7 @@ namespace PL.PO
     public class Station : INotifyPropertyChanged
     {
         private IBL bl;
+        public enum Availability { Unavailable, Available }
         public Station(int ID, IBL bl)
         {
             this.ID = ID;
@@ -37,7 +38,17 @@ namespace PL.PO
             }
         }
 
-        public bool IsAvailable => bl.GetStation(ID).AvailableChargingSlots > 0;
+        public Availability IsAvailable 
+        {
+            get 
+            { 
+                if(bl.GetStation(ID).AvailableChargingSlots > 0)
+                    return Availability.Available;
+
+                return Availability.Unavailable;
+            }
+        }
+
 
         public Location Location => bl.GetStation(ID).Location;
         public List<ChargingDrone> ChargingDrones => bl.GetStation(ID).ChargingDrones;
