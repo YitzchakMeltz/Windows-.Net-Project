@@ -52,6 +52,11 @@ namespace PL
         {
             (DataContext as StationsModel).NextGroup();
         }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            (DataContext as StationsModel).CollectionView.Refresh();
+        }
     }
     
 }
