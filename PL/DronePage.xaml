@@ -25,7 +25,7 @@
         <ControlTemplate x:Key="ComboBoxToggleButton" TargetType="{x:Type ToggleButton}">
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition />
+                <ColumnDefinition />tri
                 <ColumnDefinition Width="20" />
             </Grid.ColumnDefinitions>
             <Border
@@ -144,15 +144,17 @@
                             <Trigger Property="IsGrouping" Value="true">
                                     <Setter Property="ScrollViewer.CanContentScroll" Value="false"/>
                                 </Trigger>
-                                <Trigger SourceName="Popup" Property="Popup.AllowsTransparency" Value="true">
+                                <
+                                    SourceName="Popup" Property="Popup.AllowsTransparency" Value="true">
                                     <Setter TargetName="DropDownBorder" Property="CornerRadius" Value="0"/>
                                     <Setter TargetName="DropDownBorder" Property="Margin" Value="0,2,0,0"/>
-                                </Trigger>
-                                <Trigger Property="IsEditable"  Value="true">
+                                </>
+                                <
+                                    Property="IsEditable"  Value="true">
                                     <Setter Property="IsTabStop" Value="false"/>
                                     <Setter TargetName="PART_EditableTextBox" Property="Visibility" Value="Visible"/>
                                     <Setter TargetName="ContentSite" Property="Visibility" Value="Hidden"/>
-                                </Trigger>
+                                </>
                             </ControlTemplate.Triggers>
                         </ControlTemplate>
                     </Setter.Value>

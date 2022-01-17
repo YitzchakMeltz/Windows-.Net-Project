@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<config>
+	<Battery>
+		<Usage Free="2000" Light="1500" Medium="1200" Heavy="1000"/>
+		<Charge>10</Charge>
+	</Battery>
+	<Package>
+		<ID>0</ID>
+	</Package>
+</config>
