@@ -6,22 +6,22 @@ namespace Dal
 {
     internal partial class DalXml : DalApi.IDal
     {
-        private string DalFolder = @"Data\";
-        private XElement Customers;
-        private XElement Drones;
-        private XElement DroneCharges;
-        private XElement Parcels;
-        private XElement Stations;
+        private static string DalFolder = @"Data\";
+        private string Customers = DalFolder + "Customers.xml";
+        private string Drones = DalFolder + "Drones.xml";
+        private string DroneCharges = DalFolder + "DroneCharges.xml";
+        private string Parcels = DalFolder + "Parcels.xml";
+        private string Stations = DalFolder + "Stations.xml";
 
         private DalXml()
         {
             try
             {
-                Customers = XElement.Load(DalFolder + "Customer.xml");
-                Drones = XElement.Load(DalFolder + "Drone.xml");
-                DroneCharges = XElement.Load(DalFolder + "DroneCharge.xml");
-                Parcels = XElement.Load(DalFolder + "Parcel.xml");
-                Stations = XElement.Load(DalFolder + "Station.xml");
+                //Customers = XElement.Load(DalFolder + "Customer.xml");
+                //Drones = XElement.Load(DalFolder + "Drone.xml");
+                //DroneCharges = XElement.Load(DalFolder + "DroneCharge.xml");
+                //Parcels = XElement.Load(DalFolder + "Parcel.xml");
+                //Stations = XElement.Load(DalFolder + "Station.xml");
             }
             catch (Exception e)
             {
