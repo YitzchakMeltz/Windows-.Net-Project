@@ -13,7 +13,6 @@ namespace Dal
         internal static List<Customer> Customers = new();
         internal static List<Parcel> Parcels = new();
 
-
         internal class Config
         {
             public static int PackageID = 0;
