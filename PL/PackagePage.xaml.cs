@@ -93,5 +93,20 @@ namespace PL
         {
             NavigationService.GoBack();
         }
+
+        private void SenderCustomer_Click(object sender, RoutedEventArgs e)
+        {
+            MsgBox.Show("Error", "Not implemented yet!");
+        }
+
+        private void ReceiverCustomer_Click(object sender, RoutedEventArgs e)
+        {
+            MsgBox.Show("Error", "Not implemented yet!");
+        }
+
+        private void View_Drone_Button_Click(object sender, RoutedEventArgs e)
+        {
+            MsgBox.Show("Error", "Not implemented yet!");
+        }
     }
 }

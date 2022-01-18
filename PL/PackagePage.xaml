@@ -281,6 +281,33 @@
                     </Style>
                 </TextBlock.Style>
             </TextBlock>
+            <Grid Grid.Column="1" Grid.Row="4" Height="30" Width="200" VerticalAlignment="Center" HorizontalAlignment="Center" Visibility="{Binding Path=UpdateVisibility}">
+                <Button x:Name="SenderCustomerButton" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Right"  VerticalAlignment="Center"
+                        Width="25" Height="25" Background="Transparent"  Foreground="White" BorderThickness="0" ToolTip="View Sender Info"
+                        FontFamily="Arial" Margin="20,0,3,0" Click="SenderCustomer_Click">
+                    <Image Source="/icons/user_icon(white).png" Height="17" Width="17"/>
+                    <Button.Style>
+                        <Style TargetType="{x:Type Button}">
+                            <Setter Property="Background" Value="Transparent"/>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="Button">
+                                        <Border Name="border" BorderThickness="0" 
+                                            Background="Transparent">
+                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                        </Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="Transparent"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
+            </Grid>
 
             <TextBox x:Name="ReceiverID_input" Grid.Column="1" Grid.Row="5" FontSize="16" Height="30" Width="200"  Padding="1,3,2,3" TextWrapping="Wrap" Text="{Binding SelectedPackage.Receiver.ID}" VerticalAlignment="Center" HorizontalAlignment="Center" >
                 <TextBox.Resources>
@@ -304,6 +331,33 @@
                     </Style>
                 </TextBlock.Style>
             </TextBlock>
+            <Grid Grid.Column="1" Grid.Row="5" Height="30" Width="200" VerticalAlignment="Center" HorizontalAlignment="Center" Visibility="{Binding Path=UpdateVisibility}">
+                <Button x:Name="ReceiverCustomerButton" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Right"  VerticalAlignment="Center"
+                        Width="25" Height="25" Background="Transparent"  Foreground="White" BorderThickness="0" ToolTip="View Receiver Info"
+                        FontFamily="Arial" Margin="20,0,3,0" Click="ReceiverCustomer_Click">
+                    <Image Source="/icons/user_icon(white).png" Height="17" Width="17"/>
+                    <Button.Style>
+                        <Style TargetType="{x:Type Button}">
+                            <Setter Property="Background" Value="Transparent"/>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="Button">
+                                        <Border Name="border" BorderThickness="0" 
+                                            Background="Transparent">
+                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                        </Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="Transparent"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
+            </Grid>
 
 
             <ComboBox x:Name="WeightSelector" Grid.Column="1" Grid.Row="6" HorizontalAlignment="Center"  VerticalAlignment="Center" SelectedItem="{Binding SelectedPackage.Weight, Mode=OneWay}"
@@ -354,7 +408,22 @@
                 </TextBlock.Style>
             </TextBlock>
 
-            <Button x:Name="DeletePackageButton" Grid.Column="1"  Grid.Row="8" HorizontalAlignment="Center"  VerticalAlignment="Center" 
+            <Button x:Name="ViewDroneButton" Grid.Column="1"  Grid.Row="8" HorizontalAlignment="Center"  VerticalAlignment="Center" 
+                    Width="200" Height="30" Background="#FF4194E3" Foreground="White" BorderThickness="0" 
+                    FontFamily="Arial" Margin="0,0,0,0" Click="View_Drone_Button_Click" Visibility="{Binding UpdateVisibility}">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="5"/>
+                    </Style>
+                </Button.Resources>
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="/icons/drone.png" Height="20" Width="20"/>
+                    <TextBlock Text=" View Drone"  VerticalAlignment="Center"   HorizontalAlignment="Center" Padding="5"
+                               Height="25" FontWeight="Normal" FontFamily="Arial" FontSize="14"/>
+                </StackPanel>
+            </Button>
+            
+            <Button x:Name="DeletePackageButton" Grid.Column="1"  Grid.Row="9" HorizontalAlignment="Center"  VerticalAlignment="Center" 
                     Width="200" Height="30" Background="Red" Foreground="White" BorderThickness="0" 
                     FontFamily="Arial" Margin="0,0,0,0" Click="Delete_Package_Button_Click" Visibility="{Binding UpdateVisibility}">
                 <Button.Resources>

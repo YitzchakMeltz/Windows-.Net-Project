@@ -35,6 +35,7 @@
     <None Remove="icons\status.png" />
     <None Remove="icons\undo-circular-arrow.png" />
     <None Remove="icons\user.png" />
+    <None Remove="icons\user_icon%28white%29.png" />
     <None Remove="icons\visible.png" />
     <None Remove="icons\warning.png" />
     <None Remove="icons\weight.png" />
@@ -71,6 +72,7 @@
     <Resource Include="icons\status.png" />
     <Resource Include="icons\undo-circular-arrow.png" />
     <Resource Include="icons\user.png" />
+    <Resource Include="icons\user_icon(white).png" />
     <Resource Include="icons\visible.png" />
     <Resource Include="icons\warning.png" />
     <Resource Include="icons\weight.png" />
