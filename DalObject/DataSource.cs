@@ -7,11 +7,11 @@ namespace Dal
 {
     class DataSource
     {
-        internal static List<Drone> Drones = new List<Drone>();
-        internal static List<DroneCharge> DroneCharges = new List<DroneCharge>(10);
-        internal static List<Station> Stations = new List<Station>();
-        internal static List<Customer> Customers = new List<Customer>();
-        internal static List<Parcel> Parcels = new List<Parcel>();
+        internal static List<Drone> Drones = new();
+        internal static List<DroneCharge> DroneCharges = new(10);
+        internal static List<Station> Stations = new();
+        internal static List<Customer> Customers = new();
+        internal static List<Parcel> Parcels = new();
 
 
         internal class Config
