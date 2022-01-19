@@ -106,9 +106,8 @@ namespace PL
 
         private void View_Drone_Button_Click(object sender, RoutedEventArgs e)
         {
-            //(DataContext as DronesModel).State = DronesModel.WindowState.Update;
             NavigationService.Navigate(new AddDronePage(new DronesModel((DataContext as PackagesModel).bl,
-                    new PO.Drone((DataContext as PackagesModel).SelectedPackage.Drone.ID))));
+                (DataContext as PackagesModel).SelectedPackage)));
             //MsgBox.Show("Error", "Not implemented yet!");
         }
     }

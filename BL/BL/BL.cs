@@ -45,7 +45,7 @@ namespace BL
 
                     double distToDest = Distance(drone.Location, enroute.DeliveryLocation);
                     double distToStation = Distance(enroute.DeliveryLocation, ClosestStation(enroute.DeliveryLocation).Location);
-                    double minBattery = (distToDest / PowerConsumption[(int)drone.Weight + 1]) + distToStation / PowerConsumption[0];
+                    double minBattery = (distToDest / PowerConsumption[(int)parcel.WeightCategory + 1]) + distToStation / PowerConsumption[0];
 
                     drone.Battery = random.NextDouble() * (100 - minBattery) + minBattery;
                 }

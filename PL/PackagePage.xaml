@@ -444,11 +444,19 @@
             </Grid>
 
             <Button x:Name="ViewDroneButton" Grid.Column="1"  Grid.Row="8" HorizontalAlignment="Center"  VerticalAlignment="Center" 
-                    Width="200" Height="30" Background="#FF4194E3" Foreground="White" BorderThickness="0" 
-                    FontFamily="Arial" Margin="0,0,0,0" Click="View_Drone_Button_Click" Visibility="{Binding UpdateVisibility}">
+                    Width="200" Height="30" Background="#FF4194E3" Foreground="White" BorderThickness="0" Visibility="{Binding UpdateVisibility}"
+                    FontFamily="Arial" Margin="0,0,0,0" Click="View_Drone_Button_Click" >
                 <Button.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="5"/>
+                    </Style>
+                    <Style TargetType="Button">
+                        <Setter Property="IsEnabled" Value="True"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding SelectedPackage.Drone}" Value="{x:Null}">
+                                <Setter Property="IsEnabled" Value="False"/>
+                            </DataTrigger>
+                        </Style.Triggers>
                     </Style>
                 </Button.Resources>
                 <StackPanel Orientation="Horizontal">

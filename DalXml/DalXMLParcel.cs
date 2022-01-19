@@ -129,7 +129,7 @@ namespace Dal
 
             parcel.Element("DroneID").Value = droneID.ToString();
 
-            parcel.Element("Assigned").Value = DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss");
+            parcel.Add(new XElement("Assigned", DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss")));
 
             SaveParcels();
         }
@@ -141,7 +141,7 @@ namespace Dal
         {
             XElement parcel = GetParcelElement(parcelID);
 
-            parcel.Element("PickedUp").Value = DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss");
+            parcel.Add(new XElement("PickedUp", DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss")));
 
             SaveParcels();
         }
@@ -153,7 +153,7 @@ namespace Dal
         {
             XElement parcel = GetParcelElement(parcelID);
 
-            parcel.Element("Delivered").Value = DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss");
+            parcel.Add(new XElement("Delivered", DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss")));
 
             SaveParcels();
         }

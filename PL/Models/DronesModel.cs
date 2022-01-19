@@ -16,7 +16,6 @@ namespace PL.Models
     public class DronesModel : INotifyPropertyChanged
     {
         private IBL bl;
-        private Drone drone;
         public event PropertyChangedEventHandler PropertyChanged;
         public DronesModel(IBL bl)
         {
@@ -33,9 +32,11 @@ namespace PL.Models
             };
         }
 
-        public DronesModel(IBL bl, Drone drone): this(bl)
+        public DronesModel(IBL bl, PO.Package package) : this(bl)
         {
-            this.drone = drone;
+            State = WindowState.Update;
+            SelectedDrone = new PO.Drone(package.Drone.ID, bl);
+            SelectedDrone.PropertyChanged += (object sender, PropertyChangedEventArgs args) => { if (args.PropertyName == "Package") package.DroneChanged(); };
         }
 
 

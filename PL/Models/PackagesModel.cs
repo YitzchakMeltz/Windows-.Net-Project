@@ -14,7 +14,7 @@ namespace PL.Models
 {
     public class PackagesModel : INotifyPropertyChanged
     {
-        private IBL bl;
+        public IBL bl;
         public event PropertyChangedEventHandler PropertyChanged;
         public PackagesModel(IBL bl)
         {
@@ -37,7 +37,7 @@ namespace PL.Models
         {
             IsAdmin = false;
             SenderID = customer.ID;
-            _collection.CollectionChanged += (object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs args) => customer.PackagesChanged();
+            _collection.CollectionChanged += (object sender, NotifyCollectionChangedEventArgs args) => customer.PackagesChanged();
             State = WindowState.Add;
         }
 
