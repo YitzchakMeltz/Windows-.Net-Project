@@ -20,4 +20,12 @@
             public InvalidInput(string message) : base(message) { }
             public InvalidInput(string message, System.Exception inner) : base(message, inner) { }
         }
-    }
+
+        public class XmlError : System.Exception
+        {
+            public XmlError() { }
+            public XmlError(string message) : base(message) { }
+            public XmlError(string message, System.Exception inner) : base(message, inner) { }
+        }
+
+}

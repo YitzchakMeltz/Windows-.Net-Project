@@ -9,11 +9,8 @@ namespace DO
         public string Name { get; set; }
         public string Phone { get; set; }
         public DalApi.Util.Coordinate Location { get; set; }
-        private byte[] _hash;
-        public byte[] Password {
-            get { return _hash; }
-            set { _hash =  SHA256.Create().ComputeHash(value); }
-        }
+        public byte[] PasswordHash { get; set; }
+        public string Password { set => PasswordHash = SHA256.Create().ComputeHash(System.Text.Encoding.UTF8.GetBytes(value)); }
 
         /// <summary>
         /// Returns a String with details about the Customer

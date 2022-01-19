@@ -17,7 +17,7 @@ namespace BL
         {
             dalObject = DalFactory.GetDal();
             PowerConsumption = dalObject.PowerConsumption();
-            foreach (DO.Drone d in dalObject.GetDroneList())
+            dalObject.GetDroneList().ToList().ForEach(d =>
             {
                 DroneList drone = new DroneList()
                 {
@@ -26,9 +26,10 @@ namespace BL
                     Weight = (WeightCategories)d.WeightCategory
                 };
 
-                DO.Parcel parcel = ((List<DO.Parcel>)dalObject.GetParcelList()).Find(p => p.DroneID == d.ID && ParcelStatus(p) != Statuses.Delivered);
+                DO.Parcel parcel = dalObject.GetParcelList().Where(p => p.DroneID == d.ID && ParcelStatus(p) != Statuses.Delivered).FirstOrDefault();
 
-                if (!parcel.Equals(default(DO.Parcel))) {
+                if (!parcel.Equals(default(DO.Parcel)))
+                {
                     drone.PackageID = (uint)parcel.ID;
                     drone.Status = DroneStatuses.Delivering;
 
@@ -73,7 +74,7 @@ namespace BL
                 }
 
                 Drones.Add(drone);
-            }
+            });
         }
 
         private static readonly Lazy<BL> lazy = new Lazy<BL>(() => new BL());

@@ -49,9 +49,6 @@ namespace Dal
         /// <param name="drone"></param>
         public void AddDrone(int id, string model, WeightCategories weightCat)
         {
-            if (Drones.Exists(d => d.ID == id))
-                throw new ObjectAlreadyExists($"Drone with ID: {id} already exists.");
-
             Drone drone = new Drone()
             {
                 ID = id,

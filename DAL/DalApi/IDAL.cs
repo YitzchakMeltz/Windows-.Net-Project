@@ -9,7 +9,7 @@ namespace DalApi
         public void AddDrone(Drone drone);
         public void AddStation(Station station);
         public void AddCustomer(Customer customer);
-        public int AddParcel(Parcel parcel);
+        public void AddParcel(Parcel parcel);
         public Drone GetDrone(int ID);
         public Station GetStation(int ID);
         public Customer GetCustomer(int ID);

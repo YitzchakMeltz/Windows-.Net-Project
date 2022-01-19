@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Dal
 {
-    class DataSource
+    internal class DataSource
     {
         internal static List<Drone> Drones = new();
         internal static List<DroneCharge> DroneCharges = new(10);
@@ -27,7 +27,7 @@ namespace Dal
         /// <summary>
         /// Initializes the entities with random data
         /// </summary>
-        internal static void Initialize()
+        internal static void Initialize() //internal
         {
             Random rd = new Random();
 
@@ -80,7 +80,7 @@ namespace Dal
                 Customer c = new Customer()
                 {
                     Name = "Customer" + (i + 1),
-                    Location = new Coordinate(-90 + 180 * rd.NextDouble(), -180 + 360 * rd.NextDouble())
+                    Location = new Coordinate(-90 + 180 * rd.NextDouble(), -180 + 360 * rd.NextDouble()),
                 };
 
                 do

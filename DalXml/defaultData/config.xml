@@ -2,9 +2,7 @@
 <config>
 	<Battery>
 		<Usage Free="2000" Light="1500" Medium="1200" Heavy="1000"/>
-		<Charge>10</Charge>
+		<ChargeRate>10</ChargeRate>
 	</Battery>
-	<Package>
-		<ID>0</ID>
-	</Package>
+	<PackageID>1</PackageID>
 </config>

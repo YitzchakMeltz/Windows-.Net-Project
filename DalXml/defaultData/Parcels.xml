@@ -1,0 +1,110 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Parcels>
+  <Parcel>
+    <ID>585342410</ID>
+    <SenderID>419287412</SenderID>
+    <TargetID>208455293</TargetID>
+    <Weight>Medium</Weight>
+    <Priority>Regular</Priority>
+    <DroneID>661935293</DroneID>
+    <Scheduled>10/02/2018 08:19:57</Scheduled>
+    <Assigned>10/02/2018 08:24:57</Assigned>
+  </Parcel>
+  <Parcel>
+    <ID>360397863</ID>
+    <SenderID>869243234</SenderID>
+    <TargetID>419287412</TargetID>
+    <Weight>Medium</Weight>
+    <Priority>Emergency</Priority>
+    <DroneID>902044505</DroneID>
+    <Scheduled>01/11/2018 13:29:54</Scheduled>
+    <Assigned>01/11/2018 13:32:54</Assigned>
+  </Parcel>
+  <Parcel>
+    <ID>660408285</ID>
+    <SenderID>869243234</SenderID>
+    <TargetID>476953808</TargetID>
+    <Weight>Heavy</Weight>
+    <Priority>Emergency</Priority>
+    <DroneID>0</DroneID>
+    <Scheduled>06/16/2019 03:59:50</Scheduled>
+  </Parcel>
+  <Parcel>
+    <ID>745638004</ID>
+    <SenderID>249571632</SenderID>
+    <TargetID>869243234</TargetID>
+    <Weight>Heavy</Weight>
+    <Priority>Emergency</Priority>
+    <DroneID>661935293</DroneID>
+    <Scheduled>09/07/2018 10:42:26</Scheduled>
+    <Assigned>09/07/2018 10:49:26</Assigned>
+    <PickedUp>09/07/2018 11:20:26</PickedUp>
+    <Delivered>09/07/2018 13:19:26</Delivered>
+  </Parcel>
+  <Parcel>
+    <ID>183295406</ID>
+    <SenderID>103486899</SenderID>
+    <TargetID>144666461</TargetID>
+    <Weight>Heavy</Weight>
+    <Priority>Fast</Priority>
+    <DroneID>902044505</DroneID>
+    <Scheduled>09/24/2019 00:20:00</Scheduled>
+    <Assigned>09/24/2019 00:20:00</Assigned>
+    <PickedUp>09/24/2019 00:47:00</PickedUp>
+    <Delivered>09/24/2019 02:10:00</Delivered>
+  </Parcel>
+  <Parcel>
+    <ID>584212366</ID>
+    <SenderID>832634478</SenderID>
+    <TargetID>144666461</TargetID>
+    <Weight>Heavy</Weight>
+    <Priority>Fast</Priority>
+    <DroneID>180625219</DroneID>
+    <Scheduled>04/18/2021 11:31:57</Scheduled>
+    <Assigned>04/18/2021 11:38:57</Assigned>
+    <PickedUp>04/18/2021 12:06:57</PickedUp>
+    <Delivered>04/18/2021 12:36:57</Delivered>
+  </Parcel>
+  <Parcel>
+    <ID>965360813</ID>
+    <SenderID>476953808</SenderID>
+    <TargetID>103486899</TargetID>
+    <Weight>Medium</Weight>
+    <Priority>Emergency</Priority>
+    <DroneID>0</DroneID>
+    <Scheduled>09/15/2018 08:10:33</Scheduled>
+  </Parcel>
+  <Parcel>
+    <ID>171114556</ID>
+    <SenderID>249571632</SenderID>
+    <TargetID>419287412</TargetID>
+    <Weight>Heavy</Weight>
+    <Priority>Regular</Priority>
+    <DroneID>0</DroneID>
+    <Scheduled>02/01/2018 04:59:57</Scheduled>
+  </Parcel>
+  <Parcel>
+    <ID>690401271</ID>
+    <SenderID>242882672</SenderID>
+    <TargetID>476953808</TargetID>
+    <Weight>Light</Weight>
+    <Priority>Regular</Priority>
+    <DroneID>661935293</DroneID>
+    <Scheduled>05/06/2019 07:17:31</Scheduled>
+    <Assigned>05/06/2019 07:20:31</Assigned>
+    <PickedUp>05/06/2019 07:37:31</PickedUp>
+    <Delivered>05/06/2019 08:10:31</Delivered>
+  </Parcel>
+  <Parcel>
+    <ID>300939147</ID>
+    <SenderID>419287412</SenderID>
+    <TargetID>144666461</TargetID>
+    <Weight>Light</Weight>
+    <Priority>Emergency</Priority>
+    <DroneID>902044505</DroneID>
+    <Scheduled>11/02/2018 17:23:50</Scheduled>
+    <Assigned>11/02/2018 17:27:50</Assigned>
+    <PickedUp>11/02/2018 17:34:50</PickedUp>
+    <Delivered>11/02/2018 19:32:50</Delivered>
+  </Parcel>
+</Parcels>

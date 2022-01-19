@@ -12,12 +12,12 @@ namespace Dal
         /// </summary>
         /// <param name="parcel"></param>
         /// <returns>PackageID</returns>
-        public int AddParcel(Parcel parcel)
+        public void AddParcel(Parcel parcel)
         {
             if (Parcels.Exists(p => p.ID == parcel.ID))
                 throw new ObjectAlreadyExists($"Parcel with ID {parcel.ID} already exists.");
             Parcels.Add(parcel);
-            return parcel.ID;
+            //return parcel.ID;
         }
 
         /// <summary>
@@ -53,11 +53,6 @@ namespace Dal
             return Parcels.FindAll(pred);
         }
 
-        /*public IEnumerable<Parcel> GetUnassignedParcelList()
-        {
-            return Parcels.FindAll(p => p.DroneID == 0);
-        }*/
-
         
         /// <summary>
         /// Adds a Parcel to DataSource
@@ -77,17 +72,6 @@ namespace Dal
                 Scheduled = System.DateTime.Now
             };
 
-
-            /*
-            Console.Write("Enter the picked up date (mm/dd/yyyy): ");
-            parcel.PickedUp = DateTime.Parse(Console.ReadLine());
-
-            Console.WriteLine("Please enter the time of assignment: ");
-            parcel.SenderID = Convert.ToInt32(Console.ReadLine());
-
-            Console.Write("Enter date delivered (mm/dd/yyyy): ");
-            parcel.Delivered = DateTime.Parse(Console.ReadLine());
-            */
             AddParcel(parcel);
 
             return parcel.ID;
@@ -133,6 +117,10 @@ namespace Dal
             Parcels[Parcels.FindIndex(p => p.ID == parcel.ID)] = parcel;
         }
 
+        /// <summary>
+        /// Deletes a Parcel from the system
+        /// </summary>
+        /// <param name="ID">ID of Parcel to delete</param>
         public void RemoveParcel(int ID)
         {
             if (Parcels.RemoveAll(p => p.ID == ID) == 0)

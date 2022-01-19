@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Drones>
+  <Drone>
+    <ID>526762101</ID>
+    <Model>Drone5</Model>
+    <Weight>Heavy</Weight>
+  </Drone>
+  <Drone>
+    <ID>419510773</ID>
+    <Model>Drone7</Model>
+    <Weight>Heavy</Weight>
+  </Drone>
+  <Drone>
+    <ID>902044505</ID>
+    <Model>Drone3</Model>
+    <Weight>Heavy</Weight>
+  </Drone>
+  <Drone>
+    <ID>180625219</ID>
+    <Model>Drone3</Model>
+    <Weight>Medium</Weight>
+  </Drone>
+  <Drone>
+    <ID>661935293</ID>
+    <Model>Drone6</Model>
+    <Weight>Light</Weight>
+  </Drone>
+</Drones>

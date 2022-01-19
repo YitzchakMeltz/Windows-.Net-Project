@@ -2,6 +2,7 @@
 using DalApi;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace BL
 {
@@ -41,7 +42,7 @@ namespace BL
 
         public CustomerPackage ConvertToCustomerPackage(PackageList package, string otherCustomer)
         {
-            int customerID = ((List<DO.Customer>)dalObject.GetCustomerList()).Find(customer => customer.Name == otherCustomer).ID;
+            int customerID = dalObject.GetCustomerList().First(customer => customer.Name == otherCustomer).ID;
             return new CustomerPackage()
             {
                 ID = package.ID,
@@ -95,16 +96,16 @@ namespace BL
             IEnumerable<DO.Parcel> dalParcels = dalObject.GetParcelList();
             List<PackageList> packages = new List<PackageList>();
 
-            foreach(DO.Parcel parcel in dalParcels)
+            dalParcels.ToList().ForEach(parcel =>
             {
                 packages.Add(new PackageList() { ID = parcel.ID, Sender = dalObject.GetCustomer(parcel.SenderID).Name, Receiver = dalObject.GetCustomer(parcel.TargetID).Name, Weight = (WeightCategories)parcel.WeightCategory, Priority = (Priorities)parcel.Priority, Status = ParcelStatus(parcel) });
-            }
+            });
 
             return packages;
         }
         public IEnumerable<PackageList> ListPackagesFiltered(Predicate<PackageList> pred)
         {
-            return ((List<PackageList>)ListPackages()).FindAll(pred);
+            return ListPackages().Where(pred.Invoke);
         }
     }
 }

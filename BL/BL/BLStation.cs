@@ -2,6 +2,7 @@
 using DO;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace BL
 {
@@ -9,11 +10,8 @@ namespace BL
     {
         private BaseStation ClosestStation(Location location)
         {
-            List<Station> listOfStations = (List<Station>)dalObject.GetStationList();
             DalApi.Util.Coordinate coord = LocationToCoordinate(location);
-
-            listOfStations.Sort((x, y) => (int)(x.Location.DistanceTo(coord) - y.Location.DistanceTo(coord)));
-            return GetStation(listOfStations[0].ID);
+            return GetStation(dalObject.GetStationList().OrderBy(s => s.Location.DistanceTo(coord)).First().ID);
         }
 
         public BaseStation GetStation(int stationID)
@@ -79,34 +77,18 @@ namespace BL
             IEnumerable<Station> dalStations = dalObject.GetStationList();
 
             List<BaseStationList> blStations = new List<BaseStationList>();
-            foreach (Station dalStation in dalStations)
+            dalStations.ToList().ForEach(dalStation =>
             {
                 BaseStation blStation = GetStation(dalStation.ID);
                 blStations.Add(new BaseStationList() { ID = blStation.ID, Name = blStation.Name, ChargingSlotsAvailable = blStation.AvailableChargingSlots, ChargingSlotsOccupied = (uint)blStation.ChargingDrones.Count });
-            }
+            });
 
             return blStations;
         }
 
         public IEnumerable<BaseStationList> ListStationsFiltered(Predicate<BaseStationList> pred)
         {
-            return ((List<BaseStationList>)ListStations()).FindAll(pred);
+            return ListStations().Where(pred.Invoke);
         }
-
-        /*public IEnumerable<BaseStationList> ListStationsWithAvailableChargeSlots()
-        {
-            IEnumerable<Station> dalStations = dalObject.GetAvailableStationList();
-
-            List<BaseStationList> availableStations = new List<BaseStationList>();
-            foreach (Station dalStation in dalStations)
-            {
-                BaseStation blStation = GetStation(dalStation.ID);
-                if (blStation.AvailableChargingSlots == 0)
-                    throw new LogicError($"Base Station with ID {blStation.ID} has no available charge slots but was listed as available.");
-                availableStations.Add(new BaseStationList() { ID = blStation.ID, Name = blStation.Name, ChargingSlotsAvailable = blStation.AvailableChargingSlots, ChargingSlotsOccupied = (uint)blStation.ChargingDrones.Count });
-            }
-
-            return availableStations;
-        }*/
     }
 }

@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Stations>
+  <Station>
+    <ID>135796053</ID>
+    <Name>Station1</Name>
+    <AvailableChargeSlots>20</AvailableChargeSlots>
+    <Location>
+      <Latitude>25.081922195424283</Latitude>
+      <Longitude>-123.35598296642115</Longitude>
+    </Location>
+  </Station>
+  <Station>
+    <ID>564439286</ID>
+    <Name>Station2</Name>
+    <AvailableChargeSlots>44</AvailableChargeSlots>
+    <Location>
+      <Latitude>-65.36400356114098</Latitude>
+      <Longitude>5.968906220965522</Longitude>
+    </Location>
+  </Station>
+</Stations>

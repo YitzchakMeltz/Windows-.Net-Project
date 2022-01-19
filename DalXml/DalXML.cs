@@ -1,27 +1,73 @@
 ﻿using DO;
 using System;
+using System.IO;
+using System.Linq;
+using System.Reflection;
 using System.Xml.Linq;
 
 namespace Dal
 {
     internal partial class DalXml : DalApi.IDal
     {
-        private static string DalFolder = @"Data\";
-        private string Customers = DalFolder + "Customers.xml";
-        private string Drones = DalFolder + "Drones.xml";
-        private string DroneCharges = DalFolder + "DroneCharges.xml";
-        private string Parcels = DalFolder + "Parcels.xml";
-        private string Stations = DalFolder + "Stations.xml";
+        internal static string DalFolder;
+
+        internal XElement Config;
+        internal string ConfigPath = DalFolder + "config.xml";
+
+        internal XElement Customers;
+        internal string CustomersPath = DalFolder + "Customers.xml";
+
+        internal XElement Drones;
+        internal string DronesPath = DalFolder + "Drones.xml";
+
+        internal XElement DroneCharges;
+        internal string DroneChargesPath = DalFolder + "DroneCharges.xml";
+
+        internal XElement Parcels;
+
+        internal XElement Stations;
+        internal string StationsPath = DalFolder + "Stations.xml";
 
         private DalXml()
         {
+            DalFolder = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            for (int i = 0; i < 3; i++)
+                DalFolder = Path.GetDirectoryName(DalFolder);
+            DalFolder += "\\Data\\";
             try
             {
-                //Customers = XElement.Load(DalFolder + "Customer.xml");
-                //Drones = XElement.Load(DalFolder + "Drone.xml");
-                //DroneCharges = XElement.Load(DalFolder + "DroneCharge.xml");
-                //Parcels = XElement.Load(DalFolder + "Parcel.xml");
-                //Stations = XElement.Load(DalFolder + "Station.xml");
+                if (!Directory.Exists(DalFolder))
+                {
+                    Directory.CreateDirectory(DalFolder);
+                    Directory.EnumerateFiles(Path.GetDirectoryName(Path.GetDirectoryName(DalFolder)) + "\\defaultData").ToList().ForEach(file => File.Copy(file, DalFolder + $"\\{Path.GetFileName(file)}"));
+                }
+            }
+            catch (Exception e)
+            {
+                throw new InvalidInput("Couldn't copy default data", e);
+            }
+
+            #region debug
+            /*DataSource.Initialize();
+            Stations = new XElement("Stations");
+            foreach (Station s in DataSource.Stations) AddStation(s);
+            Drones = new XElement("Drones");
+            foreach (Drone d in DataSource.Drones) AddDrone(d);
+            Customers = new XElement("Customers");
+            foreach (Customer c in DataSource.Customers) AddCustomer(c);
+            Parcels = new XElement("Parcels");
+            foreach (Parcel p in DataSource.Parcels) AddParcel(p);
+            DroneCharges = new XElement("DroneCharges");
+            SaveDroneCharges();*/
+            #endregion
+            try
+            {
+                Config = XElement.Load(DalFolder + "config.xml");
+                Customers = XElement.Load(DalFolder + "Customers.xml");
+                Drones = XElement.Load(DalFolder + "Drones.xml");
+                DroneCharges = XElement.Load(DalFolder + "DroneCharges.xml");
+                Parcels = XElement.Load(DalFolder + "Parcels.xml");
+                Stations = XElement.Load(DalFolder + "Stations.xml");
             }
             catch (Exception e)
             {

@@ -150,7 +150,7 @@ namespace BL
                 throw new InvalidManeuver($"Drone with ID {droneID} is not available.");
             }
 
-            List<PackageList> unassignedPackages = (List<PackageList>)ListPackagesFiltered(package => package.Status == Statuses.Created);//ListUnassignedPackages();
+            List<PackageList> unassignedPackages = ListPackagesFiltered(package => package.Status == Statuses.Created).ToList();
             
             unassignedPackages.RemoveAll(x => x.Weight > drone.Weight);
 

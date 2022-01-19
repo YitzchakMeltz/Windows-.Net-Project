@@ -18,17 +18,8 @@ namespace BL
             };
         }
 
-        public void AddCustomer(int ID, string name, string phone, double longitude, double latitude, string password = "")
+        public void AddCustomer(int ID, string name, string phone, double longitude, double latitude, string password = null)
         {
-            /*Customer customer = new Customer()
-            {
-                ID = ID,
-                Name = name,
-                Phone = phone,
-                Location = new Location() { Latitude = latitude, Longitude = longitude },
-                Password = System.Text.Encoding.UTF8.GetBytes(password)
-            };*/
-
             dalObject.AddCustomer(ID, name, phone, latitude, longitude, password);
         }
 
@@ -51,7 +42,7 @@ namespace BL
 
                 if (password != null)
                 {
-                    customer.Password = System.Text.Encoding.UTF8.GetBytes(password);
+                    customer.Password = password;
                 }
 
                 dalObject.RemoveCustomer(ID);
@@ -77,10 +68,10 @@ namespace BL
                     Location = CoordinateToLocation(dalCustomer.Location),
                     Incoming = new List<CustomerPackage>(),
                     Outgoing = new List<CustomerPackage>(),
-                    Password = dalCustomer.Password
+                    PasswordHash = dalCustomer.PasswordHash
                 };
 
-                foreach (PackageList package in ListPackages())
+                ListPackages().ToList().ForEach(package =>
                 {
                     if (package.Sender == customer.Name)
                     {
@@ -90,7 +81,7 @@ namespace BL
                     {
                         customer.Incoming.Add(ConvertToCustomerPackage(package, package.Sender));
                     }
-                }
+                });
 
                 return customer;
             }
@@ -102,7 +93,7 @@ namespace BL
 
         public bool Login(int ID, byte[] password)
         {
-            if (SHA256.Create().ComputeHash(password).SequenceEqual(GetCustomer(ID).Password))
+            if (GetCustomer(ID).PasswordHash is null || SHA256.Create().ComputeHash(password).SequenceEqual(GetCustomer(ID).PasswordHash))
                 return true;
 
             return false;
@@ -117,20 +108,20 @@ namespace BL
             IEnumerable<DO.Customer> dalCustomers = dalObject.GetCustomerList();
 
             List<CustomerList> blCustomers = new List<CustomerList>();
-            foreach (DO.Customer dalCustomer in dalCustomers)
+            dalCustomers.ToList().ForEach(dalCustomer =>
             {
                 Customer customer = GetCustomer(dalCustomer.ID);
-                blCustomers.Add(new CustomerList() 
-                { 
-                    ID = dalCustomer.ID, 
-                    Name = dalCustomer.Name, 
-                    Phone = dalCustomer.Phone, 
-                    PackagesSentDelivered = (uint)customer.Outgoing.FindAll(p => p.Status == Statuses.Delivered).Count, 
+                blCustomers.Add(new CustomerList()
+                {
+                    ID = dalCustomer.ID,
+                    Name = dalCustomer.Name,
+                    Phone = dalCustomer.Phone,
+                    PackagesSentDelivered = (uint)customer.Outgoing.FindAll(p => p.Status == Statuses.Delivered).Count,
                     PackagesSentNotDelivered = (uint)customer.Outgoing.FindAll(p => p.Status != Statuses.Delivered).Count,
                     PackagesRecieved = (uint)customer.Incoming.FindAll(p => p.Status == Statuses.Delivered).Count,
                     PackagesExpected = (uint)customer.Incoming.FindAll(p => p.Status != Statuses.Delivered).Count
                 });
-            }
+            });
 
             return blCustomers;
         }
