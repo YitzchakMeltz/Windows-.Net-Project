@@ -16,6 +16,7 @@ namespace PL.Models
     public class DronesModel : INotifyPropertyChanged
     {
         private IBL bl;
+        private Drone drone;
         public event PropertyChangedEventHandler PropertyChanged;
         public DronesModel(IBL bl)
         {
@@ -30,6 +31,11 @@ namespace PL.Models
                     (Weight == "All Weights" || (o as PO.Drone).Weight.ToString() == Weight)) return true;
                 else return false;
             };
+        }
+
+        public DronesModel(IBL bl, Drone drone): this(bl)
+        {
+            this.drone = drone;
         }
 
 
