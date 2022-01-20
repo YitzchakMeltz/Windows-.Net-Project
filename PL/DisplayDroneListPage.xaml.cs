@@ -35,7 +35,7 @@ namespace PL
         {
             (DataContext as DronesModel).SelectedDrone = null;
             (DataContext as DronesModel).State = DronesModel.WindowState.Add;
-            NavigationService.Navigate(new AddDronePage(DataContext as DronesModel));
+            NavigationService.Navigate(new DronePage(DataContext as DronesModel));
         }
 
         private void DroneListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -43,7 +43,7 @@ namespace PL
             if (DroneListView.SelectedValue is not null)
             {
                 (DataContext as DronesModel).State = DronesModel.WindowState.Update;
-                NavigationService.Navigate(new AddDronePage(DataContext as DronesModel));
+                NavigationService.Navigate(new DronePage(DataContext as DronesModel));
             }
         }
 

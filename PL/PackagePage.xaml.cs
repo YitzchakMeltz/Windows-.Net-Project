@@ -96,19 +96,20 @@ namespace PL
 
         private void SenderCustomer_Click(object sender, RoutedEventArgs e)
         {
-            MsgBox.Show("Error", "Not implemented yet!");
+            NavigationService.Navigate(new CustomerPage(new CustomersModel((DataContext as PackagesModel).bl,
+                (DataContext as PackagesModel).SelectedPackage.Sender)));
         }
 
         private void ReceiverCustomer_Click(object sender, RoutedEventArgs e)
         {
-            MsgBox.Show("Error", "Not implemented yet!");
+            NavigationService.Navigate(new CustomerPage(new CustomersModel((DataContext as PackagesModel).bl,
+                (DataContext as PackagesModel).SelectedPackage.Receiver)));
         }
 
         private void View_Drone_Button_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new AddDronePage(new DronesModel((DataContext as PackagesModel).bl,
+            NavigationService.Navigate(new DronePage(new DronesModel((DataContext as PackagesModel).bl,
                 (DataContext as PackagesModel).SelectedPackage)));
-            //MsgBox.Show("Error", "Not implemented yet!");
         }
     }
 }

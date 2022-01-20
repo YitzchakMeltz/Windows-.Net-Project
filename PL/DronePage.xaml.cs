@@ -18,11 +18,11 @@ using System.Windows.Shapes;
 namespace PL
 {
     /// <summary>
-    /// Interaction logic for AddDronePage.xaml
+    /// Interaction logic for DronePage.xaml
     /// </summary>
-    public partial class AddDronePage : Page
+    public partial class DronePage : Page
     {
-        public AddDronePage(DronesModel drones)
+        public DronePage(DronesModel drones)
         {
             DataContext = drones;
 

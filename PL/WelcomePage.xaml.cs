@@ -39,7 +39,7 @@ namespace PL
 
         private void New_Customer_Button_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new CustomerPage(new Models.CustomersModel(bl, null)));
+            NavigationService.Navigate(new CustomerPage(new Models.CustomersModel(bl)));
         }
 
         private void Existing_Customer_Button_Click(object sender, RoutedEventArgs e)

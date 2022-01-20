@@ -32,6 +32,12 @@ namespace PL.Models
             bl.ListCustomers().ToList().ForEach(customer => _collection.Add(new PO.Customer(customer.ID, bl)));
         }
 
+        public CustomersModel(IBL bl, PackageCustomer package) : this(bl)
+        {
+            SelectedCustomer = new PO.Customer(package.ID, bl);
+            State = WindowState.Update;
+        }
+
         public ObservableCollection<PO.Customer> Collection => _collection;
         public PO.Customer SelectedCustomer { get; set; }
         public enum WindowState { Add, Update }
