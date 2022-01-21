@@ -194,8 +194,39 @@
                         </ControlTemplate>
                     </Setter.Value>
                 </Setter>
-            </Style>    
+            </Style>
 
+        <!-- Button Style -->
+        <SolidColorBrush x:Key="Button.MouseOver.Background" Color="#FFBEE6FD"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Border" Color="#FF3C7FB1"/>
+        <SolidColorBrush x:Key="Button.Pressed.Background" Color="#FFC4E5F6"/>
+        <SolidColorBrush x:Key="Button.Pressed.Border" Color="#FF2C628B"/>
+        <SolidColorBrush x:Key="Button.Disabled.Background" Color="#FFF4F4F4"/>
+        <SolidColorBrush x:Key="Button.Disabled.Border" Color="#FFADB2B5"/>
+        <SolidColorBrush x:Key="Button.Disabled.Foreground" Color="#FF838383"/>
+        <ControlTemplate x:Key="ButtonTemplate" TargetType="{x:Type ButtonBase}">
+            <Border x:Name="border" Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}" SnapsToDevicePixels="true">
+                <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+            </Border>
+            <ControlTemplate.Triggers>
+                <Trigger Property="Button.IsDefaulted" Value="true">
+                    <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                </Trigger>
+                <Trigger Property="IsMouseOver" Value="true">
+                    <Setter Property="Background" TargetName="border" Value="{StaticResource Button.MouseOver.Background}"/>
+                    <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.MouseOver.Border}"/>
+                </Trigger>
+                <Trigger Property="IsPressed" Value="true">
+                    <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Pressed.Background}"/>
+                    <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Pressed.Border}"/>
+                </Trigger>
+                <Trigger Property="IsEnabled" Value="false">
+                    <Setter Property="Background" TargetName="border" Value="#FF8aa6c2"/>
+                    <Setter Property="BorderBrush" TargetName="border" Value="#FF8aa6c2"/>
+                    <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="#FFcad6e0"/>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
     </Page.Resources>
 
     <Grid Background="{StaticResource myLinearGradientBrush}">
@@ -257,8 +288,8 @@
                         </Style>
                     </Button.Style>
                 </Button>
-                
-                <Button x:Name="ChargeButton" Content="Charge" Grid.Column="2" HorizontalAlignment="Stretch"  VerticalAlignment="Center" 
+
+                <Button Template="{DynamicResource ButtonTemplate}" x:Name="ChargeButton" Content="Charge" Grid.Column="2" HorizontalAlignment="Stretch"  VerticalAlignment="Center" 
                     Height="30" Background="#FF88BEF1" Foreground="White" BorderThickness="0" 
                     FontFamily="Arial" Margin="6,0,6,0" Click="Charge_Button_Click" Visibility="{Binding Path=UpdateVisibility}" FontSize="16">
                     <Button.Resources>
@@ -284,7 +315,7 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <Button x:Name="ReleaseButton" Content="Release" Grid.Column="0" HorizontalAlignment="Stretch"  VerticalAlignment="Center" 
+                <Button Template="{DynamicResource ButtonTemplate}" x:Name="ReleaseButton" Content="Release" Grid.Column="0" HorizontalAlignment="Stretch"  VerticalAlignment="Center" 
                     Height="30" Background="#FF88BEF1" Foreground="White" BorderThickness="0" FontSize="16"
                     FontFamily="Arial" Margin="6,0,6,0" Click="Release_Button_Click" Visibility="{Binding Path=UpdateVisibility}">
                     <Button.Resources>
@@ -302,7 +333,7 @@
                     </Button.Resources>
                 </Button>
 
-                <Button x:Name="AssignButton" Content="Assign" Grid.Column="1" HorizontalAlignment="Stretch"  VerticalAlignment="Center" 
+                <Button Template="{DynamicResource ButtonTemplate}" x:Name="AssignButton" Content="Assign" Grid.Column="1" HorizontalAlignment="Stretch"  VerticalAlignment="Center" 
                     Height="30" Background="#FF88BEF1" Foreground="White" BorderThickness="0" FontSize="16"
                     FontFamily="Arial" Margin="6,0,6,0" Click="Assign_Button_Click" Visibility="{Binding Path=UpdateVisibility}">
                     <Button.Resources>
@@ -320,7 +351,7 @@
                     </Button.Resources>
                 </Button>
 
-                <Button x:Name="CollectButton" Content="Collect" Grid.Column="2" HorizontalAlignment="Stretch"  VerticalAlignment="Center" 
+                <Button Template="{DynamicResource ButtonTemplate}" x:Name="CollectButton" Content="Collect" Grid.Column="2" HorizontalAlignment="Stretch"  VerticalAlignment="Center" 
                     Height="30" Background="#FF88BEF1" Foreground="White" BorderThickness="0" FontSize="16"
                     FontFamily="Arial" Margin="6,0,6,0" Click="Collect_Button_Click" Visibility="{Binding Path=UpdateVisibility}">
                     <Button.Resources>
@@ -355,7 +386,7 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <Button x:Name="DeliverButton" Content="Deliver" Grid.Column="0" HorizontalAlignment="Stretch"  VerticalAlignment="Center" 
+                <Button Template="{DynamicResource ButtonTemplate}" x:Name="DeliverButton" Content="Deliver" Grid.Column="0" HorizontalAlignment="Stretch"  VerticalAlignment="Center" 
                     Height="30" Background="#FF88BEF1" Foreground="White" BorderThickness="0" FontSize="16" 
                     FontFamily="Arial" Margin="6,0,6,0" Click="Deliver_Button_Click" Visibility="{Binding Path=UpdateVisibility}">
                     <Button.Resources>
