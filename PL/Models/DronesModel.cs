@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Threading;
 using BlApi;
 using System.Windows;
 using System.ComponentModel;
@@ -21,7 +22,22 @@ namespace PL.Models
         {
             this.bl = bl;
 
-            bl.ListDrones().ToList().ForEach(drone => _collection.Add(new PO.Drone(drone.ID, bl)));
+            //======================================================================
+            // Old Code
+            //bl.ListDrones().ToList().ForEach(drone => _collection.Add(new PO.Drone(drone.ID, bl)));
+
+            //Try adding Multi-threading
+            Thread thread = new Thread(()=> { bl.ListDrones().ToList().
+                                            ForEach(drone => _collection.
+                                            Add(new PO.Drone(drone.ID, bl))); });
+            thread.Start();
+
+            // IsBackground is the property of Thread
+            // which allows thread to run in the background
+            thread.IsBackground = true;
+
+            thread.Join();
+            //======================================================================
 
             CollectionView = CollectionViewSource.GetDefaultView(_collection);
             CollectionView.Filter += (o) =>
