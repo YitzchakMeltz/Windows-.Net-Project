@@ -20,7 +20,18 @@ namespace PL.Models
         {
             this.bl = bl;
 
-            bl.ListStations().ToList().ForEach(station => _collection.Add(new PO.Station(station.ID, bl)));
+            //==================================================================
+            // Code before multi-threading was added
+            //bl.ListStations().ToList().ForEach(station => _collection.Add(new PO.Station(station.ID, bl)));
+
+            // Code after multi-threading was added
+            BackgroundWorker worker = new BackgroundWorker();
+            worker.DoWork += ((sender, e) => { bl.ListStations().ToList().
+                ForEach(station => _collection.
+                Add(new PO.Station(station.ID, bl))); });
+
+            worker.RunWorkerAsync();
+            //==================================================================
 
             CollectionView = CollectionViewSource.GetDefaultView(_collection);
         }

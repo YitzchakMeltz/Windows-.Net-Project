@@ -29,7 +29,18 @@ namespace PL.Models
                 AdminVisibility = Visibility.Collapsed;
             }
 
-            bl.ListCustomers().ToList().ForEach(customer => _collection.Add(new PO.Customer(customer.ID, bl)));
+            //==================================================================
+            // Code before multi-threading was added
+            //bl.ListCustomers().ToList().ForEach(customer => _collection.Add(new PO.Customer(customer.ID, bl)));
+
+            // Code after multi-threading was added
+            BackgroundWorker worker = new BackgroundWorker();
+            worker.DoWork += ((sender, e) => { bl.ListCustomers().ToList().
+                            ForEach(customer => _collection.
+                            Add(new PO.Customer(customer.ID, bl))); });
+
+            worker.RunWorkerAsync();
+            //==================================================================
         }
 
         public CustomersModel(IBL bl, PackageCustomer package) : this(bl)

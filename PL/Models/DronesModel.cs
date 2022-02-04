@@ -27,12 +27,12 @@ namespace PL.Models
             //bl.ListDrones().ToList().ForEach(drone => _collection.Add(new PO.Drone(drone.ID, bl)));
 
             //Try adding Multi-threading using Background Worker
-            BackgroundWorker worker1 = new BackgroundWorker();
-            worker1.DoWork += ((sender, e) => { bl.ListDrones().ToList().
+            BackgroundWorker worker = new BackgroundWorker();
+            worker.DoWork += ((sender, e) => { bl.ListDrones().ToList().
                           ForEach(drone => _collection.
                           Add(new PO.Drone(drone.ID, bl))); });
 
-            worker1.RunWorkerAsync();
+            worker.RunWorkerAsync();
             //======================================================================
 
             CollectionView = CollectionViewSource.GetDefaultView(_collection);

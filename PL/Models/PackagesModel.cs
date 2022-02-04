@@ -21,7 +21,19 @@ namespace PL.Models
             this.bl = bl;
             IsAdmin = true;
 
-            bl.ListPackages().ToList().ForEach(package => _collection.Add(new PO.Package(package.ID, bl)));
+
+            //==================================================================
+            // Code before multi-threading was added
+            //bl.ListPackages().ToList().ForEach(package => _collection.Add(new PO.Package(package.ID, bl)));
+
+            // Code after multi-threading was added
+            BackgroundWorker worker = new BackgroundWorker();
+            worker.DoWork += ((sender, e) => { bl.ListPackages().ToList().
+                            ForEach(package => _collection.
+                            Add(new PO.Package(package.ID, bl))); });
+
+            worker.RunWorkerAsync();
+            //==================================================================
 
             CollectionView = CollectionViewSource.GetDefaultView(_collection);
             CollectionView.Filter += (o) =>
