@@ -26,17 +26,13 @@ namespace PL.Models
             // Old Code
             //bl.ListDrones().ToList().ForEach(drone => _collection.Add(new PO.Drone(drone.ID, bl)));
 
-            //Try adding Multi-threading
-            Thread thread = new Thread(()=> { bl.ListDrones().ToList().
-                                            ForEach(drone => _collection.
-                                            Add(new PO.Drone(drone.ID, bl))); });
-            thread.Start();
+            //Try adding Multi-threading using Background Worker
+            BackgroundWorker worker1 = new BackgroundWorker();
+            worker1.DoWork += ((sender, e) => { bl.ListDrones().ToList().
+                          ForEach(drone => _collection.
+                          Add(new PO.Drone(drone.ID, bl))); });
 
-            // IsBackground is the property of Thread
-            // which allows thread to run in the background
-            thread.IsBackground = true;
-
-            thread.Join();
+            worker1.RunWorkerAsync();
             //======================================================================
 
             CollectionView = CollectionViewSource.GetDefaultView(_collection);
