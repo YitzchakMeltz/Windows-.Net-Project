@@ -227,6 +227,62 @@
                 </Trigger>
             </ControlTemplate.Triggers>
         </ControlTemplate>
+
+
+        <!-- Toggle Button Style -->
+        <Style x:Key="ButtonFocusVisual">
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Rectangle Margin="2" SnapsToDevicePixels="true" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" StrokeThickness="1" StrokeDashArray="1 2"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <LinearGradientBrush x:Key="ButtonNormalBackground" EndPoint="0,1" StartPoint="0,0">
+            <GradientStop Color="#F3F3F3" Offset="0"/>
+            <GradientStop Color="#EBEBEB" Offset="0.5"/>
+            <GradientStop Color="#DDDDDD" Offset="0.5"/>
+            <GradientStop Color="#CDCDCD" Offset="1"/>
+        </LinearGradientBrush>
+        <SolidColorBrush x:Key="ButtonNormalBorder" Color="#FF707070"/>
+        <Style x:Key="ToggleButtonStyle1" TargetType="{x:Type ToggleButton}">
+            <Setter Property="FocusVisualStyle" Value="{StaticResource ButtonFocusVisual}"/>
+            <Setter Property="Background" Value="{StaticResource ButtonNormalBackground}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource ButtonNormalBorder}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="1"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ToggleButton}">
+                        <StackPanel Orientation="Horizontal">
+                            <Border x:Name="on" Width="48" Height="28" Background="LightGray" CornerRadius="12">
+                                <TextBlock x:Name="onText" Text="Auto" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                            <Border x:Name="off" Width="48" Height="28" Background="LightGray" CornerRadius="12">
+                                <TextBlock x:Name="offText" Text="Manual" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                        </StackPanel>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Foreground" Value="#ADADAD"/>
+                            </Trigger>
+                            <Trigger Property="IsChecked" Value="true">
+                                <Setter TargetName="on" Property="Background" Value="#FF4194E3"/>
+                                <Setter TargetName="onText" Property="Foreground" Value="White"/>
+                            </Trigger>
+                            <Trigger Property="IsChecked" Value="False">
+                                <Setter TargetName="off" Property="Background" Value="#FF4194E3"/>
+                                <Setter TargetName="offText" Property="Foreground" Value="White"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Page.Resources>
 
     <Grid Background="{StaticResource myLinearGradientBrush}">
@@ -290,7 +346,7 @@
                 </Button>
 
                 <Button Template="{DynamicResource ButtonTemplate}" x:Name="ChargeButton" Content="Charge" Grid.Column="2" HorizontalAlignment="Stretch"  VerticalAlignment="Center" 
-                    Height="30" Background="#FF88BEF1" Foreground="White" BorderThickness="0" 
+                    Height="30" Background="#FF4194E3" Foreground="White" BorderThickness="0" 
                     FontFamily="Arial" Margin="6,0,6,0" Click="Charge_Button_Click" Visibility="{Binding Path=UpdateVisibility}" FontSize="16">
                     <Button.Resources>
                         <Style TargetType="Border">
@@ -316,7 +372,7 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <Button Template="{DynamicResource ButtonTemplate}" x:Name="ReleaseButton" Content="Release" Grid.Column="0" HorizontalAlignment="Stretch"  VerticalAlignment="Center" 
-                    Height="30" Background="#FF88BEF1" Foreground="White" BorderThickness="0" FontSize="16"
+                    Height="30" Background="#FF4194E3" Foreground="White" BorderThickness="0" FontSize="16"
                     FontFamily="Arial" Margin="6,0,6,0" Click="Release_Button_Click" Visibility="{Binding Path=UpdateVisibility}">
                     <Button.Resources>
                         <Style TargetType="Border">
@@ -334,7 +390,7 @@
                 </Button>
 
                 <Button Template="{DynamicResource ButtonTemplate}" x:Name="AssignButton" Content="Assign" Grid.Column="1" HorizontalAlignment="Stretch"  VerticalAlignment="Center" 
-                    Height="30" Background="#FF88BEF1" Foreground="White" BorderThickness="0" FontSize="16"
+                    Height="30" Background="#FF4194E3" Foreground="White" BorderThickness="0" FontSize="16"
                     FontFamily="Arial" Margin="6,0,6,0" Click="Assign_Button_Click" Visibility="{Binding Path=UpdateVisibility}">
                     <Button.Resources>
                         <Style TargetType="Border">
@@ -352,7 +408,7 @@
                 </Button>
 
                 <Button Template="{DynamicResource ButtonTemplate}" x:Name="CollectButton" Content="Collect" Grid.Column="2" HorizontalAlignment="Stretch"  VerticalAlignment="Center" 
-                    Height="30" Background="#FF88BEF1" Foreground="White" BorderThickness="0" FontSize="16"
+                    Height="30" Background="#FF4194E3" Foreground="White" BorderThickness="0" FontSize="16"
                     FontFamily="Arial" Margin="6,0,6,0" Click="Collect_Button_Click" Visibility="{Binding Path=UpdateVisibility}">
                     <Button.Resources>
                         <Style TargetType="Border">
@@ -387,7 +443,7 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <Button Template="{DynamicResource ButtonTemplate}" x:Name="DeliverButton" Content="Deliver" Grid.Column="0" HorizontalAlignment="Stretch"  VerticalAlignment="Center" 
-                    Height="30" Background="#FF88BEF1" Foreground="White" BorderThickness="0" FontSize="16" 
+                    Height="30" Background="#FF4194E3" Foreground="White" BorderThickness="0" FontSize="16" 
                     FontFamily="Arial" Margin="6,0,6,0" Click="Deliver_Button_Click" Visibility="{Binding Path=UpdateVisibility}">
                     <Button.Resources>
                         <Style TargetType="Border">
@@ -403,6 +459,12 @@
                         </Style>
                     </Button.Resources>
                 </Button>
+
+                <Border x:Name="toggleBackground" Width="96" Height="28" Background="LightGray" CornerRadius="12" Margin="-60,0,0,0" 
+                        Grid.Column="2" Visibility="{Binding Path=UpdateVisibility}">
+                    <ToggleButton Grid.Column="2" Margin="0,0,0,0" Content="Simulate" Style="{StaticResource ToggleButtonStyle1}"
+                               Foreground="DimGray"/>
+                </Border>
             </Grid>
 
             <Image x:Name="Drone_image" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1" Grid.Row="2" 
