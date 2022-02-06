@@ -238,7 +238,7 @@ VerticalAlignment="Stretch" Width="auto">
 
             <Button x:Name="GroupButton" Grid.Column="1" HorizontalAlignment= "Stretch"  VerticalAlignment="Center" 
                     Height="30" Background="#FF3F3F3F" Foreground="White" BorderThickness="1" BorderBrush="#FF97A0A5"
-                    FontFamily="Arial" Margin="15,5" Click="Group_Button_Click">
+                    FontFamily="Arial" Margin="10,5" Click="Group_Button_Click">
                 <Button.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="5"/>
