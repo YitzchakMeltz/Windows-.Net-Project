@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.ComponentModel;
 
 namespace PL
 {
@@ -146,6 +147,21 @@ namespace PL
         private void Back_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.GoBack();
+        }
+
+        private void Toggle_Simulate()
+        {
+            BackgroundWorker worker = new BackgroundWorker();
+
+            worker.DoWork += ((sender, e) => 
+            {
+                // Call BL Simulate function here
+            });
+
+            worker.RunWorkerAsync();
+
+            worker.WorkerSupportsCancellation = true;
+            worker.WorkerReportsProgress = true;
         }
     }
 }
