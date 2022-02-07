@@ -2,11 +2,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 
 namespace BL
 {
     partial class BL : BlApi.IBL
     {
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void AddDrone(int ID, string model, BO.WeightCategories weight, int stationID)
         {
             dalObject.AddDrone(ID, model, (DO.WeightCategories)weight);
@@ -24,6 +26,7 @@ namespace BL
             dalObject.ChargeDrone(ID, stationID);
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void UpdateDrone(int ID, string model)
         {
             // Update BLDrone
@@ -38,10 +41,12 @@ namespace BL
         }
 
         // Calculates how far a Drone can fly while Free
-        public double DistanceLeft(DroneList drone)
+        private double DistanceLeft(DroneList drone)
         {
             return drone.Battery * PowerConsumption[0];
         }
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void ChargeDrone(int ID)
         {
             try
@@ -70,6 +75,7 @@ namespace BL
             }
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void ReleaseDrone(int ID)
         {
             try
@@ -92,7 +98,7 @@ namespace BL
             }
         }
 
-        public DeliveryDrone ConvertToDeliveryDrone(DroneList drone)
+        private DeliveryDrone ConvertToDeliveryDrone(DroneList drone)
         {
             return new DeliveryDrone()
             {
@@ -102,7 +108,7 @@ namespace BL
             };
         }
 
-        public DroneList ConvertToDroneList(Drone drone)
+        private DroneList ConvertToDroneList(Drone drone)
         {
             return new DroneList()
             {
@@ -116,6 +122,7 @@ namespace BL
             };
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public Drone GetDrone(int droneID)
         {
             try
@@ -142,6 +149,7 @@ namespace BL
             }
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void AssignPackageToDrone(int droneID)
         {
             DroneList drone = Drones.Find(d => d.ID == droneID);
@@ -197,6 +205,7 @@ namespace BL
             }
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void CollectPackage(int droneID)
         {
             Drone drone;
@@ -225,6 +234,7 @@ namespace BL
             Drones[Drones.FindIndex(d => d.ID == droneID)] = droneList;
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void DeliverPackage(int droneID)
         {
             Drone drone;
@@ -254,6 +264,7 @@ namespace BL
             Drones[Drones.FindIndex(d => d.ID == droneID)] = droneList;
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<DroneList> ListDrones()
         {
             return Drones;
@@ -263,6 +274,7 @@ namespace BL
         /// Returns a filtered array of DroneLists
         /// </summary>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<DroneList> ListDronesFiltered(Predicate<DroneList> pred)
         {
             return Drones.FindAll(pred);

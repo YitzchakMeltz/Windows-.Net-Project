@@ -32,6 +32,8 @@ namespace Dal
                 throw new InvalidInput("Couldn't access Customers.xml", e);
             }
         }
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void AddCustomer(Customer customer)
         {
             if (Customers.Elements().Any(p => Int32.Parse(p.Element("ID").Value) == customer.ID))

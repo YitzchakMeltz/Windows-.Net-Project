@@ -37,6 +37,7 @@ namespace Dal
         /// Adds a Drone
         /// </summary>
         /// <param name="drone"></param>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void AddDrone(Drone drone)
         {
             if (Drones.Elements().Any(d => Int32.Parse(d.Element("ID").Value) == drone.ID))
@@ -55,6 +56,7 @@ namespace Dal
         /// Adds a Drone
         /// </summary>
         /// <param name="drone"></param>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void AddDrone(int id, string model, WeightCategories weightCat)
         {
             AddDrone(new Drone()
@@ -87,6 +89,7 @@ namespace Dal
         /// Returns a Drone by its ID
         /// </summary>
         /// <param name="ID"></param>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public Drone GetDrone(int ID)
         {
             return DroneParse(GetDroneElement(ID));
@@ -96,6 +99,7 @@ namespace Dal
         /// Returns an array of all Drones
         /// </summary>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<Drone> GetDroneList()
         {
             return from d in Drones.Elements()
@@ -106,6 +110,7 @@ namespace Dal
         /// Deletes a Drone
         /// </summary>
         /// <param name="ID"></param>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void RemoveDrone(int ID)
         {
             GetDroneElement(ID).Remove();

@@ -10,6 +10,7 @@ namespace Dal
         /// Adds a Drone to DataSource
         /// </summary>
         /// <param name="drone"></param>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void AddDrone(Drone drone)
         {
             if (Drones.Exists(d => d.ID == drone.ID))
@@ -23,6 +24,7 @@ namespace Dal
         /// </summary>
         /// <param name="ID"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public Drone GetDrone(int ID)
         {
             Drone d = Drones.Find(d => d.ID == ID);
@@ -37,16 +39,18 @@ namespace Dal
         /// Returns an array of all Drones
         /// </summary>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<Drone> GetDroneList()
         {
             return new List<Drone>(Drones);
         }
 
-        
+
         /// <summary>
         /// Adds a Drone to DataSource
         /// </summary>
         /// <param name="drone"></param>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void AddDrone(int id, string model, WeightCategories weightCat)
         {
             Drone drone = new Drone()
@@ -63,6 +67,7 @@ namespace Dal
         /// Deletes a Drone from DataSource
         /// </summary>
         /// <param name="ID"></param>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void RemoveDrone(int ID)
         {
             if (Drones.RemoveAll(d => d.ID == ID) == 0)

@@ -12,6 +12,7 @@ namespace Dal
         /// </summary>
         /// <param name="parcel"></param>
         /// <returns>PackageID</returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void AddParcel(Parcel parcel)
         {
             if (Parcels.Exists(p => p.ID == parcel.ID))
@@ -25,6 +26,7 @@ namespace Dal
         /// </summary>
         /// <param name="ID"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public Parcel GetParcel(int ID)
         {
             Parcel p = Parcels.Find(p => p.ID == ID);
@@ -39,6 +41,7 @@ namespace Dal
         /// Returns an array of all Parcels
         /// </summary>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<Parcel> GetParcelList()
         {
             return new List<Parcel>(Parcels);
@@ -48,17 +51,19 @@ namespace Dal
         /// Returns a filtered array of Parcels
         /// </summary>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<Parcel> GetFilteredParcelList(Predicate<Parcel> pred)
         {
             return Parcels.FindAll(pred);
         }
 
-        
+
         /// <summary>
         /// Adds a Parcel to DataSource
         /// </summary>
         /// <param name="parcel"></param>
         /// <returns>PackageID</returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public int AddParcel(int senderID, int targetID, WeightCategories weightCat, Priorities priority, int droneID)
         {
             Parcel parcel = new Parcel()
@@ -80,6 +85,7 @@ namespace Dal
         /// <summary>
         /// Assigns a Parcel to a Drone
         /// </summary>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void AssignParcel(int parcelID, int droneID)
         {
             Parcel parcel = GetParcel(parcelID);
@@ -96,6 +102,7 @@ namespace Dal
         /// <summary>
         /// Marks a Parcel as Collected by a Drone
         /// </summary>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void ParcelCollected(int parcelID)
         {
             Parcel parcel = GetParcel(parcelID);
@@ -108,6 +115,7 @@ namespace Dal
         /// <summary>
         /// Marks a Parcel as Delivered
         /// </summary>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void ParcelDelivered(int parcelID)
         {
             Parcel parcel = GetParcel(parcelID);
@@ -121,6 +129,7 @@ namespace Dal
         /// Deletes a Parcel from the system
         /// </summary>
         /// <param name="ID">ID of Parcel to delete</param>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void RemoveParcel(int ID)
         {
             if (Parcels.RemoveAll(p => p.ID == ID) == 0)

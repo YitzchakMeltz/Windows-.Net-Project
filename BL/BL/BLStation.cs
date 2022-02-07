@@ -3,6 +3,7 @@ using DO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 
 namespace BL
 {
@@ -14,6 +15,7 @@ namespace BL
             return GetStation(dalObject.GetStationList().OrderBy(s => s.Location.DistanceTo(coord)).First().ID);
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public BaseStation GetStation(int stationID)
         {
             try
@@ -40,11 +42,13 @@ namespace BL
             }
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void AddStation(int ID, string name, double latitude, double longitude, int availableChargeStations)
         {
             dalObject.AddStation(ID, name, availableChargeStations, latitude, longitude);
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void UpdateStation(int ID, string name = null, int? totalChargeStation = null)
         {
             // Update DALStation
@@ -72,6 +76,7 @@ namespace BL
             }
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<BaseStationList> ListStations()
         {
             IEnumerable<Station> dalStations = dalObject.GetStationList();
@@ -86,6 +91,7 @@ namespace BL
             return blStations;
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<BaseStationList> ListStationsFiltered(Predicate<BaseStationList> pred)
         {
             return ListStations().Where(pred.Invoke);

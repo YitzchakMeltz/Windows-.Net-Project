@@ -36,6 +36,7 @@ namespace Dal
         /// <summary>
         /// Charges a Drone
         /// </summary>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void ChargeDrone(int droneID, int stationID)
         {
             GetDrone(droneID);                                               // Forces error if drone doesn't exist
@@ -60,6 +61,7 @@ namespace Dal
         /// <summary>
         /// Releases a Drone from charging
         /// </summary>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public double ReleaseDrone(int droneID)
         {
             Drone drone = GetDrone(droneID);                                                  // Forces error if drone doesn't exist

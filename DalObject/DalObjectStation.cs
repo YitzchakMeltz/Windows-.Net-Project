@@ -12,6 +12,7 @@ namespace Dal
         /// Adds a Station to DataSource
         /// </summary>
         /// <param name="station"></param>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void AddStation(Station station)
         {
             if (Stations.Exists(s => s.ID == station.ID))
@@ -26,6 +27,7 @@ namespace Dal
         /// </summary>
         /// <param name="ID"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public Station GetStation(int ID)
         {
             Station s = Stations.Find(s => s.ID == ID);
@@ -41,6 +43,7 @@ namespace Dal
         /// Returns an array of all Base Stations
         /// </summary>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<Station> GetStationList()
         {
             return new List<Station>(Stations);
@@ -50,6 +53,7 @@ namespace Dal
         /// Returns a filtered array of Stations
         /// </summary>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<Station> GetFilteredStationList(Predicate<Station> pred)
         {
             return Stations.FindAll(pred);
@@ -63,11 +67,12 @@ namespace Dal
             //return Stations.Where(s => s.ChargeSlots > DataSource.DroneCharges.Count(dc => dc.StationID == s.ID)).ToList();
         }*/
 
-        
+
         /// <summary>
         /// Adds a Station to DataSource
         /// </summary>
         /// <param name="station"></param>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void AddStation(int id, string name, int chargeSlots, double latitude, double longitude)
         {
             Station station = new Station()
@@ -86,6 +91,7 @@ namespace Dal
         /// Deletes a Station from DataSource
         /// </summary>
         /// <param name="ID"></param>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void RemoveStation(int ID)
         {
             if (Stations.RemoveAll(s => s.ID == ID) == 0)

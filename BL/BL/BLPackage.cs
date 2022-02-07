@@ -3,6 +3,7 @@ using DalApi;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 
 namespace BL
 {
@@ -25,6 +26,7 @@ namespace BL
             return Statuses.Delivered;
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public int AddPackage(int senderID, int receiverID, BO.WeightCategories weight, BO.Priorities priority)
         {
             try
@@ -40,7 +42,7 @@ namespace BL
             }
         }
 
-        public CustomerPackage ConvertToCustomerPackage(PackageList package, string otherCustomer)
+        private CustomerPackage ConvertToCustomerPackage(PackageList package, string otherCustomer)
         {
             int customerID = dalObject.GetCustomerList().First(customer => customer.Name == otherCustomer).ID;
             return new CustomerPackage()
@@ -53,6 +55,7 @@ namespace BL
             };
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public Package GetPackage(int packageID)
         {
             try
@@ -82,6 +85,7 @@ namespace BL
             }
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void DeletePackage(int ID)
         {
             Statuses status = ParcelStatus(dalObject.GetParcel(ID));
@@ -91,6 +95,7 @@ namespace BL
             dalObject.RemoveParcel(ID);
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<PackageList> ListPackages()
         {
             IEnumerable<DO.Parcel> dalParcels = dalObject.GetParcelList();
@@ -103,6 +108,8 @@ namespace BL
 
             return packages;
         }
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<PackageList> ListPackagesFiltered(Predicate<PackageList> pred)
         {
             return ListPackages().Where(pred.Invoke);

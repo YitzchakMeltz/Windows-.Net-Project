@@ -28,12 +28,12 @@ namespace BlApi
         public Customer GetCustomer(int ID);
         public Package GetPackage(int ID);
 
-        public IEnumerable<BaseStationList> ListStations();
         public IEnumerable<DroneList> ListDrones();
         public IEnumerable<DroneList> ListDronesFiltered(Predicate<DroneList> p);
         public IEnumerable<CustomerList> ListCustomers();
         public IEnumerable<PackageList> ListPackages();
         public IEnumerable<PackageList> ListPackagesFiltered(Predicate<PackageList> p);
+        public IEnumerable<BaseStationList> ListStations();
         public IEnumerable<BaseStationList> ListStationsFiltered(Predicate<BaseStationList> p);
     }
 }
