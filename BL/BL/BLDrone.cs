@@ -8,96 +8,7 @@ namespace BL
 {
     partial class BL : BlApi.IBL
     {
-        [MethodImpl(MethodImplOptions.Synchronized)]
-        public void AddDrone(int ID, string model, BO.WeightCategories weight, int stationID)
-        {
-            dalObject.AddDrone(ID, model, (DO.WeightCategories)weight);
-
-            Drones.Add(new DroneList()
-            {
-                ID = ID,
-                Model = model,
-                Weight = weight,
-                Location = GetStation(stationID).Location,
-                Status = DroneStatuses.Maintenance,
-                Battery = (random.NextDouble() * 20) + 20
-            });
-
-            dalObject.ChargeDrone(ID, stationID);
-        }
-
-        [MethodImpl(MethodImplOptions.Synchronized)]
-        public void UpdateDrone(int ID, string model)
-        {
-            // Update BLDrone
-            Drones[Drones.FindIndex(d => d.ID == ID)].Model = model;
-
-            // Update DALDrone
-            DO.Drone drone = dalObject.GetDrone(ID);
-            drone.Model = model;
-
-            dalObject.RemoveDrone(ID);
-            dalObject.AddDrone(drone);
-        }
-
-        // Calculates how far a Drone can fly while Free
-        private double DistanceLeft(DroneList drone)
-        {
-            return drone.Battery * PowerConsumption[0];
-        }
-
-        [MethodImpl(MethodImplOptions.Synchronized)]
-        public void ChargeDrone(int ID)
-        {
-            try
-            {
-                DO.Drone dalDrone = dalObject.GetDrone(ID);
-                DroneList drone = Drones.Find(d => d.ID == ID);
-
-                if (drone.Status != DroneStatuses.Free)
-                    throw new InvalidManeuver("Only a free Drone can be charged.");
-
-                BaseStation closestStation = ClosestStation(drone.Location);
-                if (Distance(closestStation.Location, drone.Location) > DistanceLeft(drone))
-                    throw new InvalidManeuver("Drone is too far away.");
-
-                drone.Battery -= Distance(closestStation.Location, drone.Location) / PowerConsumption[0];
-                drone.Location = closestStation.Location;
-                drone.Status = DroneStatuses.Maintenance;
-
-                Drones[Drones.FindIndex(d => d.ID == ID)] = drone;
-
-                dalObject.ChargeDrone(ID, closestStation.ID);
-            }
-            catch (DO.ObjectNotFound e)
-            {
-                throw new ObjectNotFound(e.Message);
-            }
-        }
-
-        [MethodImpl(MethodImplOptions.Synchronized)]
-        public void ReleaseDrone(int ID)
-        {
-            try
-            {
-                DO.Drone dalDrone = dalObject.GetDrone(ID);
-                DroneList drone = Drones.Find(d => d.ID == ID);
-
-                if (Drones.Find(d => d.ID == ID).Status != DroneStatuses.Maintenance)
-                    throw new InvalidManeuver("Only a Drone in maintenance can be released.");
-
-                double minutesCharging = dalObject.ReleaseDrone(ID);
-                drone.Battery = Math.Min(drone.Battery + PowerConsumption[4] * minutesCharging, 100);
-                drone.Status = DroneStatuses.Free;
-
-                Drones[Drones.FindIndex(d => d.ID == ID)] = drone;
-            }
-            catch (DO.ObjectNotFound e)
-            {
-                throw new ObjectNotFound(e.Message);
-            }
-        }
-
+        #region private functions
         private DeliveryDrone ConvertToDeliveryDrone(DroneList drone)
         {
             return new DeliveryDrone()
@@ -122,26 +33,58 @@ namespace BL
             };
         }
 
+        // Calculates how far a Drone can fly while Free
+        private double DistanceLeft(DroneList drone)
+        {
+            return drone.Battery * PowerConsumption[0];
+        }
+        #endregion
+
         [MethodImpl(MethodImplOptions.Synchronized)]
-        public Drone GetDrone(int droneID)
+        public void AddDrone(uint ID, string model, BO.WeightCategories weight, uint stationID)
+        {
+            lock (dalObject)
+            {
+                dalObject.AddDrone(ID, model, (DO.WeightCategories)weight);
+
+                Drones.Add(new DroneList()
+                {
+                    ID = ID,
+                    Model = model,
+                    Weight = weight,
+                    Location = GetStation(stationID).Location,
+                    Status = DroneStatuses.Maintenance,
+                    Battery = (random.NextDouble() * 20) + 20
+                });
+
+                dalObject.ChargeDrone(ID, stationID);
+            }
+        }
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
+        public Drone GetDrone(uint droneID)
         {
             try
             {
-                DO.Drone dalDrone = dalObject.GetDrone(droneID);
-                DroneList droneList = Drones.Find(d => d.ID == droneID);
-
-                Drone drone = new Drone()
+                lock (dalObject)
                 {
-                    ID = droneID,
-                    Model = dalDrone.Model,
-                    Weight = (WeightCategories)dalDrone.WeightCategory,
-                    Battery = droneList.Battery,
-                    Status = droneList.Status,
-                    Package = droneList.PackageID == null ? null : GetEnroutePackage((int)droneList.PackageID),
-                    Location = droneList.Location
-                };
+                    DO.Drone dalDrone = dalObject.GetDrone(droneID);
+                    DroneList droneList = Drones.Find(d => d.ID == droneID);
 
-                return drone;
+                    Drone drone = new Drone()
+                    {
+                        ID = droneID,
+                        Model = dalDrone.Model,
+                        Weight = (WeightCategories)dalDrone.WeightCategory,
+                        Battery = droneList.Battery,
+                        Status = droneList.Status,
+                        Package = droneList.PackageID == null ? null : GetEnroutePackage(droneList.PackageID.Value),
+                        Location = droneList.Location
+                    };
+
+
+                    return drone;
+                }
             }
             catch (DO.ObjectNotFound e)
             {
@@ -150,124 +93,211 @@ namespace BL
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
-        public void AssignPackageToDrone(int droneID)
+        public void UpdateDrone(uint ID, string model)
         {
-            DroneList drone = Drones.Find(d => d.ID == droneID);
-            if (drone.Status != DroneStatuses.Free)
+            try
             {
-                throw new InvalidManeuver($"Drone with ID {droneID} is not available.");
+                lock (dalObject)
+                {
+                    // Update BLDrone
+                    Drones[Drones.FindIndex(d => d.ID == ID)].Model = model;
+
+                    // Update DALDrone
+                    DO.Drone drone = dalObject.GetDrone(ID);
+                    drone.Model = model;
+
+                    dalObject.RemoveDrone(ID);
+                    dalObject.AddDrone(drone);
+                }
             }
-
-            List<PackageList> unassignedPackages = ListPackagesFiltered(package => package.Status == Statuses.Created).ToList();
-            
-            unassignedPackages.RemoveAll(x => x.Weight > drone.Weight);
-
-            if (unassignedPackages.Count == 0)
-                throw new InvalidManeuver($"The drone with ID: {droneID} can't carry any packages.");
-
-            unassignedPackages.OrderBy(x => x.Priority)
-                              .ThenByDescending(x => x.Weight)
-                              .ThenBy(x => Distance(GetEnroutePackage(x.ID).CollectionLocation, drone.Location));
-            
-            /*// Only keep highest priority packages
-            Priorities highestPriority = Priorities.Regular;
-            foreach (PackageList package in unassignedPackages)
+            catch (ObjectNotFound e)
             {
-                if ((int)package.Priority > (int)highestPriority)
-                    highestPriority = package.Priority;
-            }
-            unassignedPackages.RemoveAll(x => x.Priority != highestPriority);
-
-            // Only keep heaviest packages
-            WeightCategories heaviest = WeightCategories.Light;
-            foreach (PackageList package in unassignedPackages)
-            {
-                if ((int)package.Weight > (int)heaviest)
-                    heaviest = package.Weight;
-            }*/
-
-            
-            EnroutePackage enroute = GetEnroutePackage(unassignedPackages.First().ID);
-            double batteryPickup = Distance(drone.Location, enroute.CollectionLocation) / PowerConsumption[0];
-            double batteryDeliver = enroute.DeliveryDistance / PowerConsumption[(int)enroute.Weight + 1];
-            double batteryCharge = Distance(enroute.DeliveryLocation, ClosestStation(enroute.DeliveryLocation).Location) / PowerConsumption[0];
-
-            if (batteryPickup + batteryDeliver + batteryCharge > drone.Battery)
-                throw new InvalidManeuver($"Drone with ID {drone.ID} doesn't have enough battery to make this delivery.");
-            else
-            {
-                drone.PackageID = (uint)unassignedPackages[0].ID;
-                drone.Status = DroneStatuses.Delivering;
-
-                dalObject.AssignParcel(unassignedPackages[0].ID, droneID);
-
-                Drones[Drones.FindIndex(d => d.ID == droneID)] = drone;
+                throw new BO.ObjectNotFound(e.Message);
             }
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
-        public void CollectPackage(int droneID)
+        public void ChargeDrone(uint ID)
         {
-            Drone drone;
-            DroneList droneList;
             try
             {
-                drone = GetDrone(droneID);
-                droneList = ConvertToDroneList(drone);
+                lock (dalObject)
+                {
+                    DO.Drone dalDrone = dalObject.GetDrone(ID);
+                    DroneList drone = Drones.Find(d => d.ID == ID);
+
+                    if (drone.Status != DroneStatuses.Free)
+                        throw new InvalidManeuver("Only a free Drone can be charged.");
+
+                    BaseStation closestStation = ClosestStation(drone.Location);
+                    if (Distance(closestStation.Location, drone.Location) > DistanceLeft(drone))
+                        throw new InvalidManeuver("Drone is too far away.");
+
+                    drone.Battery -= Distance(closestStation.Location, drone.Location) / PowerConsumption[0];
+                    drone.Location = closestStation.Location;
+                    drone.Status = DroneStatuses.Maintenance;
+
+                    Drones[Drones.FindIndex(d => d.ID == ID)] = drone;
+
+                    dalObject.ChargeDrone(ID, closestStation.ID);
+                }
             }
             catch (DO.ObjectNotFound e)
             {
                 throw new ObjectNotFound(e.Message);
             }
-
-            if (droneList.PackageID == null)
-                throw new InvalidManeuver($"Drone with ID {drone.ID} doesn't have a package assigned to it.");
-            if (drone.Package.Delivering == true)
-                throw new InvalidManeuver($"Package with ID {drone.Package.ID} is already being Delivered.");
-            if (DistanceLeft(droneList) < Distance(drone.Location, drone.Package.CollectionLocation))
-                throw new InvalidManeuver($"Drone with ID {drone.ID} can't reach the package with ID {drone.Package.ID}.");
-
-            droneList.Battery -= Distance(drone.Location, drone.Package.CollectionLocation) / PowerConsumption[0];
-            droneList.Location = drone.Package.CollectionLocation;
-            
-            dalObject.ParcelCollected((int)droneList.PackageID);
-            Drones[Drones.FindIndex(d => d.ID == droneID)] = droneList;
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
-        public void DeliverPackage(int droneID)
+        public void ReleaseDrone(uint ID)
         {
-            Drone drone;
-            DroneList droneList;
             try
             {
-                drone = GetDrone(droneID);
-                droneList = ConvertToDroneList(drone);
+                lock (dalObject)
+                {
+                    DO.Drone dalDrone = dalObject.GetDrone(ID);
+                    DroneList drone = Drones.Find(d => d.ID == ID);
+
+                    if (Drones.Find(d => d.ID == ID).Status != DroneStatuses.Maintenance)
+                        throw new InvalidManeuver("Only a Drone in maintenance can be released.");
+
+                    double minutesCharging = dalObject.ReleaseDrone(ID);
+                    drone.Battery = Math.Min(drone.Battery + PowerConsumption[4] * minutesCharging, 100);
+                    drone.Status = DroneStatuses.Free;
+
+                    Drones[Drones.FindIndex(d => d.ID == ID)] = drone;
+                }
             }
             catch (DO.ObjectNotFound e)
             {
                 throw new ObjectNotFound(e.Message);
             }
+        }
 
-            if (droneList.PackageID == null)
-                throw new InvalidManeuver($"Drone with ID {droneID} doesn't have a package assigned to it.");
-            if (drone.Package.Delivering == false)
-                throw new InvalidManeuver($"Package with ID {drone.Package.ID} hasn't been collected.");
+        [MethodImpl(MethodImplOptions.Synchronized)]
+        public void AssignPackageToDrone(uint droneID)
+        {
+            lock (dalObject)
+            {
+                DroneList drone = Drones.Find(d => d.ID == droneID);
+                if (drone.Status != DroneStatuses.Free)
+                {
+                    throw new InvalidManeuver($"Drone with ID {droneID} is not available.");
+                }
 
-            droneList.Battery -= drone.Package.DeliveryDistance / PowerConsumption[(int)drone.Package.Weight + 1];
-            droneList.Location = drone.Package.DeliveryLocation;
-            droneList.Status = DroneStatuses.Free;
+                drone.PackageID = (ListPackagesFiltered(package => package.Status == Statuses.Created && package.Weight <= drone.Weight)
+                    .OrderByDescending(x => x.Priority)
+                    .ThenByDescending(x => x.Weight)
+                    .ThenBy(x => Distance(GetEnroutePackage(x.ID).CollectionLocation, drone.Location)).FirstOrDefault()?.ID);
 
-            dalObject.ParcelDelivered((int)droneList.PackageID);
+                if (drone.PackageID == null)
+                    throw new InvalidManeuver($"The drone with ID: {droneID} can't carry any packages.");
 
-            droneList.PackageID = null;
-            Drones[Drones.FindIndex(d => d.ID == droneID)] = droneList;
+                /*// Only keep highest priority packages
+                Priorities highestPriority = Priorities.Regular;
+                foreach (PackageList package in unassignedPackages)
+                {
+                    if ((int)package.Priority > (int)highestPriority)
+                        highestPriority = package.Priority;
+                }
+                unassignedPackages.RemoveAll(x => x.Priority != highestPriority);
+
+                // Only keep heaviest packages
+                WeightCategories heaviest = WeightCategories.Light;
+                foreach (PackageList package in unassignedPackages)
+                {
+                    if ((int)package.Weight > (int)heaviest)
+                        heaviest = package.Weight;
+                }*/
+
+
+                EnroutePackage enroute = GetEnroutePackage(drone.PackageID.Value);
+                double batteryPickup = Distance(drone.Location, enroute.CollectionLocation) / PowerConsumption[0];
+                double batteryDeliver = enroute.DeliveryDistance / PowerConsumption[(int)enroute.Weight + 1];
+                double batteryCharge = Distance(enroute.DeliveryLocation, ClosestStation(enroute.DeliveryLocation).Location) / PowerConsumption[0];
+
+                if (batteryPickup + batteryDeliver + batteryCharge > drone.Battery)
+                    throw new InvalidManeuver($"Drone with ID {drone.ID} doesn't have enough battery to make this delivery.");
+                else
+                {
+                    drone.Status = DroneStatuses.Delivering;
+
+                    dalObject.AssignParcel(drone.PackageID.Value, droneID);
+
+                    Drones[Drones.FindIndex(d => d.ID == droneID)] = drone;
+                }
+            }
+        }
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
+        public void CollectPackage(uint droneID)
+        {
+            lock (dalObject)
+            {
+                Drone drone;
+                DroneList droneList;
+                try
+                {
+                    drone = GetDrone(droneID);
+                    droneList = ConvertToDroneList(drone);
+                }
+                catch (DO.ObjectNotFound e)
+                {
+                    throw new ObjectNotFound(e.Message);
+                }
+
+                if (droneList.PackageID == null)
+                    throw new InvalidManeuver($"Drone with ID {drone.ID} doesn't have a package assigned to it.");
+                if (drone.Package.Delivering == true)
+                    throw new InvalidManeuver($"Package with ID {drone.Package.ID} is already being Delivered.");
+                if (DistanceLeft(droneList) < Distance(drone.Location, drone.Package.CollectionLocation))
+                    throw new InvalidManeuver($"Drone with ID {drone.ID} can't reach the package with ID {drone.Package.ID}.");
+
+                droneList.Battery -= Distance(drone.Location, drone.Package.CollectionLocation) / PowerConsumption[0];
+                droneList.Location = drone.Package.CollectionLocation;
+
+                dalObject.ParcelCollected(droneList.PackageID.Value);
+                Drones[Drones.FindIndex(d => d.ID == droneID)] = droneList;
+            }
+        }
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
+        public void DeliverPackage(uint droneID)
+        {
+            lock (dalObject)
+            {
+                Drone drone;
+                DroneList droneList;
+                try
+                {
+                    drone = GetDrone(droneID);
+                    droneList = ConvertToDroneList(drone);
+                }
+                catch (DO.ObjectNotFound e)
+                {
+                    throw new ObjectNotFound(e.Message);
+                }
+
+                if (droneList.PackageID == null)
+                    throw new InvalidManeuver($"Drone with ID {droneID} doesn't have a package assigned to it.");
+                if (drone.Package.Delivering == false)
+                    throw new InvalidManeuver($"Package with ID {drone.Package.ID} hasn't been collected.");
+
+                droneList.Battery -= drone.Package.DeliveryDistance / PowerConsumption[(int)drone.Package.Weight + 1];
+                droneList.Location = drone.Package.DeliveryLocation;
+                droneList.Status = DroneStatuses.Free;
+
+                dalObject.ParcelDelivered(droneList.PackageID.Value);
+
+                droneList.PackageID = null;
+                Drones[Drones.FindIndex(d => d.ID == droneID)] = droneList;
+            }
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<DroneList> ListDrones()
         {
-            return Drones;
+            return new List<DroneList>(Drones);
         }
 
         /// <summary>

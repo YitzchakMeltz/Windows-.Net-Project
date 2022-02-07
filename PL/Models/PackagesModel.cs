@@ -28,9 +28,10 @@ namespace PL.Models
 
             // Code after multi-threading was added
             BackgroundWorker worker = new BackgroundWorker();
-            worker.DoWork += ((sender, e) => { bl.ListPackages().ToList().
-                            ForEach(package => _collection.
-                            Add(new PO.Package(package.ID, bl))); });
+            worker.WorkerReportsProgress = true;
+            worker.ProgressChanged += addPackage;
+            worker.DoWork += (sender, e) => { bl.ListPackages().ToList().
+                            ForEach(package => worker.ReportProgress(0, package.ID)); };
 
             worker.RunWorkerAsync();
             //==================================================================
@@ -43,6 +44,11 @@ namespace PL.Models
                     (EndDate == DateTime.MinValue || (o as PO.Package).Creation <= EndDate)) return true;
                 else return false;
             };
+        }
+
+        private void addPackage(object sender, ProgressChangedEventArgs e)
+        {
+            _collection.Add(new PO.Package((uint)e.UserState, bl));
         }
 
         public PackagesModel(IBL bl, PO.Customer customer) : this(bl)
@@ -129,14 +135,14 @@ namespace PL.Models
             Groups[] groups = Enum.GetValues<Groups>();
             GroupBy = groups[(Array.IndexOf(groups, _groupBy) + 1) % groups.Length];
         }
-        public IEnumerable<int> Customers => bl.ListCustomers().Select(c => c.ID);
+        public IEnumerable<uint> Customers => bl.ListCustomers().Select(c => c.ID);
 
         public PO.Package SelectedPackage { get; set; }
         public enum WindowState { Add, Update }
         public WindowState State { get; set; }
 
         public Boolean IsAdmin { init; get; }
-        public int SenderID { init; get; }
+        public uint SenderID { init; get; }
         public System.Windows.Visibility AddVisibility {
             get
             {
@@ -152,7 +158,7 @@ namespace PL.Models
             }
         }
 
-        public void Add(int senderID, int receiverID, WeightCategories weight, Priorities priority)
+        public void Add(uint senderID, uint receiverID, WeightCategories weight, Priorities priority)
         {
             _collection.Add(new PO.Package(bl.AddPackage(senderID, receiverID, weight, priority), bl));
         }

@@ -10,6 +10,7 @@ namespace BL
 {
     partial class BL : BlApi.IBL
     {
+        #region private functions
         private PackageCustomer ConvertToPackageCustomer(Customer customer)
         {
             return new PackageCustomer()
@@ -18,6 +19,7 @@ namespace BL
                 Name = customer.Name
             };
         }
+        #endregion
 
         /// <summary>
         /// Adds a Customer
@@ -29,49 +31,9 @@ namespace BL
         /// <param name="latitude"></param>
         /// <param name="password"></param>
         [MethodImpl(MethodImplOptions.Synchronized)]
-        public void AddCustomer(int ID, string name, string phone, double longitude, double latitude, string password = null)
+        public void AddCustomer(uint ID, string name, string phone, double longitude, double latitude, string password = null)
         {
             dalObject.AddCustomer(ID, name, phone, latitude, longitude, password);
-        }
-
-        /// <summary>
-        /// Updates a Customer
-        /// </summary>
-        /// <param name="ID"></param>
-        /// <param name="name"></param>
-        /// <param name="phone"></param>
-        /// <param name="password"></param>
-        /// <exception cref="ObjectNotFound"></exception>
-        [MethodImpl(MethodImplOptions.Synchronized)]
-        public void UpdateCustomer(int ID, string name = null, string phone = null, string password = null)
-        {
-            // Update DALCustomer
-            try
-            {
-                DO.Customer customer = dalObject.GetCustomer(ID);
-
-                if (name != null)
-                {
-                    customer.Name = name;
-                }
-
-                if (phone != null)
-                {
-                    customer.Phone = phone;
-                }
-
-                if (password != null)
-                {
-                    customer.Password = password;
-                }
-
-                dalObject.RemoveCustomer(ID);
-                dalObject.AddCustomer(customer);
-            }
-            catch (DO.ObjectNotFound e)
-            {
-                throw new ObjectNotFound(e.Message);
-            }
         }
 
         /// <summary>
@@ -81,7 +43,7 @@ namespace BL
         /// <returns></returns>
         /// <exception cref="BO.ObjectNotFound"></exception>
         [MethodImpl(MethodImplOptions.Synchronized)]
-        public Customer GetCustomer(int customerID)
+        public Customer GetCustomer(uint customerID)
         {
             try
             {
@@ -119,13 +81,56 @@ namespace BL
         }
 
         /// <summary>
+        /// Updates a Customer
+        /// </summary>
+        /// <param name="ID"></param>
+        /// <param name="name"></param>
+        /// <param name="phone"></param>
+        /// <param name="password"></param>
+        /// <exception cref="ObjectNotFound"></exception>
+        [MethodImpl(MethodImplOptions.Synchronized)]
+        public void UpdateCustomer(uint ID, string name = null, string phone = null, string password = null)
+        {
+            // Update DALCustomer
+            try
+            {
+                lock (dalObject)
+                {
+                    DO.Customer customer = dalObject.GetCustomer(ID);
+
+                    if (name != null)
+                    {
+                        customer.Name = name;
+                    }
+
+                    if (phone != null)
+                    {
+                        customer.Phone = phone;
+                    }
+
+                    if (password != null)
+                    {
+                        customer.Password = password;
+                    }
+
+                    dalObject.RemoveCustomer(ID);
+                    dalObject.AddCustomer(customer);
+                }
+            }
+            catch (DO.ObjectNotFound e)
+            {
+                throw new ObjectNotFound(e.Message);
+            }
+        }
+
+        /// <summary>
         /// Compares entered password hash to stored hash
         /// </summary>
         /// <param name="ID"></param>
         /// <param name="password"></param>
         /// <returns>True if passwords match</returns>
         [MethodImpl(MethodImplOptions.Synchronized)]
-        public bool Login(int ID, byte[] password)
+        public bool Login(uint ID, byte[] password)
         {
             if (GetCustomer(ID).PasswordHash is null || SHA256.Create().ComputeHash(password).SequenceEqual(GetCustomer(ID).PasswordHash))
                 return true;
@@ -133,34 +138,38 @@ namespace BL
             return false;
         }
 
-        [MethodImpl(MethodImplOptions.Synchronized)]
+        /*[MethodImpl(MethodImplOptions.Synchronized)]
         public string ShowStation(int stationID)
         {
             return GetStation(stationID).ToString();
-        }
+        }*/
 
         [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<CustomerList> ListCustomers()
         {
-            IEnumerable<DO.Customer> dalCustomers = dalObject.GetCustomerList();
-
-            List<CustomerList> blCustomers = new List<CustomerList>();
-            dalCustomers.ToList().ForEach(dalCustomer =>
+            lock (dalObject)
             {
-                Customer customer = GetCustomer(dalCustomer.ID);
-                blCustomers.Add(new CustomerList()
-                {
-                    ID = dalCustomer.ID,
-                    Name = dalCustomer.Name,
-                    Phone = dalCustomer.Phone,
-                    PackagesSentDelivered = (uint)customer.Outgoing.FindAll(p => p.Status == Statuses.Delivered).Count,
-                    PackagesSentNotDelivered = (uint)customer.Outgoing.FindAll(p => p.Status != Statuses.Delivered).Count,
-                    PackagesRecieved = (uint)customer.Incoming.FindAll(p => p.Status == Statuses.Delivered).Count,
-                    PackagesExpected = (uint)customer.Incoming.FindAll(p => p.Status != Statuses.Delivered).Count
-                });
-            });
+                IEnumerable<DO.Customer> dalCustomers = dalObject.GetCustomerList();
 
-            return blCustomers;
+                List<CustomerList> blCustomers = new List<CustomerList>();
+                dalCustomers.ToList().ForEach(dalCustomer =>
+                {
+                    Customer customer = GetCustomer(dalCustomer.ID);
+                    blCustomers.Add(new CustomerList()
+                    {
+                        ID = dalCustomer.ID,
+                        Name = dalCustomer.Name,
+                        Phone = dalCustomer.Phone,
+                        PackagesSentDelivered = (uint)customer.Outgoing.FindAll(p => p.Status == Statuses.Delivered).Count,
+                        PackagesSentNotDelivered = (uint)customer.Outgoing.FindAll(p => p.Status != Statuses.Delivered).Count,
+                        PackagesRecieved = (uint)customer.Incoming.FindAll(p => p.Status == Statuses.Delivered).Count,
+                        PackagesExpected = (uint)customer.Incoming.FindAll(p => p.Status != Statuses.Delivered).Count
+                    });
+                });
+
+
+                return blCustomers;
+            }
         }
     }
 }

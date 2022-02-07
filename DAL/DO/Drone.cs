@@ -2,7 +2,7 @@
 {
     public struct Drone
     {
-        public int ID { get; set; }
+        public uint ID { get; set; }
         public string Model { get; set; }
         public WeightCategories WeightCategory { get; set; }
         //public DroneStatuses DroneStatus { get; set; }

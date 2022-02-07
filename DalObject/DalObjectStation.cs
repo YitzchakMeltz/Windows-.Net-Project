@@ -3,6 +3,7 @@ using DalApi.Util;
 using System;
 using System.Collections.Generic;
 using static Dal.DataSource;
+using System.Runtime.CompilerServices;
 
 namespace Dal
 {
@@ -28,7 +29,7 @@ namespace Dal
         /// <param name="ID"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.Synchronized)]
-        public Station GetStation(int ID)
+        public Station GetStation(uint ID)
         {
             Station s = Stations.Find(s => s.ID == ID);
 
@@ -73,7 +74,7 @@ namespace Dal
         /// </summary>
         /// <param name="station"></param>
         [MethodImpl(MethodImplOptions.Synchronized)]
-        public void AddStation(int id, string name, int chargeSlots, double latitude, double longitude)
+        public void AddStation(uint id, string name, uint chargeSlots, double latitude, double longitude)
         {
             Station station = new Station()
             {
@@ -92,7 +93,7 @@ namespace Dal
         /// </summary>
         /// <param name="ID"></param>
         [MethodImpl(MethodImplOptions.Synchronized)]
-        public void RemoveStation(int ID)
+        public void RemoveStation(uint ID)
         {
             if (Stations.RemoveAll(s => s.ID == ID) == 0)
                 throw new ObjectNotFound($"Station with ID: {ID} doesn't exist");

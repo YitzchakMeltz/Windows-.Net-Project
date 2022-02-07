@@ -48,8 +48,8 @@ namespace PL
         {
             try
             {
-                int stationID;
-                if (int.TryParse(ID_input.Text, out stationID) == false)
+                uint stationID;
+                if (uint.TryParse(ID_input.Text, out stationID) == false)
                     throw new BO.InvalidManeuver("Inputted Customer ID is not valid.");
                 double longitude;
                 if (double.TryParse(Longitude_input.Text, out longitude) == false)
@@ -57,7 +57,7 @@ namespace PL
                 double latitude;
                 if (double.TryParse(Latitude_input.Text, out latitude) == false)
                     throw new BO.InvalidManeuver("Inputted Latitude is not valid.");
-                (DataContext as StationsModel).Add(stationID, Name_input.Text, longitude, latitude, int.Parse(TotalSlots_input.Text));
+                (DataContext as StationsModel).Add(stationID, Name_input.Text, longitude, latitude, uint.Parse(TotalSlots_input.Text));
                 MsgBox.Show("Success", "Station Added Succesfully");
                 NavigationService.GoBack();
             }

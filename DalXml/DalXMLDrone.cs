@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
@@ -57,7 +58,7 @@ namespace Dal
         /// </summary>
         /// <param name="drone"></param>
         [MethodImpl(MethodImplOptions.Synchronized)]
-        public void AddDrone(int id, string model, WeightCategories weightCat)
+        public void AddDrone(uint id, string model, WeightCategories weightCat)
         {
             AddDrone(new Drone()
             {
@@ -66,7 +67,7 @@ namespace Dal
                 WeightCategory = weightCat
             });
         }
-        private XElement GetDroneElement(int ID)
+        private XElement GetDroneElement(uint ID)
         {
             XElement drone = Drones.Elements().Where(d => Int32.Parse(d.Element("ID").Value) == ID).FirstOrDefault();
 
@@ -79,7 +80,7 @@ namespace Dal
         {
             return new Drone()
             {
-                ID = Int32.Parse(d.Element("ID").Value),
+                ID = UInt32.Parse(d.Element("ID").Value),
                 Model = d.Element("Model").Value,
                 WeightCategory = Enum.Parse<WeightCategories>(d.Element("Weight").Value),
             };
@@ -90,7 +91,7 @@ namespace Dal
         /// </summary>
         /// <param name="ID"></param>
         [MethodImpl(MethodImplOptions.Synchronized)]
-        public Drone GetDrone(int ID)
+        public Drone GetDrone(uint ID)
         {
             return DroneParse(GetDroneElement(ID));
         }
@@ -111,7 +112,7 @@ namespace Dal
         /// </summary>
         /// <param name="ID"></param>
         [MethodImpl(MethodImplOptions.Synchronized)]
-        public void RemoveDrone(int ID)
+        public void RemoveDrone(uint ID)
         {
             GetDroneElement(ID).Remove();
             SaveDrones();

@@ -4,12 +4,12 @@
     {
         public struct Parcel
         {
-            public int ID { get; set; }
-            public int SenderID { get; set; }
-            public int TargetID { get; set; }
+            public uint ID { get; set; }
+            public uint SenderID { get; set; }
+            public uint TargetID { get; set; }
             public WeightCategories WeightCategory { get; set; }
             public Priorities Priority { get; set; }
-            public int DroneID { get; set; }
+            public uint DroneID { get; set; }
             public DateTime Scheduled { get; set; }
             public DateTime? Assigned { get; set; }
             public DateTime? PickedUp { get; set; }

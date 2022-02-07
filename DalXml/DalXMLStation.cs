@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
@@ -37,6 +38,7 @@ namespace Dal
         /// Adds a Station
         /// </summary>
         /// <param name="station"></param>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void AddStation(Station station)
         {
             if (Stations.Elements().Any(s => Int32.Parse(s.Element("ID").Value) == station.ID))
@@ -58,7 +60,8 @@ namespace Dal
         /// Adds a Station
         /// </summary>
         /// <param name="station"></param>
-        public void AddStation(int id, string name, int chargeSlots, double latitude, double longitude)
+        [MethodImpl(MethodImplOptions.Synchronized)]
+        public void AddStation(uint id, string name, uint chargeSlots, double latitude, double longitude)
         {
             Station station = new Station()
             {
@@ -71,7 +74,7 @@ namespace Dal
             AddStation(station);
         }
 
-        private XElement GetStationElement(int ID)
+        private XElement GetStationElement(uint ID)
         {
             XElement station = Stations.Elements().Where(s => Int32.Parse(s.Element("ID").Value) == ID).FirstOrDefault();
 
@@ -80,13 +83,14 @@ namespace Dal
 
             return station;
         }
+
         private Station StationParse(XElement s)
         {
             return new Station()
             {
-                ID = Int32.Parse(s.Element("ID").Value),
+                ID = UInt32.Parse(s.Element("ID").Value),
                 Name = s.Element("Name").Value,
-                AvailableChargeSlots = Int32.Parse(s.Element("AvailableChargeSlots").Value),
+                AvailableChargeSlots = UInt32.Parse(s.Element("AvailableChargeSlots").Value),
                 Location = new DalApi.Util.Coordinate(Double.Parse(s.Element("Location").Element("Latitude").Value), Double.Parse(s.Element("Location").Element("Longitude").Value))
             };
         }
@@ -96,7 +100,8 @@ namespace Dal
         /// </summary>
         /// <param name="ID"></param>
         /// <returns></returns>
-        public Station GetStation(int ID)
+        [MethodImpl(MethodImplOptions.Synchronized)]
+        public Station GetStation(uint ID)
         {
             return StationParse(GetStationElement(ID));
         }
@@ -105,10 +110,13 @@ namespace Dal
         /// Returns an array of all Base Stations
         /// </summary>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<Station> GetStationList()
         {
             return Stations.Elements().Select(s => StationParse(s));
         }
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<Station> GetFilteredStationList(Predicate<Station> pred)
         {
             return (from s in Stations.Elements()
@@ -119,7 +127,8 @@ namespace Dal
         /// Deletes a Station
         /// </summary>
         /// <param name="ID"></param>
-        public void RemoveStation(int ID)
+        [MethodImpl(MethodImplOptions.Synchronized)]
+        public void RemoveStation(uint ID)
         {
             GetStationElement(ID).Remove();
             SaveStations();

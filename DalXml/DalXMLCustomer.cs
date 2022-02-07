@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
@@ -56,7 +57,8 @@ namespace Dal
         /// Adds a Customer
         /// </summary>
         /// <param name="customer"></param>
-        public void AddCustomer(int id, string name, string phoneNum, double latitude, double longitude, string password = "")
+        [MethodImpl(MethodImplOptions.Synchronized)]
+        public void AddCustomer(uint id, string name, string phoneNum, double latitude, double longitude, string password = "")
         {
             if (latitude < -90 || latitude > 90 || longitude < -180 || longitude > 180)
                 throw new InvalidInput("Location is invalid.");
@@ -71,7 +73,7 @@ namespace Dal
             });
         }
 
-        private XElement GetCustomerElement(int ID)
+        private XElement GetCustomerElement(uint ID)
         {
             XElement customer = Customers.Elements().Where(p => Int32.Parse(p.Element("ID").Value) == ID).FirstOrDefault();
 
@@ -80,11 +82,12 @@ namespace Dal
 
             return customer;
         }
+
         private Customer CustomerParse(XElement c)
         {
             return new Customer()
             {
-                ID = Int32.Parse(c.Element("ID").Value),
+                ID = UInt32.Parse(c.Element("ID").Value),
                 Name = c.Element("Name").Value,
                 Phone = c.Element("Phone").Value,
                 Location = new DalApi.Util.Coordinate(Double.Parse(c.Element("Location").Element("Latitude").Value), Double.Parse(c.Element("Location").Element("Longitude").Value)),
@@ -92,18 +95,21 @@ namespace Dal
             };
         }
 
-        public Customer GetCustomer(int ID)
+        [MethodImpl(MethodImplOptions.Synchronized)]
+        public Customer GetCustomer(uint ID)
         {
             return CustomerParse(GetCustomerElement(ID));
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<Customer> GetCustomerList()
         {
             return from c in Customers.Elements()
                    select CustomerParse(c);
         }
 
-        public void RemoveCustomer(int ID)
+        [MethodImpl(MethodImplOptions.Synchronized)]
+        public void RemoveCustomer(uint ID)
         {
             GetCustomerElement(ID).Remove();
             SaveCustomers();

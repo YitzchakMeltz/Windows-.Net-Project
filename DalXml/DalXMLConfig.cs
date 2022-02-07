@@ -45,11 +45,11 @@ namespace Dal
                 Double.Parse(BatteryUsage.Parent.Element("ChargeRate").Value)
             };
         }
-        private int nextPackageID()
+        private uint nextPackageID()
         {
             try
             {
-                int result = Int32.Parse(Config.Element("PackageID").Value);
+                uint result = UInt32.Parse(Config.Element("PackageID").Value);
                 Config.SetElementValue("PackageID", result + 1);
                 SaveConfig();
                 return result;

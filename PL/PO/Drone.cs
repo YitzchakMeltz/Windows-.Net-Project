@@ -13,14 +13,14 @@ namespace PL.PO
     public class Drone : INotifyPropertyChanged
     {
         private IBL bl;
-        public Drone(int ID, IBL bl) {
+        public Drone(uint ID, IBL bl) {
             this.ID = ID;
             this.bl = bl;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public int ID { init; get; }
+        public uint ID { init; get; }
         public string Model {
             get => bl.GetDrone(ID).Model;
             set {

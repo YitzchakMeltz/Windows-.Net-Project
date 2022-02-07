@@ -1,6 +1,7 @@
 ﻿using DO;
 using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using static Dal.DataSource;
 
 namespace Dal
@@ -27,7 +28,7 @@ namespace Dal
         /// <param name="ID"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.Synchronized)]
-        public Parcel GetParcel(int ID)
+        public Parcel GetParcel(uint ID)
         {
             Parcel p = Parcels.Find(p => p.ID == ID);
 
@@ -64,7 +65,7 @@ namespace Dal
         /// <param name="parcel"></param>
         /// <returns>PackageID</returns>
         [MethodImpl(MethodImplOptions.Synchronized)]
-        public int AddParcel(int senderID, int targetID, WeightCategories weightCat, Priorities priority, int droneID)
+        public uint AddParcel(uint senderID, uint targetID, WeightCategories weightCat, Priorities priority, uint droneID)
         {
             Parcel parcel = new Parcel()
             {
@@ -86,7 +87,7 @@ namespace Dal
         /// Assigns a Parcel to a Drone
         /// </summary>
         [MethodImpl(MethodImplOptions.Synchronized)]
-        public void AssignParcel(int parcelID, int droneID)
+        public void AssignParcel(uint parcelID, uint droneID)
         {
             Parcel parcel = GetParcel(parcelID);
 
@@ -103,7 +104,7 @@ namespace Dal
         /// Marks a Parcel as Collected by a Drone
         /// </summary>
         [MethodImpl(MethodImplOptions.Synchronized)]
-        public void ParcelCollected(int parcelID)
+        public void ParcelCollected(uint parcelID)
         {
             Parcel parcel = GetParcel(parcelID);
 
@@ -116,7 +117,7 @@ namespace Dal
         /// Marks a Parcel as Delivered
         /// </summary>
         [MethodImpl(MethodImplOptions.Synchronized)]
-        public void ParcelDelivered(int parcelID)
+        public void ParcelDelivered(uint parcelID)
         {
             Parcel parcel = GetParcel(parcelID);
 
@@ -130,7 +131,7 @@ namespace Dal
         /// </summary>
         /// <param name="ID">ID of Parcel to delete</param>
         [MethodImpl(MethodImplOptions.Synchronized)]
-        public void RemoveParcel(int ID)
+        public void RemoveParcel(uint ID)
         {
             if (Parcels.RemoveAll(p => p.ID == ID) == 0)
                 throw new ObjectNotFound($"Parcel with ID: {ID} doesn't exist");

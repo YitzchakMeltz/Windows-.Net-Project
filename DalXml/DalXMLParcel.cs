@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
@@ -32,6 +33,8 @@ namespace Dal
                 throw new InvalidInput("Couldn't access Parcels.xml", e);
             }
         }
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void AddParcel(Parcel parcel)
         {
             if (Parcels.Elements().Any(p => Int32.Parse(p.Element("ID").Value) == parcel.ID))
@@ -52,7 +55,9 @@ namespace Dal
 
             SaveParcels();
         }
-        public int AddParcel(int senderID, int targetID, WeightCategories weightCat, Priorities priority, int droneID)
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
+        public uint AddParcel(uint senderID, uint targetID, WeightCategories weightCat, Priorities priority, uint droneID)
         {
             Parcel parcel = new Parcel()
             {
@@ -70,7 +75,7 @@ namespace Dal
             return parcel.ID;
         }
 
-        private XElement GetParcelElement(int ID)
+        private XElement GetParcelElement(uint ID)
         {
             XElement parcel = Parcels.Elements().Where(p => Int32.Parse(p.Element("ID").Value) == ID).FirstOrDefault();
 
@@ -79,16 +84,17 @@ namespace Dal
 
             return parcel;
         }
+
         private Parcel ParcelParse(XElement p)
         {
             return new Parcel()
             {
-                ID = Int32.Parse(p.Element("ID").Value),
-                SenderID = Int32.Parse(p.Element("SenderID").Value),
-                TargetID = Int32.Parse(p.Element("TargetID").Value),
+                ID = UInt32.Parse(p.Element("ID").Value),
+                SenderID = UInt32.Parse(p.Element("SenderID").Value),
+                TargetID = UInt32.Parse(p.Element("TargetID").Value),
                 WeightCategory = Enum.Parse<WeightCategories>(p.Element("Weight").Value),
                 Priority = Enum.Parse<Priorities>(p.Element("Priority").Value),
-                DroneID = Int32.Parse(p.Element("DroneID").Value),
+                DroneID = UInt32.Parse(p.Element("DroneID").Value),
                 Scheduled = DateTime.ParseExact(p.Element("Scheduled").Value, "MM/dd/yyyy HH:mm:ss", null),
                 Assigned = p.Element("Assigned") is null ? null : DateTime.ParseExact(p.Element("Assigned").Value, "MM/dd/yyyy HH:mm:ss", null),
                 PickedUp = p.Element("PickedUp") is null ? null : DateTime.ParseExact(p.Element("PickedUp").Value, "MM/dd/yyyy HH:mm:ss", null),
@@ -96,23 +102,28 @@ namespace Dal
             };
         }
 
-        public Parcel GetParcel(int ID)
+        [MethodImpl(MethodImplOptions.Synchronized)]
+        public Parcel GetParcel(uint ID)
         {
             return ParcelParse(GetParcelElement(ID));
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<Parcel> GetParcelList()
         {
             return from p in Parcels.Elements()
                    select ParcelParse(p);
         }
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<Parcel> GetFilteredParcelList(Predicate<Parcel> pred)
         {
             return (from p in Parcels.Elements()
                     select ParcelParse(p)).Where(pred.Invoke);
         }
 
-        public void RemoveParcel(int ID)
+        [MethodImpl(MethodImplOptions.Synchronized)]
+        public void RemoveParcel(uint ID)
         {
             GetParcelElement(ID).Remove();
             SaveParcels();
@@ -121,7 +132,8 @@ namespace Dal
         /// <summary>
         /// Assigns a Parcel to a Drone
         /// </summary>
-        public void AssignParcel(int parcelID, int droneID)
+        [MethodImpl(MethodImplOptions.Synchronized)]
+        public void AssignParcel(uint parcelID, uint droneID)
         {
             XElement parcel = GetParcelElement(parcelID);
 
@@ -137,7 +149,8 @@ namespace Dal
         /// <summary>
         /// Marks a Parcel as Collected by a Drone
         /// </summary>
-        public void ParcelCollected(int parcelID)
+        [MethodImpl(MethodImplOptions.Synchronized)]
+        public void ParcelCollected(uint parcelID)
         {
             XElement parcel = GetParcelElement(parcelID);
 
@@ -149,7 +162,8 @@ namespace Dal
         /// <summary>
         /// Marks a Parcel as Delivered
         /// </summary>
-        public void ParcelDelivered(int parcelID)
+        [MethodImpl(MethodImplOptions.Synchronized)]
+        public void ParcelDelivered(uint parcelID)
         {
             XElement parcel = GetParcelElement(parcelID);
 

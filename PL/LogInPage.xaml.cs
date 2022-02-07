@@ -41,12 +41,12 @@ namespace PL
 
             try 
             {
-                int customerID;
-                if (int.TryParse(ID_input.Text, out customerID) == false)
+                uint customerID;
+                if (uint.TryParse(ID_input.Text, out customerID) == false)
                     throw new BO.InvalidManeuver("Inputted ID is not valid.");
                 if (bl.Login(customerID, System.Text.Encoding.UTF8.GetBytes(Password_input.Password)))
                 {
-                    NavigationService.Navigate(new CustomerPage(new Models.CustomersModel(bl, int.Parse(ID_input.Text))));
+                    NavigationService.Navigate(new CustomerPage(new Models.CustomersModel(bl, uint.Parse(ID_input.Text))));
                 }
                 else throw new BO.InvalidManeuver("Invalid credentials.");
             }

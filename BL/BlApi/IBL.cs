@@ -6,27 +6,27 @@ namespace BlApi
 {
     public interface IBL
     {
-        public void AddStation(int ID, string name, double latitude, double longitude, int availableChargeStations);
-        public void AddDrone(int ID, string model, BO.WeightCategories weight, int stationID);
-        public void AddCustomer(int ID, string name, string phone, double longitude, double latitude, string password = "");
-        public int AddPackage(int senderID, int receiverID, BO.WeightCategories weight, BO.Priorities priority);
+        public void AddStation(uint ID, string name, double latitude, double longitude, uint availableChargeStations);
+        public void AddDrone(uint ID, string model, BO.WeightCategories weight, uint stationID);
+        public void AddCustomer(uint ID, string name, string phone, double longitude, double latitude, string password = "");
+        public uint AddPackage(uint senderID, uint receiverID, BO.WeightCategories weight, BO.Priorities priority);
 
-        public void UpdateDrone(int ID, string model);
-        public void UpdateStation(int ID, string name = null, int? totalChargeStation = null);
-        public void UpdateCustomer(int ID, string name = null, string phone = null, string password = null);
-        public void ChargeDrone(int droneID);
-        public void ReleaseDrone(int droneID);
-        public void AssignPackageToDrone(int droneID);
-        public void CollectPackage(int droneID);
-        public void DeliverPackage(int droneID);
-        public void DeletePackage(int SenderID);
+        public void UpdateDrone(uint ID, string model);
+        public void UpdateStation(uint ID, string name = null, uint? totalChargeStation = null);
+        public void UpdateCustomer(uint ID, string name = null, string phone = null, string password = null);
+        public void ChargeDrone(uint droneID);
+        public void ReleaseDrone(uint droneID);
+        public void AssignPackageToDrone(uint droneID);
+        public void CollectPackage(uint droneID);
+        public void DeliverPackage(uint droneID);
+        public void DeletePackage(uint SenderID);
 
-        public bool Login(int ID, byte[] password);
+        public bool Login(uint ID, byte[] password);
 
-        public BaseStation GetStation(int ID);
-        public Drone GetDrone(int ID);
-        public Customer GetCustomer(int ID);
-        public Package GetPackage(int ID);
+        public BaseStation GetStation(uint ID);
+        public Drone GetDrone(uint ID);
+        public Customer GetCustomer(uint ID);
+        public Package GetPackage(uint ID);
 
         public IEnumerable<DroneList> ListDrones();
         public IEnumerable<DroneList> ListDronesFiltered(Predicate<DroneList> p);

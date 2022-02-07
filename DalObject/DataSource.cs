@@ -15,7 +15,7 @@ namespace Dal
 
         internal class Config
         {
-            public static int PackageID = 0;
+            public static uint PackageID = 0;
             public static double Free = 2000;                        // km when free
             public static double LightConsumption = 1500;            // km when carrying light package
             public static double MediumConsumption = 1200;           // km when carrying mid weight package
@@ -35,14 +35,14 @@ namespace Dal
             {
                 Station s = new Station()
                 {
-                    AvailableChargeSlots = rd.Next(1, 50),
+                    AvailableChargeSlots = (uint)rd.Next(10, 50),
                     Name = "Station" + (i + 1),
                     Location = new Coordinate(-90 + 180 * rd.NextDouble(), -180 + 360 * rd.NextDouble())
                 };
 
                 do
                 {
-                    s.ID = rd.Next(100000000, 999999999);
+                    s.ID = (uint)rd.Next(100000000, 999999999);
                 } while (Stations.Exists(sta => sta.ID == s.ID));
 
                 Stations.Add(s);
@@ -58,7 +58,7 @@ namespace Dal
 
                 do
                 {
-                    d.ID = rd.Next(100000000, 999999999);
+                    d.ID = (uint)rd.Next(100000000, 999999999);
                 } while (Drones.Exists(drone => drone.ID == d.ID));
 
                 Drones.Add(d);
@@ -85,7 +85,7 @@ namespace Dal
 
                 do
                 {
-                    c.ID = rd.Next(100000000, 999999999);
+                    c.ID = (uint)rd.Next(100000000, 999999999);
                 } while (Customers.Exists(cust => cust.ID == c.ID)); // prevent overlapping IDs
 
                 do
@@ -111,7 +111,7 @@ namespace Dal
 
                 do
                 {
-                    p.ID = rd.Next(100000000, 999999999);
+                    p.ID = (uint)rd.Next(100000000, 999999999);
                 } while (Parcels.Exists(parc => parc.ID == p.ID));
 
                 do

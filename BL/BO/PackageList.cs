@@ -4,7 +4,7 @@ namespace BO
 {
     public class PackageList
     {
-        public int ID { init; get; }
+        public uint ID { init; get; }
         public string Sender { init; get; }
         public string Receiver { init; get; }
         public WeightCategories Weight { init; get; }

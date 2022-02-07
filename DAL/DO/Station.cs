@@ -2,9 +2,9 @@
 {
     public struct Station
     {
-        public int ID { get; set; }
+        public uint ID { get; set; }
         public string Name { get; set; }
-        public int AvailableChargeSlots { get; set; }
+        public uint AvailableChargeSlots { get; set; }
         //public double Longitude { get; set; }
         //public double Latitude { get; set; }
         public DalApi.Util.Coordinate Location { get; set; }

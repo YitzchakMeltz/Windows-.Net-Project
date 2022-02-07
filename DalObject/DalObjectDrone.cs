@@ -1,5 +1,6 @@
 ﻿using DO;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using static Dal.DataSource;
 
 namespace Dal
@@ -25,7 +26,7 @@ namespace Dal
         /// <param name="ID"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.Synchronized)]
-        public Drone GetDrone(int ID)
+        public Drone GetDrone(uint ID)
         {
             Drone d = Drones.Find(d => d.ID == ID);
 
@@ -51,7 +52,7 @@ namespace Dal
         /// </summary>
         /// <param name="drone"></param>
         [MethodImpl(MethodImplOptions.Synchronized)]
-        public void AddDrone(int id, string model, WeightCategories weightCat)
+        public void AddDrone(uint id, string model, WeightCategories weightCat)
         {
             Drone drone = new Drone()
             {
@@ -68,7 +69,7 @@ namespace Dal
         /// </summary>
         /// <param name="ID"></param>
         [MethodImpl(MethodImplOptions.Synchronized)]
-        public void RemoveDrone(int ID)
+        public void RemoveDrone(uint ID)
         {
             if (Drones.RemoveAll(d => d.ID == ID) == 0)
                 throw new ObjectNotFound($"Drone with ID: {ID} doesn't exist");

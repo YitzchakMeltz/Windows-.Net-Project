@@ -28,9 +28,10 @@ namespace PL.Models
 
             //Try adding Multi-threading using Background Worker
             BackgroundWorker worker = new BackgroundWorker();
-            worker.DoWork += ((sender, e) => { bl.ListDrones().ToList().
-                          ForEach(drone => _collection.
-                          Add(new PO.Drone(drone.ID, bl))); });
+            worker.WorkerReportsProgress = true;
+            worker.ProgressChanged += addDrone;
+            worker.DoWork += (sender, e) => { bl.ListDrones().ToList().
+                          ForEach(drone => worker.ReportProgress(0, drone.ID)); };
 
             worker.RunWorkerAsync();
             //======================================================================
@@ -42,6 +43,11 @@ namespace PL.Models
                     (Weight == "All Weights" || (o as PO.Drone).Weight.ToString() == Weight)) return true;
                 else return false;
             };
+        }
+
+        private void addDrone(object sender, ProgressChangedEventArgs e)
+        {
+            _collection.Add(new PO.Drone((uint)e.UserState, bl));
         }
 
         public DronesModel(IBL bl, PO.Package package) : this(bl)
@@ -115,9 +121,9 @@ namespace PL.Models
         }
 
         public PO.Drone SelectedDrone { get; set; }
-        public IEnumerable<int> Stations { get { return bl.ListStations().Select(s => s.ID); } }
+        public IEnumerable<uint> Stations { get { return bl.ListStations().Select(s => s.ID); } }
 
-        public void Add(int ID, string model, WeightCategories weight, int stationID)
+        public void Add(uint ID, string model, WeightCategories weight, uint stationID)
         {
             bl.AddDrone(ID, model, weight, stationID);
             _collection.Add(new PO.Drone(ID, bl));

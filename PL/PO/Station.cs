@@ -13,13 +13,13 @@ namespace PL.PO
     {
         private IBL bl;
         public enum Availability { Unavailable, Available }
-        public Station(int ID, IBL bl)
+        public Station(uint ID, IBL bl)
         {
             this.ID = ID;
             this.bl = bl;
         }
 
-        public int ID { init; get; }
+        public uint ID { init; get; }
 
         public string Name {
             get => bl.GetStation(ID).Name;
@@ -33,7 +33,7 @@ namespace PL.PO
         {
             get => bl.GetStation(ID).AvailableChargingSlots;
             set {
-                bl.UpdateStation(ID, totalChargeStation: (int?)value);
+                bl.UpdateStation(ID, totalChargeStation: value);
                 PropertyChanged(this, new PropertyChangedEventArgs("AvailableChargingSlots"));
             }
         }

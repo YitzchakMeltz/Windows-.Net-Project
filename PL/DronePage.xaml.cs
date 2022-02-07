@@ -59,8 +59,8 @@ namespace PL
                 if (DroneID_input.Text != "" && int.Parse(DroneID_input.Text) >= 0 && DroneModel_input.Text != "" &&
                     StationIDSelector.SelectedItem != null && WeightSelector.SelectedItem != null)
                 {
-                    (DataContext as DronesModel).Add(int.Parse(DroneID_input.Text), DroneModel_input.Text,
-                        (BO.WeightCategories)WeightSelector.SelectedItem, (int)StationIDSelector.SelectedItem);
+                    (DataContext as DronesModel).Add(uint.Parse(DroneID_input.Text), DroneModel_input.Text,
+                        (BO.WeightCategories)WeightSelector.SelectedItem, (uint)StationIDSelector.SelectedItem);
                     MsgBox.Show("Success", "Drone successfully added.");
                     NavigationService.GoBack();
                 }

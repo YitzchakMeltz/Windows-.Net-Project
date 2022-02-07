@@ -4,7 +4,7 @@ namespace BO
 {
     public class Customer
     {
-        public int ID { init; get; }
+        public uint ID { init; get; }
         public string Name { init; get; }
         public string Phone { init; get; }
         public Location Location { init; get; }

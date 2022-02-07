@@ -72,7 +72,7 @@ namespace ConsoleUI_BL
             {
                 case AddMenu.AddBaseStation:
                     Console.WriteLine("Please enter the Station ID: ");
-                    int stationID = Convert.ToInt32(Console.ReadLine());
+                    uint stationID = Convert.ToUInt32(Console.ReadLine());
 
                     Console.WriteLine("Please enter the station name: ");
                     string name = Console.ReadLine();
@@ -84,14 +84,14 @@ namespace ConsoleUI_BL
                     double longitude = Convert.ToDouble(Console.ReadLine());
 
                     Console.WriteLine("Please enter the total amount of available charge slots: ");
-                    int chargeSlots = Convert.ToInt32(Console.ReadLine());
+                    uint chargeSlots = Convert.ToUInt32(Console.ReadLine());
 
                     bl.AddStation(stationID, name, latitude, longitude, chargeSlots);
                     break;
 
                 case AddMenu.AddDrone:
                     Console.WriteLine("Please enter the Drone manufacture ID: ");
-                    int droneID = Convert.ToInt32(Console.ReadLine());
+                    uint droneID = Convert.ToUInt32(Console.ReadLine());
 
                     Console.WriteLine("Please enter the drone model: ");
                     string model = Console.ReadLine();
@@ -103,14 +103,14 @@ namespace ConsoleUI_BL
                     BO.WeightCategories weight = (BO.WeightCategories)Convert.ToInt32(Console.ReadLine());
 
                     Console.WriteLine("Please enter the station ID for first charging: ");
-                    int firstChargingStationID = Convert.ToInt32(Console.ReadLine());
+                    uint firstChargingStationID = Convert.ToUInt32(Console.ReadLine());
 
                     bl.AddDrone(droneID, model, weight, firstChargingStationID);
                     break;
 
                 case AddMenu.AddCustomer:
                     Console.WriteLine("Please enter the Customer ID: ");
-                    int customerID = Convert.ToInt32(Console.ReadLine());
+                    uint customerID = Convert.ToUInt32(Console.ReadLine());
 
                     Console.WriteLine("Please enter the customer name: ");
                     string customerName = Console.ReadLine();
@@ -129,10 +129,10 @@ namespace ConsoleUI_BL
 
                 case AddMenu.AddPackage:
                     Console.WriteLine("Please enter the Sender ID: ");
-                    int senderID = Convert.ToInt32(Console.ReadLine());
+                    uint senderID = Convert.ToUInt32(Console.ReadLine());
 
                     Console.WriteLine("Please enter the Receiver ID: ");
-                    int receiverID = Convert.ToInt32(Console.ReadLine());
+                    uint receiverID = Convert.ToUInt32(Console.ReadLine());
 
                     Console.WriteLine("Please enter the weight of the package: ");
                     Console.WriteLine("0 Light ");
@@ -177,7 +177,7 @@ namespace ConsoleUI_BL
             {
                 case UpdateMenu.UpdateDrone:
                     Console.WriteLine("Please enter the Drone ID: ");
-                    int droneID = Convert.ToInt32(Console.ReadLine());
+                    uint droneID = Convert.ToUInt32(Console.ReadLine());
 
                     Console.WriteLine("Please enter the new drone model: ");
                     string model = Console.ReadLine();
@@ -187,7 +187,7 @@ namespace ConsoleUI_BL
 
                 case UpdateMenu.UpdateStation:
                     Console.WriteLine("Please enter the Station ID: ");
-                    int stationID = Convert.ToInt32(Console.ReadLine());
+                    uint stationID = Convert.ToUInt32(Console.ReadLine());
 
                     Console.WriteLine("1. Update Station Name");
                     Console.WriteLine("2. Update Total Number of Availible Slots");
@@ -203,7 +203,7 @@ namespace ConsoleUI_BL
                             break;
                         case 2:
                             Console.WriteLine("Please enter the total amount of available charge slots: ");
-                            int chargeSlots = Convert.ToInt32(Console.ReadLine());
+                            uint chargeSlots = Convert.ToUInt32(Console.ReadLine());
                             bl.UpdateStation(stationID, null, chargeSlots);
                             break;
                         case 3:
@@ -211,7 +211,7 @@ namespace ConsoleUI_BL
                             newName = Console.ReadLine();
 
                             Console.WriteLine("Please enter the total amount of available charge slots: ");
-                            chargeSlots = Convert.ToInt32(Console.ReadLine());
+                            chargeSlots = Convert.ToUInt32(Console.ReadLine());
 
                             bl.UpdateStation(stationID, newName, chargeSlots);
                             break;
@@ -220,7 +220,7 @@ namespace ConsoleUI_BL
 
                 case UpdateMenu.UpdateCustomer:
                     Console.WriteLine("Please enter the Station ID: ");
-                    int customerID = Convert.ToInt32(Console.ReadLine());
+                    uint customerID = Convert.ToUInt32(Console.ReadLine());
 
                     Console.WriteLine("1 Update Customer Name \n2 Update Customer Phone Number \n3 Update Both");
                     updateOption = Convert.ToInt32(Console.ReadLine());
@@ -251,14 +251,14 @@ namespace ConsoleUI_BL
 
                 case UpdateMenu.UpdateChargeDrone:
                     Console.WriteLine("Please enter the Drone ID: ");
-                    droneID = Convert.ToInt32(Console.ReadLine());
+                    droneID = Convert.ToUInt32(Console.ReadLine());
 
                     bl.ChargeDrone(droneID);
                     break;
 
                 case UpdateMenu.UpdateReleaseDrone:
                     Console.WriteLine("Please enter the Drone ID: ");
-                    droneID = Convert.ToInt32(Console.ReadLine());
+                    droneID = Convert.ToUInt32(Console.ReadLine());
                     //Console.WriteLine("Please enter how many minutes it was charging for: ");
                     //int chargingTime = Convert.ToInt32(Console.ReadLine());
 
@@ -267,21 +267,21 @@ namespace ConsoleUI_BL
 
                 case UpdateMenu.UpdateAssignPackage:
                     Console.WriteLine("Please enter the Drone ID: ");
-                    droneID = Convert.ToInt32(Console.ReadLine());
+                    droneID = Convert.ToUInt32(Console.ReadLine());
 
                     bl.AssignPackageToDrone(droneID);
                     break;
 
                 case UpdateMenu.UpdateCollectPackage:
                     Console.WriteLine("Please enter the Drone ID: ");
-                    droneID = Convert.ToInt32(Console.ReadLine());
+                    droneID = Convert.ToUInt32(Console.ReadLine());
 
                     bl.CollectPackage(droneID);
                     break;
 
                 case UpdateMenu.UpdateDeliverPackage:
                     Console.WriteLine("Please enter the Drone ID: ");
-                    droneID = Convert.ToInt32(Console.ReadLine());
+                    droneID = Convert.ToUInt32(Console.ReadLine());
 
                     bl.DeliverPackage(droneID);
                     break;
@@ -312,28 +312,28 @@ namespace ConsoleUI_BL
             {
                 case ShowMenu.ShowBaseStation:
                     Console.WriteLine("Please enter the Station ID: ");
-                    int stationID = Convert.ToInt32(Console.ReadLine());
+                    uint stationID = Convert.ToUInt32(Console.ReadLine());
 
                     Console.WriteLine(bl.GetStation(stationID));
                     break;
 
                 case ShowMenu.ShowDrone:
                     Console.WriteLine("Please enter the Drone ID: ");
-                    int droneID = Convert.ToInt32(Console.ReadLine());
+                    uint droneID = Convert.ToUInt32(Console.ReadLine());
 
                     Console.WriteLine(bl.GetDrone(droneID));
                     break;
 
                 case ShowMenu.ShowCustomer:
                     Console.WriteLine("Please enter the Customer ID: ");
-                    int customerID = Convert.ToInt32(Console.ReadLine());
+                    uint customerID = Convert.ToUInt32(Console.ReadLine());
 
                     Console.WriteLine(bl.GetCustomer(customerID));
                     break;
 
                 case ShowMenu.ShowPackage:
                     Console.WriteLine("Please enter the Package ID: ");
-                    int packageID = Convert.ToInt32(Console.ReadLine());
+                    uint packageID = Convert.ToUInt32(Console.ReadLine());
 
                     Console.WriteLine(bl.GetPackage(packageID));
                     break;

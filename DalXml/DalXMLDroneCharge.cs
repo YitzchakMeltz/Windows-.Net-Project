@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
@@ -37,12 +38,12 @@ namespace Dal
         /// Charges a Drone
         /// </summary>
         [MethodImpl(MethodImplOptions.Synchronized)]
-        public void ChargeDrone(int droneID, int stationID)
+        public void ChargeDrone(uint droneID, uint stationID)
         {
             GetDrone(droneID);                                               // Forces error if drone doesn't exist
 
             XElement station = GetStationElement(stationID);
-            int availableChargeSlots = Int32.Parse(station.Element("AvailableChargeSlots").Value);
+            uint availableChargeSlots = UInt32.Parse(station.Element("AvailableChargeSlots").Value);
             if (availableChargeSlots == 0)
                 throw new DO.InvalidInput("No charging slots available in nearest station.");
             station.Element("AvailableChargeSlots").SetValue(--availableChargeSlots);
@@ -62,7 +63,7 @@ namespace Dal
         /// Releases a Drone from charging
         /// </summary>
         [MethodImpl(MethodImplOptions.Synchronized)]
-        public double ReleaseDrone(int droneID)
+        public double ReleaseDrone(uint droneID)
         {
             Drone drone = GetDrone(droneID);                                                  // Forces error if drone doesn't exist
 
@@ -76,7 +77,7 @@ namespace Dal
             SaveDroneCharges();
 
             // Add 1 to Available Charging Slots of corresponding station
-            XElement station = GetStationElement(Int32.Parse(dc.Element("StationID").Value));
+            XElement station = GetStationElement(UInt32.Parse(dc.Element("StationID").Value));
             int availableChargeSlots = Int32.Parse(station.Element("AvailableChargeSlots").Value);
             station.Element("AvailableChargeSlots").SetValue(++availableChargeSlots);
             SaveStations();

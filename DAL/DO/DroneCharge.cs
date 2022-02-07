@@ -4,8 +4,8 @@ namespace DO
     {
         public struct DroneCharge
         {
-            public int DroneID { get; set; }
-            public int StationID { get; set; }
+            public uint DroneID { get; set; }
+            public uint StationID { get; set; }
             public DateTime ChargeTime { init; get; }
 
             /// <summary>

@@ -12,13 +12,13 @@ namespace PL.PO
     public class Package : INotifyPropertyChanged
     {
         private IBL bl;
-        public Package(int ID, IBL bl)
+        public Package(uint ID, IBL bl)
         {
             this.ID = ID;
             this.bl = bl;
         }
 
-        public int ID { init; get; }
+        public uint ID { init; get; }
         public PackageCustomer Sender => bl.GetPackage(ID).Sender;
         public PackageCustomer Receiver => bl.GetPackage(ID).Receiver;
         public WeightCategories Weight => bl.GetPackage(ID).Weight;

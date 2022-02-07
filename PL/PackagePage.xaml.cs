@@ -63,11 +63,11 @@ namespace PL
         {
             try
             {
-                int senderID;
-                if (int.TryParse(SenderID_input.Text.Replace("Sender ID: ",""), out senderID) == false)
+                uint senderID;
+                if (uint.TryParse(SenderID_input.Text.Replace("Sender ID: ",""), out senderID) == false)
                     throw new BO.InvalidManeuver("Inputted Sender ID is not valid");
-                int receiverID;
-                if (int.TryParse(ReceiverID_input.Text, out receiverID) == false)
+                uint receiverID;
+                if (uint.TryParse(ReceiverID_input.Text, out receiverID) == false)
                     throw new BO.InvalidManeuver("Inputted Receiver ID is not valid");
                 if (WeightSelector.SelectedItem == null)
                     throw new BO.InvalidManeuver("Weight was not selected.");

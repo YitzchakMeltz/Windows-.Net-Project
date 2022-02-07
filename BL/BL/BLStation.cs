@@ -16,7 +16,7 @@ namespace BL
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
-        public BaseStation GetStation(int stationID)
+        public BaseStation GetStation(uint stationID)
         {
             try
             {
@@ -43,16 +43,17 @@ namespace BL
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
-        public void AddStation(int ID, string name, double latitude, double longitude, int availableChargeStations)
+        public void AddStation(uint ID, string name, double latitude, double longitude, uint availableChargeStations)
         {
             dalObject.AddStation(ID, name, availableChargeStations, latitude, longitude);
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
-        public void UpdateStation(int ID, string name = null, int? totalChargeStation = null)
+        public void UpdateStation(uint ID, string name = null, uint? totalChargeStation = null)
         {
             // Update DALStation
 
+            lock (dalObject)
             try
             {
                 DO.Station station = dalObject.GetStation(ID);
@@ -64,7 +65,7 @@ namespace BL
 
                 if(totalChargeStation != null)
                 {
-                    station.AvailableChargeSlots = (int)totalChargeStation;
+                    station.AvailableChargeSlots = totalChargeStation.Value;
                 }
 
                 dalObject.RemoveStation(ID);
@@ -79,16 +80,19 @@ namespace BL
         [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<BaseStationList> ListStations()
         {
-            IEnumerable<Station> dalStations = dalObject.GetStationList();
-
-            List<BaseStationList> blStations = new List<BaseStationList>();
-            dalStations.ToList().ForEach(dalStation =>
+            lock (dalObject)
             {
-                BaseStation blStation = GetStation(dalStation.ID);
-                blStations.Add(new BaseStationList() { ID = blStation.ID, Name = blStation.Name, ChargingSlotsAvailable = blStation.AvailableChargingSlots, ChargingSlotsOccupied = (uint)blStation.ChargingDrones.Count });
-            });
+                IEnumerable<Station> dalStations = dalObject.GetStationList();
 
-            return blStations;
+                List<BaseStationList> blStations = new List<BaseStationList>();
+                dalStations.ToList().ForEach(dalStation =>
+                {
+                    BaseStation blStation = GetStation(dalStation.ID);
+                    blStations.Add(new BaseStationList() { ID = blStation.ID, Name = blStation.Name, ChargingSlotsAvailable = blStation.AvailableChargingSlots, ChargingSlotsOccupied = (uint)blStation.ChargingDrones.Count });
+                });
+
+                return blStations;
+            }
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]

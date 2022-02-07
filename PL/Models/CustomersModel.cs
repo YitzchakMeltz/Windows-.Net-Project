@@ -17,7 +17,7 @@ namespace PL.Models
 
         private ObservableCollection<PO.Customer> _collection = new ObservableCollection<PO.Customer>();
 
-        public CustomersModel(IBL bl, int? customerID = null)
+        public CustomersModel(IBL bl, uint? customerID = null)
         {
             this.bl = bl;
             PasswordVisible = System.Windows.Visibility.Collapsed;
@@ -103,7 +103,7 @@ namespace PL.Models
             }
         }
 
-        public void Add(int ID, string name, string phone, double longitude, double latitude, string password = "")
+        public void Add(uint ID, string name, string phone, double longitude, double latitude, string password = "")
         {
             bl.AddCustomer(ID, name, phone, longitude, latitude, password);
             _collection.Add(new PO.Customer(ID, bl));

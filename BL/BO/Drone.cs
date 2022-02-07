@@ -2,7 +2,7 @@
 {
     public class Drone
     {
-        public int ID { init; get; }
+        public uint ID { init; get; }
         public string Model { get; set; }
         public WeightCategories Weight { init; get; }
         public double Battery { init; get; }

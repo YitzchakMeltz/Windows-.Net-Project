@@ -68,8 +68,8 @@ namespace PL
             if ((DataContext as CustomersModel).State == CustomersModel.WindowState.Add)
                 try
                 {
-                    int customerID;
-                    if (int.TryParse(ID_input.Text, out customerID) == false)
+                    uint customerID;
+                    if (uint.TryParse(ID_input.Text, out customerID) == false)
                         throw new BO.InvalidManeuver("Inputted Customer ID is not valid.");
                     double longitude;
                     if (double.TryParse(Longitude_input.Text, out longitude) == false)

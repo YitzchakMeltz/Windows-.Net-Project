@@ -1,5 +1,6 @@
 ﻿using DO;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using static Dal.DataSource;
 
 namespace Dal
@@ -10,6 +11,7 @@ namespace Dal
         /// Adds a Customer to DataSource
         /// </summary>
         /// <param name="customer"></param>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void AddCustomer(Customer customer)
         {
             if (Customers.Exists(c => c.ID == customer.ID))
@@ -24,7 +26,8 @@ namespace Dal
         /// </summary>
         /// <param name="ID"></param>
         /// <returns></returns>
-        public Customer GetCustomer(int ID)
+        [MethodImpl(MethodImplOptions.Synchronized)]
+        public Customer GetCustomer(uint ID)
         {
             Customer c = Customers.Find(c => c.ID == ID);
 
@@ -38,17 +41,19 @@ namespace Dal
         /// Returns an array of all Customers
         /// </summary>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<Customer> GetCustomerList()
         {
             return new List<Customer>(Customers);
         }
 
-        
+
         /// <summary>
         /// Adds a Customer to DataSource
         /// </summary>
         /// <param name="customer"></param>
-        public void AddCustomer(int id, string name, string phoneNum, double latitude, double longitude, string password = null)
+        [MethodImpl(MethodImplOptions.Synchronized)]
+        public void AddCustomer(uint id, string name, string phoneNum, double latitude, double longitude, string password = null)
         {
             if (latitude < -90 || latitude > 90 || longitude < -180 || longitude > 180)
                 throw new InvalidInput("Location is invalid.");
@@ -68,7 +73,8 @@ namespace Dal
         /// Deletes a Customer from DataSource
         /// </summary>
         /// <param name="ID"></param>
-        public void RemoveCustomer(int ID)
+        [MethodImpl(MethodImplOptions.Synchronized)]
+        public void RemoveCustomer(uint ID)
         {
             if (Customers.RemoveAll(c => c.ID == ID) == 0)
                 throw new ObjectNotFound($"Customer with ID: {ID} doesn't exist");

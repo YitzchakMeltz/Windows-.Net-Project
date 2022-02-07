@@ -9,6 +9,7 @@ namespace BL
 {
     partial class BL : BlApi.IBL
     {
+        #region private functions
         private Statuses ParcelStatus(DO.Parcel p)
         {
             if (p.Assigned is null)
@@ -26,25 +27,9 @@ namespace BL
             return Statuses.Delivered;
         }
 
-        [MethodImpl(MethodImplOptions.Synchronized)]
-        public int AddPackage(int senderID, int receiverID, BO.WeightCategories weight, BO.Priorities priority)
-        {
-            try
-            {
-                dalObject.GetCustomer(senderID);
-                dalObject.GetCustomer(receiverID);
-
-                return dalObject.AddParcel(senderID, receiverID, (DO.WeightCategories)weight, (DO.Priorities)priority, 0);
-            }
-            catch (DO.ObjectNotFound e)
-            {
-                throw new ObjectNotFound(e.Message);
-            }
-        }
-
         private CustomerPackage ConvertToCustomerPackage(PackageList package, string otherCustomer)
         {
-            int customerID = dalObject.GetCustomerList().First(customer => customer.Name == otherCustomer).ID;
+            uint customerID = dalObject.GetCustomerList().First(customer => customer.Name == otherCustomer).ID;
             return new CustomerPackage()
             {
                 ID = package.ID,
@@ -54,10 +39,31 @@ namespace BL
                 Customer = new PackageCustomer() { ID = customerID, Name = otherCustomer }
             };
         }
+        #endregion
 
         [MethodImpl(MethodImplOptions.Synchronized)]
-        public Package GetPackage(int packageID)
+        public uint AddPackage(uint senderID, uint receiverID, BO.WeightCategories weight, BO.Priorities priority)
         {
+            try
+            {
+                lock (dalObject)
+                {
+                    dalObject.GetCustomer(senderID);
+                    dalObject.GetCustomer(receiverID);
+
+                    return dalObject.AddParcel(senderID, receiverID, (DO.WeightCategories)weight, (DO.Priorities)priority, 0);
+                }
+            }
+            catch (DO.ObjectNotFound e)
+            {
+                throw new ObjectNotFound(e.Message);
+            }
+        }
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
+        public Package GetPackage(uint packageID)
+        {
+            lock (dalObject)
             try
             {
                 DO.Parcel parcel = dalObject.GetParcel(packageID);
@@ -86,27 +92,38 @@ namespace BL
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
-        public void DeletePackage(int ID)
+        public void DeletePackage(uint ID)
         {
-            Statuses status = ParcelStatus(dalObject.GetParcel(ID));
-            if (status != Statuses.Created)
-                throw new BO.InvalidManeuver("Can not delete a package once it has been assigned.");
+            lock (dalObject)
+            try
+            {
+                Statuses status = ParcelStatus(dalObject.GetParcel(ID));
+                if (status != Statuses.Created)
+                    throw new BO.InvalidManeuver("Can not delete a package once it has been assigned.");
 
-            dalObject.RemoveParcel(ID);
+                dalObject.RemoveParcel(ID);
+            }
+            catch (DO.ObjectNotFound e)
+            {
+                throw new BO.ObjectNotFound(e.Message);
+            }
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<PackageList> ListPackages()
         {
-            IEnumerable<DO.Parcel> dalParcels = dalObject.GetParcelList();
-            List<PackageList> packages = new List<PackageList>();
-
-            dalParcels.ToList().ForEach(parcel =>
+            lock (dalObject)
             {
-                packages.Add(new PackageList() { ID = parcel.ID, Sender = dalObject.GetCustomer(parcel.SenderID).Name, Receiver = dalObject.GetCustomer(parcel.TargetID).Name, Weight = (WeightCategories)parcel.WeightCategory, Priority = (Priorities)parcel.Priority, Status = ParcelStatus(parcel) });
-            });
+                IEnumerable<DO.Parcel> dalParcels = dalObject.GetParcelList();
+                List<PackageList> packages = new List<PackageList>();
 
-            return packages;
+                dalParcels.ToList().ForEach(parcel =>
+                {
+                    packages.Add(new PackageList() { ID = parcel.ID, Sender = dalObject.GetCustomer(parcel.SenderID).Name, Receiver = dalObject.GetCustomer(parcel.TargetID).Name, Weight = (WeightCategories)parcel.WeightCategory, Priority = (Priorities)parcel.Priority, Status = ParcelStatus(parcel) });
+                });
+
+                return packages;
+            }
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]

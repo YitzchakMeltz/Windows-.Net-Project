@@ -13,7 +13,7 @@ namespace PL.PO
     public class Customer : INotifyPropertyChanged
     {
         private IBL bl;
-        public Customer(int ID, IBL bl)
+        public Customer(uint ID, IBL bl)
         {
             this.ID = ID;
             this.bl = bl;
@@ -21,7 +21,7 @@ namespace PL.PO
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public int ID { init; get; }
+        public uint ID { init; get; }
         public string Name { 
             get => bl.GetCustomer(ID).Name;
             set

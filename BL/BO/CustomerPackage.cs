@@ -3,7 +3,7 @@
     // package at customer
     public class CustomerPackage
     {
-        public int ID { init; get; }
+        public uint ID { init; get; }
         public WeightCategories Weight { init; get; }
         public Priorities Priority { init; get; }
         public Statuses Status { init; get; }

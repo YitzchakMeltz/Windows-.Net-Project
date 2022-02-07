@@ -26,14 +26,20 @@ namespace PL.Models
 
             // Code after multi-threading was added
             BackgroundWorker worker = new BackgroundWorker();
-            worker.DoWork += ((sender, e) => { bl.ListStations().ToList().
-                ForEach(station => _collection.
-                Add(new PO.Station(station.ID, bl))); });
+            worker.WorkerReportsProgress = true;
+            worker.ProgressChanged += addStation;
+            worker.DoWork += (sender, e) => { bl.ListStations().ToList().
+                ForEach(station => worker.ReportProgress(0, station.ID)); };
 
             worker.RunWorkerAsync();
             //==================================================================
 
             CollectionView = CollectionViewSource.GetDefaultView(_collection);
+        }
+
+        private void addStation(object sender, ProgressChangedEventArgs e)
+        {
+            _collection.Add(new PO.Station((uint)e.UserState, bl));
         }
 
         private ObservableCollection<PO.Station> _collection = new ObservableCollection<PO.Station>();
@@ -90,7 +96,7 @@ namespace PL.Models
             }
         }
 
-        public void Add(int ID, string name, double latitude, double longitude, int chargeSlots)
+        public void Add(uint ID, string name, double latitude, double longitude, uint chargeSlots)
         {
             bl.AddStation(ID, name, latitude, longitude, chargeSlots);
             _collection.Add(new PO.Station(ID, bl));

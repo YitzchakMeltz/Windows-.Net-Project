@@ -1,5 +1,6 @@
 ﻿using DO;
 using System;
+using System.Runtime.CompilerServices;
 using static Dal.DataSource;
 
 namespace Dal
@@ -9,7 +10,8 @@ namespace Dal
         /// <summary>
         /// Charges a Drone
         /// </summary>
-        public void ChargeDrone(int droneID, int stationID)
+        [MethodImpl(MethodImplOptions.Synchronized)]
+        public void ChargeDrone(uint droneID, uint stationID)
         {
             GetDrone(droneID);                                               // Forces error if drone doesn't exist
 
@@ -32,7 +34,8 @@ namespace Dal
         /// <summary>
         /// Releases a Drone from charging
         /// </summary>
-        public double ReleaseDrone(int droneID)
+        [MethodImpl(MethodImplOptions.Synchronized)]
+        public double ReleaseDrone(uint droneID)
         {
             Drone drone = GetDrone(droneID);                                                  // Forces error if drone doesn't exist
 

@@ -2,7 +2,7 @@
 {
     public class CustomerList
     {
-        public int ID { init; get; }
+        public uint ID { init; get; }
         public string Name { init; get; }
         public string Phone { init; get; }
         public uint PackagesSentDelivered { init; get; }

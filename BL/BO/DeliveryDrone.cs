@@ -2,7 +2,7 @@
 {
     public class DeliveryDrone
     {
-        public int ID { init; get; }
+        public uint ID { init; get; }
         public double Battery { init; get; }
         public Location Location { init; get; }
         public override string ToString()
