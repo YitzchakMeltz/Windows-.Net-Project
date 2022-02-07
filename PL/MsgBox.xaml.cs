@@ -38,6 +38,7 @@ namespace PL
             }
         }
 
+        [STAThread]
         public static Boolean? Show(string type, string msg)
         {
             MsgBox msgbox = new MsgBox(type, msg) { Owner = Application.Current.MainWindow };

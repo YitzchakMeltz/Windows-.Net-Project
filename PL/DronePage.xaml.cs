@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -15,6 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.ComponentModel;
+using System.Windows.Controls.Primitives;
 
 namespace PL
 {
@@ -149,19 +150,50 @@ namespace PL
             NavigationService.GoBack();
         }
 
-        private void Toggle_Simulate()
+        private BackgroundWorker worker;
+        private void Toggle_Simulate(object sender, RoutedEventArgs e)
         {
-            BackgroundWorker worker = new BackgroundWorker();
-
-            worker.DoWork += ((sender, e) => 
+            if ((sender as ToggleButton).IsChecked.Value)
             {
-                // Call BL Simulate function here
-            });
+                worker = new BackgroundWorker();
 
-            worker.RunWorkerAsync();
+                worker.DoWork += ((sender, e) =>
+                {
+                    worker.ReportProgress(50);
+                    // Call BL Simulate function here
+                    Thread.Sleep(5000);
+                    worker.ReportProgress(70);
+                });
 
-            worker.WorkerSupportsCancellation = true;
-            worker.WorkerReportsProgress = true;
+                worker.ProgressChanged += Worker_ProgressChanged;
+
+                worker.RunWorkerCompleted += Worker_RunWorkerCompleted;
+
+                worker.WorkerSupportsCancellation = true;
+                worker.WorkerReportsProgress = true;
+
+                worker.RunWorkerAsync();
+            }
+            else
+            {
+                worker.CancelAsync();
+                SimulatorToggleButton.IsEnabled = false;
+                MsgBox.Show("Info", "Stoped Work");
+            }
+        }
+
+        private void Worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            SimulatorToggleButton.IsChecked = false;
+            SimulatorToggleButton.IsEnabled = true;
+        }
+
+        private void Worker_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            if(e.ProgressPercentage == 50)
+                MsgBox.Show("Info", "Started Work");
+            else
+                MsgBox.Show("Info", "Finished Work");
         }
     }
 }

@@ -462,8 +462,8 @@
 
                 <Border x:Name="toggleBackground" Width="96" Height="28" Background="LightGray" CornerRadius="12" Margin="-60,0,0,0" 
                         Grid.Column="2" Visibility="{Binding Path=UpdateVisibility}">
-                    <ToggleButton Grid.Column="2" Margin="0,0,0,0" Content="Simulate" Style="{StaticResource ToggleButtonStyle1}"
-                               Foreground="DimGray"/>
+                    <ToggleButton x:Name="SimulatorToggleButton" Grid.Column="2" Margin="0,0,0,0" Content="Simulate" Style="{StaticResource ToggleButtonStyle1}"
+                               Foreground="DimGray" Click="Toggle_Simulate"/>
                 </Border>
             </Grid>
 
