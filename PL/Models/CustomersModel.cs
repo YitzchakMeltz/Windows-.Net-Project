@@ -35,12 +35,18 @@ namespace PL.Models
 
             // Code after multi-threading was added
             BackgroundWorker worker = new BackgroundWorker();
-            worker.DoWork += ((sender, e) => { bl.ListCustomers().ToList().
-                            ForEach(customer => _collection.
-                            Add(new PO.Customer(customer.ID, bl))); });
+            worker.WorkerReportsProgress = true;
+            worker.ProgressChanged += addCustomer;
+            worker.DoWork += (sender, e) => { bl.ListCustomers().ToList().
+                            ForEach(customer => worker.ReportProgress(0, customer.ID)); };
 
             worker.RunWorkerAsync();
             //==================================================================
+        }
+
+        private void addCustomer(object sender, ProgressChangedEventArgs e)
+        {
+            _collection.Add(new PO.Customer((uint)e.UserState, bl));
         }
 
         public CustomersModel(IBL bl, PackageCustomer package) : this(bl)
