@@ -159,7 +159,7 @@ namespace PL
 
                 worker.DoWork += ((sender, e) =>
                 {
-                    worker.ReportProgress(50);
+                    worker.ReportProgress(0);
                     // Call BL Simulate function here
                     Thread.Sleep(5000);
                     worker.ReportProgress(70);
@@ -186,14 +186,20 @@ namespace PL
         {
             SimulatorToggleButton.IsChecked = false;
             SimulatorToggleButton.IsEnabled = true;
+            loading_animation.Visibility = Visibility.Collapsed;
         }
 
         private void Worker_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-            if(e.ProgressPercentage == 50)
+            if (e.ProgressPercentage == 0)
+            {
+                loading_animation.Visibility = Visibility.Visible;
                 MsgBox.Show("Info", "Started Work");
+            }
             else
+            {
                 MsgBox.Show("Info", "Finished Work");
+            }
         }
     }
 }

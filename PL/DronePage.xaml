@@ -269,6 +269,7 @@
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsEnabled" Value="false">
                                 <Setter Property="Foreground" Value="#ADADAD"/>
+                                <Setter TargetName="on" Property="Background" Value="#FF4194E3"/>
                             </Trigger>
                             <Trigger Property="IsChecked" Value="true">
                                 <Setter TargetName="on" Property="Background" Value="#FF4194E3"/>
@@ -460,6 +461,24 @@
                     </Button.Resources>
                 </Button>
 
+                <Image x:Name="loading_animation" Source="/icons/loading.png" Width="15" Height="15" RenderTransformOrigin="0.5, 0.5" Grid.Column="2" 
+                       Margin="-180,0,0,0" Visibility="Collapsed">
+                    <Image.RenderTransform>
+                        <RotateTransform x:Name="noFreeze" />
+                    </Image.RenderTransform>
+                    <Image.Triggers>
+                        <EventTrigger RoutedEvent="Loaded">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation
+                        Storyboard.TargetProperty="(Image.RenderTransform).(RotateTransform.Angle)"
+                        To="360" Duration="0:0:1" RepeatBehavior="Forever" />
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </Image.Triggers>
+                </Image>
+                
                 <Border x:Name="toggleBackground" Width="96" Height="28" Background="LightGray" CornerRadius="12" Margin="-60,0,0,0" 
                         Grid.Column="2" Visibility="{Binding Path=UpdateVisibility}">
                     <ToggleButton x:Name="SimulatorToggleButton" Grid.Column="2" Margin="0,0,0,0" Content="Simulate" Style="{StaticResource ToggleButtonStyle1}"

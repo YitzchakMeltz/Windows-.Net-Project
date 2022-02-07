@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="animations\working.gif" />
     <None Remove="DroniconIcon_1.0.2.png" />
     <None Remove="DroniconLogo_1.0.2%28NoBackground%29.png" />
     <None Remove="DroniconLogo_Top_1.0.2%28NoBackground%29.png" />
@@ -27,6 +28,7 @@
     <None Remove="icons\homepage_icon_white.png" />
     <None Remove="icons\left-hover.png" />
     <None Remove="icons\left.png" />
+    <None Remove="icons\loading.png" />
     <None Remove="icons\logout.png" />
     <None Remove="icons\not-visible.png" />
     <None Remove="icons\package.png" />
@@ -53,6 +55,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="animations\working.gif" />
     <Resource Include="icons\battery.png" />
     <Resource Include="icons\bin.png" />
     <Resource Include="icons\box(gray).png" />
@@ -68,6 +71,7 @@
     <Resource Include="icons\hidden.png" />
     <Resource Include="icons\homepage_icon_white.png" />
     <Resource Include="icons\left-hover.png" />
+    <Resource Include="icons\loading.png" />
     <Resource Include="icons\logout.png" />
     <Resource Include="icons\package.png" />
     <Resource Include="icons\left.png" />
