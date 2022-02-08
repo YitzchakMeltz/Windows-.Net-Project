@@ -70,11 +70,39 @@ namespace PL.PO
             PropertyChanged(this, new PropertyChangedEventArgs("Package"));
         }
 
-        public void Simulate(Func<bool> stopCheck)
+        private volatile bool stopSimulation;
+        private BackgroundWorker worker;
+        public void Simulate(RunWorkerCompletedEventHandler onComplete)
         {
-            bl.ActivateSimulator(ID, Reload, stopCheck);
+            stopSimulation = false;
+
+            worker = new();
+
+            worker.DoWork += ((sender, e) =>
+            {
+                //worker.ReportProgress(0);
+                // Call BL Simulate function here
+                bl.ActivateSimulator(ID, () => worker.ReportProgress(0), () => stopSimulation);
+                //Thread.Sleep(30000);
+                //worker.ReportProgress(70);
+                //(DataContext as PO.Drone).Simulate(() => SimulatorToggleButton.IsEnabled);
+            });
+
+            worker.ProgressChanged += Reload;
+
+            worker.RunWorkerCompleted += onComplete;
+
+            worker.WorkerSupportsCancellation = true;
+            worker.WorkerReportsProgress = true;
+
+            worker.RunWorkerAsync();
         }
-        public void Reload()
+        public void StopSimulator()
+        {
+            stopSimulation = true;
+        }
+
+        public void Reload(object sender, ProgressChangedEventArgs a)
         {
             PropertyChanged(this, new PropertyChangedEventArgs("Status"));
             PropertyChanged(this, new PropertyChangedEventArgs("Battery"));

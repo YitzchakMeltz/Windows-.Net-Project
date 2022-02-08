@@ -9,7 +9,7 @@ namespace BL
 {
     partial class BL : BlApi.IBL
     {
-        public BaseStation ClosestStation(Location location)
+        internal BaseStation ClosestStation(Location location)
         {
             DalApi.Util.Coordinate coord = LocationToCoordinate(location);
             return GetStation(dalObject.GetStationList().OrderBy(s => s.Location.DistanceTo(coord)).First().ID);

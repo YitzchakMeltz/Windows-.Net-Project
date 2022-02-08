@@ -150,36 +150,40 @@ namespace PL
             NavigationService.GoBack();
         }
 
-        private BackgroundWorker worker;
+        //private BackgroundWorker worker;
+        //private volatile bool simulator = false;
         private void Toggle_Simulate(object sender, RoutedEventArgs e)
         {
             if ((sender as ToggleButton).IsChecked.Value)
+
+                (DataContext as DronesModel).SelectedDrone.Simulate(Worker_RunWorkerCompleted);
+            /*simulator = true;
+            worker = new BackgroundWorker();
+
+            worker.DoWork += ((sender, e) =>
             {
-                worker = new BackgroundWorker();
+                //worker.ReportProgress(0);
+                // Call BL Simulate function here
+                (DataContext as DronesModel).SelectedDrone.Simulate(() => worker.ReportProgress(0), () => simulator);
+                //Thread.Sleep(30000);
+                //worker.ReportProgress(70);
+                //(DataContext as PO.Drone).Simulate(() => SimulatorToggleButton.IsEnabled);
+            });
 
-                worker.DoWork += ((sender, e) =>
-                {
-                    worker.ReportProgress(0);
-                    // Call BL Simulate function here
-                    Thread.Sleep(30000);
-                    worker.ReportProgress(70);
-                    //(DataContext as PO.Drone).Simulate(() => SimulatorToggleButton.IsEnabled);
-                });
+            worker.ProgressChanged += Worker_ProgressChanged;
 
-                worker.ProgressChanged += Worker_ProgressChanged;
+            worker.RunWorkerCompleted += Worker_RunWorkerCompleted;
 
-                worker.RunWorkerCompleted += Worker_RunWorkerCompleted;
+            worker.WorkerSupportsCancellation = true;
+            worker.WorkerReportsProgress = true;
 
-                worker.WorkerSupportsCancellation = true;
-                worker.WorkerReportsProgress = true;
-
-                worker.RunWorkerAsync();
-            }
+            worker.RunWorkerAsync();
+        }*/
             else
             {
-                worker.CancelAsync();
+                (DataContext as DronesModel).SelectedDrone.StopSimulator();
                 SimulatorToggleButton.IsEnabled = false;
-                MsgBox.Show("Info", "Stoped Work");
+                MsgBox.Show("Info", "Stopped Work");
             }
         }
 
@@ -192,7 +196,8 @@ namespace PL
 
         private void Worker_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-            if (e.ProgressPercentage == 0)
+            //(DataContext as DronesModel).SelectedDrone.Reload();
+            /*if (e.ProgressPercentage == 0)
             {
                 loading_animation.Visibility = Visibility.Visible;
                 MsgBox.Show("Info", "Started Work");
@@ -200,7 +205,7 @@ namespace PL
             else
             {
                 MsgBox.Show("Info", "Finished Work");
-            }
+            }*/
         }
     }
 }
