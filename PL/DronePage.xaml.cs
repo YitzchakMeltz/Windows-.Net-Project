@@ -155,8 +155,10 @@ namespace PL
         private void Toggle_Simulate(object sender, RoutedEventArgs e)
         {
             if ((sender as ToggleButton).IsChecked.Value)
-
+            {
                 (DataContext as DronesModel).SelectedDrone.Simulate(Worker_RunWorkerCompleted);
+                loading_animation.Visibility = Visibility.Visible;
+            }
             /*simulator = true;
             worker = new BackgroundWorker();
 
