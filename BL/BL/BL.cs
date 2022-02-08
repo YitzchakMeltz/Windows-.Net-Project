@@ -10,7 +10,7 @@ namespace BL
     {
         Random random = new Random();
         List<DroneList> Drones = new List<DroneList>();
-        IDal dalObject;
+        internal IDal dalObject;
         double[] PowerConsumption;
 
         private BL()
@@ -84,6 +84,11 @@ namespace BL
             {
                 return lazy.Value;
             }
+        }
+
+        public void ActivateSimulator(uint droneID, Action updateAction, Func<bool> stopCheck)
+        {
+            new Simulator(this, droneID, updateAction, stopCheck);
         }
     }
 }

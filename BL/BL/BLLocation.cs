@@ -15,7 +15,13 @@ namespace BL
             };
         }
 
-        private double Distance(Location source, Location dest)
+        /// <summary>
+        /// Calculates distance in meters between two BO.Locations
+        /// </summary>
+        /// <param name="source"></param>
+        /// <param name="dest"></param>
+        /// <returns>Meters between source and dest</returns>
+        public double Distance(Location source, Location dest)
         {
             return LocationToCoordinate(source).DistanceTo(LocationToCoordinate(dest)) / 1000;
         }

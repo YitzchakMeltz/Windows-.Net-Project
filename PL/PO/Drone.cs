@@ -70,5 +70,16 @@ namespace PL.PO
             PropertyChanged(this, new PropertyChangedEventArgs("Package"));
         }
 
+        public void Simulate(Func<bool> stopCheck)
+        {
+            bl.ActivateSimulator(ID, Reload, stopCheck);
+        }
+        public void Reload()
+        {
+            PropertyChanged(this, new PropertyChangedEventArgs("Status"));
+            PropertyChanged(this, new PropertyChangedEventArgs("Battery"));
+            PropertyChanged(this, new PropertyChangedEventArgs("Location"));
+            PropertyChanged(this, new PropertyChangedEventArgs("Package"));
+        }
     }
 }

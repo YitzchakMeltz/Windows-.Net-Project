@@ -11,6 +11,11 @@ namespace BlApi
         public void AddCustomer(uint ID, string name, string phone, double longitude, double latitude, string password = "");
         public uint AddPackage(uint senderID, uint receiverID, BO.WeightCategories weight, BO.Priorities priority);
 
+        public BaseStation GetStation(uint ID);
+        public Drone GetDrone(uint ID);
+        public Customer GetCustomer(uint ID);
+        public Package GetPackage(uint ID);
+
         public void UpdateDrone(uint ID, string model);
         public void UpdateStation(uint ID, string name = null, uint? totalChargeStation = null);
         public void UpdateCustomer(uint ID, string name = null, string phone = null, string password = null);
@@ -23,11 +28,6 @@ namespace BlApi
 
         public bool Login(uint ID, byte[] password);
 
-        public BaseStation GetStation(uint ID);
-        public Drone GetDrone(uint ID);
-        public Customer GetCustomer(uint ID);
-        public Package GetPackage(uint ID);
-
         public IEnumerable<DroneList> ListDrones();
         public IEnumerable<DroneList> ListDronesFiltered(Predicate<DroneList> p);
         public IEnumerable<CustomerList> ListCustomers();
@@ -35,5 +35,7 @@ namespace BlApi
         public IEnumerable<PackageList> ListPackagesFiltered(Predicate<PackageList> p);
         public IEnumerable<BaseStationList> ListStations();
         public IEnumerable<BaseStationList> ListStationsFiltered(Predicate<BaseStationList> p);
+
+        public void ActivateSimulator(uint droneID, Action updateAction, Func<bool> stopCheck);
     }
 }

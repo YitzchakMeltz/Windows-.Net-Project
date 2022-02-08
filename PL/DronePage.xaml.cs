@@ -161,8 +161,9 @@ namespace PL
                 {
                     worker.ReportProgress(0);
                     // Call BL Simulate function here
-                    Thread.Sleep(5000);
+                    Thread.Sleep(30000);
                     worker.ReportProgress(70);
+                    //(DataContext as PO.Drone).Simulate(() => SimulatorToggleButton.IsEnabled);
                 });
 
                 worker.ProgressChanged += Worker_ProgressChanged;
