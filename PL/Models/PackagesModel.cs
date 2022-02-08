@@ -12,10 +12,20 @@ using System.Windows.Data;
 
 namespace PL.Models
 {
+    /// <summary>
+    /// Represents the Model that controls the Packages List Page and its selected Package
+    /// </summary>
     public class PackagesModel : INotifyPropertyChanged
     {
-        public IBL bl;
         public event PropertyChangedEventHandler PropertyChanged;
+
+        public IBL bl;
+
+        /// <summary>
+        /// Collection of all Packages
+        /// </summary>
+        private ObservableCollection<PO.Package> _collection = new ObservableCollection<PO.Package>();
+
         public PackagesModel(IBL bl)
         {
             this.bl = bl;
@@ -46,11 +56,21 @@ namespace PL.Models
             };
         }
 
+        /// <summary>
+        /// Progress report handler for the constructor's BackgroundWorker. Enables BackgroundWorker to add Packages to the Observable Collection.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void addPackage(object sender, ProgressChangedEventArgs e)
         {
             _collection.Add(new PO.Package((uint)e.UserState, bl));
         }
 
+        /// <summary>
+        /// Constructor for Package of specific Customer
+        /// </summary>
+        /// <param name="bl"></param>
+        /// <param name="customer"></param>
         public PackagesModel(IBL bl, PO.Customer customer) : this(bl)
         {
             IsAdmin = false;
@@ -59,10 +79,19 @@ namespace PL.Models
             State = WindowState.Add;
         }
 
-        private ObservableCollection<PO.Package> _collection = new ObservableCollection<PO.Package>();
+        /// <summary>
+        /// DataBinding Collection View with Filter (see constructor)
+        /// </summary>
         public ICollectionView CollectionView { init; get; }
+
+        #region Filter by Status
         public IEnumerable<string> Statuses { get => Enum.GetValues<BO.Statuses>().Select(s => s.ToString()).Prepend("All Statuses"); }
+
         private string _status = "All Statuses";
+
+        /// <summary>
+        /// DataBinding for filtering Packages by Status
+        /// </summary>
         public string Status
         {
             get => _status;
@@ -72,9 +101,16 @@ namespace PL.Models
                 CollectionView.Refresh();
             }
         }
+        #endregion
 
+        #region Filter by Date
         public IEnumerable<string> DateChoices => new string[] { "All Dates", "Select Dates" };
+
         private string _dateChoice = "All Dates";
+
+        /// <summary>
+        /// DataBinding for filtering Packages by Date
+        /// </summary>
         public string DateChoice {
             get => _dateChoice;
             set 
@@ -114,10 +150,16 @@ namespace PL.Models
                 CollectionView.Refresh();
             }
         }
+        #endregion
 
+        #region Group Packages
         public enum Groups { None, Sender, Receiver }
+
         private Groups _groupBy = Groups.None;
 
+        /// <summary>
+        /// DataBinding for listing Packages in Groups
+        /// </summary>
         public Groups GroupBy
         {
             get => _groupBy;
@@ -130,19 +172,42 @@ namespace PL.Models
                     CollectionView.GroupDescriptions.Add(new PropertyGroupDescription($"{value.ToString()}.ID"));
             }
         }
+
+        /// <summary>
+        /// Cycles through all Group categories
+        /// </summary>
         public void NextGroup()
         {
             Groups[] groups = Enum.GetValues<Groups>();
             GroupBy = groups[(Array.IndexOf(groups, _groupBy) + 1) % groups.Length];
         }
+        #endregion
+
         public IEnumerable<uint> Customers => bl.ListCustomers().Select(c => c.ID);
 
+        /// <summary>
+        /// DataBinding for selected Package
+        /// </summary>
         public PO.Package SelectedPackage { get; set; }
+
+        #region Control Visibility
         public enum WindowState { Add, Update }
+
+        /// <summary>
+        /// Represents window state for DataBinding to determine which controls should be visible
+        /// </summary>
         public WindowState State { get; set; }
 
-        public Boolean IsAdmin { init; get; }
+        public bool IsAdmin { init; get; }
+
+        /// <summary>
+        /// Binds Sender Customer ID when a customer creates a package (it must be sent from himself)
+        /// </summary>
         public uint SenderID { init; get; }
+
+        /// <summary>
+        /// Converts Window State to Visibility for DataBinding
+        /// </summary>
         public System.Windows.Visibility AddVisibility {
             get
             {
@@ -157,12 +222,23 @@ namespace PL.Models
                 else return System.Windows.Visibility.Collapsed;
             }
         }
+        #endregion
 
+        /// <summary>
+        /// Creates new Package and modifies UI (ObservableCollection) accordingly.
+        /// </summary>
+        /// <param name="senderID"></param>
+        /// <param name="receiverID"></param>
+        /// <param name="weight"></param>
+        /// <param name="priority"></param>
         public void Add(uint senderID, uint receiverID, WeightCategories weight, Priorities priority)
         {
             _collection.Add(new PO.Package(bl.AddPackage(senderID, receiverID, weight, priority), bl));
         }
 
+        /// <summary>
+        /// Removes Package and modifies UI (ObservableCollection) accordingly.
+        /// </summary>
         public void Remove()
         {
             bl.DeletePackage(SelectedPackage.ID);

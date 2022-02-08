@@ -11,10 +11,18 @@ using System.Threading.Tasks;
 
 namespace PL.Models
 {
+    /// <summary>
+    /// Represents the Model that controls the Customers List Page and its selected Customer
+    /// </summary>
     public class CustomersModel : INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
+
         public IBL bl;
 
+        /// <summary>
+        /// Collection of all Customers
+        /// </summary>
         private ObservableCollection<PO.Customer> _collection = new ObservableCollection<PO.Customer>();
 
         public CustomersModel(IBL bl, uint? customerID = null)
@@ -44,21 +52,48 @@ namespace PL.Models
             //==================================================================
         }
 
+        /// <summary>
+        /// Progress report handler for the constructor's BackgroundWorker. Enables BackgroundWorker to add Customers to the Observable Collection.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void addCustomer(object sender, ProgressChangedEventArgs e)
         {
             _collection.Add(new PO.Customer((uint)e.UserState, bl));
         }
 
-        public CustomersModel(IBL bl, PackageCustomer package) : this(bl)
+        /// <summary>
+        /// Constructor for Customer of specific package
+        /// </summary>
+        /// <param name="bl"></param>
+        /// <param name="package"></param>
+        public CustomersModel(IBL bl, PackageCustomer customer) : this(bl)
         {
-            SelectedCustomer = new PO.Customer(package.ID, bl);
+            SelectedCustomer = new PO.Customer(customer.ID, bl);
             State = WindowState.Update;
         }
 
+        /// <summary>
+        /// Public access to Observable Collection. DataBinding.
+        /// </summary>
         public ObservableCollection<PO.Customer> Collection => _collection;
+
+        /// <summary>
+        /// DataBinding for selected Customer
+        /// </summary>
         public PO.Customer SelectedCustomer { get; set; }
+
+        #region Control Visibility
         public enum WindowState { Add, Update }
+
+        /// <summary>
+        /// Represents window state for DataBinding to determine which controls should be visible
+        /// </summary>
         public WindowState State { get; set; }
+
+        /// <summary>
+        /// Represents admin visibility to determine extra controls to be visible
+        /// </summary>
         public Visibility AdminVisibility { init; get; }
         public Visibility UserVisibility { 
             get
@@ -66,6 +101,10 @@ namespace PL.Models
                 if (AdminVisibility == Visibility.Visible) return Visibility.Collapsed;
                 else return Visibility.Visible;
             } }
+
+        /// <summary>
+        /// Converts Update State to Visibility.Visible
+        /// </summary>
         public Visibility UpdateVisibility
         {
             get
@@ -74,6 +113,10 @@ namespace PL.Models
                 else return Visibility.Collapsed;
             }
         }
+
+        /// <summary>
+        /// Converts Add State to Visibility.Visible
+        /// </summary>
         public Visibility AddVisibility
         {
             get
@@ -85,8 +128,9 @@ namespace PL.Models
 
         private Visibility _passwordVisible;
 
-        public event PropertyChangedEventHandler PropertyChanged;
-
+        /// <summary>
+        /// DataBinding alerts UI to show or hide Password
+        /// </summary>
         public Visibility PasswordVisible
         {
             get { return _passwordVisible; }
@@ -108,7 +152,17 @@ namespace PL.Models
                 else return Visibility.Visible;
             }
         }
+        #endregion
 
+        /// <summary>
+        /// Creates new Customer and modifies UI (ObservableCollection) accordingly.
+        /// </summary>
+        /// <param name="ID"></param>
+        /// <param name="name"></param>
+        /// <param name="phone"></param>
+        /// <param name="longitude"></param>
+        /// <param name="latitude"></param>
+        /// <param name="password"></param>
         public void Add(uint ID, string name, string phone, double longitude, double latitude, string password = "")
         {
             bl.AddCustomer(ID, name, phone, longitude, latitude, password);
