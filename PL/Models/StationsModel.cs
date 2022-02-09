@@ -12,6 +12,9 @@ using System.Windows.Data;
 
 namespace PL.Models
 {
+    /// <summary>
+    /// Represents the Model that controls the Stations List Page and its selected Station
+    /// </summary>
     public class StationsModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;

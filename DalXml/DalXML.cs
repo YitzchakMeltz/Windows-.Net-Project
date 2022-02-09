@@ -60,12 +60,14 @@ namespace Dal
             DroneCharges = new XElement("DroneCharges");
             SaveDroneCharges();*/
             #endregion
+
             try
             {
                 Config = XElement.Load(DalFolder + "config.xml");
                 Customers = XElement.Load(DalFolder + "Customers.xml");
                 Drones = XElement.Load(DalFolder + "Drones.xml");
-                DroneCharges = XElement.Load(DalFolder + "DroneCharges.xml");
+                //DroneCharges = XElement.Load(DalFolder + "DroneCharges.xml");
+                DroneCharges = new XElement("DroneCharges");
                 Parcels = XElement.Load(DalFolder + "Parcels.xml");
                 Stations = XElement.Load(DalFolder + "Stations.xml");
             }
