@@ -70,18 +70,15 @@ namespace PL.PO
             PropertyChanged(this, new PropertyChangedEventArgs("Package"));
         }
 
-        private volatile bool stopSimulation;
         private BackgroundWorker worker;
         public void Simulate(RunWorkerCompletedEventHandler onComplete)
         {
-            stopSimulation = false;
-
             worker = new();
 
-            worker.DoWork += ((sender, e) =>
+            worker.DoWork += (sender, e) =>
             {
-                bl.ActivateSimulator(ID, () => worker.ReportProgress(0), () => stopSimulation);
-            });
+                bl.ActivateSimulator(ID, () => worker.ReportProgress(0), () => worker.CancellationPending);
+            };
 
             worker.ProgressChanged += Reload;
 
@@ -94,7 +91,7 @@ namespace PL.PO
         }
         public void StopSimulator()
         {
-            stopSimulation = true;
+            worker.CancelAsync();
         }
 
         public void Reload(object sender, ProgressChangedEventArgs a)

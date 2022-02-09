@@ -9,7 +9,7 @@ namespace BL
     internal partial class BL : BlApi.IBL
     {
         Random random = new Random();
-        List<DroneList> Drones = new List<DroneList>();
+        internal List<DroneList> Drones = new List<DroneList>();
         internal IDal dalObject;
         double[] PowerConsumption;
 

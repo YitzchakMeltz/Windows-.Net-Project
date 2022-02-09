@@ -10,7 +10,7 @@ namespace BL
     {
         const int DELAY = 1000; // milliseconds
         const double SPEED = 1000; // km/s
-        double distance; // meters
+        double distance = 0; // meters
 
         public Simulator(BL bl, uint droneID, Action updateAction, Func<bool> stopCheck) {
             while (!stopCheck())
@@ -27,11 +27,17 @@ namespace BL
                         try
                         {
                             bl.AssignPackageToDrone(droneID);
-                            distance = bl.Distance(drone.Location, drone.Package.CollectionLocation);
+                            distance = bl.Distance(drone.Location, bl.GetDrone(droneID).Package.CollectionLocation);
                         }
                         catch (InvalidManeuver)
                         {
-                            bl.ChargeDrone(droneID);
+                            if (drone.Location == bl.ClosestStation(drone.Location).Location)
+                                bl.ChargeDrone(droneID);
+                            else
+                            {
+                                distance = bl.Distance(drone.Location, bl.ClosestStation(drone.Location).Location);
+                                bl.Drones.Find(d => d.ID == droneID).Location = bl.ClosestStation(drone.Location).Location;
+                            }
                         }
                 }
                 else if (drone.Status == DroneStatuses.Maintenance)

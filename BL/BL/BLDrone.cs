@@ -100,7 +100,6 @@ namespace BL
                 lock (dalObject)
                 {
                     // Update BLDrone
-                    Drones[Drones.FindIndex(d => d.ID == ID)].Model = model;
 
                     // Update DALDrone
                     DO.Drone drone = dalObject.GetDrone(ID);
@@ -137,7 +136,7 @@ namespace BL
                     drone.Location = closestStation.Location;
                     drone.Status = DroneStatuses.Maintenance;
 
-                    Drones[Drones.FindIndex(d => d.ID == ID)] = drone;
+                    //Drones[Drones.FindIndex(d => d.ID == ID)] = drone;
 
                     dalObject.ChargeDrone(ID, closestStation.ID);
                 }
@@ -165,7 +164,7 @@ namespace BL
                     drone.Battery = Math.Min(drone.Battery + PowerConsumption[4] * minutesCharging, 100);
                     drone.Status = DroneStatuses.Free;
 
-                    Drones[Drones.FindIndex(d => d.ID == ID)] = drone;
+                    //Drones[Drones.FindIndex(d => d.ID == ID)] = drone;
                 }
             }
             catch (DO.ObjectNotFound e)
@@ -224,7 +223,7 @@ namespace BL
 
                     dalObject.AssignParcel(drone.PackageID.Value, droneID);
 
-                    Drones[Drones.FindIndex(d => d.ID == droneID)] = drone;
+                    //Drones[Drones.FindIndex(d => d.ID == droneID)] = drone;
                 }
             }
         }
@@ -257,7 +256,7 @@ namespace BL
                 droneList.Location = drone.Package.CollectionLocation;
 
                 dalObject.ParcelCollected(droneList.PackageID.Value);
-                Drones[Drones.FindIndex(d => d.ID == droneID)] = droneList;
+                //Drones[Drones.FindIndex(d => d.ID == droneID)] = droneList;
             }
         }
 
@@ -290,7 +289,7 @@ namespace BL
                 dalObject.ParcelDelivered(droneList.PackageID.Value);
 
                 droneList.PackageID = null;
-                Drones[Drones.FindIndex(d => d.ID == droneID)] = droneList;
+                //Drones[Drones.FindIndex(d => d.ID == droneID)] = droneList;
             }
         }
 
