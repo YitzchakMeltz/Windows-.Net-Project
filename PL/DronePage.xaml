@@ -279,6 +279,15 @@
                                 <Setter Property="Foreground" Value="#ADADAD"/>
                                 <Setter TargetName="off" Property="Background" Value="#FF8aa6c2"/>
                             </Trigger>
+                            <DataTrigger Binding="{Binding SelectedDrone.Worker.CancellationPending}" Value="True">
+                                <Setter Property="IsEnabled" Value="False"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding SelectedDrone.Worker.IsBusy}" Value="True">
+                                <Setter Property="IsChecked" Value="True"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding SelectedDrone.Worker.IsBusy}" Value="False">
+                                <Setter Property="IsEnabled" Value="True"/>
+                            </DataTrigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
@@ -359,6 +368,9 @@
                                 <DataTrigger Binding="{Binding SelectedDrone.Status}" Value="Free">
                                     <Setter Property="IsEnabled" Value="True"/>
                                 </DataTrigger>
+                                <DataTrigger Binding="{Binding SelectedDrone.Worker.IsBusy}" Value="True">
+                                    <Setter Property="IsEnabled" Value="False"/>
+                                </DataTrigger>
                             </Style.Triggers>
                         </Style>
                     </Button.Resources>
@@ -385,6 +397,9 @@
                                 <DataTrigger Binding="{Binding SelectedDrone.Status}" Value="Maintenance">
                                     <Setter Property="IsEnabled" Value="True"/>
                                 </DataTrigger>
+                                <DataTrigger Binding="{Binding SelectedDrone.Worker.IsBusy}" Value="True">
+                                    <Setter Property="IsEnabled" Value="False"/>
+                                </DataTrigger>
                             </Style.Triggers>
                         </Style>
                     </Button.Resources>
@@ -402,6 +417,9 @@
                             <Style.Triggers>
                                 <DataTrigger Binding="{Binding SelectedDrone.Status}" Value="Free">
                                     <Setter Property="IsEnabled" Value="True"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding SelectedDrone.Worker.IsBusy}" Value="True">
+                                    <Setter Property="IsEnabled" Value="False"/>
                                 </DataTrigger>
                             </Style.Triggers>
                         </Style>
@@ -430,6 +448,9 @@
                                 <DataTrigger Binding="{Binding SelectedDrone.Package.Delivering}" Value="True">
                                     <Setter Property="IsEnabled" Value="False"/>
                                 </DataTrigger>
+                                <DataTrigger Binding="{Binding SelectedDrone.Worker.IsBusy}" Value="True">
+                                    <Setter Property="IsEnabled" Value="False"/>
+                                </DataTrigger>
                             </Style.Triggers>
                         </Style>
                     </Button.Resources>
@@ -456,16 +477,29 @@
                                 <DataTrigger Binding="{Binding SelectedDrone.Package.Delivering}" Value="True">
                                     <Setter Property="IsEnabled" Value="True"/>
                                 </DataTrigger>
+                                <DataTrigger Binding="{Binding SelectedDrone.Worker.IsBusy}" Value="True">
+                                    <Setter Property="IsEnabled" Value="False"/>
+                                </DataTrigger>
                             </Style.Triggers>
                         </Style>
                     </Button.Resources>
                 </Button>
 
                 <Image x:Name="loading_animation" Source="/icons/loading.png" Width="15" Height="15" RenderTransformOrigin="0.5, 0.5" Grid.Column="2" 
-                       Margin="-180,0,0,0" Visibility="Collapsed">
+                       Margin="-180,0,0,0">
                     <Image.RenderTransform>
                         <RotateTransform x:Name="noFreeze" />
                     </Image.RenderTransform>
+                    <Image.Style>
+                        <Style TargetType="Image">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding SelectedDrone.Worker.IsBusy}" Value="true">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Image.Style>
                     <Image.Triggers>
                         <EventTrigger RoutedEvent="Loaded">
                             <BeginStoryboard>
@@ -482,7 +516,8 @@
                 <Border x:Name="toggleBackground" Width="96" Height="28" Background="LightGray" CornerRadius="12" Margin="-60,0,0,0" 
                         Grid.Column="2" Visibility="{Binding Path=UpdateVisibility}">
                     <ToggleButton x:Name="SimulatorToggleButton" Grid.Column="2" Margin="0,0,0,0" Content="Simulate" Style="{StaticResource ToggleButtonStyle1}"
-                               Foreground="DimGray" Click="Toggle_Simulate"/>
+                               Foreground="DimGray" Click="Toggle_Simulate">
+                    </ToggleButton>
                 </Border>
             </Grid>
 

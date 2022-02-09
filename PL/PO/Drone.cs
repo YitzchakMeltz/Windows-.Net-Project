@@ -70,28 +70,38 @@ namespace PL.PO
             PropertyChanged(this, new PropertyChangedEventArgs("Package"));
         }
 
-        private BackgroundWorker worker;
-        public void Simulate(RunWorkerCompletedEventHandler onComplete)
+        public BackgroundWorker Worker { get; set; }
+        public void Simulate()
         {
-            worker = new();
+            Worker = new();
 
-            worker.DoWork += (sender, e) =>
+            Worker.DoWork += (sender, e) =>
             {
-                bl.ActivateSimulator(ID, () => worker.ReportProgress(0), () => worker.CancellationPending);
+                bl.ActivateSimulator(ID, () => Worker.ReportProgress(0), () => Worker.CancellationPending);
             };
 
-            worker.ProgressChanged += Reload;
+            Worker.ProgressChanged += Reload;
 
-            worker.RunWorkerCompleted += onComplete;
+            //dataBindSpinner runs first because onComplete displays MsgBox and waits for user input
+            Worker.RunWorkerCompleted += onComplete;
 
-            worker.WorkerSupportsCancellation = true;
-            worker.WorkerReportsProgress = true;
+            Worker.WorkerSupportsCancellation = true;
+            Worker.WorkerReportsProgress = true;
 
-            worker.RunWorkerAsync();
+            Worker.RunWorkerAsync();
+            PropertyChanged(this, new PropertyChangedEventArgs("Worker"));
         }
+
         public void StopSimulator()
         {
-            worker.CancelAsync();
+            Worker.CancelAsync();
+            PropertyChanged(this, new PropertyChangedEventArgs("Worker"));
+        }
+
+        private void onComplete(object sender, RunWorkerCompletedEventArgs e)
+        {
+            PropertyChanged(this, new PropertyChangedEventArgs("Worker"));
+            MsgBox.Show("Success", "Simulator Cancelled Successfully");
         }
 
         public void Reload(object sender, ProgressChangedEventArgs a)

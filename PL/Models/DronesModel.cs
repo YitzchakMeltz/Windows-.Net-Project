@@ -57,7 +57,6 @@ namespace PL.Models
             SelectedDrone.PropertyChanged += (object sender, PropertyChangedEventArgs args) => { if (args.PropertyName == "Package") package.DroneChanged(); };
         }
 
-
         private ObservableCollection<PO.Drone> _collection = new ObservableCollection<PO.Drone>();
         public ICollectionView CollectionView { init; get; }
         public IEnumerable<string> Statuses { get => Enum.GetValues<BO.DroneStatuses>().Select(s => s.ToString()).Prepend("All Statuses"); }
@@ -81,6 +80,7 @@ namespace PL.Models
                 CollectionView.Refresh();
             }
         }
+
         public enum Groups { None, Status }
         private Groups _groupBy = Groups.None;
 
@@ -96,11 +96,21 @@ namespace PL.Models
                     CollectionView.GroupDescriptions.Add(new PropertyGroupDescription(value.ToString()));
             }
         }
+
         public void NextGroup()
         {
             Groups[] groups = Enum.GetValues<Groups>();
             GroupBy = groups[(Array.IndexOf(groups, _groupBy) + 1) % groups.Length];
         }
+
+        public IEnumerable<uint> Stations { get { return bl.ListStations().Select(s => s.ID); } }
+
+        /// <summary>
+        /// DataBinding for selected Drone
+        /// </summary>
+        public PO.Drone SelectedDrone { get; set; }
+
+        #region Control Visibility
 
         public enum WindowState { Add, Update }
         public WindowState State { get; set; }
@@ -119,15 +129,24 @@ namespace PL.Models
                 else return Visibility.Collapsed;
             }
         }
+        #endregion
 
-        public PO.Drone SelectedDrone { get; set; }
-        public IEnumerable<uint> Stations { get { return bl.ListStations().Select(s => s.ID); } }
-
+        /// <summary>
+        /// Creates new Drone and modifies UI (ObservableCollection) accordingly.
+        /// </summary>
+        /// <param name="ID"></param>
+        /// <param name="model"></param>
+        /// <param name="weight"></param>
+        /// <param name="stationID"></param>
         public void Add(uint ID, string model, WeightCategories weight, uint stationID)
         {
             bl.AddDrone(ID, model, weight, stationID);
             _collection.Add(new PO.Drone(ID, bl));
         }
 
+        /// <summary>
+        /// Prevents user from exiting Drone List if any Simulators aren't pending cancellation.
+        /// </summary>
+        public uint SimulatorCount { get; set; }
     }
 }

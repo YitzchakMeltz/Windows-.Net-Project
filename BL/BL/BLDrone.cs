@@ -163,8 +163,6 @@ namespace BL
                     double minutesCharging = dalObject.ReleaseDrone(ID);
                     drone.Battery = Math.Min(drone.Battery + PowerConsumption[4] * minutesCharging, 100);
                     drone.Status = DroneStatuses.Free;
-
-                    //Drones[Drones.FindIndex(d => d.ID == ID)] = drone;
                 }
             }
             catch (DO.ObjectNotFound e)
@@ -222,8 +220,6 @@ namespace BL
                     drone.Status = DroneStatuses.Delivering;
 
                     dalObject.AssignParcel(drone.PackageID.Value, droneID);
-
-                    //Drones[Drones.FindIndex(d => d.ID == droneID)] = drone;
                 }
             }
         }
@@ -238,7 +234,7 @@ namespace BL
                 try
                 {
                     drone = GetDrone(droneID);
-                    droneList = ConvertToDroneList(drone);
+                    droneList = Drones.Find(d => d.ID == droneID);
                 }
                 catch (DO.ObjectNotFound e)
                 {
@@ -256,7 +252,6 @@ namespace BL
                 droneList.Location = drone.Package.CollectionLocation;
 
                 dalObject.ParcelCollected(droneList.PackageID.Value);
-                //Drones[Drones.FindIndex(d => d.ID == droneID)] = droneList;
             }
         }
 
@@ -270,7 +265,7 @@ namespace BL
                 try
                 {
                     drone = GetDrone(droneID);
-                    droneList = ConvertToDroneList(drone);
+                    droneList = Drones.Find(d => d.ID == droneID);
                 }
                 catch (DO.ObjectNotFound e)
                 {
@@ -289,7 +284,6 @@ namespace BL
                 dalObject.ParcelDelivered(droneList.PackageID.Value);
 
                 droneList.PackageID = null;
-                //Drones[Drones.FindIndex(d => d.ID == droneID)] = droneList;
             }
         }
 

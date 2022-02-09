@@ -154,24 +154,14 @@ namespace PL
         {
             if ((sender as ToggleButton).IsChecked.Value)
             {
-                (DataContext as DronesModel).SelectedDrone.Simulate(Worker_RunWorkerCompleted);
-                loading_animation.Visibility = Visibility.Visible;
+                ++(DataContext as DronesModel).SimulatorCount;
+                (DataContext as DronesModel).SelectedDrone.Simulate();
             }
             else
             {
                 (DataContext as DronesModel).SelectedDrone.StopSimulator();
-                SimulatorToggleButton.IsEnabled = false;
+                --(DataContext as DronesModel).SimulatorCount;
             }
-        }
-
-        // Will only run this function if Simulator is cancelled
-        private void Worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
-            SimulatorToggleButton.IsChecked = false;
-            SimulatorToggleButton.IsEnabled = true;
-            loading_animation.Visibility = Visibility.Collapsed;
-
-            MsgBox.Show("Success", "Simulator Cancelled Successfully");
         }
     }
 }
