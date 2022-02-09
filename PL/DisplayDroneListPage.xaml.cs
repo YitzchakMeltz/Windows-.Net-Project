@@ -52,7 +52,7 @@ namespace PL
             if ((DataContext as DronesModel).SimulatorCount == 0)
                 NavigationService.GoBack();
             else
-                MsgBox.Show("Error", "Cannot exit Drone List Page while Simulator is running");
+                MsgBox.Show("Error", "Cannot exit while simulator is running");
         }
 
         private void Group_Button_Click(object sender, RoutedEventArgs e)
