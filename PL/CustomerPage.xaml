@@ -100,7 +100,7 @@
                      Margin="-100,0,-100,0" Visibility="{Binding Path=UserVisibility}"
                      BorderThickness="0" FontFamily="Candara"/>
 
-            <TextBox x:Name="ID_input" Grid.Column="1" Grid.Row="4" FontSize="16" Height="30" Width="200"  
+            <TextBox x:Name="ID_input" Grid.Column="1" Grid.Row="4" FontSize="16" Height="30" Width="200" ToolTip="Customer ID" ToolTipService.ShowOnDisabled="True"
                      Padding="1,3,2,3" TextWrapping="Wrap" Text="{Binding Path=SelectedCustomer.ID, StringFormat='      {0}'}" VerticalAlignment="Center" HorizontalAlignment="Center" >
                 <TextBox.Resources>
                     <Style TargetType="Border">
@@ -137,7 +137,9 @@
                    Source="/icons/fingerprint.png" Width="18" Height="18" Margin="5,0,0,0"/>
             </Grid>
 
-            <TextBox x:Name="Name_input" Grid.Column="1" Grid.Row="5" FontSize="16" Height="30" Width="200"  Padding="1,3,2,3" TextWrapping="Wrap" Text="{Binding Path=SelectedCustomer.Name}" VerticalAlignment="Center" HorizontalAlignment="Center" >
+            <TextBox x:Name="Name_input" Grid.Column="1" Grid.Row="5" FontSize="16" Height="30" Width="200"  
+                     Padding="1,3,2,3" TextWrapping="Wrap" Text="{Binding Path=SelectedCustomer.Name}" VerticalAlignment="Center" 
+                     HorizontalAlignment="Center" ToolTip="Customer Name" ToolTipService.ShowOnDisabled="True">
                 <TextBox.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="5"/>
@@ -256,7 +258,9 @@
                      VerticalAlignment="Top" HorizontalAlignment="Center" Visibility="Collapsed">Caps Lock is Enabled</TextBox>
 
 
-            <TextBox x:Name="Phone_input" Grid.Column="1" Grid.Row="7" FontSize="16" Height="30" Width="200"  Padding="1,3,2,3" TextWrapping="Wrap" Text="{Binding Path=SelectedCustomer.Phone}" VerticalAlignment="Center" HorizontalAlignment="Center" >
+            <TextBox x:Name="Phone_input" Grid.Column="1" Grid.Row="7" FontSize="16" Height="30" Width="200" 
+                     Padding="1,3,2,3" TextWrapping="Wrap" Text="{Binding Path=SelectedCustomer.Phone}" 
+                     VerticalAlignment="Center" HorizontalAlignment="Center" ToolTip="Phone Number" ToolTipService.ShowOnDisabled="True">
                 <TextBox.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="5"/>
