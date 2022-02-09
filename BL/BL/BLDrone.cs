@@ -99,8 +99,6 @@ namespace BL
             {
                 lock (dalObject)
                 {
-                    // Update BLDrone
-
                     // Update DALDrone
                     DO.Drone drone = dalObject.GetDrone(ID);
                     drone.Model = model;
@@ -135,8 +133,6 @@ namespace BL
                     drone.Battery -= Distance(closestStation.Location, drone.Location) / PowerConsumption[0];
                     drone.Location = closestStation.Location;
                     drone.Status = DroneStatuses.Maintenance;
-
-                    //Drones[Drones.FindIndex(d => d.ID == ID)] = drone;
 
                     dalObject.ChargeDrone(ID, closestStation.ID);
                 }
@@ -189,24 +185,6 @@ namespace BL
 
                 if (drone.PackageID == null)
                     throw new InvalidManeuver($"The drone with ID: {droneID} can't carry any packages.");
-
-                /*// Only keep highest priority packages
-                Priorities highestPriority = Priorities.Regular;
-                foreach (PackageList package in unassignedPackages)
-                {
-                    if ((int)package.Priority > (int)highestPriority)
-                        highestPriority = package.Priority;
-                }
-                unassignedPackages.RemoveAll(x => x.Priority != highestPriority);
-
-                // Only keep heaviest packages
-                WeightCategories heaviest = WeightCategories.Light;
-                foreach (PackageList package in unassignedPackages)
-                {
-                    if ((int)package.Weight > (int)heaviest)
-                        heaviest = package.Weight;
-                }*/
-
 
                 EnroutePackage enroute = GetEnroutePackage(drone.PackageID.Value);
                 double batteryPickup = Distance(drone.Location, enroute.CollectionLocation) / PowerConsumption[0];
