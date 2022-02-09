@@ -84,7 +84,7 @@ namespace Dal
         }
 
         /// <summary>
-        /// Assigns a Parcel to a Drone
+        /// Assigns a Drone to a Parcel
         /// </summary>
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void AssignParcel(uint parcelID, uint droneID)

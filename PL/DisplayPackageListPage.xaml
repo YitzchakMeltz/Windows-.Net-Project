@@ -257,9 +257,9 @@ VerticalAlignment="Stretch" Width="auto">
                 VerticalAlignment="Center" Padding="13,3,5,3" Margin="15,5" SelectedItem="{Binding Status}">
             </ComboBox>
 
-            <ComboBox Grid.Column="3" Name="DateSelector" ItemsSource="{Binding DateChoices}"
+            <ComboBox Grid.Column="3" Name="DateSelector" ItemsSource="{Binding DateChoices, Mode=OneTime}"
                 HorizontalAlignment= "Stretch" Height="30" FontSize="14" ItemStringFormat=" {0}"
-                VerticalAlignment="Center"  Margin="15,5" SelectedItem="{Binding DateChoice, Mode=TwoWay}"/>
+                VerticalAlignment="Center"  Margin="15,5" SelectedItem="{Binding DateChoice}"/>
         </Grid>
 
         <ListView Grid.Row="1" x:Name="PackageListView" MouseDoubleClick="PackageListView_MouseDoubleClick" SelectedItem="{Binding SelectedPackage}"

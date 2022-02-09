@@ -63,7 +63,7 @@ namespace BL
                     station.Name = name;
                 }
 
-                if(totalChargeStation != null)
+                if (totalChargeStation != null)
                 {
                     station.AvailableChargeSlots = totalChargeStation.Value;
                 }

@@ -12,21 +12,16 @@ namespace Dal
         internal static string DalFolder;
 
         internal XElement Config;
-        internal string ConfigPath = DalFolder + "config.xml";
 
         internal XElement Customers;
-        internal string CustomersPath = DalFolder + "Customers.xml";
 
         internal XElement Drones;
-        internal string DronesPath = DalFolder + "Drones.xml";
 
         internal XElement DroneCharges;
-        internal string DroneChargesPath = DalFolder + "DroneCharges.xml";
 
         internal XElement Parcels;
 
         internal XElement Stations;
-        internal string StationsPath = DalFolder + "Stations.xml";
 
         private DalXml()
         {
@@ -66,7 +61,6 @@ namespace Dal
                 Config = XElement.Load(DalFolder + "config.xml");
                 Customers = XElement.Load(DalFolder + "Customers.xml");
                 Drones = XElement.Load(DalFolder + "Drones.xml");
-                //DroneCharges = XElement.Load(DalFolder + "DroneCharges.xml");
                 DroneCharges = new XElement("DroneCharges");
                 Parcels = XElement.Load(DalFolder + "Parcels.xml");
                 Stations = XElement.Load(DalFolder + "Stations.xml");

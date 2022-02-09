@@ -126,11 +126,10 @@ namespace PL.Models
                 {
                     if (DateRangeWindow.Show(this))
                         _dateChoice = value;
-                    else _dateChoice = "All Dates";
                 }
-                PropertyChanged(this, new PropertyChangedEventArgs("DateChoice"));
             }
         }
+
         private DateTime _startDate = DateTime.MinValue;
         public DateTime StartDate
         {
