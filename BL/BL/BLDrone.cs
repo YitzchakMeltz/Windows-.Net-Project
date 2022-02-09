@@ -19,20 +19,6 @@ namespace BL
             };
         }
 
-        private DroneList ConvertToDroneList(Drone drone)
-        {
-            return new DroneList()
-            {
-                ID = drone.ID,
-                PackageID = drone.Package is null ? null : (uint)drone.Package.ID,
-                Battery = drone.Battery,
-                Location = drone.Location,
-                Model = drone.Model,
-                Status = drone.Status,
-                Weight = drone.Weight
-            };
-        }
-
         // Calculates how far a Drone can fly while Free
         private double DistanceLeft(DroneList drone)
         {
