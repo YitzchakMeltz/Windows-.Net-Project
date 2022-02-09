@@ -489,7 +489,7 @@
             <Image x:Name="Drone_image" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1" Grid.Row="2" 
                    Source="/icons/drone(gray).png" Width="80" Height="80"/>
 
-            <TextBox x:Name="DroneID_input" Grid.Column="1" Grid.Row="4" Height="30" Width="200"  Padding="1,3,2,3" TextWrapping="Wrap" 
+            <TextBox x:Name="DroneID_input" Grid.Column="1" Grid.Row="4" Height="30" Width="200"  Padding="1,3,2,3" TextWrapping="Wrap" ToolTip="Drone ID" ToolTipService.ShowOnDisabled="True"
                      Text="{Binding SelectedDrone.ID, StringFormat='      {0}'}" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="16">
                 <TextBox.Resources>
                     <Style TargetType="Border">
@@ -516,7 +516,8 @@
                    Source="/icons/fingerprint.png" Width="18" Height="18" Margin="5,0,0,0"/>
             </Grid>
 
-            <TextBox x:Name="DroneModel_input" Grid.Column="1" Grid.Row="5" Height="30" Width="200"  Padding="1,3,2,3" FontSize="16" TextWrapping="Wrap" Text="{Binding SelectedDrone.Model}" VerticalAlignment="Center" HorizontalAlignment="Center" >
+            <TextBox x:Name="DroneModel_input" Grid.Column="1" Grid.Row="5" Height="30" Width="200"  Padding="1,3,2,3" FontSize="16" ToolTip="Drone Model"
+                     TextWrapping="Wrap" Text="{Binding SelectedDrone.Model}" VerticalAlignment="Center" HorizontalAlignment="Center" >
                 <TextBox.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="5"/>
@@ -539,7 +540,7 @@
 
             <ComboBox x:Name="WeightSelector" Grid.Column="1" Grid.Row="6" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="200"
                       Height="30" FontSize="16" BorderBrush="White" ItemsSource="{Binding Source={StaticResource Weights}}" 
-                      SelectedItem="{Binding SelectedDrone.Weight, Mode=OneWay}">
+                      SelectedItem="{Binding SelectedDrone.Weight, Mode=OneWay}" ToolTip="Drone Weight" ToolTipService.ShowOnDisabled="True">
             </ComboBox>
             
             <TextBlock x:Name="WeightSelectorPlaceholder" Grid.Column="1" Grid.Row="6" IsHitTestVisible="False"  Padding="1,3,2,3" 
@@ -607,7 +608,7 @@
 
             <TextBox x:Name="DroneBattery_output" Grid.Column="1" Grid.Row="9" Height="30" Width="200"  Padding="1,3,2,3" TextWrapping="Wrap" FontSize="16"
                      Text="{Binding SelectedDrone.Battery, StringFormat='      {0:0.##}%', Mode=OneWay}" VerticalAlignment="Center" HorizontalAlignment="Center" IsEnabled="False"
-                     Visibility="{Binding Path=UpdateVisibility}">
+                     Visibility="{Binding Path=UpdateVisibility}" ToolTip="Drone Battery Percentage" ToolTipService.ShowOnDisabled="True">
                 <TextBox.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="5"/>
@@ -622,7 +623,7 @@
 
             <TextBox x:Name="DroneStatus_output" Grid.Column="1" Grid.Row="8" Height="30" Width="200"  Padding="1,3,2,3" TextWrapping="Wrap" FontSize="16"
                      Text="{Binding SelectedDrone.Status, StringFormat='      {0}', Mode=OneWay}" VerticalAlignment="Center" HorizontalAlignment="Center" IsEnabled="False"
-                      Visibility="{Binding Path=UpdateVisibility}">
+                      Visibility="{Binding Path=UpdateVisibility}" ToolTip="Drone Status" ToolTipService.ShowOnDisabled="True">
                 <TextBox.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="5"/>

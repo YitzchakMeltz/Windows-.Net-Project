@@ -73,7 +73,7 @@
                    Source="/icons/charging-station(gray).png" Width="80" Height="80" Margin="20,0,0,0"/>
 
             <TextBox x:Name="ID_input" Grid.Column="1" Grid.Row="4" FontSize="16" Height="30" Width="200"  Padding="1,3,2,3" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center" 
-                     Text="{Binding SelectedStation.ID, StringFormat='      {0}'}">
+                     Text="{Binding SelectedStation.ID, StringFormat='      {0}'}" ToolTip="Station ID" ToolTipService.ShowOnDisabled="True">
                 <TextBox.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="5"/>
@@ -110,7 +110,7 @@
             </Grid>
 
             <TextBox x:Name="Name_input" Grid.Column="1" Grid.Row="5" FontSize="16" Height="30" Width="200"  Padding="1,3,2,3" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center" 
-                     Text="{Binding SelectedStation.Name}">
+                     Text="{Binding SelectedStation.Name}" ToolTip="Station Name" ToolTipService.ShowOnDisabled="True">
                 <TextBox.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="5"/>
@@ -134,7 +134,7 @@
             </TextBlock>
 
             <TextBox x:Name="TotalSlots_input" Grid.Column="1" Grid.Row="6" FontSize="16" Height="30" Width="200"  Padding="1,3,2,3" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center" 
-                     Text="{Binding SelectedStation.AvailableChargingSlots}">
+                     Text="{Binding SelectedStation.AvailableChargingSlots}" ToolTip="Total Charging Slots" ToolTipService.ShowOnDisabled="True">
                 <TextBox.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="5"/>
