@@ -24,6 +24,8 @@ namespace PL
     /// </summary>
     public partial class DronePage : Page
     {
+        // Variable to restore information after changes
+        private String originalModel;
         public DronePage(DronesModel drones)
         {
             DataContext = drones;
@@ -49,6 +51,8 @@ namespace PL
             ActionButtonsGridLeft.Background = new SolidColorBrush(Color.FromArgb(0x4d, 0x4d, 0x4d, 0x4d));
             ActionButtonsGridCenter.Background = new SolidColorBrush(Color.FromArgb(0x4d, 0x4d, 0x4d, 0x4d));
             ActionButtonsGridRight.Background = new SolidColorBrush(Color.FromArgb(0x4d, 0x4d, 0x4d, 0x4d));
+
+            originalModel = (DataContext as DronesModel).SelectedDrone.Model;
         }
 
         private void Add_Button_Click(object sender, RoutedEventArgs e)
@@ -78,6 +82,11 @@ namespace PL
         private void Cancel_Button_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.GoBack();
+        }
+
+        private void Revert_Button_Click(object sender, RoutedEventArgs e)
+        {
+            (DataContext as DronesModel).SelectedDrone.Model = originalModel;
         }
 
         private void Deliver_Button_Click(object sender, RoutedEventArgs e)
