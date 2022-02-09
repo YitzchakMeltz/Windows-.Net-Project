@@ -6,6 +6,9 @@ using System.Linq;
 
 namespace BL
 {
+    /// <summary>
+    /// Simulator that simulates the actions for a drone. Performs actions automatically and follows time limitations.
+    /// </summary>
     class Simulator
     {
         const int DELAY = 1000; // milliseconds
@@ -31,7 +34,8 @@ namespace BL
                         }
                         catch (InvalidManeuver)
                         {
-                            if (drone.Location == bl.ClosestStation(drone.Location).Location)
+                            if (drone.Battery == 100) { }
+                            else if (drone.Location == bl.ClosestStation(drone.Location).Location)
                                 bl.ChargeDrone(droneID);
                             else
                             {
