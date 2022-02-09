@@ -50,8 +50,8 @@ namespace PL.Models
             CollectionView.Filter += (o) =>
             {
                 if ((Status == "All Statuses" || (o as PO.Package).Status.ToString() == Status) &&
-                    (StartDate == DateTime.MinValue || (o as PO.Package).Creation >= StartDate) && 
-                    (EndDate == DateTime.MinValue || (o as PO.Package).Creation <= EndDate)) return true;
+                    ((o as PO.Package).Creation >= StartDate) && 
+                    ((o as PO.Package).Creation <= EndDate)) return true;
                 else return false;
             };
         }
@@ -104,6 +104,7 @@ namespace PL.Models
         #endregion
 
         #region Filter by Date
+
         public IEnumerable<string> DateChoices => new string[] { "All Dates", "Select Dates" };
 
         private string _dateChoice = "All Dates";
@@ -125,7 +126,7 @@ namespace PL.Models
                 {
                     if (DateRangeWindow.Show(this))
                         _dateChoice = value;
-                    else DateChoice = "All Dates";
+                    else _dateChoice = "All Dates";
                 }
                 PropertyChanged(this, new PropertyChangedEventArgs("DateChoice"));
             }
@@ -150,6 +151,7 @@ namespace PL.Models
                 CollectionView.Refresh();
             }
         }
+
         #endregion
 
         #region Group Packages

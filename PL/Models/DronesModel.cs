@@ -14,10 +14,20 @@ using System.Windows.Input;
 
 namespace PL.Models
 {
+    /// <summary>
+    /// Represents the Model that controls the Drones List Page and its selected Drones
+    /// </summary>
     public class DronesModel : INotifyPropertyChanged
     {
-        private IBL bl;
         public event PropertyChangedEventHandler PropertyChanged;
+
+        private IBL bl;
+
+        /// <summary>
+        /// Collection of all Packages
+        /// </summary>
+        private ObservableCollection<PO.Drone> _collection = new ObservableCollection<PO.Drone>();
+
         public DronesModel(IBL bl)
         {
             this.bl = bl;
@@ -45,11 +55,21 @@ namespace PL.Models
             };
         }
 
+        /// <summary>
+        /// Progress report handler for the constructor's BackgroundWorker. Enables BackgroundWorker to add Packages to the Observable Collection.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void addDrone(object sender, ProgressChangedEventArgs e)
         {
             _collection.Add(new PO.Drone((uint)e.UserState, bl));
         }
 
+        /// <summary>
+        /// Constructor for Drone of specific Package
+        /// </summary>
+        /// <param name="bl"></param>
+        /// <param name="package"></param>
         public DronesModel(IBL bl, PO.Package package) : this(bl)
         {
             State = WindowState.Update;
@@ -57,10 +77,20 @@ namespace PL.Models
             SelectedDrone.PropertyChanged += (object sender, PropertyChangedEventArgs args) => { if (args.PropertyName == "Package") package.DroneChanged(); };
         }
 
-        private ObservableCollection<PO.Drone> _collection = new ObservableCollection<PO.Drone>();
+        /// <summary>
+        /// DataBinding Collection View with Filter (see constructor)
+        /// </summary>
         public ICollectionView CollectionView { init; get; }
+
+        #region Filter by Status
+
         public IEnumerable<string> Statuses { get => Enum.GetValues<BO.DroneStatuses>().Select(s => s.ToString()).Prepend("All Statuses"); }
+
         private string _status = "All Statuses";
+
+        /// <summary>
+        /// DataBinding for filtering Drones by Status
+        /// </summary>
         public string Status {
             get => _status;
             set
@@ -69,8 +99,18 @@ namespace PL.Models
                 CollectionView.Refresh();
             }
         }
+
+        #endregion
+
+        #region Filter by Weight
+
         public IEnumerable<string> Weights { get => Enum.GetValues<BO.WeightCategories>().Select(w => w.ToString()).Prepend("All Weights"); }
+
         private string _weight = "All Weights";
+
+        /// <summary>
+        /// DataBinding for filtering Drones by Weight
+        /// </summary>
         public string Weight
         {
             get => _weight;
@@ -81,9 +121,17 @@ namespace PL.Models
             }
         }
 
+        #endregion
+
+        #region Group Drones
+
         public enum Groups { None, Status }
+
         private Groups _groupBy = Groups.None;
 
+        /// <summary>
+        /// DataBinding for listing Drones in Groups
+        /// </summary>
         public Groups GroupBy
         {
             get => _groupBy;
@@ -97,11 +145,16 @@ namespace PL.Models
             }
         }
 
+        /// <summary>
+        /// Cycles through all Group categories
+        /// </summary>
         public void NextGroup()
         {
             Groups[] groups = Enum.GetValues<Groups>();
             GroupBy = groups[(Array.IndexOf(groups, _groupBy) + 1) % groups.Length];
         }
+
+        #endregion
 
         public IEnumerable<uint> Stations { get { return bl.ListStations().Select(s => s.ID); } }
 
