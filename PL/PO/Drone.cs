@@ -80,12 +80,7 @@ namespace PL.PO
 
             worker.DoWork += ((sender, e) =>
             {
-                //worker.ReportProgress(0);
-                // Call BL Simulate function here
                 bl.ActivateSimulator(ID, () => worker.ReportProgress(0), () => stopSimulation);
-                //Thread.Sleep(30000);
-                //worker.ReportProgress(70);
-                //(DataContext as PO.Drone).Simulate(() => SimulatorToggleButton.IsEnabled);
             });
 
             worker.ProgressChanged += Reload;
