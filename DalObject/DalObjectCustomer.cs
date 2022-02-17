@@ -1,5 +1,6 @@
 ﻿using DO;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using static Dal.DataSource;
 
@@ -14,6 +15,8 @@ namespace Dal
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void AddCustomer(Customer customer)
         {
+            if (!customer.Phone.All(char.IsDigit))
+                throw new ObjectNotFound($"Phone number must only contain digits.");
             if (Customers.Exists(c => c.ID == customer.ID))
                 throw new ObjectAlreadyExists($"Customer with ID: {customer.ID} already exists.");
 
