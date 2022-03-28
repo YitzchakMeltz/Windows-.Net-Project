@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Text.RegularExpressions;
 
 namespace PL
 {
@@ -122,6 +123,15 @@ namespace PL
                     passwordState = PasswordState.Hidden;
                     break;
             }
+        }
+
+        public bool Check_Strong_Security(PasswordBox p)
+        {
+            Regex regex = new Regex("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[-+_!@#$%^&*., ?]).+$");
+            if (p.Password.Length < 8) throw new Exception("Password must be at least 8 characters!");
+            if (!regex.IsMatch(p.Password)) throw new Exception("Password must contain at least 1 upper & lowercase letter and a special character!");
+
+            return true;
         }
     }
 }
