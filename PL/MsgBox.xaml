@@ -25,7 +25,7 @@
 
             <TextBox x:Name="msg_text" Grid.Row="1" Background="Transparent" HorizontalAlignment="Center" 
                      VerticalAlignment="Top" Foreground="LightGray" FontSize="15" BorderThickness="0" 
-                     TextWrapping="WrapWithOverflow" Margin="15,9,15,0">You Can't Do That!</TextBox>
+                     TextWrapping="WrapWithOverflow" Margin="15,9,15,0" TextAlignment="Center">You Can't Do That!</TextBox>
 
         </Grid>
 
