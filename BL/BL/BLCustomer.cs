@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
+using System.Text.RegularExpressions;
 
 namespace BL
 {
@@ -33,6 +34,8 @@ namespace BL
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void AddCustomer(uint ID, string name, string phone, double longitude, double latitude, string password = null)
         {
+            CheckPassword(password);
+
             dalObject.AddCustomer(ID, name, phone, latitude, longitude, password);
         }
 
@@ -89,7 +92,7 @@ namespace BL
         /// <param name="password"></param>
         /// <exception cref="ObjectNotFound"></exception>
         [MethodImpl(MethodImplOptions.Synchronized)]
-        public void UpdateCustomer(uint ID, string name = null, string phone = null, string password = null)
+        public void UpdateCustomer(uint ID, string name = null, string phone = null, string[] passwordArray = null)
         {
             // Update DALCustomer
             try
@@ -108,9 +111,16 @@ namespace BL
                         customer.Phone = phone;
                     }
 
-                    if (password != null)
+                    if (passwordArray != null)
                     {
-                        customer.Password = password;
+                        if (!Login(ID, System.Text.Encoding.UTF8.GetBytes(passwordArray[0])))
+                            throw new BO.InvalidManeuver("Original password is incorrect!");
+                        if (passwordArray[1] != passwordArray[2])
+                            throw new BO.InvalidManeuver("New passwords must match!");
+
+                        CheckPassword(passwordArray[1]);
+
+                        customer.Password = passwordArray[1];
                     }
 
                     dalObject.RemoveCustomer(ID);
@@ -121,6 +131,14 @@ namespace BL
             {
                 throw new ObjectNotFound(e.Message);
             }
+        }
+
+        private bool CheckPassword(string p)
+        {
+            Regex regex = new Regex("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[-+_!@#$%^&*., ?]).+$");
+            if (p.Length < 8) throw new BO.InvalidManeuver("Password must be at least 8 characters!");
+            if (!regex.IsMatch(p)) throw new BO.InvalidManeuver("Password must contain at least 1 upper & lowercase letter and a special character!");
+            return true;
         }
 
         /// <summary>
@@ -149,7 +167,7 @@ namespace BL
         {
             lock (dalObject)
             {
-                IEnumerable<DO.Customer> dalCustomers = dalObject.GetCustomerList();
+                IEnumerable<DO.Customer> dalCustomers = dalObject.GetCustomerList().Where(c => c.ID != 0);
 
                 List<CustomerList> blCustomers = new List<CustomerList>();
                 dalCustomers.ToList().ForEach(dalCustomer =>

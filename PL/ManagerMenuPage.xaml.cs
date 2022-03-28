@@ -54,7 +54,7 @@ namespace PL
 
         private void Change_Password_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new UpdatePasswordPage(0));
+            NavigationService.Navigate(new UpdatePasswordPage(new PO.Customer(0, bl)));
         }
     }
 }

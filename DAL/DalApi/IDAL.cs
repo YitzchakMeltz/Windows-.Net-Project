@@ -193,7 +193,7 @@ namespace DalApi
         /// Releases a Drone from charging
         /// </summary>
         public double ReleaseDrone(uint droneID);
-        
+
         /// <summary>
         /// Returns the power consumption configuration
         /// </summary>

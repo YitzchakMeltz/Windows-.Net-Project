@@ -92,7 +92,7 @@
                     <Style TargetType="TextBox">
                         <Style.Triggers>
                             <DataTrigger Binding="{Binding AdminState}" Value="True">
-                                <Setter Property="Text" Value="Administrator"/>
+                                <Setter Property="Text" Value="Manager"/>
                                 <Setter Property="IsEnabled" Value="False"/>
                             </DataTrigger>
                         </Style.Triggers>

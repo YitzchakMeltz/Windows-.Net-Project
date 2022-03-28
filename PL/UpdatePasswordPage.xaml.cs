@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Text.RegularExpressions;
+using BlApi;
 
 namespace PL
 {
@@ -21,15 +22,11 @@ namespace PL
     /// </summary>
     public partial class UpdatePasswordPage : Page
     {
-        //private enum PasswordState { Visible, Hidden }
+        PO.Customer customer;
 
-        //private PasswordState passwordState = PasswordState.Hidden;
-
-        private uint ID;
-
-        public UpdatePasswordPage(uint ID)
+        public UpdatePasswordPage(PO.Customer customer)
         {
-            this.ID = ID;
+            this.customer = customer;
 
             InitializeComponent();
         }
@@ -124,7 +121,26 @@ namespace PL
 
         private void Change_Password_Button_Click(object sender, RoutedEventArgs e)
         {
-            return;
+            if (OldVisiblePassword_input.Visibility == Visibility.Visible)
+            {
+                OldPassword_input.Password = N1VisiblePassword_input.Text;
+                OldVisiblePassword_input.Text = "";    //clear plaintext password from memory for security reasons
+            }
+            if (N1VisiblePassword_input.Visibility == Visibility.Visible)
+            {
+                N1Password_input.Password = N1VisiblePassword_input.Text;
+                N1VisiblePassword_input.Text = "";    //clear plaintext password from memory for security reasons
+            }
+            if (N2VisiblePassword_input.Visibility == Visibility.Visible)
+            {
+                N2Password_input.Password = N1VisiblePassword_input.Text;
+                N2VisiblePassword_input.Text = "";    //clear plaintext password from memory for security reasons
+            }
+
+            if (N1Password_input.Password != N2Password_input.Password)
+                MsgBox.Show("Error", "Passwords must match!");
+            else
+                customer.UpdatePassword(new string[] { OldPassword_input.Password, N1Password_input.Password, N2Password_input.Password});
         }
 
         public bool Check_Strong_Security(PasswordBox p)

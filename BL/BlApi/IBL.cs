@@ -99,8 +99,8 @@ namespace BlApi
         /// <param name="ID"></param>
         /// <param name="name"></param>
         /// <param name="phone"></param>
-        /// <param name="password"></param>
-        public void UpdateCustomer(uint ID, string name = null, string phone = null, string password = null);
+        /// <param name="passwords">[old, new1, new2]</param>
+        public void UpdateCustomer(uint ID, string name = null, string phone = null, string[] passwords = null);
 
         /// <summary>
         /// Sends a Drone to nearest BaseStation to charge

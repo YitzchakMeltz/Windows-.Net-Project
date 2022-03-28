@@ -47,5 +47,10 @@ namespace PL.PO
             PropertyChanged(this, new PropertyChangedEventArgs("Incoming"));
             PropertyChanged(this, new PropertyChangedEventArgs("Outgoing"));
         }
+
+        public void UpdatePassword(string[] passwordArray)
+        {
+            bl.UpdateCustomer(ID, null, null, passwordArray);
+        }
     }
 }
