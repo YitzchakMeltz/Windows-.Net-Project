@@ -93,18 +93,6 @@ namespace PL
             }
         }
 
-        private void Password_input_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.CapsLock && e.IsToggled)
-            {
-                CapsLockMsg.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                CapsLockMsg.Visibility = Visibility.Collapsed;
-            }
-        }
-
         private void Visibility_Click(object sender, RoutedEventArgs e)
         {
             switch(passwordState)
@@ -117,6 +105,7 @@ namespace PL
                     VisibilityIcon.Source = new BitmapImage(new Uri(@"\icons\visible.png", UriKind.Relative));
                     passwordState = PasswordState.Visible;
                     break;
+
                 case PasswordState.Visible:
                     VisiblePassword_input.Visibility = Visibility.Collapsed;
                     Password_input.Password = VisiblePassword_input.Text;
@@ -126,7 +115,8 @@ namespace PL
                     VisibilityIcon.Source = new BitmapImage(new Uri(@"\icons\hidden.png", UriKind.Relative));
                     passwordState = PasswordState.Hidden;
                     break;
-            }   
+            }
         }
+
     }
 }

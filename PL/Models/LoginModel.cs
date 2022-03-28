@@ -13,6 +13,6 @@ namespace PL.Models
             AdminState = admin;
         }
 
-        public bool AdminState;
+        public bool AdminState { get; set; }
     }
 }

@@ -21,20 +21,17 @@ namespace PL
     /// </summary>
     public partial class UpdatePasswordPage : Page
     {
-        private enum PasswordState { Visible, Hidden }
+        //private enum PasswordState { Visible, Hidden }
 
-        private PasswordState passwordState = PasswordState.Hidden;
+        //private PasswordState passwordState = PasswordState.Hidden;
 
         private uint ID;
-
-        public UpdatePasswordPage()
-        {
-            InitializeComponent();
-        }
 
         public UpdatePasswordPage(uint ID)
         {
             this.ID = ID;
+
+            InitializeComponent();
         }
 
         private void Back_Click(object sender, RoutedEventArgs e)
@@ -44,14 +41,31 @@ namespace PL
 
         private void Handle_Placeholder(object sender, RoutedEventArgs e)
         {
-            if (Password_input.SecurePassword.Length == 0)
+            PasswordBox passwordBox = sender as PasswordBox;
+            TextBlock passwordPlaceholder = OldPasswordPlaceholder;
+            Button visibilityButton = OldVisibilityButton;
+
+            switch (passwordBox.Name)
             {
-                PasswordPlaceholder.Visibility = Visibility.Visible;
+                case "N1Password_input":
+                    passwordPlaceholder = N1PasswordPlaceholder;
+                    visibilityButton = N1VisibilityButton;
+                    break;
+
+                case "N2Password_input":
+                    passwordPlaceholder = N2PasswordPlaceholder;
+                    visibilityButton= N2VisibilityButton;
+                    break;
+            }
+
+            if (passwordBox.SecurePassword.Length == 0)
+            {
+                passwordPlaceholder.Visibility = Visibility.Visible;
             }
             else
             {
-                PasswordPlaceholder.Visibility = Visibility.Hidden;
-                VisibilityButton.IsEnabled = true;
+                passwordPlaceholder.Visibility = Visibility.Hidden;
+                visibilityButton.IsEnabled = true;
             }
         }
 
@@ -67,62 +81,50 @@ namespace PL
             }
         }
 
-        private void Password_input_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.CapsLock && e.IsToggled)
-            {
-                CapsLockMsg.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                CapsLockMsg.Visibility = Visibility.Collapsed;
-            }
-        }
-
         private void Visibility_Click(object sender, RoutedEventArgs e)
         {
-            TextBox textBox;
-            TextBox placeholder;
-            PasswordBox passwordBox;
+            TextBox textBox = OldVisiblePassword_input;
+            Image icon = OldVisibilityIcon;
+            PasswordBox passwordBox = OldPassword_input;
 
             switch ((sender as Button).Name)
             {
-                case "OldVisibilityButton":
-                    textBox = OldVisiblePassword_input;
-                    passwordBox = OldPassword_input;
-                    break;
-
                 case "N1VisibilityButton":
                     textBox = N1VisiblePassword_input;
+                    icon = N1VisibilityIcon;
                     passwordBox = N1Password_input;
                     break;
 
                 case "N2VisibilityButton":
                     textBox = N2VisiblePassword_input;
+                    icon = N2VisibilityIcon;
                     passwordBox = N2Password_input;
                     break;
             }
 
-            switch (passwordState)
+            switch (textBox.Visibility)
             {
-                case PasswordState.Hidden:
+                case Visibility.Collapsed:
                     textBox.Visibility = Visibility.Visible;
-                    VisiblePassword_input.Text = Password_input.Password;
+                    textBox.Text = passwordBox.Password;
 
-                    Password_input.Visibility = Visibility.Collapsed;
-                    VisibilityIcon.Source = new BitmapImage(new Uri(@"\icons\visible.png", UriKind.Relative));
-                    passwordState = PasswordState.Visible;
+                    passwordBox.Visibility = Visibility.Collapsed;
+                    icon.Source = new BitmapImage(new Uri(@"\icons\visible.png", UriKind.Relative));
                     break;
-                case PasswordState.Visible:
-                    VisiblePassword_input.Visibility = Visibility.Collapsed;
-                    Password_input.Password = VisiblePassword_input.Text;
-                    VisiblePassword_input.Text = "";    //clear plaintext password from memory for security reasons
+                case Visibility.Visible:
+                    textBox.Visibility = Visibility.Collapsed;
+                    passwordBox.Password = textBox.Text;
+                    textBox.Text = "";    //clear plaintext password from memory for security reasons
 
-                    Password_input.Visibility = Visibility.Visible;
-                    VisibilityIcon.Source = new BitmapImage(new Uri(@"\icons\hidden.png", UriKind.Relative));
-                    passwordState = PasswordState.Hidden;
+                    passwordBox.Visibility = Visibility.Visible;
+                    icon.Source = new BitmapImage(new Uri(@"\icons\hidden.png", UriKind.Relative));
                     break;
             }
+        }
+
+        private void Change_Password_Button_Click(object sender, RoutedEventArgs e)
+        {
+            return;
         }
 
         public bool Check_Strong_Security(PasswordBox p)
