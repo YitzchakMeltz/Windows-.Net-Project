@@ -55,6 +55,32 @@
                 </Button.Style>
             </Button>
 
+            <Button x:Name="ChangePasswordButton" Grid.Column="1"  Grid.Row="0" HorizontalAlignment="Right"  VerticalAlignment="Top" 
+                    Width="70" Height="70" FontSize="25" Background="Transparent"  Foreground="White" BorderThickness="0" 
+                    FontFamily="Arial" Margin="20,-1.1,15,15" Click="Change_Password_Click" ToolTip="Change Password">
+                <Image Source="/icons/update-password(white).png" Height="25" Width="25"/>
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="Background" Value="Transparent"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="Button">
+                                    <Border Name="border" BorderThickness="0" 
+                                        Background="Transparent">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="Transparent"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+
             <Button x:Name="DroneMenuButton" Grid.Column="0"  Grid.Row="0" HorizontalAlignment="Right"  VerticalAlignment="Bottom" 
                     Width="300" Height="100" FontSize="25" Background="LightSkyBlue"  Foreground="White" BorderThickness="0" 
                     FontFamily="Arial" Margin="30,30,30,30" Click="Drones_Menu_Button_Click">
