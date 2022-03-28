@@ -46,14 +46,14 @@ namespace PL
             try 
             {
                 uint customerID;
-                if (ID_input.Text == "Administrator") customerID = 0;
-
-                if (uint.TryParse(ID_input.Text, out customerID) == false)
+                if (ID_input.Text == "Manager") customerID = 0;
+                else if (uint.TryParse(ID_input.Text, out customerID) == false)
                     throw new BO.InvalidManeuver("Inputted ID is not valid.");
+
                 if (bl.Login(customerID, System.Text.Encoding.UTF8.GetBytes(Password_input.Password)))
                 {
                     if (customerID == 0) NavigationService.Navigate(new ManagerMenuPage(bl));
-                    NavigationService.Navigate(new CustomerPage(new Models.CustomersModel(bl, uint.Parse(ID_input.Text))));
+                    else NavigationService.Navigate(new CustomerPage(new Models.CustomersModel(bl, uint.Parse(ID_input.Text))));
                 }
                 else throw new BO.InvalidManeuver("Invalid credentials.");
             }

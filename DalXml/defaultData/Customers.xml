@@ -1,5 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Customers>
+	<Customer>
+		<ID>0</ID>
+		<Name>Manager</Name>
+		<Phone>0</Phone>
+		<Location>
+			<Latitude>0</Latitude>
+			<Longitude>0</Longitude>
+		</Location>
+	</Customer>
   <Customer>
     <ID>208455293</ID>
     <Name>Customer1</Name>

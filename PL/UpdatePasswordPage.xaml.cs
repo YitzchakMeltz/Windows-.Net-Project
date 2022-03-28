@@ -137,10 +137,14 @@ namespace PL
                 N2VisiblePassword_input.Text = "";    //clear plaintext password from memory for security reasons
             }
 
-            if (N1Password_input.Password != N2Password_input.Password)
-                MsgBox.Show("Error", "Passwords must match!");
-            else
-                customer.UpdatePassword(new string[] { OldPassword_input.Password, N1Password_input.Password, N2Password_input.Password});
+            try
+            {
+                customer.UpdatePassword(new string[] { OldPassword_input.Password, N1Password_input.Password, N2Password_input.Password });
+            }
+            catch (Exception exception)
+            {
+                MsgBox.Show("Error", exception.Message);
+            }
         }
 
         public bool Check_Strong_Security(PasswordBox p)
