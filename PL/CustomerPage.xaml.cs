@@ -154,6 +154,11 @@ namespace PL
             }
         }
 
+        private void Change_Password_Button_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new UpdatePasswordPage((DataContext as CustomersModel).SelectedCustomer.ID));
+        }
+
         private void Back_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.GoBack();

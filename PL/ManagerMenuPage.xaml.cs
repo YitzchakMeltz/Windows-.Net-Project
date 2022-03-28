@@ -51,5 +51,10 @@ namespace PL
         {
             NavigationService.GoBack();
         }
+
+        private void Change_Password_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new UpdatePasswordPage(0));
+        }
     }
 }

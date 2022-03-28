@@ -34,7 +34,7 @@ namespace PL
 
         private void Manager_Button_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new ManagerMenuPage(bl));
+            NavigationService.Navigate(new LogInPage(bl, true));
         }
 
         private void New_Customer_Button_Click(object sender, RoutedEventArgs e)
