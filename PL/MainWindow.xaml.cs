@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using BlApi;
 using BO;
+using PL.Models;
 
 namespace PL
 {
@@ -29,6 +30,17 @@ namespace PL
         { 
             InitializeComponent();
             mainFrame.Content = new WelcomePage(mainFrame, bl);
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            Page page;
+            page = mainFrame.Content as DisplayDroneListPage;
+            page ??= mainFrame.Content as DronePage;
+            if (page != null && (page.DataContext as DronesModel).SimulatorCount != 0)
+            {
+                e.Cancel = !MsgBox.Show("Question", "A simulator is running.\nAre you sure you want to exit?").Value;
+            }
         }
     }
 }
