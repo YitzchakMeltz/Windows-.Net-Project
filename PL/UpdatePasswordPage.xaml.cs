@@ -170,6 +170,10 @@ namespace PL
 
             N2Password_input.Visibility = Visibility.Visible;
             N2VisiblePassword_input.Visibility = Visibility.Collapsed;
+
+            OldVisibilityIcon.Source = new BitmapImage(new Uri(@"\icons\hidden.png", UriKind.Relative));
+            N1VisibilityIcon.Source = new BitmapImage(new Uri(@"\icons\hidden.png", UriKind.Relative));
+            N2VisibilityIcon.Source = new BitmapImage(new Uri(@"\icons\hidden.png", UriKind.Relative));
         }
 
         private void CommandBinding_CanExecutePaste(object sender, CanExecuteRoutedEventArgs e)

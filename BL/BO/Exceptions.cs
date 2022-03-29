@@ -20,6 +20,12 @@
         public InvalidManeuver(string message) : base(message) { }
     }
 
+    public class SecurityError : System.Exception
+    {
+        public SecurityError() { }
+        public SecurityError(string message) : base(message) { }
+    }
+
     public class LogicError : System.Exception
     {
         public LogicError() { }

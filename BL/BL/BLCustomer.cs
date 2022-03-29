@@ -114,11 +114,11 @@ namespace BL
                     if (passwordArray != null)
                     {
                         if (!Login(ID, System.Text.Encoding.UTF8.GetBytes(passwordArray[0])))
-                            throw new BO.InvalidManeuver("Original password is incorrect!");
+                            throw new BO.SecurityError("Original password is incorrect!");
                         if (passwordArray[1] != passwordArray[2])
-                            throw new BO.InvalidManeuver("New passwords must match!");
+                            throw new BO.SecurityError("New passwords must match!");
                         if (passwordArray[0] == passwordArray[1])
-                            throw new BO.InvalidManeuver("New password cannot be the same as the original password!");
+                            throw new BO.SecurityError("New password cannot be the same as the original password!");
 
                         CheckPassword(passwordArray[1]);
 
@@ -135,12 +135,11 @@ namespace BL
             }
         }
 
-        private bool CheckPassword(string p)
+        private void CheckPassword(string p)
         {
             Regex regex = new Regex("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[-+_!@#$%^&*., ?]).+$");
-            if (p.Length < 8) throw new BO.InvalidManeuver("Password must be at least 8 characters!");
-            if (!regex.IsMatch(p)) throw new BO.InvalidManeuver("Password must contain at least 1 upper & lowercase letter and a special character!");
-            return true;
+            if (p.Length < 8) throw new BO.SecurityError("Password must be at least 8 characters!");
+            if (!regex.IsMatch(p)) throw new BO.SecurityError("Password must contain at least 1 upper & lowercase letter and a special character!");
         }
 
         /// <summary>

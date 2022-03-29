@@ -81,8 +81,10 @@ namespace PL
                     MsgBox.Show("Success", "Customer Succesfully Added");
                     NavigationService.GoBack();
                 }
-                catch (Exception exception)
+                catch (Exception e)
                 {
+                    if (e is SecurityError)
+                        Reset_Password_Box();
                     MsgBox.Show("Error", exception.Message);
                 }
         }
@@ -162,6 +164,19 @@ namespace PL
         private void Back_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.GoBack();
+        }
+
+        private void Reset_Password_Box()
+        {
+            Password_input.Password = "";
+
+            //clear plaintext password from memory for security reasons
+            VisiblePassword_input.Text = "";
+
+            Password_input.Visibility = Visibility.Visible;
+            VisiblePassword_input.Visibility = Visibility.Collapsed;
+
+            VisibilityIcon.Source = new BitmapImage(new Uri(@"\icons\hidden.png", UriKind.Relative));
         }
 
         private void CommandBinding_CanExecutePaste(object sender, CanExecuteRoutedEventArgs e)
