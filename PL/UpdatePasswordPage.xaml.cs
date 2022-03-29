@@ -123,7 +123,7 @@ namespace PL
         {
             if (OldVisiblePassword_input.Visibility == Visibility.Visible)
             {
-                OldPassword_input.Password = N1VisiblePassword_input.Text;
+                OldPassword_input.Password = OldVisiblePassword_input.Text;
                 OldVisiblePassword_input.Text = "";    //clear plaintext password from memory for security reasons
             }
             if (N1VisiblePassword_input.Visibility == Visibility.Visible)
@@ -133,7 +133,7 @@ namespace PL
             }
             if (N2VisiblePassword_input.Visibility == Visibility.Visible)
             {
-                N2Password_input.Password = N1VisiblePassword_input.Text;
+                N2Password_input.Password = N2VisiblePassword_input.Text;
                 N2VisiblePassword_input.Text = "";    //clear plaintext password from memory for security reasons
             }
 
