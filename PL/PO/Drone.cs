@@ -96,12 +96,13 @@ namespace PL.PO
         {
             Worker.CancelAsync();
             PropertyChanged(this, new PropertyChangedEventArgs("Worker"));
+            MsgBox.Show("Success", "Simulator Cancelled Successfully");
         }
 
         private void onComplete(object sender, RunWorkerCompletedEventArgs e)
         {
             PropertyChanged(this, new PropertyChangedEventArgs("Worker"));
-            MsgBox.Show("Success", "Simulator Cancelled Successfully");
+            if(!e.Cancelled) MsgBox.Show("Success", "Simulation Completed Successfully");
         }
 
         public void Reload(object sender, ProgressChangedEventArgs a)

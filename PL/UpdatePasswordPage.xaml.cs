@@ -157,6 +157,11 @@ namespace PL
             N1Password_input.Password = "";
             N2Password_input.Password = "";
 
+            //clear plaintext password from memory for security reasons
+            OldVisiblePassword_input.Text = "";
+            N1VisiblePassword_input.Text = "";
+            N2VisiblePassword_input.Text = "";
+
             OldPassword_input.Visibility = Visibility.Visible;
             OldVisiblePassword_input.Visibility = Visibility.Collapsed;
 

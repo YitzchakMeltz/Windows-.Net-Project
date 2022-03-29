@@ -172,17 +172,5 @@ namespace PL
                 --(DataContext as DronesModel).SimulatorCount;
             }
         }
-
-        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            if((DataContext as DronesModel).SelectedDrone.Worker.IsBusy)
-            {
-                if (MsgBox.Show("Question", "Simulator is currently running. Are you sure you want to exit?").Value)
-                {
-                    e.Cancel = true;
-                }
-            }
-            
-        }
     }
 }
