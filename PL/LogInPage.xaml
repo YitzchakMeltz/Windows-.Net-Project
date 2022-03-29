@@ -93,6 +93,7 @@
                         <Style.Triggers>
                             <DataTrigger Binding="{Binding AdminState}" Value="True">
                                 <Setter Property="Text" Value="Manager"/>
+                                <Setter Property="Foreground" Value="Gray"/>
                                 <Setter Property="IsEnabled" Value="False"/>
                             </DataTrigger>
                         </Style.Triggers>
