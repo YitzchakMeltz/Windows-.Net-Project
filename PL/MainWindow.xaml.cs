@@ -34,12 +34,14 @@ namespace PL
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            Page page;
-            page = mainFrame.Content as DisplayDroneListPage;
-            page ??= mainFrame.Content as DronePage;
-            if (page != null && (page.DataContext as DronesModel).SimulatorCount != 0)
+            switch (mainFrame.Content)
             {
-                e.Cancel = !MsgBox.Show("Question", "A simulator is running.\nAre you sure you want to exit?").Value;
+                case Page page when page is DisplayDroneListPage or DronePage:
+                    if (page != null && (page.DataContext as DronesModel).SimulatorCount != 0)
+                    {
+                        e.Cancel = !MsgBox.Show("Question", "A simulator is running.\nAre you sure you want to exit?").Value;
+                    }
+                    break;
             }
         }
     }
