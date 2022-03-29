@@ -146,9 +146,27 @@ namespace PL
             }
             catch (Exception exception)
             {
+                Reset_Password_Boxes(sender, e);
                 MsgBox.Show("Error", exception.Message);
             }
         }
+
+        private void Reset_Password_Boxes(object sender, RoutedEventArgs e)
+        {
+            OldPassword_input.Password = "";
+            N1Password_input.Password = "";
+            N2Password_input.Password = "";
+
+            OldPassword_input.Visibility = Visibility.Visible;
+            OldVisiblePassword_input.Visibility = Visibility.Collapsed;
+
+            N1Password_input.Visibility = Visibility.Visible;
+            N1VisiblePassword_input.Visibility = Visibility.Collapsed;
+
+            N2Password_input.Visibility = Visibility.Visible;
+            N2VisiblePassword_input.Visibility = Visibility.Collapsed;
+        }
+
         private void CommandBinding_CanExecutePaste(object sender, CanExecuteRoutedEventArgs e)
         {
             e.CanExecute = false;
