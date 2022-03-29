@@ -117,6 +117,8 @@ namespace BL
                             throw new BO.InvalidManeuver("Original password is incorrect!");
                         if (passwordArray[1] != passwordArray[2])
                             throw new BO.InvalidManeuver("New passwords must match!");
+                        if (passwordArray[0] == passwordArray[1])
+                            throw new BO.InvalidManeuver("New password cannot be the same as the original password!");
 
                         CheckPassword(passwordArray[1]);
 
