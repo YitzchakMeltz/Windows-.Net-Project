@@ -140,6 +140,9 @@ namespace PL
             try
             {
                 customer.UpdatePassword(new string[] { OldPassword_input.Password, N1Password_input.Password, N2Password_input.Password });
+                MsgBox.Show("Success", "Password Updated Succesfully");
+                NavigationService.GoBack();
+
             }
             catch (Exception exception)
             {
