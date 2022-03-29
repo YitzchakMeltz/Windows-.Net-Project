@@ -203,6 +203,10 @@
                         </Style.Triggers>
                     </Style>
                 </PasswordBox.Style>
+                <PasswordBox.CommandBindings>
+                    <CommandBinding Command="ApplicationCommands.Paste" CanExecute="CommandBinding_CanExecutePaste"/>
+                    <CommandBinding Command="ApplicationCommands.Copy" CanExecute="CommandBinding_CanExecutePaste"/>
+                </PasswordBox.CommandBindings>
             </PasswordBox>
             <TextBlock x:Name="PasswordPlaceholder" Grid.Column="1" Grid.Row="6" IsHitTestVisible="False"   
                        Padding="1,3,2,3" TextWrapping="Wrap" Text=" Password" FontSize="16"
@@ -213,6 +217,10 @@
             <TextBox x:Name="VisiblePassword_input" Grid.Column="1" Grid.Row="6" FontSize="16" Height="30" Width="200"  Padding="1,3,2,3" 
                      TextWrapping="Wrap" Text="" VerticalAlignment="Center" HorizontalAlignment="Center" 
                      Visibility="{Binding Path=PasswordVisible}" KeyDown="Password_input_KeyDown" GotFocus="Handle_CapsLock">
+                <TextBox.CommandBindings>
+                    <CommandBinding Command="ApplicationCommands.Paste" CanExecute="CommandBinding_CanExecutePaste"/>
+                    <CommandBinding Command="ApplicationCommands.Copy" CanExecute="CommandBinding_CanExecutePaste"/>
+                </TextBox.CommandBindings>
                 <TextBox.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="5"/>

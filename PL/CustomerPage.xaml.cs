@@ -163,5 +163,12 @@ namespace PL
         {
             NavigationService.GoBack();
         }
+
+        private void CommandBinding_CanExecutePaste(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = false;
+            e.Handled = true;
+            MsgBox.Show("Error", "Copying & Pasting passwords has been disabled for security reasons");
+        }
     }
 }

@@ -149,14 +149,11 @@ namespace PL
                 MsgBox.Show("Error", exception.Message);
             }
         }
-
-        public bool Check_Strong_Security(PasswordBox p)
+        private void CommandBinding_CanExecutePaste(object sender, CanExecuteRoutedEventArgs e)
         {
-            Regex regex = new Regex("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[-+_!@#$%^&*., ?]).+$");
-            if (p.Password.Length < 8) throw new Exception("Password must be at least 8 characters!");
-            if (!regex.IsMatch(p.Password)) throw new Exception("Password must contain at least 1 upper & lowercase letter and a special character!");
-
-            return true;
+            e.CanExecute = false;
+            e.Handled = true;
+            MsgBox.Show("Error", "Copying & Pasting passwords has been disabled for security reasons");
         }
     }
 }
