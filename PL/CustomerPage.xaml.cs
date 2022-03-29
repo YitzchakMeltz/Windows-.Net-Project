@@ -81,9 +81,9 @@ namespace PL
                     MsgBox.Show("Success", "Customer Succesfully Added");
                     NavigationService.GoBack();
                 }
-                catch (Exception e)
+                catch (Exception exception)
                 {
-                    if (e is SecurityError)
+                    if (exception is SecurityError)
                         Reset_Password_Box();
                     MsgBox.Show("Error", exception.Message);
                 }
