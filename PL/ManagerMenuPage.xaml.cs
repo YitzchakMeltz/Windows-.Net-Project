@@ -47,14 +47,21 @@ namespace PL
             NavigationService.Navigate(new DisplayPackageListPage(new Models.PackagesModel(bl)));
         }
 
-        private void Back_Click(object sender, RoutedEventArgs e)
-        {
-            NavigationService.GoBack();
-        }
-
         private void Change_Password_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new UpdatePasswordPage(new PO.Customer(0, bl)));
+        }
+
+        private void Logout_Button_Click(object sender, RoutedEventArgs e)
+        {
+            if (MsgBox.Show("Question", "Are you sure you want to log out?").Value)
+            {
+
+                while (NavigationService.CanGoBack)
+                {
+                    NavigationService.GoBack();
+                }
+            }
         }
     }
 }

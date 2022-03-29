@@ -29,10 +29,10 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <Button x:Name="BackButton" Grid.Column="0"  Grid.Row="0" HorizontalAlignment="Left"  VerticalAlignment="Top" 
+            <Button x:Name="LogoutButton" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right"  VerticalAlignment="Top" 
                     Width="70" Height="70" FontSize="25" Background="Transparent"  Foreground="White" BorderThickness="0" 
-                    FontFamily="Arial" Margin="20,-1.1,15,15" Click="Back_Click">
-                <Image Source="/icons/left.png" Height="25" Width="25"/>
+                    FontFamily="Arial" Margin="20,-1.1,15,15" Click="Logout_Button_Click" Visibility="{Binding Path=UserVisibility}" ToolTip="Log Out">
+                <Image Source="/icons/logout.png" Height="25" Width="25"/>
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">
                         <Setter Property="Background" Value="Transparent"/>
@@ -55,7 +55,7 @@
                 </Button.Style>
             </Button>
 
-            <Button x:Name="ChangePasswordButton" Grid.Column="1"  Grid.Row="0" HorizontalAlignment="Right"  VerticalAlignment="Top" 
+            <Button x:Name="ChangePasswordButton" Grid.Column="0"  Grid.Row="0" HorizontalAlignment="Left"  VerticalAlignment="Top" 
                     Width="70" Height="70" FontSize="25" Background="Transparent"  Foreground="White" BorderThickness="0" 
                     FontFamily="Arial" Margin="20,-1.1,15,15" Click="Change_Password_Click" ToolTip="Change Password">
                 <Image Source="/icons/update-password(white).png" Height="25" Width="25"/>
