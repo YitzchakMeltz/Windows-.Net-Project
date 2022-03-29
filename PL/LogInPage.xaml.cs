@@ -59,6 +59,7 @@ namespace PL
             }
             catch (Exception exception)
             {
+                Reset_Password_Box();
                 MsgBox.Show("Error", exception.Message);
             }
         }
@@ -116,6 +117,16 @@ namespace PL
                     passwordState = PasswordState.Hidden;
                     break;
             }
+        }
+        private void Reset_Password_Box()
+        {
+            Password_input.Password = "";
+
+            //clear plaintext password from memory for security reasons
+            VisiblePassword_input.Text = "";
+
+            Password_input.Visibility = Visibility.Visible;
+            VisiblePassword_input.Visibility = Visibility.Collapsed;
         }
         private void CommandBinding_CanExecutePaste(object sender, CanExecuteRoutedEventArgs e)
         {

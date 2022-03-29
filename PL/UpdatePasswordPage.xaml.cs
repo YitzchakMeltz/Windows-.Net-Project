@@ -146,12 +146,12 @@ namespace PL
             }
             catch (Exception exception)
             {
-                Reset_Password_Boxes(sender, e);
+                Reset_Password_Boxes();
                 MsgBox.Show("Error", exception.Message);
             }
         }
 
-        private void Reset_Password_Boxes(object sender, RoutedEventArgs e)
+        private void Reset_Password_Boxes()
         {
             OldPassword_input.Password = "";
             N1Password_input.Password = "";
