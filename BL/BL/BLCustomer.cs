@@ -139,7 +139,7 @@ namespace BL
         {
             Regex regex = new Regex("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[-+_!@#$%^&*., ?]).+$");
             if (p.Length < 8) throw new BO.SecurityError("Password must be at least 8 characters!");
-            if (!regex.IsMatch(p)) throw new BO.SecurityError("Password must contain at least 1 upper & lowercase letter and a special character!");
+            if (!regex.IsMatch(p)) throw new BO.SecurityError("Password must contain at least one upper & lowercase letter, a number and a  special character!");
         }
 
         /// <summary>
