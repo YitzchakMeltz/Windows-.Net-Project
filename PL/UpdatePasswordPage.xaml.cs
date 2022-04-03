@@ -176,7 +176,7 @@ namespace PL
             N2VisibilityIcon.Source = new BitmapImage(new Uri(@"\icons\hidden.png", UriKind.Relative));
         }
 
-        private void CommandBinding_CanExecutePaste(object sender, CanExecuteRoutedEventArgs e)
+        private void CommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
             e.CanExecute = false;
             e.Handled = true;

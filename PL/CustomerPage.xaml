@@ -164,7 +164,7 @@
 
             <PasswordBox x:Name="Password_input" Grid.Column="1" Grid.Row="6" FontSize="16" Height="30" Width="200"  Padding="1,3,2,3" 
                          HorizontalAlignment="Center" MaxLength="15" PasswordChar="●" PasswordChanged="Handle_Placeholder" KeyDown="Password_input_KeyDown" GotFocus="Handle_CapsLock"
-                         Visibility="{Binding Path=PasswordHidden}">
+                         Visibility="{Binding Path=PasswordHidden}" ContextMenu="{x:Null}">
                 <PasswordBox.Style>
                     <Style TargetType="{x:Type PasswordBox}">
                         <Style.Resources>
@@ -204,8 +204,9 @@
                     </Style>
                 </PasswordBox.Style>
                 <PasswordBox.CommandBindings>
-                    <CommandBinding Command="ApplicationCommands.Paste" CanExecute="CommandBinding_CanExecutePaste"/>
-                    <CommandBinding Command="ApplicationCommands.Copy" CanExecute="CommandBinding_CanExecutePaste"/>
+                    <CommandBinding Command="ApplicationCommands.Cut" PreviewCanExecute="CommandBinding_CanExecute"/>
+                    <CommandBinding Command="ApplicationCommands.Copy" PreviewCanExecute="CommandBinding_CanExecute"/>
+                    <CommandBinding Command="ApplicationCommands.Paste" PreviewCanExecute="CommandBinding_CanExecute"/>
                 </PasswordBox.CommandBindings>
             </PasswordBox>
             <TextBlock x:Name="PasswordPlaceholder" Grid.Column="1" Grid.Row="6" IsHitTestVisible="False"   
@@ -215,11 +216,12 @@
             </TextBlock>
 
             <TextBox x:Name="VisiblePassword_input" Grid.Column="1" Grid.Row="6" FontSize="16" Height="30" Width="200"  Padding="1,3,2,3" 
-                     TextWrapping="Wrap" Text="" VerticalAlignment="Center" HorizontalAlignment="Center" 
+                     TextWrapping="Wrap" Text="" VerticalAlignment="Center" HorizontalAlignment="Center" ContextMenu="{x:Null}"
                      Visibility="{Binding Path=PasswordVisible}" KeyDown="Password_input_KeyDown" GotFocus="Handle_CapsLock">
                 <TextBox.CommandBindings>
-                    <CommandBinding Command="ApplicationCommands.Paste" CanExecute="CommandBinding_CanExecutePaste"/>
-                    <CommandBinding Command="ApplicationCommands.Copy" CanExecute="CommandBinding_CanExecutePaste"/>
+                    <CommandBinding Command="ApplicationCommands.Cut" PreviewCanExecute="CommandBinding_CanExecute"/>
+                    <CommandBinding Command="ApplicationCommands.Copy" PreviewCanExecute="CommandBinding_CanExecute"/>
+                    <CommandBinding Command="ApplicationCommands.Paste" PreviewCanExecute="CommandBinding_CanExecute"/>
                 </TextBox.CommandBindings>
                 <TextBox.Resources>
                     <Style TargetType="Border">
