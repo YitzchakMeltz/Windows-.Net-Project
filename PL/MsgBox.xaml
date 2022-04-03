@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d" WindowStartupLocation="CenterOwner"
-        Title="Error" Height="180" Width="330">
+        Title="Error" SizeToContent="Height"  Width="330">
     
     <Grid x:Name="MainGrid" Background="#FF343437">
         <Grid.RowDefinitions>
@@ -21,17 +21,17 @@
             </Grid.RowDefinitions>
 
             <Image x:Name="msgbox_icon" Source="/icons/warning.png" Grid.Row="0" Width="25" Height="25" VerticalAlignment="Bottom"
-                   HorizontalAlignment="Center"></Image>
+                   HorizontalAlignment="Center" Margin="0,15,0,5"></Image>
 
             <TextBox x:Name="msg_text" Grid.Row="1" Background="Transparent" HorizontalAlignment="Center" 
                      VerticalAlignment="Top" Foreground="LightGray" FontSize="15" BorderThickness="0" 
-                     TextWrapping="WrapWithOverflow" Margin="15,9,15,0" TextAlignment="Center">You Can't Do That!</TextBox>
+                     TextWrapping="WrapWithOverflow" Margin="15,9,15,18" TextAlignment="Center" Text="You Can't Do That!"/>
 
         </Grid>
 
         <Button x:Name="OkButton" Content="I Understand" Grid.Row="1" HorizontalAlignment="Right"  VerticalAlignment="Center" 
                     Padding="10,7,10,7" FontSize="14" Background="Gray" Foreground="White" BorderThickness="0" 
-                    FontFamily="Arial" Margin="0,0,40,0" Click="Ok_Button_Click" IsDefault="True">
+                    FontFamily="Arial" Margin="0,0,40,15" Click="Ok_Button_Click" IsDefault="True">
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="5"/>
