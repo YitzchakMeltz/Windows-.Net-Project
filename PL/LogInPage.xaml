@@ -167,7 +167,7 @@
                        Width="200" Height="30"/>
 
             <TextBox x:Name="VisiblePassword_input" Grid.Column="1" Grid.Row="6" FontSize="16" Height="30" Width="200"  Padding="1,3,2,3" 
-                     TextWrapping="Wrap" Text="" VerticalAlignment="Center" HorizontalAlignment="Center" ContextMenu="{x:Null}">
+                     TextWrapping="Wrap" Text="" VerticalAlignment="Center" HorizontalAlignment="Center" Visibility="Collapsed" ContextMenu="{x:Null}">
                 <TextBox.CommandBindings>
                     <CommandBinding Command="ApplicationCommands.Cut" PreviewCanExecute="CommandBinding_CanExecute"/>
                     <CommandBinding Command="ApplicationCommands.Copy" PreviewCanExecute="CommandBinding_CanExecute"/>
