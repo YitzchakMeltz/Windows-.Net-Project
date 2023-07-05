@@ -73,34 +73,18 @@ This section should list any major frameworks/libraries used to bootstrap your p
 <!-- GETTING STARTED -->
 ## Getting Started
 
-This is an example of how you may give instructions on setting up your project locally.
-To get a local copy up and running follow these simple example steps.
+Clone our repository to your computer and open it using Visual Studio. Build and run **PL**.
+*Note: Check that you have .Net installed on your computer*
 
-### Prerequisites
+### Notes
 
-This is an example of how to list things you need to use the software and how to install them.
-* npm
-  ```sh
-  npm install npm@latest -g
-  ```
-
-### Installation
-
-_Below is an example of how you can instruct your audience on installing and setting up your app. This template doesn't rely on any external dependencies or services._
-
-1. Get a free API Key at [https://example.com](https://example.com)
-2. Clone the repo
-   ```sh
-   git clone https://github.com/your_username_/Project-Name.git
-   ```
-3. Install NPM packages
-   ```sh
-   npm install
-   ```
-4. Enter your API in `config.js`
-   ```js
-   const API_KEY = 'ENTER YOUR API';
-   ```
+After downloading the repository you may notice that the manager’s access is restricted by a
+password. The default manager password is 0000. It is recommended to change this as
+soon as possible to a more secure password. When trying to change the password you will
+need to choose a password that has at least one uppercase letter, one lowercase letter, a
+number and a special character.
+For your convenience, customers that are already in the system as default data do not have
+a password. All customers that are added to the system will need to have a password.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
