@@ -37,6 +37,7 @@
 ## About The Project
 
 [![Product Name Screen Shot][product-screenshot]](https://example.com)
+My partner and I developed a management system application using C#, WPF, and the .NET Framework for our college project at JCT. The application focuses on tracking drones, packages, customers, and charging stations. It follows a layered architecture for scalability and code modularity. Additionally, we incorporated a modular delivery simulation component to stimulate the system being used. The application provides a user-friendly interface and streamlines the management process for efficient tracking and monitoring of various entities.
 
 We spent a lot of time trying to make this program as good as it possibly can be all while
 following the rules and guidelines given to us by our college. A lot of effort was put into
